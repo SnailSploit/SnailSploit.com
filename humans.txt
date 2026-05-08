@@ -1,0 +1,16 @@
+/* TEAM */
+Researcher: Kai Aizen
+Site: https://snailsploit.com
+Twitter: @SnailSploit
+GitHub: SnailSploit
+Location: Independent
+
+/* THANKS */
+The kernel maintainers, OSS communities, and every disclosure team
+that keeps the internet from collapsing.
+
+/* SITE */
+Last update: 2026/05
+Standards: HTML5, CSS3, schema.org JSON-LD
+Components: React, JetBrains Mono, Inter Tight
+Software: Cloudflare Pages

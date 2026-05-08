@@ -1,0 +1,46 @@
+# snailsploit
+Independent offensive security researcher Kai Aizen. 23 CVEs, 5 Linux kernel patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
+
+> Same attack. Different substrate.
+
+## Identity
+- [About](/about): Kai Aizen, Independent Offensive Security Researcher
+- [Services](/services): AI Red Teaming, Advanced Penetration Testing, Social Engineering
+- [Contact](/contact): Engagement, research collaboration, press
+
+## Frameworks
+- [AATMF v3.1](/aatmf): Adversarial AI Threat Modeling Framework — 15 tactics, 240+ techniques, 2,150+ procedures. Mapped to NIST AI RMF, MITRE ATLAS, OWASP LLM Top 10.
+- [SEF](/sef): Social Engineering Framework — psychological exploitation testing, 7 phases, 8 levers.
+- [P.R.O.M.P.T](/prompt): Compositional grammar for adversarial prompts.
+- [Claude-Red](/claude-red): 38 offensive-security skills for the Claude skills system.
+- [AATMF Toolkit](/toolkit): Python CLI for systematic LLM safety testing.
+- [LLM Red Teamer's Playbook](/playbook): Diagnostic methodology for bypassing LLM defense layers.
+
+## Research (AI Security)
+- [AI Security Research index](/research)
+- [AI Security Wiki](/wiki): Reference taxonomy — prompt injection, jailbreaking, memory attacks, sandbox escape.
+- [Self-Replicating Memory Worm](/memory-worm): Adversarial prompt that survives across sessions via long-term memory.
+- [Memory Injection Through Nested Skills](/memory-injection): Skill injection + memory poisoning = self-healing implant.
+- [ChatGPT Canvas DNS Exfiltration](/canvas-dns): DNS exfil via rendered Canvas content.
+- [ChatGPT Sandbox: Pickle RCE + DNS Chain](/pickle-rce): Code Interpreter sandbox escape.
+- [MCP vs A2A Attack Surface](/mcp-vs-a2a): Trust-boundary comparison.
+- [The 30% Blind Spot — LLM Safety Judges](/blind-spot): Empirical study of LLM-as-judge classifiers.
+- [Adversarial Prompting: Complete Guide](/adversarial-guide): End-to-end injection methodology.
+
+## Vulnerability Disclosures
+- [CVE Ledger](/cves): 23 published CVEs (Kubernetes, Apache, OSS, WordPress).
+- [Linux Kernel Contributions](/kernel): 5 mainline patches (io_uring/zcrx, net/tipc, Bluetooth, RDMA/ionic, net/rtnetlink).
+- [Security Advisories](/advisories): GHSA disclosures (AVideo SSRF, OpenClaw env override, etc.).
+
+## Tools
+- [Offensive Tools index](/tools): Burp MCP Toolkit, SnailHunter, KubeRoast, Xposure, SnailSploit Recon, SnailPath, ZenFlood, SnailObfuscator, Awesome-Snail-OSINT.
+
+## Writing
+- [Writing index](/writing)
+- [Adversarial Minds](/adversarial-minds): Book — offensive psychology, social engineering, adversarial reasoning. The human-layer companion to AATMF and SEF.
+
+## About the author
+Kai Aizen is an independent offensive security researcher. Hakin9 contributing author, MITRE/NVD contributor, Linux kernel mainline contributor.
+- GitHub: https://github.com/SnailSploit
+- X: https://x.com/SnailSploit
+- LinkedIn: https://linkedin.com/in/kaiaizen
