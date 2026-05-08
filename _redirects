@@ -156,3 +156,38 @@
 /rss        /rss.xml        301
 /atom       /feed.xml       301
 /feed       /feed.xml       301
+
+# ─────────────────────────────────────────────────────────────
+#  Medium-syndicated URLs (snailsploit.com used to host Medium
+#  articles via custom-domain). Old hash-suffixed URLs now 301
+#  to closest match on the new site, then to /writing index.
+#  Canonical for all syndicated content is on snailsploit.com.
+# ─────────────────────────────────────────────────────────────
+
+# Specific Medium articles found via search → closest match
+/double-ai-triple-mechanism-cloud-based-obfuscator-built-in-2-hours-bypasses-detection-c55db3d2ce01        /writing        301
+/zero-trust-runtime-security-container-runtime-attestation-428c5f05c3d8        /writing        301
+/advanced-container-escapes-a-principle-based-security-deep-dive-96907f6dea7d        /writing        301
+/is-ai-inherently-vulnerable-bfc81caf0c52        /writing        301
+/embracing-ai-adapt-or-die-7e0ec91439da        /writing        301
+/revisiting-the-mcp-protocol-deep-security-dive-across-real-world-vulnerabilities-51fa1d1d102f        /mcp-vs-a2a        301
+/the-memory-manipulation-problem-poisoning-ai-context-windows-6acf73771f0b        /memory-injection        301
+
+# Old Astro routes for known article URL patterns → site equivalents
+/writing/ai-obfuscator-detection-bypass        /writing        301
+/writing/ai-obfuscator-detection-bypass/        /writing        301
+/ai-security/ai-gateway-threat-model        /research        301
+/ai-security/ai-gateway-threat-model/        /research        301
+/ai-security/jailbreaking/memory-manipulation-attacks        /memory-injection        301
+/ai-security/jailbreaking/memory-manipulation-attacks/        /memory-injection        301
+/ai-security/weaponized-supply-chain        /research        301
+/ai-security/weaponized-supply-chain/        /research        301
+/security-research/general/chatgpt-canvas-rce-dns-exfiltration        /canvas-dns        301
+/security-research/general/chatgpt-canvas-rce-dns-exfiltration/        /canvas-dns        301
+
+# Strip Medium tracking params (gi=, source=) — CF Pages doesn't
+# support query-string redirects natively; canonical tags handle this.
+
+# Catch-all for any remaining /writing/* slug → /writing index
+/writing/*        /writing        301
+

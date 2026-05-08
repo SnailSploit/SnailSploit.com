@@ -9,7 +9,7 @@ Independent offensive security researcher Kai Aizen. 23 CVEs, 5 Linux kernel pat
 - [Contact](/contact): Engagement, research collaboration, press
 
 ## Frameworks
-- [AATMF v3.1](/aatmf): Adversarial AI Threat Modeling Framework — 15 tactics, 240+ techniques, 2,150+ procedures. Mapped to NIST AI RMF, MITRE ATLAS, OWASP LLM Top 10.
+- [AATMF v3.1](/aatmf): Adversarial AI Threat Modeling Framework — 15 tactics, 240+ techniques, 2,150+ procedures. Mapped to NIST AI RMF and MITRE ATLAS.
 - [SEF](/sef): Social Engineering Framework — psychological exploitation testing, 7 phases, 8 levers.
 - [P.R.O.M.P.T](/prompt): Compositional grammar for adversarial prompts.
 - [Claude-Red](/claude-red): 38 offensive-security skills for the Claude skills system.
