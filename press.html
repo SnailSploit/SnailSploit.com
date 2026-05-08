@@ -73,9 +73,21 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#0E0E0F">
+
+<style>
+.site-crumbs{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 96%,transparent)}
+.site-crumbs-inner{max-width:1280px;margin:0 auto;padding:14px 32px;display:flex;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.site-crumbs a{color:var(--fg-3);text-decoration:none;transition:color 0.15s}
+.site-crumbs a:hover{color:var(--fg)}
+.site-crumbs .sep{color:var(--fg-4)}
+.site-crumbs .here{color:var(--fg)}
+@media (max-width: 880px){.site-crumbs-inner{padding:10px 20px;font-size:10px}}
+</style>
+
 </head>
 <body>
   <header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/writing">writing</a></li></ul></nav></div></header>
+<nav class="site-crumbs" aria-label="Breadcrumb"><div class="site-crumbs-inner"><a href="/">Home</a><span class="sep">/</span><span class="here">Press</span></div></nav>
 
   <section class="hero"><div class="hero-inner">
     <div class="eyebrow">press &middot; media kit</div>
