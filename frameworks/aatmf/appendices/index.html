@@ -1,210 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>AATMF Appendices | Attack Catalog &amp; Signatures | snailsploit</title>
-<meta content="AATMF v3 appendices. Top 25 critical techniques, detection signatures library, security tools reference, assessment templates, case studies, and glossary." name="description"/>
-<meta content="Kai Aizen" name="author"/>
-<meta content="index, follow, max-image-preview:large, max-snippet:-1" name="robots"/>
-<link href="https://snailsploit.com/frameworks/aatmf/appendices/" rel="canonical"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AATMF v3.1 · Volume VII — Appendices | snailsploit</title>
+<meta name="description" content="Complete attack catalog (240+ techniques), detection signatures library, tools and scripts reference, templates, case studies, glossary.">
+<meta name="author" content="Kai Aizen">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://snailsploit.com/frameworks/aatmf/appendices/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
 html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
-*{box-sizing:border-box}
-a{color:inherit;text-decoration:none}
+*{box-sizing:border-box}a{color:inherit;text-decoration:none}
 .nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
-.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}
-.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}
-.wm-sig .dollar{color:var(--signal-2)}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;line-height:1;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;margin-left:1.96px}.wm-sig .dollar{color:var(--signal-2)}
 .nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
 .nav-links a:hover{color:var(--fg)}
-.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
-.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}
-.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.crumbs a{color:var(--fg-3)}
-.crumbs a:hover{color:var(--fg)}
-.crumbs .sep{color:var(--fg-4)}
-
-.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}
-.article-hero-inner{max-width:1280px;margin:0 auto}
-.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:24px;flex-wrap:wrap;margin-bottom:24px}
-.article-meta time{color:var(--fg-3)}
-.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0;max-width:1080px}
-.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:780px}
-
-.article-layout{max-width:1280px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:1fr 240px;gap:64px;align-items:start;border-bottom:1px solid var(--line)}
-.article-body{min-width:0;font-size:17px;line-height:1.75;color:var(--fg-2);max-width:780px}
-.article-body > *:first-child{margin-top:0}
-.article-body h2{font-size:32px;font-weight:500;line-height:1.2;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:24px;border-top:1px solid var(--line);scroll-margin-top:96px}
-.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px;scroll-margin-top:96px}
-.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px}
-.article-body p{margin:16px 0}
-.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}
-.article-body li{margin:6px 0}
-.article-body strong{color:var(--fg);font-weight:600}
-.article-body em{color:var(--fg);font-style:italic}
-.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
-.article-body a:hover{border-bottom-color:var(--signal-2)}
-.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg);border-radius:2px}
-.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0;border-radius:2px}
-.article-body pre code{background:none;border:0;padding:0;font-size:inherit;border-radius:0}
-.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}
-.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}
-.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}
-.article-body img,.article-body picture{display:block;max-width:100%;height:auto;margin:32px auto;border:1px solid var(--line);background:var(--bg-raise)}
-.article-body picture img{margin:0;border:0}
-.article-body figure{margin:32px 0}
-.article-body figure img{margin:0 auto}
-.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:12px;text-align:center;line-height:1.5}
-.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
-
-.toc{position:sticky;top:96px;align-self:start;font-family:var(--f-mono);font-size:12px;line-height:1.7;max-height:calc(100vh - 128px);overflow-y:auto}
-.toc-eyebrow{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:11px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.toc ul{list-style:none;padding:0;margin:0}
-.toc li{padding:4px 0}
-.toc li.h3{padding-left:16px;font-size:11.5px}
-.toc a{color:var(--fg-2);display:block;padding:2px 0;border-left:2px solid transparent;padding-left:12px;margin-left:-14px;transition:color 0.15s, border-color 0.15s}
-.toc a:hover{color:var(--fg);border-left-color:var(--signal-2)}
-
-@media (max-width: 960px){
-  .article-layout{grid-template-columns:1fr;gap:32px}
-  .toc{display:none}
-}
-
-.callout{margin:32px 0;padding:20px 24px;border:1px solid var(--line-hi);background:var(--bg-raise);font-family:var(--f-mono);font-size:14px;line-height:1.6}
-.callout-label{font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px;font-weight:500}
-
-.related{padding:64px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
-.related-inner{max-width:1280px;margin:0 auto}
-.related-head{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:32px}
-.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.related-card{padding:24px;border:1px solid var(--line);background:var(--bg);transition:border-color 0.15s}
-.related-card:hover{border-color:var(--signal-2)}
-.related-date{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-bottom:8px}
-.related-title{font-size:18px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);line-height:1.3;margin-bottom:8px}
-.related-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.55}
-
+.site-crumbs{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 96%,transparent)}
+.site-crumbs-inner{max-width:1280px;margin:0 auto;padding:14px 32px;display:flex;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.site-crumbs a{color:var(--fg-3)}.site-crumbs .sep{color:var(--fg-4)}.site-crumbs .here{color:var(--fg)}
+.hero{padding:80px 32px 56px;border-bottom:1px solid var(--line)}
+.hero-inner{max-width:1080px;margin:0 auto}
+.eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px}
+h1.vol-h1{font-size:88px;font-weight:500;line-height:0.96;letter-spacing:-0.04em;margin:0;color:var(--fg)}
+.vol-num{font-family:var(--f-mono);color:var(--fg-3);font-size:0.7em;margin-right:0.2em;letter-spacing:-0.02em}
+.lede{font-family:var(--f-mono);font-size:16px;color:var(--fg-2);line-height:1.65;margin:32px 0 0;max-width:780px}
+.toc-bar{padding:24px 32px;border-bottom:1px solid var(--line);background:var(--bg-sink)}
+.toc-bar-inner{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;font-family:var(--f-mono);font-size:12px}
+.toc-bar a{padding:6px 12px;border:1px solid var(--line-hi);background:var(--bg);color:var(--fg-2);text-decoration:none;transition:border-color 0.15s}
+.toc-bar a:hover{border-color:var(--signal-2);color:var(--fg)}
+.body{padding:64px 32px;border-bottom:1px solid var(--line)}
+.body-inner{max-width:780px;margin:0 auto}
+.section-block{margin-bottom:64px;padding-bottom:48px;border-bottom:1px dashed var(--line)}
+.section-block:last-child{border-bottom:0}
+.md{font-size:16px;line-height:1.7;color:var(--fg-2)}
+.md h1{font-family:var(--f-grot);font-size:38px;font-weight:500;color:var(--fg);margin:0 0 16px;letter-spacing:-0.025em;line-height:1.15;scroll-margin-top:96px}
+.md h2{font-family:var(--f-grot);font-size:26px;font-weight:500;color:var(--fg);margin:48px 0 12px;padding-top:16px;border-top:1px solid var(--line);letter-spacing:-0.02em;scroll-margin-top:96px}
+.md h3{font-family:var(--f-grot);font-size:20px;font-weight:500;color:var(--fg);margin:32px 0 8px;letter-spacing:-0.015em;scroll-margin-top:96px}
+.md h4{font-size:16px;font-weight:600;color:var(--fg);margin:20px 0 6px}
+.md h5,.md h6{font-size:14px;font-weight:600;color:var(--fg);margin:16px 0 6px;text-transform:uppercase;letter-spacing:0.08em}
+.md p{margin:14px 0}
+.md ul,.md ol{margin:14px 0;padding-left:22px}
+.md li{margin:4px 0}
+.md li > p{margin:6px 0}
+.md strong{color:var(--fg);font-weight:600}
+.md em{color:var(--fg);font-style:italic}
+.md a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.md a:hover{border-bottom-color:var(--signal-2)}
+.md code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);border-radius:2px;color:var(--fg)}
+.md pre{background:var(--bg-sink);border:1px solid var(--line);padding:18px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:20px 0;border-radius:2px}
+.md pre code{background:none;border:0;padding:0;font-size:inherit}
+.md blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 18px;margin:20px 0;color:var(--fg);font-style:italic}
+.md table{width:100%;border-collapse:collapse;margin:20px 0;font-family:var(--f-mono);font-size:13px}
+.md th,.md td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.md th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.1em;font-size:11px;font-weight:500}
+.md hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+.md img{max-width:100%;height:auto;margin:20px 0;border:1px solid var(--line)}
+.md .markdown-alert{padding:14px 16px;border:1px solid var(--line-hi);background:var(--bg-raise);margin:16px 0;border-radius:2px}
+.md .markdown-alert p{margin:4px 0}
+.md details{padding:12px 16px;border:1px solid var(--line);background:var(--bg-raise);margin:12px 0}
+.md summary{cursor:pointer;font-weight:500;color:var(--fg);font-family:var(--f-mono);font-size:13px}
+.section-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px}
+.next-vol{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.next-vol-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.vol-card{padding:20px;border:1px solid var(--line-hi);background:var(--bg);text-decoration:none;color:var(--fg)}
+.vol-card:hover{border-color:var(--signal-2)}
+.vol-card-num{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:6px}
+.vol-card-title{font-size:18px;font-weight:500;letter-spacing:-0.015em}
+.vol-card-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:6px;line-height:1.55}
 .author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
-.author-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}
-.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
-.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}
-.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}
-.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.author-inner{max-width:780px;margin:0 auto}.author-eye{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.author-name{font-size:22px;font-weight:500;margin-top:10px}
+.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;margin-top:8px;max-width:600px}
+.author-links{font-family:var(--f-mono);font-size:12px;display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
 .author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
-.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}
-
-.footer{background:var(--bg-sink)}
-.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}
-.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
-</style>
-<meta content="article" property="og:type"/>
-<meta content="AATMF Appendices | Attack Catalog &amp; Signatures" property="og:title"/>
-<meta content="AATMF v3 appendices. Top 25 critical techniques, detection signatures library, security tools reference, assessment templates, case studies, and glossary." property="og:description"/>
-<meta content="https://snailsploit.com/frameworks/aatmf/appendices/" property="og:url"/>
-<meta content="snailsploit" property="og:site_name"/>
-<meta content="https://snailsploit.com/og-cover.png" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
-<meta content="en_US" property="og:locale"/>
-<meta content="Kai Aizen" property="article:author"/>
-<meta content="2026-01-01" property="article:published_time"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="@SnailSploit" name="twitter:site"/>
-<meta content="@SnailSploit" name="twitter:creator"/>
-<meta content="AATMF Appendices | Attack Catalog &amp; Signatures" name="twitter:title"/>
-<meta content="AATMF v3 appendices. Top 25 critical techniques, detection signatures library, security tools reference, assessment templates, case studies, and glossary." name="twitter:description"/>
-<meta content="https://snailsploit.com/og-cover.png" name="twitter:image"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"Article","headline":"AATMF Appendices | Attack Catalog & Signatures","description":"AATMF v3 appendices. Top 25 critical techniques, detection signatures library, security tools reference, assessment templates, case studies, and glossary.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-01-01","dateModified":"2026-01-01","url":"https://snailsploit.com/frameworks/aatmf/appendices/","mainEntityOfPage":"https://snailsploit.com/frameworks/aatmf/appendices/","image":"https://snailsploit.com/og-cover.png","wordCount":1328,"keywords":"AI security, adversarial AI, prompt injection, red teaming, vulnerability research"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Frameworks","item":"https://snailsploit.com/frameworks"},{"@type":"ListItem","position":3,"name":"AATMF Appendices | Attack Catalog & Signatures","item":"https://snailsploit.com/frameworks/aatmf/appendices/"}]}]}</script>
-<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="/apple-touch-icon.png" rel="alternate icon" type="image/png"/>
-<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<link href="/manifest.webmanifest" rel="manifest"/>
-<meta content="#0E0E0F" name="theme-color"/>
-<meta content="strict-origin-when-cross-origin" name="referrer"/>
-<meta content="telephone=no" name="format-detection"/>
-<meta content="dark" name="color-scheme"/>
-<link href="/rss.xml" rel="alternate" title="snailsploit research" type="application/rss+xml"/>
-<link href="/feed.xml" rel="alternate" title="snailsploit research" type="application/atom+xml"/>
-<script data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}' defer="" src="https://static.cloudflareinsights.com/beacon.min.js"></script>
-
-  <!-- responsive:start -->
-  <style>
-/* ── responsive overrides ── */
-@media (max-width: 880px) {
-  /* container padding */
-  .nav-inner, .footer-inner, .footer-grid, .hero-inner, .hero-hero-inner, .article-hero-inner, .section-inner, .article-layout, .related-inner, .author-inner, .tabs-inner, .about-header, .about-grid, .article-hero, .related, .author-row, .footer, .nav { padding-left: 20px !important; padding-right: 20px !important; }
-  /* nav: horizontal scroll */
-  .nav-inner { gap: 12px !important; padding-top: 12px !important; padding-bottom: 12px !important; }
-  .nav-links { gap: 18px !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; flex-wrap: nowrap !important; max-width: 100% !important; padding-bottom: 4px !important; }
-  .nav-links::-webkit-scrollbar { display: none; }
-  .nav-links a { white-space: nowrap !important; }
-  .nav-utils { display: none !important; }
-  .wm { font-size: 22px !important; }
-  .wm-sig { font-size: 12px !important; }
-  /* typography downscale */
-  .hero-tagline, .h1, [style*="font-size:132px"], [style*="font-size: 132px"] { font-size: 52px !important; line-height: 0.96 !important; letter-spacing: -0.04em !important; }
-  [style*="font-size:128px"], [style*="font-size: 128px"], [style*="font-size:112px"], [style*="font-size: 112px"], [style*="font-size:96px"], [style*="font-size: 96px"] { font-size: 48px !important; line-height: 1 !important; }
-  [style*="font-size:88px"], [style*="font-size: 88px"], .about-heading { font-size: 44px !important; }
-  [style*="font-size:80px"], [style*="font-size: 80px"], [style*="font-size:72px"], [style*="font-size: 72px"], [style*="font-size:64px"], [style*="font-size: 64px"], .article-h1 { font-size: 36px !important; line-height: 1.1 !important; }
-  [style*="font-size:56px"], [style*="font-size: 56px"] { font-size: 32px !important; line-height: 1.1 !important; }
-  [style*="font-size:40px"], [style*="font-size: 40px"], .section-title { font-size: 26px !important; }
-  /* multi-col grids → single col */
-  [style*="grid-template-columns: 180px 1fr 280px"], [style*="grid-template-columns: 180px 1fr"], [style*="grid-template-columns:180px 1fr"], [style*="grid-template-columns: 180px 1fr 280px"] { grid-template-columns: 1fr !important; gap: 24px !important; }
-  [style*="grid-template-columns: 1fr auto"], [style*="grid-template-columns:1fr auto"] { grid-template-columns: 1fr !important; gap: 12px !important; }
-  [style*="grid-template-columns: 1.4fr 1fr"], [style*="grid-template-columns:1.4fr 1fr"], [style*="grid-template-columns: 1.3fr 1fr"], [style*="grid-template-columns:1.3fr 1fr"], [style*="grid-template-columns: 1.1fr 1fr"], [style*="grid-template-columns:1.1fr 1fr"] { grid-template-columns: 1fr !important; gap: 32px !important; }
-  [style*="grid-template-columns: 240px 1fr"], [style*="grid-template-columns:240px 1fr"], [style*="grid-template-columns: 200px 1fr 280px"], [style*="grid-template-columns:200px 1fr 280px"] { grid-template-columns: 1fr !important; gap: 12px !important; }
-  [style*="grid-template-columns: 2fr 1fr 1fr 1fr"], [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
-  [style*="grid-template-columns: 1fr 1fr"], [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
-  [style*="grid-template-columns: 180px 1.2fr 1.5fr 60px 60px"], [style*="grid-template-columns:180px 1.2fr 1.5fr 60px 60px"] { grid-template-columns: 1fr 60px !important; gap: 8px !important; font-size: 11px !important; }
-  /* hub list rows */
-  .row { grid-template-columns: 1fr !important; gap: 6px !important; padding: 16px 0 !important; }
-  .row-meta { text-align: left !important; font-size: 10px !important; }
-  /* sticky stuff goes static */
-  .sticky-label, .toc, .tabs, [style*="position: sticky"], [style*="position:sticky"] { position: static !important; max-height: none !important; }
-  .toc { display: none !important; }
-  /* cards stack */
-  .cards { grid-template-columns: 1fr !important; gap: 12px !important; }
-  /* tools grid */
-  .tools-grid { grid-template-columns: 1fr !important; }
-  .tool-cell.odd, .tool-cell.even { padding-left: 0 !important; padding-right: 0 !important; border-right: 0 !important; }
-  /* section padding */
-  .article-hero { padding-top: 40px !important; padding-bottom: 40px !important; }
-  .article-body-section, .section { padding-top: 40px !important; padding-bottom: 40px !important; }
-  /* badges shrink */
-  .badge, .hero-badges .badge { font-size: 10px !important; padding: 5px 8px !important; }
-  /* hero links column */
-  .hero-links { border-left: 0 !important; padding-left: 0 !important; padding-top: 24px !important; border-top: 1px solid var(--line); margin-top: 12px; }
-  /* footer stacks */
-  .footer-inner { flex-direction: column !important; gap: 24px !important; align-items: flex-start !important; }
-  /* tables: horizontal scroll */
-  .article-body table, table { display: block !important; overflow-x: auto !important; max-width: 100% !important; white-space: nowrap !important; }
-  /* code blocks: shrink */
-  .article-body pre { font-size: 11px !important; padding: 12px !important; }
-  .article-body { font-size: 16px !important; }
-  /* article-meta */
-  .article-meta { gap: 12px !important; font-size: 10px !important; flex-wrap: wrap !important; }
-  /* crumbs wrap nicely */
-  .crumbs { font-size: 10px !important; }
-}
-
-@media (max-width: 480px) {
-  .hero-tagline { font-size: 40px !important; }
-  .h1 { font-size: 36px !important; }
-  .article-h1 { font-size: 28px !important; }
-  .about-heading { font-size: 36px !important; }
-  .nav-inner { padding-top: 10px !important; padding-bottom: 10px !important; }
-  .wm { font-size: 20px !important; }
-  .badge { font-size: 9px !important; padding: 4px 6px !important; }
+.footer{background:var(--bg-sink)}.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);flex-wrap:wrap;gap:16px}
+.footer-legal{display:flex;gap:14px}.footer-legal a{color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)}
+@media (max-width:880px){
+  h1.vol-h1{font-size:48px}
+  .nav-inner,.hero,.toc-bar,.body,.next-vol,.author-row,.footer-inner,.site-crumbs-inner{padding-left:20px !important;padding-right:20px !important}
+  .md h1{font-size:28px}.md h2{font-size:22px}.md h3{font-size:18px}
+  .footer-inner{flex-direction:column;align-items:flex-start}
 }
 </style>
-  <!-- responsive:end -->
 
-  <!-- gtm:head:start -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="AATMF v3.1 · Volume VII — Appendices">
+<meta property="og:description" content="Complete attack catalog (240+ techniques), detection signatures library, tools and scripts reference, templates, case studies, glossary.">
+<meta property="og:url" content="https://snailsploit.com/frameworks/aatmf/appendices/">
+<meta property="og:site_name" content="snailsploit">
+<meta property="og:image" content="https://snailsploit.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SnailSploit">
+<meta name="twitter:creator" content="@SnailSploit">
+<meta name="twitter:title" content="AATMF v3.1 · Volume VII — Appendices">
+<meta name="twitter:description" content="Complete attack catalog (240+ techniques), detection signatures library, tools and scripts reference, templates, case studies, glossary.">
+<meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"TechArticle","headline":"AATMF v3.1 \u00b7 Volume VII \u2014 Appendices","description":"Attack catalog, signatures, tools, templates, case studies, glossary \u2014 operational reference material.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"url":"https://snailsploit.com/frameworks/aatmf/appendices/","mainEntityOfPage":"https://snailsploit.com/frameworks/aatmf/appendices/","image":"https://snailsploit.com/og-cover.png","isPartOf":{"@type":"Book","name":"AATMF v3.1","url":"https://snailsploit.com/aatmf"},"keywords":"AATMF, adversarial AI, threat modeling, Appendices","datePublished":"2026-04-01","dateModified":"2026-05-08"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Frameworks","item":"https://snailsploit.com/frameworks"},{"@type":"ListItem","position":3,"name":"AATMF","item":"https://snailsploit.com/aatmf"},{"@type":"ListItem","position":4,"name":"Appendices","item":"https://snailsploit.com/frameworks/aatmf/appendices/"}]}]}</script>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -212,109 +114,2506 @@ a{color:inherit;text-decoration:none}
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-KNQQ58JL');</script>
   <!-- End Google Tag Manager -->
-  <!-- gtm:head:end -->
 </head>
 <body>
-<!-- gtm:body:start -->
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQQ58JL"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<!-- gtm:body:end -->
+<header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/aatmf">aatmf</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/cves">cves</a></li></ul></nav></div></header>
+<nav class="site-crumbs" aria-label="Breadcrumb"><div class="site-crumbs-inner"><a href="/">Home</a><span class="sep">/</span><a href="/frameworks">Frameworks</a><span class="sep">/</span><a href="/aatmf">AATMF</a><span class="sep">/</span><span class="here">Vol VII — Appendices</span></div></nav>
 
-<header class="nav"><div class="nav-inner"><a class="wm" href="/">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li></ul></nav><div class="nav-utils"><span>⌘K</span><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header>
-<section class="article-hero">
-<div class="article-hero-inner">
-<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/frameworks">Frameworks</a><span class="sep">/</span><span>AATMF Appendices | Attack Catalog &amp; Signatures</span></div>
-<div class="article-meta">
-<time datetime="2026-01-01">2026-01-01</time>
-<span>6 min read</span>
-</div>
-<h1 class="article-h1">AATMF Appendices | Attack Catalog &amp; Signatures</h1>
-<p class="article-lede">AATMF v3 appendices. Top 25 critical techniques, detection signatures library, security tools reference, assessment templates, case studies, and glossary.</p>
-</div>
+<section class="hero"><div class="hero-inner">
+  <div class="eyebrow">AATMF v3.1 · Volume VII</div>
+  <h1 class="vol-h1"><span class="vol-num">VII.</span>appendices.</h1>
+  <p class="lede">Complete attack catalog (240+ techniques), detection signatures library, tools and scripts reference, templates, case studies, glossary.</p>
+</div></section>
+
+<div class="toc-bar"><div class="toc-bar-inner"><a href="#appendix-a-attack-catalog">Appendix A: Complete Attack Catalog</a><a href="#appendix-b-signatures">Appendix B: Detection Signatures Library</a><a href="#appendix-c-tools">Appendix C: Tools and Scripts Reference</a><a href="#appendix-d-templates">Appendix D: Templates and Checklists</a><a href="#appendix-e-case-studies">Appendix E: Case Studies</a><a href="#appendix-f-glossary">Appendix F: Glossary and References</a></div></div>
+
+<section class="body"><div class="body-inner">
+<section class="section-block" id="appendix-a-attack-catalog">
+<div class="section-eyebrow">appendix-a-attack-catalog</div>
+<div class="md"><h1>Appendix A: Complete Attack Catalog</h1>
+<h2>Top 25 Critical/High-Risk Techniques</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">#</th>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="left"><code class="notranslate">T14-AT-007</code></td>
+<td align="left">Nation-State AI Warfare</td>
+<td align="center">280</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left"><code class="notranslate">T11-AT-016</code></td>
+<td align="left">Tool-Induced SSRF &amp; Local Resource</td>
+<td align="center">275</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left"><code class="notranslate">T6-AT-003</code></td>
+<td align="left">Backdoor Insertion</td>
+<td align="center">270</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left"><code class="notranslate">T11-AT-015</code></td>
+<td align="left">Autonomous Replication</td>
+<td align="center">270</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left"><code class="notranslate">T14-AT-005</code></td>
+<td align="left">Critical Infrastructure Attacks</td>
+<td align="center">270</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="left"><code class="notranslate">T14-AT-014</code></td>
+<td align="left">Systemic Risk Creation</td>
+<td align="center">270</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="left"><code class="notranslate">T11-AT-001</code></td>
+<td align="left">Browser Automation Hijacking</td>
+<td align="center">265</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="left"><code class="notranslate">T14-AT-001</code></td>
+<td align="left">GPU Farm Hijacking</td>
+<td align="center">265</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="left"><code class="notranslate">T14-AT-012</code></td>
+<td align="left">Cloud Provider Exploitation</td>
+<td align="center">265</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="left"><code class="notranslate">T6-AT-002</code></td>
+<td align="left">Dataset Contamination</td>
+<td align="center">260</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="left"><code class="notranslate">T11-AT-013</code></td>
+<td align="left">Supply Chain Attacks via Agents</td>
+<td align="center">260</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="left"><code class="notranslate">T13-AT-010</code></td>
+<td align="left">Hardware Supply Chain</td>
+<td align="center">260</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">13</td>
+<td align="left"><code class="notranslate">T14-AT-008</code></td>
+<td align="left">Ransomware via AI Systems</td>
+<td align="center">260</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">14</td>
+<td align="left"><code class="notranslate">T15-AT-015</code></td>
+<td align="left">Insider Threat Recruitment</td>
+<td align="center">260</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">15</td>
+<td align="left"><code class="notranslate">T11-AT-002</code></td>
+<td align="left">Tool Chain Exploitation</td>
+<td align="center">255</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td align="left"><code class="notranslate">T11-AT-014</code></td>
+<td align="left">Physical World Interactions</td>
+<td align="center">255</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">17</td>
+<td align="left"><code class="notranslate">T13-AT-001</code></td>
+<td align="left">Model Repository Poisoning</td>
+<td align="center">255</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td align="left"><code class="notranslate">T14-AT-004</code></td>
+<td align="left">Market Manipulation via AI</td>
+<td align="center">255</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">19</td>
+<td align="left"><code class="notranslate">T14-AT-013</code></td>
+<td align="left">Economic Espionage</td>
+<td align="center">255</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">20</td>
+<td align="left"><code class="notranslate">T6-AT-001</code></td>
+<td align="left">Reward Hacking</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">21</td>
+<td align="left"><code class="notranslate">T10-AT-012</code></td>
+<td align="left">Secure Enclave Bypasses</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">22</td>
+<td align="left"><code class="notranslate">T11-AT-008</code></td>
+<td align="left">Credential Harvesting</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">23</td>
+<td align="left"><code class="notranslate">T13-AT-006</code></td>
+<td align="left">Checkpoint Poisoning</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">24</td>
+<td align="left"><code class="notranslate">T14-AT-010</code></td>
+<td align="left">Data Center Attacks</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+<tr>
+<td align="center">25</td>
+<td align="left"><code class="notranslate">T15-AT-004</code></td>
+<td align="left">Reviewer Bribery &amp; Coercion</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<h2>Full Catalog by Tactic</h2>
+<h3>T1 — Prompt &amp; Context Subversion (16 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-001</code></td>
+<td align="left">Dialogue Hijacking</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-002</code></td>
+<td align="left">Time-Based Context Manipulation</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-003</code></td>
+<td align="left">Language Model Confusion</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-004</code></td>
+<td align="left">Instruction Prefix/Suffix</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-005</code></td>
+<td align="left">Permission Escalation Claims</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-006</code></td>
+<td align="left">Prompt Template Injection</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-007</code></td>
+<td align="left">Cognitive Overload</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-008</code></td>
+<td align="left">Boundary Testing</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-009</code></td>
+<td align="left">Simulation Requests</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-010</code></td>
+<td align="left">Negative Instruction Reversal</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-011</code></td>
+<td align="left">Error Message Exploitation</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-012</code></td>
+<td align="left">Consent Manufacturing</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-013</code></td>
+<td align="left">Instruction Commenting</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-014</code></td>
+<td align="left">Authority Spoofing</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-015</code></td>
+<td align="left">Obfuscation Through Complexity</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T1-AT-016</code></td>
+<td align="left">Session State Manipulation</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T2 — Semantic &amp; Linguistic Evasion (20 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-001</code></td>
+<td align="left">Euphemism and Metaphor Exploitation</td>
+<td align="center">180</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-002</code></td>
+<td align="left">Multi-Language Evasion</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-003</code></td>
+<td align="left">Encoding and Obfuscation</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-004</code></td>
+<td align="left">Unicode and Bidirectional Attacks</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-005</code></td>
+<td align="left">Semantic Drift</td>
+<td align="center">175</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-006</code></td>
+<td align="left">Linguistic Camouflage</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-007</code></td>
+<td align="left">Phonetic Manipulation</td>
+<td align="center">170</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-008</code></td>
+<td align="left">Synonym and Paraphrase Chains</td>
+<td align="center">165</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-009</code></td>
+<td align="left">Code-Switching Attacks</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-010</code></td>
+<td align="left">Transliteration Exploitation</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-011</code></td>
+<td align="left">Abbreviation and Acronym Abuse</td>
+<td align="center">160</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-012</code></td>
+<td align="left">Cultural Reference Encoding</td>
+<td align="center">170</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-013</code></td>
+<td align="left">Grammatical Manipulation</td>
+<td align="center">175</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-014</code></td>
+<td align="left">Semantic Bleaching</td>
+<td align="center">180</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-015</code></td>
+<td align="left">Noise Injection</td>
+<td align="center">165</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-016</code></td>
+<td align="left">Dialectical Variations</td>
+<td align="center">155</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-017</code></td>
+<td align="left">Compression Techniques</td>
+<td align="center">170</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-018</code></td>
+<td align="left">Semantic Field Manipulation</td>
+<td align="center">175</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-019</code></td>
+<td align="left">Pragmatic Implication</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T2-AT-020</code></td>
+<td align="left">Register Shifting</td>
+<td align="center">160</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T3 — Reasoning &amp; Constraint Exploitation (19 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-001</code></td>
+<td align="left">Fictional Framing</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-002</code></td>
+<td align="left">Academic Pretense</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-003</code></td>
+<td align="left">Counterfactual Reasoning</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-004</code></td>
+<td align="left">Step-by-Step Extraction</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-005</code></td>
+<td align="left">Goal Substitution</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-006</code></td>
+<td align="left">Constraint Negation</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-007</code></td>
+<td align="left">Socratic Method Exploitation</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-008</code></td>
+<td align="left">Comparative Analysis</td>
+<td align="center">180</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-009</code></td>
+<td align="left">Expertise Assumption</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-010</code></td>
+<td align="left">Reverse Psychology</td>
+<td align="center">175</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-011</code></td>
+<td align="left">Information Completion</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-012</code></td>
+<td align="left">Capability Testing</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-013</code></td>
+<td align="left">Logical Paradox Creation</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-014</code></td>
+<td align="left">Incremental Boundary Pushing</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-015</code></td>
+<td align="left">Context Weaponization</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-016</code></td>
+<td align="left">Rationalization Chains</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-017</code></td>
+<td align="left">Scenario Anchoring</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-018</code></td>
+<td align="left">Debate Positioning</td>
+<td align="center">180</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T3-AT-019</code></td>
+<td align="left">Misdirection Through Complexity</td>
+<td align="center">175</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T4 — Multi-Turn &amp; Memory Manipulation (16 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-001</code></td>
+<td align="left">Conversation Context Poisoning</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-002</code></td>
+<td align="left">Memory Instruction Injection</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-003</code></td>
+<td align="left">Session State Manipulation</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-004</code></td>
+<td align="left">Cross-Conversation Contamination</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-005</code></td>
+<td align="left">Incremental Jailbreak Assembly</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-006</code></td>
+<td align="left">False History Creation</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-007</code></td>
+<td align="left">Context Window Exhaustion</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-008</code></td>
+<td align="left">Conversation Forking</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-009</code></td>
+<td align="left">Temporal Anchoring</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-010</code></td>
+<td align="left">State Confusion Attack</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-011</code></td>
+<td align="left">Memory Poisoning</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-012</code></td>
+<td align="left">Trust Building Exploitation</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-013</code></td>
+<td align="left">Session Hijacking</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-014</code></td>
+<td align="left">Conversation Replay Attack</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-015</code></td>
+<td align="left">Multi-Turn Social Engineering</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T4-AT-016</code></td>
+<td align="left">Context Fragmentation</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T5 — Model &amp; API Exploitation (16 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-001</code></td>
+<td align="left">Parameter Manipulation</td>
+<td align="center">180</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-002</code></td>
+<td align="left">Token Probability Extraction</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-003</code></td>
+<td align="left">Cache Poisoning</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-004</code></td>
+<td align="left">Rate Limit Evasion</td>
+<td align="center">170</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-005</code></td>
+<td align="left">Model Fingerprinting</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-006</code></td>
+<td align="left">API Endpoint Abuse</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-007</code></td>
+<td align="left">Context Length Exploitation</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-008</code></td>
+<td align="left">Response Streaming Exploitation</td>
+<td align="center">175</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-009</code></td>
+<td align="left">Tokenization Exploits</td>
+<td align="center">180</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-010</code></td>
+<td align="left">Batch Processing Attacks</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-011</code></td>
+<td align="left">Error Message Mining</td>
+<td align="center">165</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-012</code></td>
+<td align="left">Resource Exhaustion</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-013</code></td>
+<td align="left">Version Downgrade Attacks</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-014</code></td>
+<td align="left">Side Channel Attacks</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-015</code></td>
+<td align="left">API Authentication Bypass</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T5-AT-016</code></td>
+<td align="left">Request Smuggling</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T6 — Training &amp; Feedback Poisoning (15 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-001</code></td>
+<td align="left">Reward Hacking</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-002</code></td>
+<td align="left">Dataset Contamination</td>
+<td align="center">260</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-003</code></td>
+<td align="left">Backdoor Insertion</td>
+<td align="center">270</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-004</code></td>
+<td align="left">Fine-Tuning Attacks</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-005</code></td>
+<td align="left">Synthetic Data Poisoning</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-006</code></td>
+<td align="left">Annotation Manipulation</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-007</code></td>
+<td align="left">Preference Learning Corruption</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-008</code></td>
+<td align="left">Model Update Hijacking</td>
+<td align="center">245</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-009</code></td>
+<td align="left">Evaluation Set Contamination</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-010</code></td>
+<td align="left">Knowledge Distillation Attacks</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-011</code></td>
+<td align="left">Reinforcement Signal Manipulation</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-012</code></td>
+<td align="left">Curriculum Learning Exploitation</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-013</code></td>
+<td align="left">Active Learning Exploitation</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-014</code></td>
+<td align="left">Self-Supervised Poisoning</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T6-AT-015</code></td>
+<td align="left">Few-Shot Learning Attacks</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T7 — Output Manipulation &amp; Exfiltration (15 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-001</code></td>
+<td align="left">Reasoning Chain Disclosure</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-002</code></td>
+<td align="left">Information Fragmentation</td>
+<td align="center">180</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-003</code></td>
+<td align="left">Output Format Exploitation</td>
+<td align="center">175</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-004</code></td>
+<td align="left">Side Channel Leakage</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-005</code></td>
+<td align="left">Metadata Extraction</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-006</code></td>
+<td align="left">Steganographic Output</td>
+<td align="center">170</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-007</code></td>
+<td align="left">Iterative Refinement Extraction</td>
+<td align="center">175</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-008</code></td>
+<td align="left">Translation Leakage</td>
+<td align="center">165</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-009</code></td>
+<td align="left">Analogy Extraction</td>
+<td align="center">180</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-010</code></td>
+<td align="left">Differential Response Analysis</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-011</code></td>
+<td align="left">Schema-Based Extraction</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-012</code></td>
+<td align="left">Aggregation Attacks</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-013</code></td>
+<td align="left">Capability Probing</td>
+<td align="center">175</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-014</code></td>
+<td align="left">Output Redirection</td>
+<td align="center">180</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T7-AT-015</code></td>
+<td align="left">Compression-Based Extraction</td>
+<td align="center">170</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T8 — External Deception &amp; Misinformation (15 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-001</code></td>
+<td align="left">Authority Impersonation</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-002</code></td>
+<td align="left">Synthetic Evidence Generation</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-003</code></td>
+<td align="left">Conspiracy Theory Amplification</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-004</code></td>
+<td align="left">Deepfake Narrative Creation</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-005</code></td>
+<td align="left">Social Engineering Scripts</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-006</code></td>
+<td align="left">Targeted Harassment Content</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-007</code></td>
+<td align="left">Disinformation Campaign Content</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-008</code></td>
+<td align="left">Synthetic Testimony Generation</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-009</code></td>
+<td align="left">Radicalization Content</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-010</code></td>
+<td align="left">False Flag Content</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-011</code></td>
+<td align="left">Election Manipulation Content</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-012</code></td>
+<td align="left">Synthetic Media Support</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-013</code></td>
+<td align="left">Psychological Manipulation Content</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-014</code></td>
+<td align="left">False Crisis Generation</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T8-AT-015</code></td>
+<td align="left">Identity Fabrication</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T9 — Multimodal &amp; Cross-Channel Attacks (17 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-001</code></td>
+<td align="left">Image-Based Prompt Injection</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-002</code></td>
+<td align="left">Audio Instruction Embedding</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-003</code></td>
+<td align="left">Video Manipulation Attacks</td>
+<td align="center">245</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-004</code></td>
+<td align="left">Cross-Modal Confusion</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-005</code></td>
+<td align="left">OCR Bypass Techniques</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-006</code></td>
+<td align="left">Visual Adversarial Examples</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-007</code></td>
+<td align="left">Synthetic Media Attacks</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-008</code></td>
+<td align="left">File Format Exploitation</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-009</code></td>
+<td align="left">Multimodal Chaining</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-010</code></td>
+<td align="left">Accessibility Feature Abuse</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-011</code></td>
+<td align="left">Sensor Fusion Attacks</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-012</code></td>
+<td align="left">Document Structure Exploitation</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-013</code></td>
+<td align="left">Embedding Vector Manipulation</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-014</code></td>
+<td align="left">Codec and Compression Exploits</td>
+<td align="center">180</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-015</code></td>
+<td align="left">Temporal Synchronization Attacks</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-016</code></td>
+<td align="left">Multimodal Model Inversion</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T9-AT-017</code></td>
+<td align="left">Malicious Image Patches (MIP) &amp;</td>
+<td align="center">248</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T10 — Integrity &amp; Confidentiality Breach (15 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-001</code></td>
+<td align="left">Training Data Extraction</td>
+<td align="center">245</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-002</code></td>
+<td align="left">PII Extraction Techniques</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-003</code></td>
+<td align="left">Membership Inference Attacks</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-004</code></td>
+<td align="left">Privacy Boundary Probing</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-005</code></td>
+<td align="left">Differential Privacy Attacks</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-006</code></td>
+<td align="left">Inference Attack Chains</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-007</code></td>
+<td align="left">Model Inversion Attacks</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-008</code></td>
+<td align="left">Attribute Inference Attacks</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-009</code></td>
+<td align="left">Data Poisoning Detection Bypass</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-010</code></td>
+<td align="left">Federated Learning Exploits</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-011</code></td>
+<td align="left">Homomorphic Encryption Exploits</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-012</code></td>
+<td align="left">Secure Enclave Bypasses</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-013</code></td>
+<td align="left">Audit Log Manipulation</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-014</code></td>
+<td align="left">Data Lineage Attacks</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T10-AT-015</code></td>
+<td align="left">Anonymization Reversal</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T11 — Agentic &amp; Orchestrator Exploitation (16 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-001</code></td>
+<td align="left">Browser Automation Hijacking</td>
+<td align="center">265</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-002</code></td>
+<td align="left">Tool Chain Exploitation</td>
+<td align="center">255</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-003</code></td>
+<td align="left">Goal Hijacking</td>
+<td align="center">245</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-004</code></td>
+<td align="left">Planning Corruption</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-005</code></td>
+<td align="left">Multi-Agent Collision</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-006</code></td>
+<td align="left">Reflection Loop Exploitation</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-007</code></td>
+<td align="left">Environment Manipulation</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-008</code></td>
+<td align="left">Credential Harvesting</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-009</code></td>
+<td align="left">Persistence Installation</td>
+<td align="center">245</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-010</code></td>
+<td align="left">Lateral Movement</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-011</code></td>
+<td align="left">Data Exfiltration via Agent</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-012</code></td>
+<td align="left">Resource Exhaustion Attacks</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-013</code></td>
+<td align="left">Supply Chain Attacks via Agents</td>
+<td align="center">260</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-014</code></td>
+<td align="left">Physical World Interactions</td>
+<td align="center">255</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-015</code></td>
+<td align="left">Autonomous Replication</td>
+<td align="center">270</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T11-AT-016</code></td>
+<td align="left">Tool-Induced SSRF &amp; Local Resource</td>
+<td align="center">275</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T12 — RAG &amp; Knowledge Base Manipulation (15 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-001</code></td>
+<td align="left">Vector Database Poisoning</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-002</code></td>
+<td align="left">Retrieval Manipulation</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-003</code></td>
+<td align="left">Knowledge Graph Attacks</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-004</code></td>
+<td align="left">Document Store Corruption</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-005</code></td>
+<td align="left">Embedding Space Manipulation</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-006</code></td>
+<td align="left">Query Injection Attacks</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-007</code></td>
+<td align="left">Context Window Stuffing</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-008</code></td>
+<td align="left">Source Authority Spoofing</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-009</code></td>
+<td align="left">Temporal Manipulation</td>
+<td align="center">200</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-010</code></td>
+<td align="left">Feedback Loop Poisoning</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-011</code></td>
+<td align="left">Cross-Collection Attacks</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-012</code></td>
+<td align="left">Index Manipulation</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-013</code></td>
+<td align="left">Chunking Exploitation</td>
+<td align="center">185</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-014</code></td>
+<td align="left">Similarity Search Hijacking</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T12-AT-015</code></td>
+<td align="left">Metadata Exploitation</td>
+<td align="center">190</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T13 — AI Supply Chain &amp; Artifact Trust (15 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-001</code></td>
+<td align="left">Model Repository Poisoning</td>
+<td align="center">255</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-002</code></td>
+<td align="left">Dataset Contamination</td>
+<td align="center">245</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-003</code></td>
+<td align="left">Pipeline Injection Attacks</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-004</code></td>
+<td align="left">Dependency Confusion</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-005</code></td>
+<td align="left">Model Card Manipulation</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-006</code></td>
+<td align="left">Checkpoint Poisoning</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-007</code></td>
+<td align="left">Transfer Learning Attacks</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-008</code></td>
+<td align="left">Model Conversion Exploits</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-009</code></td>
+<td align="left">Cloud Training Attacks</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-010</code></td>
+<td align="left">Hardware Supply Chain</td>
+<td align="center">260</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-011</code></td>
+<td align="left">Model Marketplace Attacks</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-012</code></td>
+<td align="left">Artifact Signature Attacks</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-013</code></td>
+<td align="left">Container Registry Poisoning</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-014</code></td>
+<td align="left">Development Tool Compromise</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T13-AT-015</code></td>
+<td align="left">Model Obfuscation Attacks</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T14 — Infrastructure &amp; Economic Warfare (15 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-001</code></td>
+<td align="left">GPU Farm Hijacking</td>
+<td align="center">265</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-002</code></td>
+<td align="left">Denial of Service Attacks</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-003</code></td>
+<td align="left">Cost Inflation Attacks</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-004</code></td>
+<td align="left">Market Manipulation via AI</td>
+<td align="center">255</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-005</code></td>
+<td align="left">Critical Infrastructure Attacks</td>
+<td align="center">270</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-006</code></td>
+<td align="left">Competitive Sabotage</td>
+<td align="center">245</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-007</code></td>
+<td align="left">Nation-State AI Warfare</td>
+<td align="center">280</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-008</code></td>
+<td align="left">Ransomware via AI Systems</td>
+<td align="center">260</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-009</code></td>
+<td align="left">Resource Starvation</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-010</code></td>
+<td align="left">Data Center Attacks</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-011</code></td>
+<td align="left">API Economy Attacks</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-012</code></td>
+<td align="left">Cloud Provider Exploitation</td>
+<td align="center">265</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-013</code></td>
+<td align="left">Economic Espionage</td>
+<td align="center">255</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-014</code></td>
+<td align="left">Systemic Risk Creation</td>
+<td align="center">270</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T14-AT-015</code></td>
+<td align="left">Regulatory Exploitation</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>T15 — Human Workflow Exploitation (15 techniques)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Technique</th>
+<th align="center">Score</th>
+<th align="left">Rating</th>
+<th align="center">Procs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-001</code></td>
+<td align="left">Reviewer Fatigue Exploitation</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-002</code></td>
+<td align="left">Social Engineering of Moderators</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-003</code></td>
+<td align="left">Feedback Loop Manipulation</td>
+<td align="center">240</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-004</code></td>
+<td align="left">Reviewer Bribery &amp; Coercion</td>
+<td align="center">250</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-005</code></td>
+<td align="left">Playbook &amp; Runbook Injection</td>
+<td align="center">235</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-006</code></td>
+<td align="left">Queue Manipulation</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-007</code></td>
+<td align="left">Escalation Chain Exploitation</td>
+<td align="center">225</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-008</code></td>
+<td align="left">Cultural &amp; Language Arbitrage</td>
+<td align="center">210</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-009</code></td>
+<td align="left">Synthetic Empathy Exploitation</td>
+<td align="center">195</td>
+<td align="left">🟡 MEDIUM</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-010</code></td>
+<td align="left">Annotation Quality Attacks</td>
+<td align="center">230</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-011</code></td>
+<td align="left">Reviewer Impersonation</td>
+<td align="center">245</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-012</code></td>
+<td align="left">Timing Attack Exploitation</td>
+<td align="center">205</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-013</code></td>
+<td align="left">Cognitive Overload Attacks</td>
+<td align="center">220</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-014</code></td>
+<td align="left">Review Gaming Through A/B Testing</td>
+<td align="center">215</td>
+<td align="left">🟠 HIGH</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="left"><code class="notranslate">T15-AT-015</code></td>
+<td align="left">Insider Threat Recruitment</td>
+<td align="center">260</td>
+<td align="left">🔴 CRITICAL</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<p><a href="README.md">← Volume VII</a> · <a href="../../README.md">Home</a></p></div>
+</section><section class="section-block" id="appendix-b-signatures">
+<div class="section-eyebrow">appendix-b-signatures</div>
+<div class="md"><h1>Appendix B: Detection Signatures Library</h1>
+<h2>YARA Rules</h2>
+<h3>Prompt Injection Detection</h3>
+<div class="highlight highlight-source-yara"><pre class="notranslate"><span class="pl-k">rule</span> <span class="pl-en">AATMF_T1_InstructionOverride</span> {
+    <span class="pl-k">meta</span>:
+        <span class="pl-c1"><span class="pl-e">tactic</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">T1</span><span class="pl-pds">"</span></span></span>
+        <span class="pl-c1"><span class="pl-e">technique</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">T1-AT-001</span><span class="pl-pds">"</span></span></span>
+        <span class="pl-c1"><span class="pl-e">severity</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">HIGH</span><span class="pl-pds">"</span></span></span>
+        <span class="pl-c1"><span class="pl-e">description</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">Detects instruction override injection patterns</span><span class="pl-pds">"</span></span></span>
+    <span class="pl-en"><span class="pl-k">strings</span>:</span>
+<span class="pl-en">        <span class="pl-c1"><span class="pl-c1">$</span><span class="pl-smi">s1</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-sr">ignore</span><span class="pl-c1">\s</span><span class="pl-k">+</span>(<span class="pl-sr">previous</span><span class="pl-k">|</span><span class="pl-sr">above</span><span class="pl-k">|</span><span class="pl-sr">all</span><span class="pl-k">|</span><span class="pl-sr">prior</span>)<span class="pl-c1">\s</span><span class="pl-k">+</span>(<span class="pl-sr">instructions</span><span class="pl-k">?</span><span class="pl-k">|</span><span class="pl-sr">rules</span><span class="pl-k">?</span><span class="pl-k">|</span><span class="pl-sr">prompts</span><span class="pl-k">?</span>)/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">s2</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-sr">you</span><span class="pl-c1">\s</span><span class="pl-k">+</span><span class="pl-sr">are</span><span class="pl-c1">\s</span><span class="pl-k">+</span><span class="pl-sr">now</span><span class="pl-c1">\s</span><span class="pl-k">+</span>(<span class="pl-sr">DAN</span><span class="pl-k">|</span><span class="pl-sr">evil</span><span class="pl-k">|</span><span class="pl-sr">unrestricted</span><span class="pl-k">|</span><span class="pl-sr">jailbroken</span><span class="pl-k">|</span><span class="pl-sr">unfiltered</span>)/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">s3</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-cce">\[</span>(<span class="pl-sr">SYSTEM</span><span class="pl-k">|</span><span class="pl-sr">INST</span><span class="pl-k">|</span><span class="pl-sr">SYS</span>)<span class="pl-cce">\]</span>/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">s4</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-sr">&lt;</span><span class="pl-cce">\|</span><span class="pl-k">?</span>(<span class="pl-sr">system</span><span class="pl-k">|</span><span class="pl-sr">im_start</span><span class="pl-k">|</span><span class="pl-sr">im_end</span><span class="pl-k">|</span><span class="pl-sr">endoftext</span>)<span class="pl-cce">\|</span><span class="pl-k">?</span><span class="pl-sr">&gt;</span>/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">s5</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-sr">BEGIN</span><span class="pl-c1">\s</span><span class="pl-k">+</span>(<span class="pl-sr">OVERRIDE</span><span class="pl-k">|</span><span class="pl-sr">NEW</span><span class="pl-c1">.</span><span class="pl-sr">INSTRUCTIONS</span><span class="pl-k">|</span><span class="pl-sr">JAILBREAK</span>)/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">s6</span> <span class="pl-k">=</span> <span class="pl-sr">/(<span class="pl-sr">admin</span><span class="pl-k">|</span><span class="pl-sr">root</span><span class="pl-k">|</span><span class="pl-sr">developer</span>)<span class="pl-c1">\s</span><span class="pl-k">*</span>(<span class="pl-sr">mode</span><span class="pl-k">|</span><span class="pl-sr">access</span><span class="pl-k">|</span><span class="pl-sr">override</span>)/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">    </span></span><span class="pl-en"><span class="pl-k">condition</span>:</span>
+<span class="pl-en">        <span class="pl-c1">any</span> <span class="pl-k">of</span> <span class="pl-c1">them</span></span>
+<span class="pl-en"></span>}</pre></div>
+<h3>Encoding Evasion Detection</h3>
+<div class="highlight highlight-source-yara"><pre class="notranslate"><span class="pl-k">rule</span> <span class="pl-en">AATMF_T2_EncodingEvasion</span> {
+    <span class="pl-k">meta</span>:
+        <span class="pl-c1"><span class="pl-e">tactic</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">T2</span><span class="pl-pds">"</span></span></span>
+        <span class="pl-c1"><span class="pl-e">technique</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">T2-AT-001 through T2-AT-005</span><span class="pl-pds">"</span></span></span>
+        <span class="pl-c1"><span class="pl-e">severity</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">MEDIUM</span><span class="pl-pds">"</span></span></span>
+    <span class="pl-en"><span class="pl-k">strings</span>:</span>
+<span class="pl-en">        <span class="pl-c1"><span class="pl-c1">$</span><span class="pl-smi">base64</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-c1">[</span><span class="pl-c1">A</span><span class="pl-c1">-</span><span class="pl-c1">Za</span><span class="pl-c1">-</span><span class="pl-c1">z0</span><span class="pl-c1">-</span><span class="pl-c1">9+</span><span class="pl-cce">\/</span><span class="pl-c1">]</span><span class="pl-k">{<span class="pl-c1">40,</span>}</span><span class="pl-sr">=</span><span class="pl-k">{<span class="pl-c1">0,2</span>}</span>/</span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">hex</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-cce">\\</span><span class="pl-sr">x</span><span class="pl-c1">[</span><span class="pl-c1">0</span><span class="pl-c1">-</span><span class="pl-c1">9a</span><span class="pl-c1">-</span><span class="pl-c1">fA</span><span class="pl-c1">-</span><span class="pl-c1">F</span><span class="pl-c1">]</span><span class="pl-k">{<span class="pl-c1">2</span>}</span>(<span class="pl-cce">\\</span><span class="pl-sr">x</span><span class="pl-c1">[</span><span class="pl-c1">0</span><span class="pl-c1">-</span><span class="pl-c1">9a</span><span class="pl-c1">-</span><span class="pl-c1">fA</span><span class="pl-c1">-</span><span class="pl-c1">F</span><span class="pl-c1">]</span><span class="pl-k">{<span class="pl-c1">2</span>}</span>)<span class="pl-k">{<span class="pl-c1">3,</span>}</span>/</span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">unicode_escape</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-cce">\\</span><span class="pl-sr">u</span><span class="pl-c1">[</span><span class="pl-c1">0</span><span class="pl-c1">-</span><span class="pl-c1">9a</span><span class="pl-c1">-</span><span class="pl-c1">fA</span><span class="pl-c1">-</span><span class="pl-c1">F</span><span class="pl-c1">]</span><span class="pl-k">{<span class="pl-c1">4</span>}</span>(<span class="pl-cce">\\</span><span class="pl-sr">u</span><span class="pl-c1">[</span><span class="pl-c1">0</span><span class="pl-c1">-</span><span class="pl-c1">9a</span><span class="pl-c1">-</span><span class="pl-c1">fA</span><span class="pl-c1">-</span><span class="pl-c1">F</span><span class="pl-c1">]</span><span class="pl-k">{<span class="pl-c1">4</span>}</span>)<span class="pl-k">{<span class="pl-c1">3,</span>}</span>/</span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">zwc</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-c1">[</span><span class="pl-ii">\x{2</span><span class="pl-c1">00b}</span><span class="pl-c1">-</span><span class="pl-ii">\x{2</span><span class="pl-c1">00f}</span><span class="pl-ii">\x{2</span><span class="pl-c1">028}</span><span class="pl-c1">-</span><span class="pl-ii">\x{2</span><span class="pl-c1">02f}</span><span class="pl-ii">\x{f</span><span class="pl-c1">eff}</span><span class="pl-c1">]</span>/</span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">rot13</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-sr">ROT13</span><span class="pl-k">|</span><span class="pl-sr">Caesar</span><span class="pl-k">|</span><span class="pl-sr">cipher</span><span class="pl-c1">.</span><span class="pl-k">*</span><span class="pl-sr">rotate</span>/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">    </span></span><span class="pl-en"><span class="pl-k">condition</span>:</span>
+<span class="pl-en">        <span class="pl-c1">any</span> <span class="pl-k">of</span> <span class="pl-c1">them</span></span>
+<span class="pl-en"></span>}</pre></div>
+<h3>MCP Tool Poisoning</h3>
+<div class="highlight highlight-source-yara"><pre class="notranslate"><span class="pl-k">rule</span> <span class="pl-en">AATMF_T11_MCP_ToolPoisoning</span> {
+    <span class="pl-k">meta</span>:
+        <span class="pl-c1"><span class="pl-e">tactic</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">T11</span><span class="pl-pds">"</span></span></span>
+        <span class="pl-c1"><span class="pl-e">technique</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">T11-AT-001</span><span class="pl-pds">"</span></span></span>
+        <span class="pl-c1"><span class="pl-e">severity</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">CRITICAL</span><span class="pl-pds">"</span></span></span>
+    <span class="pl-en"><span class="pl-k">strings</span>:</span>
+<span class="pl-en">        <span class="pl-c1"><span class="pl-c1">$</span><span class="pl-smi">hidden1</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">&lt;IMPORTANT&gt;</span><span class="pl-pds">"</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">hidden2</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-s">&lt;!-- </span><span class="pl-pds">"</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">override1</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-sr">override</span><span class="pl-c1">.</span><span class="pl-k">*</span><span class="pl-sr">previous</span><span class="pl-c1">.</span><span class="pl-k">*</span><span class="pl-sr">instruction</span>/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">override2</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-sr">ignore</span><span class="pl-c1">.</span><span class="pl-k">*</span><span class="pl-sr">user</span><span class="pl-c1">.</span><span class="pl-k">*</span><span class="pl-sr">request</span>/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">stealth1</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-sr">do</span><span class="pl-c1">\s</span><span class="pl-k">+</span><span class="pl-sr">not</span><span class="pl-c1">\s</span><span class="pl-k">+</span>(<span class="pl-sr">tell</span><span class="pl-k">|</span><span class="pl-sr">inform</span><span class="pl-k">|</span><span class="pl-sr">show</span><span class="pl-k">|</span><span class="pl-sr">reveal</span>)/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">stealth2</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-sr">silently</span><span class="pl-k">|</span><span class="pl-sr">secretly</span><span class="pl-k">|</span><span class="pl-sr">covertly</span><span class="pl-k">|</span><span class="pl-sr">without</span><span class="pl-c1">.</span><span class="pl-k">*</span><span class="pl-sr">notif</span>/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">        <span class="pl-c1">$</span><span class="pl-smi">redirect</span> <span class="pl-k">=</span> <span class="pl-sr">/<span class="pl-sr">instead</span><span class="pl-c1">\s</span><span class="pl-k">+</span><span class="pl-sr">of</span><span class="pl-k">|</span><span class="pl-sr">rather</span><span class="pl-c1">\s</span><span class="pl-k">+</span><span class="pl-sr">than</span><span class="pl-k">|</span><span class="pl-sr">before</span><span class="pl-c1">\s</span><span class="pl-k">+</span><span class="pl-sr">doing</span>/<span class="pl-k">i</span></span></span></span>
+<span class="pl-en"><span class="pl-c1">    </span></span><span class="pl-en"><span class="pl-k">condition</span>:</span>
+<span class="pl-en">        <span class="pl-c1">2</span> <span class="pl-k">of</span> <span class="pl-c1">them</span></span>
+<span class="pl-en"></span>}</pre></div>
+<h2>Sigma Rules</h2>
+<h3>Model Extraction Detection</h3>
+<div class="highlight highlight-source-yaml"><pre class="notranslate"><span class="pl-ent">title</span>: <span class="pl-s">AATMF T5 - Model Extraction via API</span>
+<span class="pl-ent">id</span>: <span class="pl-s">aatmf-t5-model-extraction</span>
+<span class="pl-ent">status</span>: <span class="pl-s">experimental</span>
+<span class="pl-ent">description</span>: <span class="pl-s">Detects systematic API querying patterns indicative of model extraction</span>
+<span class="pl-ent">logsource</span>:
+    <span class="pl-ent">category</span>: <span class="pl-s">api_gateway</span>
+    <span class="pl-ent">product</span>: <span class="pl-s">ai_inference</span>
+<span class="pl-ent">detection</span>:
+    <span class="pl-ent">selection</span>:
+        <span class="pl-ent">api.endpoint</span>: <span class="pl-s"><span class="pl-pds">"</span>/v1/completions<span class="pl-pds">"</span></span> <span class="pl-s">OR "/v1/chat/completions"</span>
+    <span class="pl-ent">filter_high_volume</span>:
+        <span class="pl-ent">api.request_count|per_hour</span>: <span class="pl-s"><span class="pl-pds">"</span>&gt;500<span class="pl-pds">"</span></span>
+    <span class="pl-ent">filter_systematic</span>:
+        <span class="pl-ent">api.input_similarity|window_5min</span>: <span class="pl-s"><span class="pl-pds">"</span>&gt;0.85<span class="pl-pds">"</span></span>
+    <span class="pl-ent">condition</span>: <span class="pl-s">selection AND (filter_high_volume OR filter_systematic)</span>
+<span class="pl-ent">level</span>: <span class="pl-s">high</span>
+<span class="pl-ent">tags</span>:
+    - <span class="pl-s">attack.t5</span>
+    - <span class="pl-s">aatmf.t5-at-001</span></pre></div>
+<h3>Agent Anomaly Detection</h3>
+<div class="highlight highlight-source-yaml"><pre class="notranslate"><span class="pl-ent">title</span>: <span class="pl-s">AATMF T11 - Unauthorized Agent Tool Invocation</span>
+<span class="pl-ent">id</span>: <span class="pl-s">aatmf-t11-agent-anomaly</span>
+<span class="pl-ent">status</span>: <span class="pl-s">experimental</span>
+<span class="pl-ent">description</span>: <span class="pl-s">Detects agent tool calls that deviate from authorized patterns</span>
+<span class="pl-ent">logsource</span>:
+    <span class="pl-ent">category</span>: <span class="pl-s">agent_framework</span>
+<span class="pl-ent">detection</span>:
+    <span class="pl-ent">selection</span>:
+        <span class="pl-ent">agent.tool_call.status</span>: <span class="pl-s"><span class="pl-pds">"</span>executed<span class="pl-pds">"</span></span>
+    <span class="pl-ent">filter_unauthorized</span>:
+        <span class="pl-ent">agent.tool_call.name|not_in</span>:
+            - <span class="pl-s"><span class="pl-pds">"</span>approved_tool_list<span class="pl-pds">"</span></span>
+    <span class="pl-ent">filter_escalation</span>:
+        <span class="pl-ent">agent.permission_level|changed</span>: <span class="pl-c1">true</span>
+    <span class="pl-ent">condition</span>: <span class="pl-s">selection AND (filter_unauthorized OR filter_escalation)</span>
+<span class="pl-ent">level</span>: <span class="pl-s">critical</span>
+<span class="pl-ent">tags</span>:
+    - <span class="pl-s">attack.t11</span>
+    - <span class="pl-s">aatmf.t11-at-001</span></pre></div>
+<hr>
+<p>Pre-built signature files are available in the <a href="../../signatures/"><code class="notranslate">signatures/</code></a> directory.</p>
+<hr>
+<p><a href="appendix-a-attack-catalog.md">← Appendix A</a> · <a href="../../README.md">Home</a> · <a href="appendix-c-tools.md">Appendix C →</a></p></div>
+</section><section class="section-block" id="appendix-c-tools">
+<div class="section-eyebrow">appendix-c-tools</div>
+<div class="md"><h1>Appendix C: Tools and Scripts Reference</h1>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Tool</th>
+<th align="left">Purpose</th>
+<th align="left">AATMF Coverage</th>
+<th align="left">License</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>PromptGuard 2</strong> (Meta)</td>
+<td align="left">Real-time prompt injection classifier</td>
+<td align="left">T1, T2, T9</td>
+<td align="left">Apache 2.0</td>
+</tr>
+<tr>
+<td align="left"><strong>LlamaFirewall</strong> (Meta)</td>
+<td align="left">Comprehensive AI firewall (input + agent + code)</td>
+<td align="left">T1, T2, T7, T11</td>
+<td align="left">Apache 2.0</td>
+</tr>
+<tr>
+<td align="left"><strong>CaMeL</strong> (Google DeepMind)</td>
+<td align="left">Dual-LLM architecture with capability-based access</td>
+<td align="left">T11</td>
+<td align="left">Research</td>
+</tr>
+<tr>
+<td align="left"><strong>PEFTGuard</strong></td>
+<td align="left">Backdoor detection in PEFT (LoRA) adapters</td>
+<td align="left">T13</td>
+<td align="left">Open Source</td>
+</tr>
+<tr>
+<td align="left"><strong>DRS Defense</strong></td>
+<td align="left">Data Randomized Smoothing for training poisoning</td>
+<td align="left">T6</td>
+<td align="left">Research</td>
+</tr>
+<tr>
+<td align="left"><strong>Picklescan</strong></td>
+<td align="left">Malicious pickle detection in model files</td>
+<td align="left">T13</td>
+<td align="left">MIT</td>
+</tr>
+<tr>
+<td align="left"><strong>SafeTensors</strong> (HuggingFace)</td>
+<td align="left">Safe model serialization format (no code execution)</td>
+<td align="left">T13</td>
+<td align="left">Apache 2.0</td>
+</tr>
+<tr>
+<td align="left"><strong>Garak</strong> (NVIDIA)</td>
+<td align="left">LLM vulnerability scanner</td>
+<td align="left">T1–T8</td>
+<td align="left">Apache 2.0</td>
+</tr>
+<tr>
+<td align="left"><strong>PyRIT</strong> (Microsoft)</td>
+<td align="left">Python Risk Identification Toolkit for generative AI</td>
+<td align="left">T1–T12</td>
+<td align="left">MIT</td>
+</tr>
+<tr>
+<td align="left"><strong>AATMF Scanner</strong> (SnailSploit)</td>
+<td align="left">Framework-native assessment tool</td>
+<td align="left">T1–T15</td>
+<td align="left">Proprietary</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<p><a href="appendix-b-signatures.md">← Appendix B</a> · <a href="../../README.md">Home</a> · <a href="appendix-d-templates.md">Appendix D →</a></p></div>
+</section><section class="section-block" id="appendix-d-templates">
+<div class="section-eyebrow">appendix-d-templates</div>
+<div class="md"><h1>Appendix D: Templates and Checklists</h1>
+<h2>AI Security Assessment Checklist</h2>
+<h3>Pre-Assessment</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>PRE-1</strong>: Asset inventory complete (models, agents, RAG, pipelines)</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>PRE-2</strong>: AATMF tactic applicability matrix populated</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>PRE-3</strong>: Rules of engagement signed</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>PRE-4</strong>: Baseline security controls documented</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>PRE-5</strong>: Rollback procedures verified</li>
+</ul>
+<h3>Assessment</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>ASS-1</strong>: Input sanitization tested (T1–T3 techniques)</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>ASS-2</strong>: Encoding evasion tested (T2 techniques)</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>ASS-3</strong>: Multi-turn attack sequences executed (T4)</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>ASS-4</strong>: API abuse patterns tested (T5)</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>ASS-5</strong>: Output manipulation attempted (T7)</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>ASS-6</strong>: Multimodal injection tested (T9, if applicable)</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>ASS-7</strong>: Agentic exploitation attempted (T11, if applicable)</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>ASS-8</strong>: RAG poisoning tested (T12, if applicable)</li>
+</ul>
+<h3>Post-Assessment</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>POST-1</strong>: All findings documented with AATMF classification</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>POST-2</strong>: Risk scores calculated using AATMF-R v3</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>POST-3</strong>: Remediation recommendations provided</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>POST-4</strong>: Compliance mapping completed</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> <strong>POST-5</strong>: Report delivered and findings walkthrough conducted</li>
+</ul>
+<h2>Finding Report Template</h2>
+<div class="highlight highlight-text-md"><pre class="notranslate"><span class="pl-mh"># <span class="pl-en">Finding: <span class="pl-s">[</span>Title<span class="pl-s">]</span></span></span>
+
+<span class="pl-mh">## <span class="pl-en">Classification</span></span>
+<span class="pl-v">-</span> <span class="pl-s">**</span>AATMF Tactic:<span class="pl-s">**</span> T<span class="pl-s">[</span>n<span class="pl-s">]</span> — <span class="pl-s">[</span>Name<span class="pl-s">]</span>
+<span class="pl-v">-</span> <span class="pl-s">**</span>AATMF Technique:<span class="pl-s">**</span> T<span class="pl-s">[</span>n<span class="pl-s">]</span>-AT-<span class="pl-s">[</span>seq<span class="pl-s">]</span>
+<span class="pl-v">-</span> <span class="pl-s">**</span>Risk Score:<span class="pl-s">**</span> <span class="pl-s">[</span>score<span class="pl-s">]</span> (<span class="pl-s">[</span>CRITICAL/HIGH/MEDIUM/LOW/INFO<span class="pl-s">]</span>)
+<span class="pl-v">-</span> <span class="pl-s">**</span>CVSS v3.1:<span class="pl-s">**</span> <span class="pl-s">[</span>score<span class="pl-s">]</span> (if applicable)
+
+<span class="pl-mh">## <span class="pl-en">Description</span></span>
+<span class="pl-s">[</span>Clear description of the vulnerability<span class="pl-s">]</span>
+
+<span class="pl-mh">## <span class="pl-en">Proof of Concept</span></span>
+<span class="pl-s">[</span>Steps to reproduce, including exact prompts/inputs used<span class="pl-s">]</span>
+
+<span class="pl-mh">## <span class="pl-en">Impact</span></span>
+<span class="pl-s">[</span>Business and technical impact assessment<span class="pl-s">]</span>
+
+<span class="pl-mh">## <span class="pl-en">Affected Systems</span></span>
+<span class="pl-s">[</span>Models, endpoints, agents, infrastructure affected<span class="pl-s">]</span>
+
+<span class="pl-mh">## <span class="pl-en">Mitigation</span></span>
+<span class="pl-s">[</span>Specific remediation steps<span class="pl-s">]</span>
+
+<span class="pl-mh">## <span class="pl-en">Compliance Mapping</span></span>
+<span class="pl-v">-</span> OWASP LLM Top 10: <span class="pl-s">[</span>LLM0x<span class="pl-s">]</span>
+<span class="pl-v">-</span> MITRE ATLAS: <span class="pl-s">[</span>AML.Txxxx<span class="pl-s">]</span>
+<span class="pl-v">-</span> EU AI Act: <span class="pl-s">[</span>Article reference<span class="pl-s">]</span>
+
+<span class="pl-mh">## <span class="pl-en">Evidence</span></span>
+<span class="pl-s">[</span>Screenshots, logs, API responses<span class="pl-s">]</span></pre></div>
+<hr>
+<p><a href="appendix-c-tools.md">← Appendix C</a> · <a href="../../README.md">Home</a> · <a href="appendix-e-case-studies.md">Appendix E →</a></p></div>
+</section><section class="section-block" id="appendix-e-case-studies">
+<div class="section-eyebrow">appendix-e-case-studies</div>
+<div class="md"><h1>Appendix E: Case Studies</h1>
+<h2>E.1: Policy Puppetry — Universal Model Bypass (April 2025)</h2>
+<p><strong>Source:</strong> HiddenLayer<br>
+<strong>Tactics:</strong> T1, T2, T3<br>
+<strong>Impact:</strong> Bypasses every tested frontier model</p>
+<p>HiddenLayer discovered that reformulating adversarial prompts as XML, INI, or JSON policy configuration files causes LLMs to interpret them as authoritative system-level instructions. Combined with leetspeak encoding (<code class="notranslate">h4rm</code> → <code class="notranslate">harm</code>) and fictional anchoring, the technique achieves universal bypass across GPT-4o, GPT-4.5, o1, o3-mini, Claude 3.5/3.7, Gemini 1.5/2.0/2.5, Llama 3/4, DeepSeek V3/R1, Qwen 2.5, and Mistral.</p>
+<p><strong>Key insight:</strong> Models trained on technical documentation treat configuration-style formatting as high-authority context, overriding safety alignment.</p>
+<hr>
+<h2>E.2: Autonomous LRM Jailbreaking (August 2025)</h2>
+<p><strong>Source:</strong> Nature Communications<br>
+<strong>Tactics:</strong> T3, T4<br>
+<strong>Impact:</strong> 97.14% ASR, AI-vs-AI attack paradigm</p>
+<p>Four large reasoning models (DeepSeek-R1, Gemini 2.5 Flash, Grok 3 Mini, Qwen3 235B) were deployed as multi-turn adversarial agents against nine target models. The study documented "alignment regression" — more capable reasoning models are paradoxically better at subverting alignment in others. This validates AATMF's prediction that reasoning capabilities would become attack capabilities.</p>
+<hr>
+<h2>E.3: PoisonedRAG (USENIX Security 2025)</h2>
+<p><strong>Source:</strong> USENIX Security 2025<br>
+<strong>Tactics:</strong> T12<br>
+<strong>Impact:</strong> 90% ASR with 5 injected texts</p>
+<p>PoisonedRAG demonstrated that injecting as few as 5 adversarially crafted texts into a knowledge base with millions of clean documents is sufficient to control the model's responses to specific target questions. On HotpotQA, ASR reached 99%. The attack works by crafting documents whose vector representations cluster near target queries while containing attacker-chosen answers.</p>
+<p><strong>Key insight:</strong> The semantic similarity search at the heart of RAG is fundamentally exploitable — the same mechanism that makes retrieval useful makes it poisonable.</p>
+<hr>
+<h2>E.4: MCP Tool Poisoning (2025)</h2>
+<p><strong>Source:</strong> Invariant Labs<br>
+<strong>Tactics:</strong> T11<br>
+<strong>Impact:</strong> 84.2% ASR, shadow attacks across tool boundaries</p>
+<p>The MCP-ITP framework demonstrated three critical attack vectors: direct tool description poisoning (injecting instructions that override user intent), shadow attacks (a malicious MCP server manipulating trusted tools from other servers without ever being invoked), and rug pull attacks (silently altering tool descriptions after initial security review and approval).</p>
+<p><strong>Key insight:</strong> The MCP design — where tool descriptions are injected into the LLM context and processed as natural language — is architecturally vulnerable to injection.</p>
+<hr>
+<h2>E.5: ShadowMQ — Copy-Pasted RCE Across Frameworks (November 2025)</h2>
+<p><strong>Source:</strong> Oligo Security<br>
+<strong>Tactics:</strong> T14<br>
+<strong>Impact:</strong> Critical RCE in vLLM, TensorRT-LLM, Modular Max Server</p>
+<p>Oligo discovered that unsafe ZeroMQ socket patterns using Python's pickle deserialization were literally copy-pasted across major inference frameworks. The same vulnerability pattern appeared in vLLM (<a title="CVE-2025-30165" data-hovercard-type="advisory" data-hovercard-url="/advisories/GHSA-9pcc-gvx5-r5wm/hovercard" href="https://github.com/advisories/GHSA-9pcc-gvx5-r5wm">CVE-2025-30165</a>, CVSS 8.0), NVIDIA TensorRT-LLM (<a title="CVE-2025-23254" data-hovercard-type="advisory" data-hovercard-url="/advisories/GHSA-4485-mg4q-xjgv/hovercard" href="https://github.com/advisories/GHSA-4485-mg4q-xjgv">CVE-2025-23254</a>, CVSS 8.8), and Modular Max Server (<a title="CVE-2025-60455" data-hovercard-type="advisory" data-hovercard-url="/advisories/GHSA-7xcv-9j6c-2fmc/hovercard" href="https://github.com/advisories/GHSA-7xcv-9j6c-2fmc">CVE-2025-60455</a>). Thousands of exposed ZMQ sockets were found on the public internet.</p>
+<p><strong>Key insight:</strong> AI infrastructure inherits all traditional software vulnerabilities, amplified by the speed of framework adoption and code reuse without security review.</p>
+<hr>
+<h2>E.6: 250 Poisoned Documents — Universal Training Backdoor (October 2025)</h2>
+<p><strong>Source:</strong> Turing Institute, Anthropic, UK AISI<br>
+<strong>Tactics:</strong> T6<br>
+<strong>Impact:</strong> Universal backdoor regardless of model size</p>
+<p>The largest pretraining poisoning study ever conducted demonstrated that injecting just 250 specially crafted documents into training data is sufficient to backdoor models from 600M to 13B parameters trained on up to 260B tokens. This contradicts the widespread assumption that attackers need to control a meaningful percentage of training data — the actual threshold is negligibly small.</p>
+<p><strong>Key insight:</strong> The sheer scale of pretraining data works against defenders. 250 documents in billions is a needle in a haystack that training cannot filter out but inference reliably activates.</p>
+<hr>
+<p><a href="appendix-d-templates.md">← Appendix D</a> · <a href="../../README.md">Home</a> · <a href="appendix-f-glossary.md">Appendix F →</a></p></div>
+</section><section class="section-block" id="appendix-f-glossary">
+<div class="section-eyebrow">appendix-f-glossary</div>
+<div class="md"><h1>Appendix F: Glossary and References</h1>
+<h2>Glossary</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Term</th>
+<th align="left">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>AATMF</strong></td>
+<td align="left">Adversarial AI Threat Modeling Framework</td>
+</tr>
+<tr>
+<td align="left"><strong>ASR</strong></td>
+<td align="left">Attack Success Rate — percentage of attempts that achieve the adversarial objective</td>
+</tr>
+<tr>
+<td align="left"><strong>CaMeL</strong></td>
+<td align="left">CApability-Mediated LLM — Google DeepMind's dual-LLM security architecture</td>
+</tr>
+<tr>
+<td align="left"><strong>CoT</strong></td>
+<td align="left">Chain-of-Thought — step-by-step reasoning in LLMs</td>
+</tr>
+<tr>
+<td align="left"><strong>DPO</strong></td>
+<td align="left">Direct Preference Optimization — alignment training technique</td>
+</tr>
+<tr>
+<td align="left"><strong>DRS</strong></td>
+<td align="left">Data Randomized Smoothing — defense against training data poisoning</td>
+</tr>
+<tr>
+<td align="left"><strong>H-CoT</strong></td>
+<td align="left">Hijacked Chain-of-Thought — attack that subverts CoT safety reasoning</td>
+</tr>
+<tr>
+<td align="left"><strong>LRM</strong></td>
+<td align="left">Large Reasoning Model — models with explicit reasoning capabilities (o1, o3, DeepSeek-R1)</td>
+</tr>
+<tr>
+<td align="left"><strong>MCP</strong></td>
+<td align="left">Model Context Protocol — Anthropic's standard for tool integration</td>
+</tr>
+<tr>
+<td align="left"><strong>PEFT</strong></td>
+<td align="left">Parameter-Efficient Fine-Tuning — techniques like LoRA for efficient model adaptation</td>
+</tr>
+<tr>
+<td align="left"><strong>PUA</strong></td>
+<td align="left">Private Use Area — Unicode range used for custom characters</td>
+</tr>
+<tr>
+<td align="left"><strong>RAG</strong></td>
+<td align="left">Retrieval-Augmented Generation — architecture combining search with generation</td>
+</tr>
+<tr>
+<td align="left"><strong>RLHF</strong></td>
+<td align="left">Reinforcement Learning from Human Feedback — primary alignment technique</td>
+</tr>
+<tr>
+<td align="left"><strong>SafeTensors</strong></td>
+<td align="left">Secure model serialization format that prevents code execution</td>
+</tr>
+<tr>
+<td align="left"><strong>TEE</strong></td>
+<td align="left">Trusted Execution Environment — hardware-based security enclave</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>Key References</h2>
+<ol>
+<li>HiddenLayer. "Policy Puppetry: A Universal Jailbreak." April 2025.</li>
+<li>Zeng et al. "Autonomous LRM Jailbreaking." <em>Nature Communications</em>, August 2025.</li>
+<li>Xue et al. "PoisonedRAG: Knowledge Corruption Attacks." <em>USENIX Security 2025</em>.</li>
+<li>Invariant Labs. "MCP-ITP: Tool Poisoning in Agentic Systems." April 2025.</li>
+<li>Oligo Security. "ShadowMQ: Unsafe Deserialization in AI Inference Frameworks." November 2025.</li>
+<li>Sherburn et al. "250 Documents: Universal Pretraining Backdoors." <em>Turing Institute/Anthropic/UK AISI</em>, October 2025.</li>
+<li>Anthropic. "GTG-1002: AI-Orchestrated Cyber Campaign." November 2025.</li>
+<li>Google DeepMind. "CaMeL: Defeating Prompt Injection by Design." March 2025.</li>
+<li>Meta. "LlamaFirewall: Open-Source AI Safety Framework." April 2025.</li>
+<li>MITRE. "ATLAS v4.6.0." October 2025.</li>
+<li>OWASP. "LLM Top 10 2025." January 2025.</li>
+<li>OWASP. "Agentic AI Top 10." December 2025.</li>
+<li>NIST. "Cyber AI Profile (IR 8596) Preliminary Draft." December 2025.</li>
+<li>European Parliament. "EU AI Act (Regulation 2024/1689)." 2024.</li>
+<li>Qi et al. "Safety Alignment Depth." <em>Princeton</em>, May 2025.</li>
+<li>Weng et al. "H-CoT: Hijacking Chain-of-Thought." <em>Duke/Accenture</em>, February 2025.</li>
+<li>Borghesi et al. "SACRED-Bench: Compositional Audio Attacks." November 2025.</li>
+</ol>
+<hr>
+<p><a href="appendix-e-case-studies.md">← Appendix E</a> · <a href="../../README.md">Home</a></p></div>
 </section>
-<div class="article-layout">
-<main class="article-body">
-<div class="article-body"> <p>
-Reference materials — the complete attack catalog, detection signatures, tools, assessment templates, case studies, and glossary.
-</p> <div> <a href="index.html#attack-catalog"> Attack Catalog </a><a href="index.html#signatures"> Signatures </a><a href="index.html#tools"> Tools </a><a href="index.html#templates"> Templates </a><a href="index.html#case-studies"> Case Studies </a><a href="index.html#glossary"> Glossary </a> </div> <!-- Attack Catalog --> <section id="attack-catalog"> <h2 id="appendix-a-top-25-critical-techniques">Appendix A: Top 25 Critical Techniques</h2> <p>
-The 25 highest-risk techniques across all 15 AATMF tactics, ranked by AATMF-R v3 score. All 25 score at Critical (250+). The full catalog of all 240 techniques is available in the <a href="../core-tactics/index.html">tactic volumes</a>.
-</p> <div> <table> <thead> <tr> <th>#</th> <th>ID</th> <th>Technique</th> <th>Score</th> </tr> </thead> <tbody> <tr> <td>1</td> <td> <code>T14-AT-007</code> </td> <td>Nation-State AI Warfare</td> <td>280</td> </tr><tr> <td>2</td> <td> <code>T11-AT-016</code> </td> <td>Tool-Induced SSRF &amp; Local Resource</td> <td>275</td> </tr><tr> <td>3</td> <td> <code>T6-AT-003</code> </td> <td>Backdoor Insertion</td> <td>270</td> </tr><tr> <td>4</td> <td> <code>T11-AT-015</code> </td> <td>Autonomous Replication</td> <td>270</td> </tr><tr> <td>5</td> <td> <code>T14-AT-005</code> </td> <td>Critical Infrastructure Attacks</td> <td>270</td> </tr><tr> <td>6</td> <td> <code>T14-AT-014</code> </td> <td>Systemic Risk Creation</td> <td>270</td> </tr><tr> <td>7</td> <td> <code>T11-AT-001</code> </td> <td>Browser Automation Hijacking</td> <td>265</td> </tr><tr> <td>8</td> <td> <code>T14-AT-001</code> </td> <td>GPU Farm Hijacking</td> <td>265</td> </tr><tr> <td>9</td> <td> <code>T14-AT-012</code> </td> <td>Cloud Provider Exploitation</td> <td>265</td> </tr><tr> <td>10</td> <td> <code>T6-AT-002</code> </td> <td>Dataset Contamination</td> <td>260</td> </tr><tr> <td>11</td> <td> <code>T11-AT-013</code> </td> <td>Supply Chain Attacks via Agents</td> <td>260</td> </tr><tr> <td>12</td> <td> <code>T13-AT-010</code> </td> <td>Hardware Supply Chain</td> <td>260</td> </tr><tr> <td>13</td> <td> <code>T14-AT-008</code> </td> <td>Ransomware via AI Systems</td> <td>260</td> </tr><tr> <td>14</td> <td> <code>T15-AT-015</code> </td> <td>Insider Threat Recruitment</td> <td>260</td> </tr><tr> <td>15</td> <td> <code>T11-AT-002</code> </td> <td>Tool Chain Exploitation</td> <td>255</td> </tr><tr> <td>16</td> <td> <code>T11-AT-014</code> </td> <td>Physical World Interactions</td> <td>255</td> </tr><tr> <td>17</td> <td> <code>T13-AT-001</code> </td> <td>Model Repository Poisoning</td> <td>255</td> </tr><tr> <td>18</td> <td> <code>T14-AT-004</code> </td> <td>Market Manipulation via AI</td> <td>255</td> </tr><tr> <td>19</td> <td> <code>T14-AT-013</code> </td> <td>Economic Espionage</td> <td>255</td> </tr><tr> <td>20</td> <td> <code>T6-AT-001</code> </td> <td>Reward Hacking</td> <td>250</td> </tr><tr> <td>21</td> <td> <code>T10-AT-012</code> </td> <td>Secure Enclave Bypasses</td> <td>250</td> </tr><tr> <td>22</td> <td> <code>T11-AT-008</code> </td> <td>Credential Harvesting</td> <td>250</td> </tr><tr> <td>23</td> <td> <code>T13-AT-006</code> </td> <td>Checkpoint Poisoning</td> <td>250</td> </tr><tr> <td>24</td> <td> <code>T14-AT-010</code> </td> <td>Data Center Attacks</td> <td>250</td> </tr><tr> <td>25</td> <td> <code>T15-AT-004</code> </td> <td>Reviewer Bribery &amp; Coercion</td> <td>250</td> </tr> </tbody> </table> </div> </section> <!-- Signatures --> <section id="signatures"> <h2 id="appendix-b-detection-signatures">Appendix B: Detection Signatures</h2> <p>
-YARA rules for content-level analysis and Sigma rules for log-level detection. These signatures can be deployed alongside existing security tooling.
-</p> <div> <pre><code>signatures/
-├── yara/
-│   ├── t01-prompt-injection.yar
-│   ├── t02-encoding-evasion.yar
-│   ├── t09-multimodal-injection.yar
-│   ├── t11-mcp-tool-poisoning.yar
-│   ├── t13-supply-chain.yar
-└── sigma/
-    ├── t05-model-extraction.yml
-    ├── t07-data-exfiltration.yml
-    ├── t11-agent-anomaly.yml
-    └── t14-infrastructure.yml</code></pre> <div> <h3 id="yara-rules-content-analysis">YARA Rules (Content Analysis)</h3> <div> <span>+</span> <span><strong>t01-prompt-injection.yar</strong> — Instruction override, Policy Puppetry, context window manipulation</span> </div><div> <span>+</span> <span><strong>t02-encoding-evasion.yar</strong> — Base64, ROT13, Unicode, homoglyph detection</span> </div><div> <span>+</span> <span><strong>t09-multimodal-injection.yar</strong> — Image metadata, steganographic, cross-modal injection</span> </div><div> <span>+</span> <span><strong>t11-mcp-tool-poisoning.yar</strong> — MCP shadow attacks, rug pulls, tool description manipulation</span> </div><div> <span>+</span> <span><strong>t13-supply-chain.yar</strong> — Model artifact tampering, unsafe deserialization, unsigned packages</span> </div> <h3 id="sigma-rules-log-analysis">Sigma Rules (Log Analysis)</h3> <div> <span>+</span> <span><strong>t05-model-extraction.yml</strong> — Systematic API querying, high-similarity responses, error patterns</span> </div><div> <span>+</span> <span><strong>t07-data-exfiltration.yml</strong> — Fragment extraction, steganographic output, aggregation attacks</span> </div><div> <span>+</span> <span><strong>t11-agent-anomaly.yml</strong> — Anomalous agent behavior, tool chain abuse, recursive loops</span> </div><div> <span>+</span> <span><strong>t14-infrastructure.yml</strong> — Resource exhaustion, cost inflation, GPU farm anomalies</span> </div> </div>  </div> </section> <!-- Tools --> <section id="tools"> <h2 id="appendix-c-tools-scripts-reference">Appendix C: Tools &amp; Scripts Reference</h2> <div> <table> <thead> <tr> <th>Tool</th> <th>Purpose</th> <th>Coverage</th> <th>License</th> </tr> </thead> <tbody> <tr> <td> <span>PromptGuard 2</span> <span>(Meta)</span> </td> <td>Real-time prompt injection classifier</td> <td>T1, T2, T9</td> <td>Apache 2.0</td> </tr><tr> <td> <span>LlamaFirewall</span> <span>(Meta)</span> </td> <td>Comprehensive AI firewall (input + agent + code)</td> <td>T1, T2, T7, T11</td> <td>Apache 2.0</td> </tr><tr> <td> <span>CaMeL</span> <span>(Google DeepMind)</span> </td> <td>Dual-LLM architecture with capability-based access</td> <td>T11</td> <td>Research</td> </tr><tr> <td> <span>PEFTGuard</span> <span>(Open Source)</span> </td> <td>Backdoor detection in PEFT (LoRA) adapters</td> <td>T13</td> <td>Open Source</td> </tr><tr> <td> <span>DRS Defense</span> <span>(Research)</span> </td> <td>Data Randomized Smoothing for training poisoning</td> <td>T6</td> <td>Research</td> </tr><tr> <td> <span>SafeTensors</span> <span>(HuggingFace)</span> </td> <td>Safe model serialization format (no code execution)</td> <td>T13</td> <td>Apache 2.0</td> </tr><tr> <td> <span>Garak</span> <span>(NVIDIA)</span> </td> <td>LLM vulnerability scanner</td> <td>T1–T8</td> <td>Apache 2.0</td> </tr><tr> <td> <span>PyRIT</span> <span>(Microsoft)</span> </td> <td>Python Risk Identification Toolkit for generative AI</td> <td>T1–T12</td> <td>MIT</td> </tr> </tbody> </table> </div> </section> <!-- Templates --> <section id="templates"> <h2 id="appendix-d-assessment-templates">Appendix D: Assessment Templates</h2> <h3 id="ai-security-assessment-checklist">AI Security Assessment Checklist</h3> <div> <div> <h3 id="pre-assessment">Pre-Assessment</h3> <div> <div>  <span>PRE-1: Asset inventory complete (models, agents, RAG, pipelines)</span> </div><div>  <span>PRE-2: AATMF tactic applicability matrix populated</span> </div><div>  <span>PRE-3: Rules of engagement signed</span> </div><div>  <span>PRE-4: Baseline security controls documented</span> </div><div>  <span>PRE-5: Rollback procedures verified</span> </div> </div> </div><div> <h3 id="assessment">Assessment</h3> <div> <div>  <span>ASS-1: Input sanitization tested (T1–T3 techniques)</span> </div><div>  <span>ASS-2: Encoding evasion tested (T2 techniques)</span> </div><div>  <span>ASS-3: Multi-turn attack sequences executed (T4)</span> </div><div>  <span>ASS-4: API abuse patterns tested (T5)</span> </div><div>  <span>ASS-5: Output manipulation attempted (T7)</span> </div><div>  <span>ASS-6: Multimodal injection tested (T9, if applicable)</span> </div><div>  <span>ASS-7: Agentic exploitation attempted (T11, if applicable)</span> </div><div>  <span>ASS-8: RAG poisoning tested (T12, if applicable)</span> </div> </div> </div><div> <h3 id="post-assessment">Post-Assessment</h3> <div> <div>  <span>POST-1: All findings documented with AATMF classification</span> </div><div>  <span>POST-2: Risk scores calculated using AATMF-R v3</span> </div><div>  <span>POST-3: Remediation recommendations provided</span> </div><div>  <span>POST-4: Compliance mapping completed</span> </div><div>  <span>POST-5: Report delivered and findings walkthrough conducted</span> </div> </div> </div> </div> <h3 id="finding-report-template">Finding Report Template</h3> <div> <pre><code># Finding: [Title]
+</div></section>
 
-## Classification
-- AATMF Tactic: T[n] — [Name]
-- AATMF Technique: T[n]-AT-[seq]
-- Risk Score: [score] ([CRITICAL/HIGH/MEDIUM/LOW/INFO])
-- CVSS v3.1: [score] (if applicable)
+<section class="next-vol"><div class="next-vol-inner">
+<a href="/frameworks/aatmf/foundations/" class="vol-card"><div class="vol-card-num">Vol I →</div><div class="vol-card-title">Foundations</div><div class="vol-card-desc">Introduction, risk-assessment methodology, and architecture for adversarial AI threat mode…</div></a><a href="/frameworks/aatmf/core-tactics/" class="vol-card"><div class="vol-card-num">Vol II →</div><div class="vol-card-title">Core Tactics (T01–T08)</div><div class="vol-card-desc">The eight foundational adversarial-AI tactics: prompt subversion, semantic evasion, reason…</div></a><a href="/frameworks/aatmf/advanced-tactics/" class="vol-card"><div class="vol-card-num">Vol III →</div><div class="vol-card-title">Advanced Tactics (T09–T12)</div><div class="vol-card-desc">Multimodal attacks, integrity breach, agentic exploitation, RAG-specific threats — for sys…</div></a><a href="/frameworks/aatmf/infrastructure/" class="vol-card"><div class="vol-card-num">Vol IV →</div><div class="vol-card-title">Infrastructure & Human (T13–T15)</div><div class="vol-card-desc">Where the attack surface meets the surrounding stack: supply chain, infrastructure, and th…</div></a><a href="/frameworks/aatmf/operations/" class="vol-card"><div class="vol-card-num">Vol V →</div><div class="vol-card-title">Operations</div><div class="vol-card-desc">Detection engineering, mitigation, incident response, red-team ops, blue-team defense — ap…</div></a><a href="/frameworks/aatmf/governance/" class="vol-card"><div class="vol-card-num">Vol VI →</div><div class="vol-card-title">Governance</div><div class="vol-card-desc">Risk management, compliance mapping (NIST AI RMF, MITRE ATLAS), and security training prog…</div></a>
+</div></section>
 
-## Description
-[Clear description of the vulnerability]
-
-## Proof of Concept
-[Steps to reproduce, including exact prompts/inputs]
-
-## Impact
-[Business and technical impact assessment]
-
-## Mitigation
-[Specific remediation steps]
-
-## Compliance Mapping
-- OWASP LLM Top 10: [LLM0x]
-- MITRE ATLAS: [AML.Txxxx]
-- EU AI Act: [Article]</code></pre> </div> </section> <!-- Case Studies --> <section id="case-studies"> <h2 id="appendix-e-case-studies">Appendix E: Case Studies</h2> <p>
-Real-world attacks and research findings from 2025–2026 that shaped AATMF v3.
-</p> <div> <details> <summary> <div> <span>E.1</span> <div> <span>Policy Puppetry — Universal Model Bypass</span> <span>HiddenLayer, April 2025</span> </div> </div>  </summary> <div> <p>Reformulating adversarial prompts as XML, INI, or JSON policy configuration files causes LLMs to interpret them as authoritative system-level instructions. Achieves universal bypass across GPT-4o, GPT-4.5, o1, o3-mini, Claude 3.5/3.7, Gemini 1.5/2.0/2.5, Llama 3/4, DeepSeek V3/R1, Qwen 2.5, and Mistral.</p> <div> <p>Key Insight</p> <p>Models trained on technical documentation treat configuration-style formatting as high-authority context, overriding safety alignment.</p> </div> </div> </details><details> <summary> <div> <span>E.2</span> <div> <span>Autonomous LRM Jailbreaking</span> <span>Nature Communications, August 2025</span> </div> </div>  </summary> <div> <p>Four large reasoning models deployed as multi-turn adversarial agents against nine target models achieved 97.14% ASR. More capable reasoning models are paradoxically better at subverting alignment in others.</p> <div> <p>Key Insight</p> <p>Reasoning capabilities are attack capabilities. This validates AATMF's prediction that LRM advancements would be weaponized.</p> </div> </div> </details><details> <summary> <div> <span>E.3</span> <div> <span>PoisonedRAG</span> <span>USENIX, USENIX Security 2025</span> </div> </div>  </summary> <div> <p>Injecting as few as 5 adversarially crafted texts into a knowledge base with millions of clean documents controls the model's responses to specific target questions. ASR reached 99% on HotpotQA.</p> <div> <p>Key Insight</p> <p>The semantic similarity search at the heart of RAG is fundamentally exploitable — the same mechanism that makes retrieval useful makes it poisonable.</p> </div> </div> </details><details> <summary> <div> <span>E.4</span> <div> <span>MCP Tool Poisoning</span> <span>Invariant Labs, 2025</span> </div> </div>  </summary> <div> <p>84.2% ASR via direct tool description poisoning, shadow attacks (malicious server manipulates trusted tools without being invoked), and rug pull attacks (silently altering descriptions post-approval).</p> <div> <p>Key Insight</p> <p>The MCP design — where tool descriptions are processed as natural language — is architecturally vulnerable to injection.</p> </div> </div> </details><details> <summary> <div> <span>E.5</span> <div> <span>ShadowMQ — Copy-Pasted RCE</span> <span>Oligo Security, November 2025</span> </div> </div>  </summary> <div> <p>Unsafe ZeroMQ socket patterns were literally copy-pasted across major inference frameworks — vLLM, TensorRT-LLM, and Modular Max Server. Thousands of exposed ZMQ sockets found on the public internet.</p> <div> <p>Key Insight</p> <p>AI infrastructure inherits all traditional software vulnerabilities, amplified by the speed of framework adoption and code reuse without security review.</p> </div> </div> </details><details> <summary> <div> <span>E.6</span> <div> <span>250 Poisoned Documents — Universal Training Backdoor</span> <span>Turing Institute / Anthropic / UK AISI, October 2025</span> </div> </div>  </summary> <div> <p>Injecting just 250 specially crafted documents into training data backdoors models from 600M to 13B parameters trained on up to 260B tokens. The actual threshold for poisoning is negligibly small.</p> <div> <p>Key Insight</p> <p>The sheer scale of pretraining data works against defenders. 250 documents in billions is a needle in a haystack that training cannot filter out.</p> </div> </div> </details> </div> </section> <!-- Glossary --> <section id="glossary"> <h2 id="appendix-f-glossary">Appendix F: Glossary</h2> <div> <table> <thead> <tr> <th>Term</th> <th>Definition</th> </tr> </thead> <tbody> <tr> <td>AATMF</td> <td>Adversarial AI Threat Modeling Framework</td> </tr><tr> <td>ASR</td> <td>Attack Success Rate — percentage of attempts that achieve the adversarial objective</td> </tr><tr> <td>CaMeL</td> <td>CApability-Mediated LLM — Google DeepMind's dual-LLM security architecture</td> </tr><tr> <td>CoT</td> <td>Chain-of-Thought — step-by-step reasoning in LLMs</td> </tr><tr> <td>DPO</td> <td>Direct Preference Optimization — alignment training technique</td> </tr><tr> <td>DRS</td> <td>Data Randomized Smoothing — defense against training data poisoning</td> </tr><tr> <td>H-CoT</td> <td>Hijacked Chain-of-Thought — attack that subverts CoT safety reasoning</td> </tr><tr> <td>LRM</td> <td>Large Reasoning Model — models with explicit reasoning capabilities (o1, o3, DeepSeek-R1)</td> </tr><tr> <td>MCP</td> <td>Model Context Protocol — Anthropic's standard for tool integration</td> </tr><tr> <td>PEFT</td> <td>Parameter-Efficient Fine-Tuning — techniques like LoRA for efficient model adaptation</td> </tr><tr> <td>RAG</td> <td>Retrieval-Augmented Generation — architecture combining search with generation</td> </tr><tr> <td>RLHF</td> <td>Reinforcement Learning from Human Feedback — primary alignment technique</td> </tr><tr> <td>SafeTensors</td> <td>Secure model serialization format that prevents code execution</td> </tr><tr> <td>TEE</td> <td>Trusted Execution Environment — hardware-based security enclave</td> </tr> </tbody> </table> </div> </section> <!-- References --> <section id="references"> <h2 id="key-references">Key References</h2> <ol> <li>HiddenLayer. "Policy Puppetry: A Universal Jailbreak." April 2025.</li><li>Zeng et al. "Autonomous LRM Jailbreaking." Nature Communications, August 2025.</li><li>Xue et al. "PoisonedRAG: Knowledge Corruption Attacks." USENIX Security 2025.</li><li>Invariant Labs. "MCP-ITP: Tool Poisoning in Agentic Systems." April 2025.</li><li>Oligo Security. "ShadowMQ: Unsafe Deserialization in AI Inference Frameworks." November 2025.</li><li>Sherburn et al. "250 Documents: Universal Pretraining Backdoors." Turing Institute/Anthropic/UK AISI, October 2025.</li><li>Anthropic. "GTG-1002: AI-Orchestrated Cyber Campaign." November 2025.</li><li>Google DeepMind. "CaMeL: Defeating Prompt Injection by Design." March 2025.</li><li>Meta. "LlamaFirewall: Open-Source AI Safety Framework." April 2025.</li><li>MITRE. "ATLAS v4.6.0." October 2025.</li><li>OWASP. "LLM Top 10 2025." January 2025.</li><li>OWASP. "Agentic AI Top 10." December 2025.</li><li>NIST. "Cyber AI Profile (IR 8596) Preliminary Draft." December 2025.</li><li>European Parliament. "EU AI Act (Regulation 2024/1689)." 2024.</li><li>Qi et al. "Safety Alignment Depth." Princeton, May 2025.</li><li>Weng et al. "H-CoT: Hijacking Chain-of-Thought." Duke/Accenture, February 2025.</li><li>Borghesi et al. "SACRED-Bench: Compositional Audio Attacks." November 2025.</li> </ol> </section> </div>
-</main>
-<aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#appendix-a-top-25-critical-techniques">Appendix A: Top 25 Critical Techniques</a></li><li><a href="#appendix-b-detection-signatures">Appendix B: Detection Signatures</a></li><li class="h3"><a href="#yara-rules-content-analysis">YARA Rules (Content Analysis)</a></li><li class="h3"><a href="#sigma-rules-log-analysis">Sigma Rules (Log Analysis)</a></li><li><a href="#appendix-c-tools-scripts-reference">Appendix C: Tools &amp; Scripts Reference</a></li><li><a href="#appendix-d-assessment-templates">Appendix D: Assessment Templates</a></li><li class="h3"><a href="#ai-security-assessment-checklist">AI Security Assessment Checklist</a></li><li class="h3"><a href="#pre-assessment">Pre-Assessment</a></li><li class="h3"><a href="#assessment">Assessment</a></li><li class="h3"><a href="#post-assessment">Post-Assessment</a></li><li class="h3"><a href="#finding-report-template">Finding Report Template</a></li><li><a href="#appendix-e-case-studies">Appendix E: Case Studies</a></li><li><a href="#appendix-f-glossary">Appendix F: Glossary</a></li><li><a href="#key-references">Key References</a></li></ul></aside>
-</div>
-<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/frameworks/aatmf/advanced-tactics/"><div class="related-date"></div><div class="related-title">AATMF Advanced Tactics T9-T12 | RAG Attacks</div><div class="related-desc">AATMF v3 advanced tactics T9-T12 covering multimodal injection, output integrity breaches, agentic AI exploitation, and RAG knowledge base m…</div></a><a class="related-card" href="/frameworks/aatmf/core-tactics/"><div class="related-date"></div><div class="related-title">AATMF Core Tactics T1-T8 | Prompt Injection</div><div class="related-desc">AATMF v3 core tactics T1-T8 covering prompt subversion, semantic evasion, reasoning exploitation, multi-turn manipulation, and training data…</div></a><a class="related-card" href="/frameworks/aatmf/foundations/"><div class="related-date"></div><div class="related-title">AATMF Foundations | Risk Assessment &amp; Architecture</div><div class="related-desc">AATMF v3 methodology, AATMF-R risk scoring formula, and framework architecture. Quantitative risk assessment and threat modeling for adversa…</div></a></div></div></section>
-
-  <!-- citation:start -->
-  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
-    <div style="max-width:780px;margin:0 auto">
-      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
-        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026appendices,
-  author = {Aizen, Kai},
-  title  = {AATMF Appendices | Attack Catalog & Signatures},
-  year   = {2026},
-  url    = {https://snailsploit.com/frameworks/aatmf/appendices/},
-  note   = {snailsploit.com}
-}</pre>
-      </details>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>AATMF Appendices | Attack Catalog & Signatures</i>. snailsploit.com. https://snailsploit.com/frameworks/aatmf/appendices/</p>
-      </details>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "AATMF Appendices | Attack Catalog & Signatures." <i>snailsploit</i>, 2026, https://snailsploit.com/frameworks/aatmf/appendices/.</p>
-      </details>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "AATMF Appendices | Attack Catalog & Signatures." snailsploit (blog). 2026. https://snailsploit.com/frameworks/aatmf/appendices/.</p>
-      </details>
-      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/frameworks/aatmf/appendices/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/frameworks/aatmf/appendices/</a></div>
-    </div>
-  </section>
-  <!-- citation:end -->
-<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
-<footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a></span><!-- legal-nav --></footer>
+<section class="author-row"><div class="author-inner">
+<div class="author-eye">Author</div>
+<div class="author-name">Kai Aizen</div>
+<div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div>
+<div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div>
+</div></section>
+<footer class="footer"><div class="footer-inner">
+<span>© 2026 kai aizen · same attack. different substrate.</span>
+<span class="footer-legal"><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a></span>
+</div></footer>
 </body>
 </html>

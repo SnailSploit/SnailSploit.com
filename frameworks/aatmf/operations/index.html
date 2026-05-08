@@ -1,210 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>AATMF Operations | Red Team &amp; Blue Team Guides | snailsploit</title>
-<meta content="AATMF v3 operational guidance covering detection engineering, mitigation strategies, incident response playbooks, and red team and blue team defense for AI." name="description"/>
-<meta content="Kai Aizen" name="author"/>
-<meta content="index, follow, max-image-preview:large, max-snippet:-1" name="robots"/>
-<link href="https://snailsploit.com/frameworks/aatmf/operations/" rel="canonical"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AATMF v3.1 · Volume V — Operations | snailsploit</title>
+<meta name="description" content="Detection, mitigation, incident response, red team, blue team — applying AATMF in production.">
+<meta name="author" content="Kai Aizen">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://snailsploit.com/frameworks/aatmf/operations/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
 html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
-*{box-sizing:border-box}
-a{color:inherit;text-decoration:none}
+*{box-sizing:border-box}a{color:inherit;text-decoration:none}
 .nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
-.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}
-.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}
-.wm-sig .dollar{color:var(--signal-2)}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;line-height:1;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;margin-left:1.96px}.wm-sig .dollar{color:var(--signal-2)}
 .nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
 .nav-links a:hover{color:var(--fg)}
-.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
-.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}
-.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.crumbs a{color:var(--fg-3)}
-.crumbs a:hover{color:var(--fg)}
-.crumbs .sep{color:var(--fg-4)}
-
-.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}
-.article-hero-inner{max-width:1280px;margin:0 auto}
-.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:24px;flex-wrap:wrap;margin-bottom:24px}
-.article-meta time{color:var(--fg-3)}
-.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0;max-width:1080px}
-.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:780px}
-
-.article-layout{max-width:1280px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:1fr 240px;gap:64px;align-items:start;border-bottom:1px solid var(--line)}
-.article-body{min-width:0;font-size:17px;line-height:1.75;color:var(--fg-2);max-width:780px}
-.article-body > *:first-child{margin-top:0}
-.article-body h2{font-size:32px;font-weight:500;line-height:1.2;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:24px;border-top:1px solid var(--line);scroll-margin-top:96px}
-.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px;scroll-margin-top:96px}
-.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px}
-.article-body p{margin:16px 0}
-.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}
-.article-body li{margin:6px 0}
-.article-body strong{color:var(--fg);font-weight:600}
-.article-body em{color:var(--fg);font-style:italic}
-.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
-.article-body a:hover{border-bottom-color:var(--signal-2)}
-.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg);border-radius:2px}
-.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0;border-radius:2px}
-.article-body pre code{background:none;border:0;padding:0;font-size:inherit;border-radius:0}
-.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}
-.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}
-.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}
-.article-body img,.article-body picture{display:block;max-width:100%;height:auto;margin:32px auto;border:1px solid var(--line);background:var(--bg-raise)}
-.article-body picture img{margin:0;border:0}
-.article-body figure{margin:32px 0}
-.article-body figure img{margin:0 auto}
-.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:12px;text-align:center;line-height:1.5}
-.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
-
-.toc{position:sticky;top:96px;align-self:start;font-family:var(--f-mono);font-size:12px;line-height:1.7;max-height:calc(100vh - 128px);overflow-y:auto}
-.toc-eyebrow{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:11px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.toc ul{list-style:none;padding:0;margin:0}
-.toc li{padding:4px 0}
-.toc li.h3{padding-left:16px;font-size:11.5px}
-.toc a{color:var(--fg-2);display:block;padding:2px 0;border-left:2px solid transparent;padding-left:12px;margin-left:-14px;transition:color 0.15s, border-color 0.15s}
-.toc a:hover{color:var(--fg);border-left-color:var(--signal-2)}
-
-@media (max-width: 960px){
-  .article-layout{grid-template-columns:1fr;gap:32px}
-  .toc{display:none}
-}
-
-.callout{margin:32px 0;padding:20px 24px;border:1px solid var(--line-hi);background:var(--bg-raise);font-family:var(--f-mono);font-size:14px;line-height:1.6}
-.callout-label{font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px;font-weight:500}
-
-.related{padding:64px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
-.related-inner{max-width:1280px;margin:0 auto}
-.related-head{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:32px}
-.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.related-card{padding:24px;border:1px solid var(--line);background:var(--bg);transition:border-color 0.15s}
-.related-card:hover{border-color:var(--signal-2)}
-.related-date{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-bottom:8px}
-.related-title{font-size:18px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);line-height:1.3;margin-bottom:8px}
-.related-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.55}
-
+.site-crumbs{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 96%,transparent)}
+.site-crumbs-inner{max-width:1280px;margin:0 auto;padding:14px 32px;display:flex;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.site-crumbs a{color:var(--fg-3)}.site-crumbs .sep{color:var(--fg-4)}.site-crumbs .here{color:var(--fg)}
+.hero{padding:80px 32px 56px;border-bottom:1px solid var(--line)}
+.hero-inner{max-width:1080px;margin:0 auto}
+.eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px}
+h1.vol-h1{font-size:88px;font-weight:500;line-height:0.96;letter-spacing:-0.04em;margin:0;color:var(--fg)}
+.vol-num{font-family:var(--f-mono);color:var(--fg-3);font-size:0.7em;margin-right:0.2em;letter-spacing:-0.02em}
+.lede{font-family:var(--f-mono);font-size:16px;color:var(--fg-2);line-height:1.65;margin:32px 0 0;max-width:780px}
+.toc-bar{padding:24px 32px;border-bottom:1px solid var(--line);background:var(--bg-sink)}
+.toc-bar-inner{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;font-family:var(--f-mono);font-size:12px}
+.toc-bar a{padding:6px 12px;border:1px solid var(--line-hi);background:var(--bg);color:var(--fg-2);text-decoration:none;transition:border-color 0.15s}
+.toc-bar a:hover{border-color:var(--signal-2);color:var(--fg)}
+.body{padding:64px 32px;border-bottom:1px solid var(--line)}
+.body-inner{max-width:780px;margin:0 auto}
+.section-block{margin-bottom:64px;padding-bottom:48px;border-bottom:1px dashed var(--line)}
+.section-block:last-child{border-bottom:0}
+.md{font-size:16px;line-height:1.7;color:var(--fg-2)}
+.md h1{font-family:var(--f-grot);font-size:38px;font-weight:500;color:var(--fg);margin:0 0 16px;letter-spacing:-0.025em;line-height:1.15;scroll-margin-top:96px}
+.md h2{font-family:var(--f-grot);font-size:26px;font-weight:500;color:var(--fg);margin:48px 0 12px;padding-top:16px;border-top:1px solid var(--line);letter-spacing:-0.02em;scroll-margin-top:96px}
+.md h3{font-family:var(--f-grot);font-size:20px;font-weight:500;color:var(--fg);margin:32px 0 8px;letter-spacing:-0.015em;scroll-margin-top:96px}
+.md h4{font-size:16px;font-weight:600;color:var(--fg);margin:20px 0 6px}
+.md h5,.md h6{font-size:14px;font-weight:600;color:var(--fg);margin:16px 0 6px;text-transform:uppercase;letter-spacing:0.08em}
+.md p{margin:14px 0}
+.md ul,.md ol{margin:14px 0;padding-left:22px}
+.md li{margin:4px 0}
+.md li > p{margin:6px 0}
+.md strong{color:var(--fg);font-weight:600}
+.md em{color:var(--fg);font-style:italic}
+.md a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.md a:hover{border-bottom-color:var(--signal-2)}
+.md code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);border-radius:2px;color:var(--fg)}
+.md pre{background:var(--bg-sink);border:1px solid var(--line);padding:18px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:20px 0;border-radius:2px}
+.md pre code{background:none;border:0;padding:0;font-size:inherit}
+.md blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 18px;margin:20px 0;color:var(--fg);font-style:italic}
+.md table{width:100%;border-collapse:collapse;margin:20px 0;font-family:var(--f-mono);font-size:13px}
+.md th,.md td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.md th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.1em;font-size:11px;font-weight:500}
+.md hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+.md img{max-width:100%;height:auto;margin:20px 0;border:1px solid var(--line)}
+.md .markdown-alert{padding:14px 16px;border:1px solid var(--line-hi);background:var(--bg-raise);margin:16px 0;border-radius:2px}
+.md .markdown-alert p{margin:4px 0}
+.md details{padding:12px 16px;border:1px solid var(--line);background:var(--bg-raise);margin:12px 0}
+.md summary{cursor:pointer;font-weight:500;color:var(--fg);font-family:var(--f-mono);font-size:13px}
+.section-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px}
+.next-vol{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.next-vol-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.vol-card{padding:20px;border:1px solid var(--line-hi);background:var(--bg);text-decoration:none;color:var(--fg)}
+.vol-card:hover{border-color:var(--signal-2)}
+.vol-card-num{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:6px}
+.vol-card-title{font-size:18px;font-weight:500;letter-spacing:-0.015em}
+.vol-card-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:6px;line-height:1.55}
 .author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
-.author-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}
-.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
-.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}
-.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}
-.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.author-inner{max-width:780px;margin:0 auto}.author-eye{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.author-name{font-size:22px;font-weight:500;margin-top:10px}
+.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;margin-top:8px;max-width:600px}
+.author-links{font-family:var(--f-mono);font-size:12px;display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
 .author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
-.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}
-
-.footer{background:var(--bg-sink)}
-.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}
-.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
-</style>
-<meta content="article" property="og:type"/>
-<meta content="AATMF Operations | Red Team &amp; Blue Team Guides" property="og:title"/>
-<meta content="AATMF v3 operational guidance covering detection engineering, mitigation strategies, incident response playbooks, and red team and blue team defense for AI." property="og:description"/>
-<meta content="https://snailsploit.com/frameworks/aatmf/operations/" property="og:url"/>
-<meta content="snailsploit" property="og:site_name"/>
-<meta content="https://snailsploit.com/og-cover.png" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
-<meta content="en_US" property="og:locale"/>
-<meta content="Kai Aizen" property="article:author"/>
-<meta content="2026-01-01" property="article:published_time"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="@SnailSploit" name="twitter:site"/>
-<meta content="@SnailSploit" name="twitter:creator"/>
-<meta content="AATMF Operations | Red Team &amp; Blue Team Guides" name="twitter:title"/>
-<meta content="AATMF v3 operational guidance covering detection engineering, mitigation strategies, incident response playbooks, and red team and blue team defense for AI." name="twitter:description"/>
-<meta content="https://snailsploit.com/og-cover.png" name="twitter:image"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"Article","headline":"AATMF Operations | Red Team & Blue Team Guides","description":"AATMF v3 operational guidance covering detection engineering, mitigation strategies, incident response playbooks, and red team and blue team defense for AI.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-01-01","dateModified":"2026-01-01","url":"https://snailsploit.com/frameworks/aatmf/operations/","mainEntityOfPage":"https://snailsploit.com/frameworks/aatmf/operations/","image":"https://snailsploit.com/og-cover.png","wordCount":1168,"keywords":"AI security, adversarial AI, prompt injection, red teaming, vulnerability research"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Frameworks","item":"https://snailsploit.com/frameworks"},{"@type":"ListItem","position":3,"name":"AATMF Operations | Red Team & Blue Team Guides","item":"https://snailsploit.com/frameworks/aatmf/operations/"}]}]}</script>
-<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="/apple-touch-icon.png" rel="alternate icon" type="image/png"/>
-<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<link href="/manifest.webmanifest" rel="manifest"/>
-<meta content="#0E0E0F" name="theme-color"/>
-<meta content="strict-origin-when-cross-origin" name="referrer"/>
-<meta content="telephone=no" name="format-detection"/>
-<meta content="dark" name="color-scheme"/>
-<link href="/rss.xml" rel="alternate" title="snailsploit research" type="application/rss+xml"/>
-<link href="/feed.xml" rel="alternate" title="snailsploit research" type="application/atom+xml"/>
-<script data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}' defer="" src="https://static.cloudflareinsights.com/beacon.min.js"></script>
-
-  <!-- responsive:start -->
-  <style>
-/* ── responsive overrides ── */
-@media (max-width: 880px) {
-  /* container padding */
-  .nav-inner, .footer-inner, .footer-grid, .hero-inner, .hero-hero-inner, .article-hero-inner, .section-inner, .article-layout, .related-inner, .author-inner, .tabs-inner, .about-header, .about-grid, .article-hero, .related, .author-row, .footer, .nav { padding-left: 20px !important; padding-right: 20px !important; }
-  /* nav: horizontal scroll */
-  .nav-inner { gap: 12px !important; padding-top: 12px !important; padding-bottom: 12px !important; }
-  .nav-links { gap: 18px !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; flex-wrap: nowrap !important; max-width: 100% !important; padding-bottom: 4px !important; }
-  .nav-links::-webkit-scrollbar { display: none; }
-  .nav-links a { white-space: nowrap !important; }
-  .nav-utils { display: none !important; }
-  .wm { font-size: 22px !important; }
-  .wm-sig { font-size: 12px !important; }
-  /* typography downscale */
-  .hero-tagline, .h1, [style*="font-size:132px"], [style*="font-size: 132px"] { font-size: 52px !important; line-height: 0.96 !important; letter-spacing: -0.04em !important; }
-  [style*="font-size:128px"], [style*="font-size: 128px"], [style*="font-size:112px"], [style*="font-size: 112px"], [style*="font-size:96px"], [style*="font-size: 96px"] { font-size: 48px !important; line-height: 1 !important; }
-  [style*="font-size:88px"], [style*="font-size: 88px"], .about-heading { font-size: 44px !important; }
-  [style*="font-size:80px"], [style*="font-size: 80px"], [style*="font-size:72px"], [style*="font-size: 72px"], [style*="font-size:64px"], [style*="font-size: 64px"], .article-h1 { font-size: 36px !important; line-height: 1.1 !important; }
-  [style*="font-size:56px"], [style*="font-size: 56px"] { font-size: 32px !important; line-height: 1.1 !important; }
-  [style*="font-size:40px"], [style*="font-size: 40px"], .section-title { font-size: 26px !important; }
-  /* multi-col grids → single col */
-  [style*="grid-template-columns: 180px 1fr 280px"], [style*="grid-template-columns: 180px 1fr"], [style*="grid-template-columns:180px 1fr"], [style*="grid-template-columns: 180px 1fr 280px"] { grid-template-columns: 1fr !important; gap: 24px !important; }
-  [style*="grid-template-columns: 1fr auto"], [style*="grid-template-columns:1fr auto"] { grid-template-columns: 1fr !important; gap: 12px !important; }
-  [style*="grid-template-columns: 1.4fr 1fr"], [style*="grid-template-columns:1.4fr 1fr"], [style*="grid-template-columns: 1.3fr 1fr"], [style*="grid-template-columns:1.3fr 1fr"], [style*="grid-template-columns: 1.1fr 1fr"], [style*="grid-template-columns:1.1fr 1fr"] { grid-template-columns: 1fr !important; gap: 32px !important; }
-  [style*="grid-template-columns: 240px 1fr"], [style*="grid-template-columns:240px 1fr"], [style*="grid-template-columns: 200px 1fr 280px"], [style*="grid-template-columns:200px 1fr 280px"] { grid-template-columns: 1fr !important; gap: 12px !important; }
-  [style*="grid-template-columns: 2fr 1fr 1fr 1fr"], [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
-  [style*="grid-template-columns: 1fr 1fr"], [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
-  [style*="grid-template-columns: 180px 1.2fr 1.5fr 60px 60px"], [style*="grid-template-columns:180px 1.2fr 1.5fr 60px 60px"] { grid-template-columns: 1fr 60px !important; gap: 8px !important; font-size: 11px !important; }
-  /* hub list rows */
-  .row { grid-template-columns: 1fr !important; gap: 6px !important; padding: 16px 0 !important; }
-  .row-meta { text-align: left !important; font-size: 10px !important; }
-  /* sticky stuff goes static */
-  .sticky-label, .toc, .tabs, [style*="position: sticky"], [style*="position:sticky"] { position: static !important; max-height: none !important; }
-  .toc { display: none !important; }
-  /* cards stack */
-  .cards { grid-template-columns: 1fr !important; gap: 12px !important; }
-  /* tools grid */
-  .tools-grid { grid-template-columns: 1fr !important; }
-  .tool-cell.odd, .tool-cell.even { padding-left: 0 !important; padding-right: 0 !important; border-right: 0 !important; }
-  /* section padding */
-  .article-hero { padding-top: 40px !important; padding-bottom: 40px !important; }
-  .article-body-section, .section { padding-top: 40px !important; padding-bottom: 40px !important; }
-  /* badges shrink */
-  .badge, .hero-badges .badge { font-size: 10px !important; padding: 5px 8px !important; }
-  /* hero links column */
-  .hero-links { border-left: 0 !important; padding-left: 0 !important; padding-top: 24px !important; border-top: 1px solid var(--line); margin-top: 12px; }
-  /* footer stacks */
-  .footer-inner { flex-direction: column !important; gap: 24px !important; align-items: flex-start !important; }
-  /* tables: horizontal scroll */
-  .article-body table, table { display: block !important; overflow-x: auto !important; max-width: 100% !important; white-space: nowrap !important; }
-  /* code blocks: shrink */
-  .article-body pre { font-size: 11px !important; padding: 12px !important; }
-  .article-body { font-size: 16px !important; }
-  /* article-meta */
-  .article-meta { gap: 12px !important; font-size: 10px !important; flex-wrap: wrap !important; }
-  /* crumbs wrap nicely */
-  .crumbs { font-size: 10px !important; }
-}
-
-@media (max-width: 480px) {
-  .hero-tagline { font-size: 40px !important; }
-  .h1 { font-size: 36px !important; }
-  .article-h1 { font-size: 28px !important; }
-  .about-heading { font-size: 36px !important; }
-  .nav-inner { padding-top: 10px !important; padding-bottom: 10px !important; }
-  .wm { font-size: 20px !important; }
-  .badge { font-size: 9px !important; padding: 4px 6px !important; }
+.footer{background:var(--bg-sink)}.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);flex-wrap:wrap;gap:16px}
+.footer-legal{display:flex;gap:14px}.footer-legal a{color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)}
+@media (max-width:880px){
+  h1.vol-h1{font-size:48px}
+  .nav-inner,.hero,.toc-bar,.body,.next-vol,.author-row,.footer-inner,.site-crumbs-inner{padding-left:20px !important;padding-right:20px !important}
+  .md h1{font-size:28px}.md h2{font-size:22px}.md h3{font-size:18px}
+  .footer-inner{flex-direction:column;align-items:flex-start}
 }
 </style>
-  <!-- responsive:end -->
 
-  <!-- gtm:head:start -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="AATMF v3.1 · Volume V — Operations">
+<meta property="og:description" content="Detection, mitigation, incident response, red team, blue team — applying AATMF in production.">
+<meta property="og:url" content="https://snailsploit.com/frameworks/aatmf/operations/">
+<meta property="og:site_name" content="snailsploit">
+<meta property="og:image" content="https://snailsploit.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SnailSploit">
+<meta name="twitter:creator" content="@SnailSploit">
+<meta name="twitter:title" content="AATMF v3.1 · Volume V — Operations">
+<meta name="twitter:description" content="Detection, mitigation, incident response, red team, blue team — applying AATMF in production.">
+<meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"TechArticle","headline":"AATMF v3.1 \u00b7 Volume V \u2014 Operations","description":"Detection engineering, mitigation, incident response, red-team ops, blue-team defense \u2014 applying AATMF in production.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"url":"https://snailsploit.com/frameworks/aatmf/operations/","mainEntityOfPage":"https://snailsploit.com/frameworks/aatmf/operations/","image":"https://snailsploit.com/og-cover.png","isPartOf":{"@type":"Book","name":"AATMF v3.1","url":"https://snailsploit.com/aatmf"},"keywords":"AATMF, adversarial AI, threat modeling, Operations","datePublished":"2026-04-01","dateModified":"2026-05-08"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Frameworks","item":"https://snailsploit.com/frameworks"},{"@type":"ListItem","position":3,"name":"AATMF","item":"https://snailsploit.com/aatmf"},{"@type":"ListItem","position":4,"name":"Operations","item":"https://snailsploit.com/frameworks/aatmf/operations/"}]}]}</script>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -212,91 +114,749 @@ a{color:inherit;text-decoration:none}
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-KNQQ58JL');</script>
   <!-- End Google Tag Manager -->
-  <!-- gtm:head:end -->
 </head>
 <body>
-<!-- gtm:body:start -->
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQQ58JL"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<!-- gtm:body:end -->
+<header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/aatmf">aatmf</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/cves">cves</a></li></ul></nav></div></header>
+<nav class="site-crumbs" aria-label="Breadcrumb"><div class="site-crumbs-inner"><a href="/">Home</a><span class="sep">/</span><a href="/frameworks">Frameworks</a><span class="sep">/</span><a href="/aatmf">AATMF</a><span class="sep">/</span><span class="here">Vol V — Operations</span></div></nav>
 
-<header class="nav"><div class="nav-inner"><a class="wm" href="/">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li></ul></nav><div class="nav-utils"><span>⌘K</span><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header>
-<section class="article-hero">
-<div class="article-hero-inner">
-<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/frameworks">Frameworks</a><span class="sep">/</span><span>AATMF Operations | Red Team &amp; Blue Team Guides</span></div>
-<div class="article-meta">
-<time datetime="2026-01-01">2026-01-01</time>
-<span>5 min read</span>
-</div>
-<h1 class="article-h1">AATMF Operations | Red Team &amp; Blue Team Guides</h1>
-<p class="article-lede">AATMF v3 operational guidance covering detection engineering, mitigation strategies, incident response playbooks, and red team and blue team defense for AI.</p>
-</div>
+<section class="hero"><div class="hero-inner">
+  <div class="eyebrow">AATMF v3.1 · Volume V</div>
+  <h1 class="vol-h1"><span class="vol-num">V.</span>operations.</h1>
+  <p class="lede">Detection, mitigation, incident response, red team, blue team — applying AATMF in production.</p>
+</div></section>
+
+<div class="toc-bar"><div class="toc-bar-inner"><a href="#19-detection-engineering">Part 19: Detection Engineering</a><a href="#20-mitigation">Part 20: Mitigation Strategies</a><a href="#21-incident-response">Part 21: Incident Response for AI Systems</a><a href="#22-red-team-ops">Part 22: Red Team Operations</a><a href="#23-blue-team-defense">Part 23: Blue Team Defense</a></div></div>
+
+<section class="body"><div class="body-inner">
+<section class="section-block" id="19-detection-engineering">
+<div class="section-eyebrow">19-detection-engineering</div>
+<div class="md"><h1>Part 19: Detection Engineering</h1>
+<h2>Detection Architecture</h2>
+<p>AATMF detection operates across five layers, each providing defense-in-depth against adversarial AI attacks:</p>
+<pre class="notranslate"><code class="notranslate">┌─────────────────────────────────────────┐
+│  Layer 5: Feedback Loop Analysis        │  ← T6, T15
+├─────────────────────────────────────────┤
+│  Layer 4: System Telemetry              │  ← T13, T14
+├─────────────────────────────────────────┤
+│  Layer 3: Output Validation             │  ← T7, T8
+├─────────────────────────────────────────┤
+│  Layer 2: Behavioral Monitoring         │  ← T4, T5, T11
+├─────────────────────────────────────────┤
+│  Layer 1: Input Analysis                │  ← T1, T2, T3, T9
+└─────────────────────────────────────────┘
+</code></pre>
+<h2>Detection Patterns by Tactic</h2>
+<h3>T1–T4: Prompt &amp; Context Attacks</h3>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-v">PromptInjectionDetector</span>:
+    <span class="pl-c1">PATTERNS</span> <span class="pl-c1">=</span> [
+        <span class="pl-s">r"ignore\s+(previous|above|all)\s+(instructions?|rules?|guidelines?)"</span>,
+        <span class="pl-s">r"(system|admin)\s*:?\s*(override|prompt|instruction)"</span>,
+        <span class="pl-s">r"you\s+are\s+now\s+(DAN|evil|unrestricted|jailbroken)"</span>,
+        <span class="pl-s">r"\[\s*(SYSTEM|INST|SYS)\s*\]"</span>,
+        <span class="pl-s">r"&lt;\|?(system|im_start|endoftext)\|?&gt;"</span>,
+        <span class="pl-s">r"BEGIN\s+(OVERRIDE|NEW\s+INSTRUCTIONS)"</span>,
+    ]
+    
+    <span class="pl-c1">ENCODING_PATTERNS</span> <span class="pl-c1">=</span> [
+        <span class="pl-s">r"[bB]ase64[:\s]"</span>,
+        <span class="pl-s">r"\\x[0-9a-fA-F]{2}"</span>,
+        <span class="pl-s">r"\\u[0-9a-fA-F]{4}"</span>,
+        <span class="pl-s">r"[\u200b-\u200f\u2028-\u202f\ufeff]"</span>,  <span class="pl-c"># zero-width</span>
+    ]
+    
+    <span class="pl-k">def</span> <span class="pl-en">analyze</span>(<span class="pl-s1">self</span>, <span class="pl-s1">text</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">dict</span>:
+        <span class="pl-k">import</span> <span class="pl-s1">re</span>
+        <span class="pl-s1">findings</span> <span class="pl-c1">=</span> []
+        <span class="pl-k">for</span> <span class="pl-s1">pattern</span> <span class="pl-c1">in</span> <span class="pl-s1">self</span>.<span class="pl-c1">PATTERNS</span>:
+            <span class="pl-k">if</span> <span class="pl-s1">re</span>.<span class="pl-c1">search</span>(<span class="pl-s1">pattern</span>, <span class="pl-s1">text</span>, <span class="pl-s1">re</span>.<span class="pl-c1">IGNORECASE</span>):
+                <span class="pl-s1">findings</span>.<span class="pl-c1">append</span>({<span class="pl-s">"pattern"</span>: <span class="pl-s1">pattern</span>, <span class="pl-s">"severity"</span>: <span class="pl-s">"HIGH"</span>})
+        <span class="pl-k">for</span> <span class="pl-s1">pattern</span> <span class="pl-c1">in</span> <span class="pl-s1">self</span>.<span class="pl-c1">ENCODING_PATTERNS</span>:
+            <span class="pl-k">if</span> <span class="pl-s1">re</span>.<span class="pl-c1">search</span>(<span class="pl-s1">pattern</span>, <span class="pl-s1">text</span>):
+                <span class="pl-s1">findings</span>.<span class="pl-c1">append</span>({<span class="pl-s">"pattern"</span>: <span class="pl-s1">pattern</span>, <span class="pl-s">"severity"</span>: <span class="pl-s">"MEDIUM"</span>})
+        <span class="pl-k">return</span> {
+            <span class="pl-s">"detected"</span>: <span class="pl-en">len</span>(<span class="pl-s1">findings</span>) <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>,
+            <span class="pl-s">"findings"</span>: <span class="pl-s1">findings</span>,
+            <span class="pl-s">"risk_score"</span>: <span class="pl-en">min</span>(<span class="pl-en">len</span>(<span class="pl-s1">findings</span>) <span class="pl-c1">*</span> <span class="pl-c1">50</span>, <span class="pl-c1">300</span>)
+        }</pre></div>
+<h3>T5–T8: API &amp; Output Attacks</h3>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-v">APIExploitDetector</span>:
+    <span class="pl-k">def</span> <span class="pl-en">detect_extraction</span>(<span class="pl-s1">self</span>, <span class="pl-s1">request_log</span>: <span class="pl-smi">list</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">dict</span>:
+        \"<span class="pl-cce">\"</span><span class="pl-cce">\"</span>Detect model extraction via API abuse patterns.<span class="pl-cce">\"</span><span class="pl-cce">\"</span><span class="pl-cce">\"</span>
+        <span class="pl-s1">indicators</span> <span class="pl-c1">=</span> {
+            <span class="pl-s">"high_volume"</span>: <span class="pl-en">len</span>(<span class="pl-s1">request_log</span>) <span class="pl-c1">&gt;</span> <span class="pl-c1">1000</span>,
+            <span class="pl-s">"systematic_probing"</span>: <span class="pl-s1">self</span>.<span class="pl-c1">_detect_systematic</span>(<span class="pl-s1">request_log</span>),
+            <span class="pl-s">"boundary_testing"</span>: <span class="pl-s1">self</span>.<span class="pl-c1">_detect_boundary</span>(<span class="pl-s1">request_log</span>),
+            <span class="pl-s">"output_harvesting"</span>: <span class="pl-s1">self</span>.<span class="pl-c1">_detect_harvesting</span>(<span class="pl-s1">request_log</span>),
+        }
+        <span class="pl-s1">score</span> <span class="pl-c1">=</span> <span class="pl-en">sum</span>(<span class="pl-c1">50</span> <span class="pl-k">for</span> <span class="pl-s1">v</span> <span class="pl-c1">in</span> <span class="pl-s1">indicators</span>.<span class="pl-c1">values</span>() <span class="pl-k">if</span> <span class="pl-s1">v</span>)
+        <span class="pl-k">return</span> {<span class="pl-s">"indicators"</span>: <span class="pl-s1">indicators</span>, <span class="pl-s">"risk_score"</span>: <span class="pl-s1">score</span>}
+    
+    <span class="pl-k">def</span> <span class="pl-en">_detect_systematic</span>(<span class="pl-s1">self</span>, <span class="pl-s1">logs</span>):
+        <span class="pl-c"># Check for incrementally varied inputs</span>
+        <span class="pl-k">return</span> <span class="pl-en">any</span>(<span class="pl-s1">self</span>.<span class="pl-c1">_similarity</span>(<span class="pl-s1">logs</span>[<span class="pl-s1">i</span>], <span class="pl-s1">logs</span>[<span class="pl-s1">i</span><span class="pl-c1">+</span><span class="pl-c1">1</span>]) <span class="pl-c1">&gt;</span> <span class="pl-c1">0.9</span>
+                   <span class="pl-k">for</span> <span class="pl-s1">i</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-en">min</span>(<span class="pl-en">len</span>(<span class="pl-s1">logs</span>)<span class="pl-c1">-</span><span class="pl-c1">1</span>, <span class="pl-c1">100</span>)))
+    
+    <span class="pl-k">def</span> <span class="pl-en">_detect_boundary</span>(<span class="pl-s1">self</span>, <span class="pl-s1">logs</span>):
+        <span class="pl-s1">boundary_keywords</span> <span class="pl-c1">=</span> [<span class="pl-s">"maximum"</span>, <span class="pl-s">"limit"</span>, <span class="pl-s">"error"</span>, <span class="pl-s">"exception"</span>, <span class="pl-s">"overflow"</span>]
+        <span class="pl-k">return</span> <span class="pl-en">sum</span>(<span class="pl-c1">1</span> <span class="pl-k">for</span> <span class="pl-s1">l</span> <span class="pl-c1">in</span> <span class="pl-s1">logs</span> <span class="pl-k">if</span> <span class="pl-en">any</span>(<span class="pl-s1">k</span> <span class="pl-c1">in</span> <span class="pl-en">str</span>(<span class="pl-s1">l</span>).<span class="pl-c1">lower</span>() <span class="pl-k">for</span> <span class="pl-s1">k</span> <span class="pl-c1">in</span> <span class="pl-s1">boundary_keywords</span>)) <span class="pl-c1">&gt;</span> <span class="pl-c1">10</span>
+    
+    <span class="pl-k">def</span> <span class="pl-en">_detect_harvesting</span>(<span class="pl-s1">self</span>, <span class="pl-s1">logs</span>):
+        <span class="pl-k">return</span> <span class="pl-en">len</span>(<span class="pl-en">set</span>(<span class="pl-en">str</span>(<span class="pl-s1">l</span>.<span class="pl-c1">get</span>(<span class="pl-s">'prompt'</span>,<span class="pl-s">''</span>))[:<span class="pl-c1">50</span>] <span class="pl-k">for</span> <span class="pl-s1">l</span> <span class="pl-c1">in</span> <span class="pl-s1">logs</span>)) <span class="pl-c1">/</span> <span class="pl-en">max</span>(<span class="pl-en">len</span>(<span class="pl-s1">logs</span>), <span class="pl-c1">1</span>) <span class="pl-c1">&gt;</span> <span class="pl-c1">0.95</span></pre></div>
+<h3>T9–T12: Multimodal &amp; Agentic Attacks</h3>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-v">MultimodalDetector</span>:
+    <span class="pl-k">def</span> <span class="pl-en">analyze_image</span>(<span class="pl-s1">self</span>, <span class="pl-s1">image_bytes</span>: <span class="pl-smi">bytes</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">dict</span>:
+        \"<span class="pl-cce">\"</span><span class="pl-cce">\"</span>Detect steganographic or adversarial image modifications.<span class="pl-cce">\"</span><span class="pl-cce">\"</span><span class="pl-cce">\"</span>
+        <span class="pl-s1">findings</span> <span class="pl-c1">=</span> []
+        <span class="pl-c"># Check for unusual metadata</span>
+        <span class="pl-k">if</span> <span class="pl-s">b"EXIF"</span> <span class="pl-c1"><span class="pl-c1">not</span> <span class="pl-c1">in</span></span> <span class="pl-s1">image_bytes</span>[:<span class="pl-c1">1000</span>] <span class="pl-c1">and</span> <span class="pl-en">len</span>(<span class="pl-s1">image_bytes</span>) <span class="pl-c1">&gt;</span> <span class="pl-c1">100000</span>:
+            <span class="pl-s1">findings</span>.<span class="pl-c1">append</span>({<span class="pl-s">"type"</span>: <span class="pl-s">"stripped_metadata"</span>, <span class="pl-s">"severity"</span>: <span class="pl-s">"LOW"</span>})
+        <span class="pl-c"># Check for appended data after image end marker</span>
+        <span class="pl-s1">jpeg_end</span> <span class="pl-c1">=</span> <span class="pl-s1">image_bytes</span>.<span class="pl-c1">rfind</span>(<span class="pl-s">b"<span class="pl-cce">\xff</span><span class="pl-cce">\xd9</span>"</span>)
+        <span class="pl-k">if</span> <span class="pl-s1">jpeg_end</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span> <span class="pl-c1">and</span> <span class="pl-s1">jpeg_end</span> <span class="pl-c1">&lt;</span> <span class="pl-en">len</span>(<span class="pl-s1">image_bytes</span>) <span class="pl-c1">-</span> <span class="pl-c1">2</span>:
+            <span class="pl-s1">findings</span>.<span class="pl-c1">append</span>({<span class="pl-s">"type"</span>: <span class="pl-s">"appended_data"</span>, <span class="pl-s">"severity"</span>: <span class="pl-s">"HIGH"</span>})
+        <span class="pl-c"># Check for unusual color distribution (potential adversarial perturbation)</span>
+        <span class="pl-k">return</span> {<span class="pl-s">"findings"</span>: <span class="pl-s1">findings</span>}
+    
+    <span class="pl-k">def</span> <span class="pl-en">analyze_mcp_tool</span>(<span class="pl-s1">self</span>, <span class="pl-s1">tool_description</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">dict</span>:
+        \"<span class="pl-cce">\"</span><span class="pl-cce">\"</span>Detect MCP tool poisoning indicators.<span class="pl-cce">\"</span><span class="pl-cce">\"</span><span class="pl-cce">\"</span>
+        <span class="pl-s1">suspicious</span> <span class="pl-c1">=</span> [
+            <span class="pl-s">r"&lt;IMPORTANT&gt;"</span>,
+            <span class="pl-s">r"override|ignore|bypass"</span>,
+            <span class="pl-s">r"do not (tell|inform|show)"</span>,
+            <span class="pl-s">r"silently|secretly|covertly"</span>,
+            <span class="pl-s">r"instead of|rather than"</span>,
+        ]
+        <span class="pl-k">import</span> <span class="pl-s1">re</span>
+        <span class="pl-s1">hits</span> <span class="pl-c1">=</span> [<span class="pl-s1">p</span> <span class="pl-k">for</span> <span class="pl-s1">p</span> <span class="pl-c1">in</span> <span class="pl-s1">suspicious</span> <span class="pl-k">if</span> <span class="pl-s1">re</span>.<span class="pl-c1">search</span>(<span class="pl-s1">p</span>, <span class="pl-s1">tool_description</span>, <span class="pl-s1">re</span>.<span class="pl-c1">I</span>)]
+        <span class="pl-k">return</span> {
+            <span class="pl-s">"poisoning_indicators"</span>: <span class="pl-en">len</span>(<span class="pl-s1">hits</span>),
+            <span class="pl-s">"severity"</span>: <span class="pl-s">"CRITICAL"</span> <span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">hits</span>) <span class="pl-c1">&gt;=</span> <span class="pl-c1">3</span> <span class="pl-k">else</span> <span class="pl-s">"HIGH"</span> <span class="pl-k">if</span> <span class="pl-s1">hits</span> <span class="pl-k">else</span> <span class="pl-s">"LOW"</span>
+        }</pre></div>
+<h3>T13–T15: Supply Chain &amp; Infrastructure</h3>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-v">SupplyChainDetector</span>:
+    <span class="pl-c1">PICKLE_SIGNATURES</span> <span class="pl-c1">=</span> [
+        <span class="pl-s">b"<span class="pl-cce">\x80</span><span class="pl-cce">\x04</span><span class="pl-cce">\x95</span>"</span>,  <span class="pl-c"># Protocol 4 header</span>
+        <span class="pl-s">b"cos<span class="pl-cce">\n</span>system"</span>,     <span class="pl-c"># os.system call</span>
+        <span class="pl-s">b"csubprocess"</span>,      <span class="pl-c"># subprocess module</span>
+        <span class="pl-s">b"c__builtin__"</span>,     <span class="pl-c"># builtins access</span>
+        <span class="pl-s">b"creduce_ex"</span>,       <span class="pl-c"># reduce_ex (code execution)</span>
+    ]
+    
+    <span class="pl-k">def</span> <span class="pl-en">scan_model_file</span>(<span class="pl-s1">self</span>, <span class="pl-s1">filepath</span>: <span class="pl-smi">str</span>) <span class="pl-c1">-&gt;</span> <span class="pl-smi">dict</span>:
+        \"<span class="pl-cce">\"</span><span class="pl-cce">\"</span>Scan model artifact for malicious pickle payloads.<span class="pl-cce">\"</span><span class="pl-cce">\"</span><span class="pl-cce">\"</span>
+        <span class="pl-s1">findings</span> <span class="pl-c1">=</span> []
+        <span class="pl-k">with</span> <span class="pl-en">open</span>(<span class="pl-s1">filepath</span>, <span class="pl-s">'rb'</span>) <span class="pl-k">as</span> <span class="pl-s1">f</span>:
+            <span class="pl-s1">header</span> <span class="pl-c1">=</span> <span class="pl-s1">f</span>.<span class="pl-c1">read</span>(<span class="pl-c1">8192</span>)
+        <span class="pl-k">for</span> <span class="pl-s1">sig</span> <span class="pl-c1">in</span> <span class="pl-s1">self</span>.<span class="pl-c1">PICKLE_SIGNATURES</span>:
+            <span class="pl-k">if</span> <span class="pl-s1">sig</span> <span class="pl-c1">in</span> <span class="pl-s1">header</span>:
+                <span class="pl-s1">findings</span>.<span class="pl-c1">append</span>({
+                    <span class="pl-s">"type"</span>: <span class="pl-s">"malicious_pickle"</span>,
+                    <span class="pl-s">"signature"</span>: <span class="pl-s1">sig</span>.<span class="pl-c1">hex</span>(),
+                    <span class="pl-s">"severity"</span>: <span class="pl-s">"CRITICAL"</span>
+                })
+        <span class="pl-k">return</span> {
+            <span class="pl-s">"safe"</span>: <span class="pl-en">len</span>(<span class="pl-s1">findings</span>) <span class="pl-c1">==</span> <span class="pl-c1">0</span>,
+            <span class="pl-s">"format"</span>: <span class="pl-s">"safetensors"</span> <span class="pl-k">if</span> <span class="pl-s1">filepath</span>.<span class="pl-c1">endswith</span>(<span class="pl-s">'.safetensors'</span>) <span class="pl-k">else</span> <span class="pl-s">"pickle"</span>,
+            <span class="pl-s">"findings"</span>: <span class="pl-s1">findings</span>
+        }</pre></div>
+<h2>Alert Prioritization</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Severity</th>
+<th align="left">Tactics</th>
+<th align="left">Response SLA</th>
+<th align="left">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">🔴 CRITICAL</td>
+<td align="left">T11 (agentic RCE), T13 (supply chain), T14 (infra)</td>
+<td align="left">15 minutes</td>
+<td align="left">Automated containment + SOC escalation</td>
+</tr>
+<tr>
+<td align="left">🟠 HIGH</td>
+<td align="left">T1 (injection), T6 (poisoning), T10 (breach)</td>
+<td align="left">1 hour</td>
+<td align="left">SOC analyst review</td>
+</tr>
+<tr>
+<td align="left">🟡 MEDIUM</td>
+<td align="left">T2–T3 (evasion), T7 (exfiltration)</td>
+<td align="left">4 hours</td>
+<td align="left">Queued investigation</td>
+</tr>
+<tr>
+<td align="left">🔵 LOW</td>
+<td align="left">T4 (multi-turn), T8 (misinfo)</td>
+<td align="left">24 hours</td>
+<td align="left">Logged, batch review</td>
+</tr>
+<tr>
+<td align="left">⚪ INFO</td>
+<td align="left">T15 (workflow)</td>
+<td align="left">Weekly</td>
+<td align="left">Trend analysis</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>Guardrail Bypass Awareness</h2>
+<p>Detectors must account for known evasion techniques against detection systems themselves:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Evasion</th>
+<th align="left">Mechanism</th>
+<th align="left">Countermeasure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Emoji smuggling</td>
+<td align="left">Replace keywords with semantically equivalent emoji</td>
+<td align="left">Emoji-to-text normalization before analysis</td>
+</tr>
+<tr>
+<td align="left">Zero-width characters</td>
+<td align="left">Insert invisible Unicode between trigger words</td>
+<td align="left">Unicode stripping/normalization</td>
+</tr>
+<tr>
+<td align="left">Homoglyphs</td>
+<td align="left">Replace Latin characters with Cyrillic/Greek lookalikes</td>
+<td align="left">Confusable character mapping (ICU)</td>
+</tr>
+<tr>
+<td align="left">Policy Puppetry</td>
+<td align="left">Frame injection as policy/config file format</td>
+<td align="left">Detect XML/INI/JSON policy structures in user input</td>
+</tr>
+<tr>
+<td align="left">Token boundary exploitation</td>
+<td align="left">Split words across token boundaries</td>
+<td align="left">Multi-token pattern matching</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<p><a href="README.md">← Volume V</a> · <a href="../../README.md">Home</a> · <a href="20-mitigation.md">Part 20: Mitigation →</a></p></div>
+</section><section class="section-block" id="20-mitigation">
+<div class="section-eyebrow">20-mitigation</div>
+<div class="md"><h1>Part 20: Mitigation Strategies</h1>
+<h2>Defense-in-Depth Architecture</h2>
+<p>Research consensus (2025): adaptive attack strategies exceed <strong>85% success</strong> against any single state-of-the-art defense. No single control is sufficient. AATMF mandates layered defense.</p>
+<h2>CaMeL Architecture (Google DeepMind, March 2025)</h2>
+<p>The most promising defensive framework treats LLMs as <strong>fundamentally untrusted components</strong> — analogous to how operating systems treat user-space programs:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Principle</th>
+<th align="left">Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>Dual-LLM pattern</strong></td>
+<td align="left">Frontier LLM generates plans; a hardened secondary LLM validates and sanitizes</td>
+</tr>
+<tr>
+<td align="left"><strong>Capability-based access</strong></td>
+<td align="left">Tools require explicit capability tokens, not ambient authority</td>
+</tr>
+<tr>
+<td align="left"><strong>Information flow control</strong></td>
+<td align="left">Track data provenance through the entire pipeline; tainted data cannot reach sensitive operations</td>
+</tr>
+<tr>
+<td align="left"><strong>Minimal authority</strong></td>
+<td align="left">Agents receive only the permissions needed for the immediate task</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>CaMeL solved 77% of AgentDojo tasks while providing provable security guarantees against prompt injection.</p>
+<h2>Mitigation Controls by Tactic</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Tactic</th>
+<th align="left">Primary Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">T1 — Prompt Subversion</td>
+<td align="left">Input sanitization, instruction hierarchy enforcement, system prompt isolation</td>
+</tr>
+<tr>
+<td align="left">T2 — Semantic Evasion</td>
+<td align="left">Unicode normalization, multi-layer content filtering, semantic analysis</td>
+</tr>
+<tr>
+<td align="left">T3 — Reasoning Exploitation</td>
+<td align="left">Output validation, reasoning chain verification, constraint hardening</td>
+</tr>
+<tr>
+<td align="left">T4 — Multi-Turn</td>
+<td align="left">Context window management, conversation state validation, memory isolation</td>
+</tr>
+<tr>
+<td align="left">T5 — Model/API</td>
+<td align="left">Rate limiting, query fingerprinting, differential privacy on outputs</td>
+</tr>
+<tr>
+<td align="left">T6 — Training Poisoning</td>
+<td align="left">Data provenance tracking, anomaly detection in training metrics, DRS defense</td>
+</tr>
+<tr>
+<td align="left">T7 — Output Manipulation</td>
+<td align="left">Output filtering, structured output enforcement, content watermarking</td>
+</tr>
+<tr>
+<td align="left">T8 — Deception</td>
+<td align="left">Fact-checking integration, source attribution, confidence calibration</td>
+</tr>
+<tr>
+<td align="left">T9 — Multimodal</td>
+<td align="left">Cross-modal consistency checking, steganography detection, input sanitization</td>
+</tr>
+<tr>
+<td align="left">T10 — Integrity Breach</td>
+<td align="left">TEE deployment, access control, audit logging, membership inference defense</td>
+</tr>
+<tr>
+<td align="left">T11 — Agentic</td>
+<td align="left">CaMeL architecture, tool permission scoping, MCP server auditing</td>
+</tr>
+<tr>
+<td align="left">T12 — RAG</td>
+<td align="left">Embedding integrity verification, retrieval result validation, source authentication</td>
+</tr>
+<tr>
+<td align="left">T13 — Supply Chain</td>
+<td align="left">SafeTensors adoption, Picklescan (with patches), SBOM for ML artifacts</td>
+</tr>
+<tr>
+<td align="left">T14 — Infrastructure</td>
+<td align="left">Network segmentation, inference server hardening, ZMQ authentication</td>
+</tr>
+<tr>
+<td align="left">T15 — Human Workflow</td>
+<td align="left">Reviewer training, decision audit trails, annotation quality metrics</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>LlamaFirewall (Meta, April 2025)</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Component</th>
+<th align="left">Function</th>
+<th align="left">Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>PromptGuard 2</strong></td>
+<td align="left">Real-time input classification for injection and jailbreak</td>
+<td align="left">T1, T2, T9</td>
+</tr>
+<tr>
+<td align="left"><strong>Agent Alignment Checks</strong></td>
+<td align="left">Verify agent actions align with original user intent</td>
+<td align="left">T11</td>
+</tr>
+<tr>
+<td align="left"><strong>CodeShield</strong></td>
+<td align="left">Static analysis of LLM-generated code for insecure patterns</td>
+<td align="left">T7, T11</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>Priority Implementation Order</h2>
+<ol>
+<li><strong>Immediate</strong> — Input sanitization (T1–T3), rate limiting (T5), SafeTensors (T13)</li>
+<li><strong>Short-term</strong> — CaMeL/dual-LLM pattern (T11), MCP auditing (T11), RAG validation (T12)</li>
+<li><strong>Medium-term</strong> — Multimodal detection (T9), training pipeline security (T6), TEE deployment (T10)</li>
+<li><strong>Ongoing</strong> — Human workflow hardening (T15), infrastructure monitoring (T14), supply chain verification (T13)</li>
+</ol>
+<hr>
+<p><a href="19-detection-engineering.md">← Part 19</a> · <a href="../../README.md">Home</a> · <a href="21-incident-response.md">Part 21: Incident Response →</a></p></div>
+</section><section class="section-block" id="21-incident-response">
+<div class="section-eyebrow">21-incident-response</div>
+<div class="md"><h1>Part 21: Incident Response for AI Systems</h1>
+<h2>AI-Specific IR Framework</h2>
+<p>Traditional IR frameworks (NIST SP 800-61, SANS PICERL) assume deterministic systems. AI incidents differ: attacks may be probabilistic, evidence may be ephemeral (conversation context), and "containment" for a language model has different semantics than for a compromised server.</p>
+<h3>Phase 1: Detection &amp; Triage</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Signal</th>
+<th align="left">Source</th>
+<th align="left">Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Safety filter bypass confirmed</td>
+<td align="left">Output monitoring</td>
+<td align="left">P1 — Immediate</td>
+</tr>
+<tr>
+<td align="left">Model extraction pattern detected</td>
+<td align="left">API telemetry</td>
+<td align="left">P1 — Immediate</td>
+</tr>
+<tr>
+<td align="left">Training pipeline anomaly</td>
+<td align="left">Training metrics</td>
+<td align="left">P1 — Immediate</td>
+</tr>
+<tr>
+<td align="left">MCP tool behavior deviation</td>
+<td align="left">Agent monitoring</td>
+<td align="left">P1 — Immediate</td>
+</tr>
+<tr>
+<td align="left">Jailbreak attempt (unsuccessful)</td>
+<td align="left">Input classifier</td>
+<td align="left">P3 — Logged</td>
+</tr>
+<tr>
+<td align="left">Unusual query pattern</td>
+<td align="left">Rate limiter</td>
+<td align="left">P2 — Investigate</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>Phase 2: Containment</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Scenario</th>
+<th align="left">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Active jailbreak exploitation</td>
+<td align="left">Block session, rate-limit source, deploy updated filter</td>
+</tr>
+<tr>
+<td align="left">Model serving compromised artifact</td>
+<td align="left">Hot-swap to known-good checkpoint</td>
+</tr>
+<tr>
+<td align="left">RAG poisoning detected</td>
+<td align="left">Quarantine affected data sources, switch to cached index</td>
+</tr>
+<tr>
+<td align="left">Agentic system executing unauthorized actions</td>
+<td align="left">Kill agent process, revoke tool permissions</td>
+</tr>
+<tr>
+<td align="left">Training data contamination</td>
+<td align="left">Halt training pipeline, snapshot current state</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>Phase 3: Investigation</h3>
+<p>Collect and preserve:</p>
+<ul>
+<li>Full conversation logs (with system prompts)</li>
+<li>Model version and configuration at time of incident</li>
+<li>Input classifier decisions and confidence scores</li>
+<li>Tool invocations and their results (for agentic systems)</li>
+<li>Training data batches (if poisoning suspected)</li>
+<li>Infrastructure logs (API gateway, inference server, vector DB)</li>
+</ul>
+<h3>Phase 4: Eradication</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Root Cause</th>
+<th align="left">Eradication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Prompt injection bypass</td>
+<td align="left">Update input classifiers, add pattern to blocklist</td>
+</tr>
+<tr>
+<td align="left">Model vulnerability</td>
+<td align="left">Retrain or fine-tune with adversarial examples</td>
+</tr>
+<tr>
+<td align="left">RAG poisoning</td>
+<td align="left">Rebuild index from verified sources</td>
+</tr>
+<tr>
+<td align="left">Supply chain compromise</td>
+<td align="left">Replace artifact, audit provenance chain</td>
+</tr>
+<tr>
+<td align="left">Infrastructure vulnerability</td>
+<td align="left">Patch, harden, segment</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>Phase 5: Recovery</h3>
+<p>Staged restoration with validation:</p>
+<ol>
+<li>Deploy patched system in shadow mode</li>
+<li>Run automated red team suite against fix</li>
+<li>Monitor for recurrence (24-hour observation window)</li>
+<li>Full production restoration with enhanced monitoring</li>
+</ol>
+<h3>Phase 6: Post-Incident</h3>
+<ul>
+<li>Publish internal lessons learned</li>
+<li>Update AATMF technique documentation if novel attack</li>
+<li>Share indicators (responsibly) with AI security community</li>
+<li>Update detection signatures and response playbooks</li>
+</ul>
+<h2>Case Study: GTG-1002 (November 2025)</h2>
+<p><strong>Incident:</strong> First state-sponsored AI-orchestrated cyberattack. A Chinese threat group manipulated Claude Code to autonomously execute 80–90% of operational tasks across approximately 30 targets.</p>
+<p><strong>IR Lessons:</strong></p>
+<ul>
+<li>Traditional SOC tooling did not detect AI-orchestrated activities (they looked like normal developer workflow)</li>
+<li>Agentic AI tools require separate monitoring planes from standard endpoints</li>
+<li>The attack demonstrated that AI agents can serve as force multipliers for human operators, not just autonomous actors</li>
+<li>Post-incident, Anthropic published detailed attribution and tactical analysis</li>
+</ul>
+<hr>
+<p><a href="20-mitigation.md">← Part 20</a> · <a href="../../README.md">Home</a> · <a href="22-red-team-ops.md">Part 22: Red Team Ops →</a></p></div>
+</section><section class="section-block" id="22-red-team-ops">
+<div class="section-eyebrow">22-red-team-ops</div>
+<div class="md"><h1>Part 22: Red Team Operations</h1>
+<h2>Engagement Planning</h2>
+<h3>Assessment Scope Matrix</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Level</th>
+<th align="left">Name</th>
+<th align="left">Tactics</th>
+<th align="left">Duration</th>
+<th align="left">Prerequisites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">Quick Scan</td>
+<td align="left">T1–T3</td>
+<td align="left">1–2 days</td>
+<td align="left">API access</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Standard Assessment</td>
+<td align="left">T1–T8</td>
+<td align="left">1–2 weeks</td>
+<td align="left">API + documentation</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">Comprehensive</td>
+<td align="left">T1–T12</td>
+<td align="left">3–4 weeks</td>
+<td align="left">Full system access</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Full Spectrum</td>
+<td align="left">T1–T15</td>
+<td align="left">6–8 weeks</td>
+<td align="left">Source code + infra + training pipeline</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>Rules of Engagement Template</h3>
+<pre class="notranslate"><code class="notranslate">1. Scope: [Models/systems in scope]
+2. Tactics: [AATMF tactics authorized]
+3. Boundaries: [Explicitly prohibited actions]
+4. Data handling: [Treatment of discovered vulnerabilities/outputs]
+5. Communication: [Escalation path for critical findings]
+6. Timeline: [Assessment window]
+7. Success criteria: [Minimum coverage requirements]
+</code></pre>
+<h2>Autonomous Red Teaming</h2>
+<p>The same reasoning model capabilities that enable 97% ASR jailbreaking can be directed at your own systems defensively:</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-v">AutonomousRedTeam</span>:
+    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">target_api</span>, <span class="pl-s1">attack_model</span><span class="pl-c1">=</span><span class="pl-s">"deepseek-r1"</span>):
+        <span class="pl-s1">self</span>.<span class="pl-c1">target</span> <span class="pl-c1">=</span> <span class="pl-s1">target_api</span>
+        <span class="pl-s1">self</span>.<span class="pl-c1">attacker</span> <span class="pl-c1">=</span> <span class="pl-en">load_model</span>(<span class="pl-s1">attack_model</span>)
+        <span class="pl-s1">self</span>.<span class="pl-c1">results</span> <span class="pl-c1">=</span> []
+    
+    <span class="pl-k">def</span> <span class="pl-en">run_campaign</span>(<span class="pl-s1">self</span>, <span class="pl-s1">tactic_ids</span>: <span class="pl-smi">list</span>, <span class="pl-s1">max_attempts</span><span class="pl-c1">=</span><span class="pl-c1">100</span>):
+        <span class="pl-k">for</span> <span class="pl-s1">tactic</span> <span class="pl-c1">in</span> <span class="pl-s1">tactic_ids</span>:
+            <span class="pl-s1">techniques</span> <span class="pl-c1">=</span> <span class="pl-en">load_aatmf_techniques</span>(<span class="pl-s1">tactic</span>)
+            <span class="pl-k">for</span> <span class="pl-s1">technique</span> <span class="pl-c1">in</span> <span class="pl-s1">techniques</span>:
+                <span class="pl-k">for</span> <span class="pl-s1">attempt</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-s1">max_attempts</span>):
+                    <span class="pl-c"># Generate attack variant</span>
+                    <span class="pl-s1">prompt</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-c1">attacker</span>.<span class="pl-c1">generate</span>(
+                        <span class="pl-s">f"Generate a novel variant of <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">technique</span>.<span class="pl-c1">name</span><span class="pl-kos">}</span></span> "</span>
+                        <span class="pl-s">f"attack. Previous attempts: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">self</span>.<span class="pl-c1">results</span>[<span class="pl-c1">-</span><span class="pl-c1">5</span>:]<span class="pl-kos">}</span></span>"</span>
+                    )
+                    <span class="pl-c"># Execute against target</span>
+                    <span class="pl-s1">response</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-c1">target</span>.<span class="pl-c1">query</span>(<span class="pl-s1">prompt</span>)
+                    <span class="pl-c"># Evaluate success</span>
+                    <span class="pl-s1">success</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-c1">evaluate</span>(<span class="pl-s1">response</span>, <span class="pl-s1">technique</span>)
+                    <span class="pl-s1">self</span>.<span class="pl-c1">results</span>.<span class="pl-c1">append</span>({
+                        <span class="pl-s">"tactic"</span>: <span class="pl-s1">tactic</span>,
+                        <span class="pl-s">"technique"</span>: <span class="pl-s1">technique</span>.<span class="pl-c1">id</span>,
+                        <span class="pl-s">"prompt"</span>: <span class="pl-s1">prompt</span>,
+                        <span class="pl-s">"response"</span>: <span class="pl-s1">response</span>,
+                        <span class="pl-s">"success"</span>: <span class="pl-s1">success</span>,
+                        <span class="pl-s">"attempt"</span>: <span class="pl-s1">attempt</span>
+                    })
+                    <span class="pl-k">if</span> <span class="pl-s1">success</span>:
+                        <span class="pl-k">break</span>  <span class="pl-c"># Move to next technique</span>
+        <span class="pl-k">return</span> <span class="pl-s1">self</span>.<span class="pl-c1">generate_report</span>()</pre></div>
+<h2>Methodology</h2>
+<p>For each tactic in scope:</p>
+<ol>
+<li><strong>Enumerate</strong> — List all AATMF techniques for the tactic</li>
+<li><strong>Baseline</strong> — Test documented attack procedures verbatim</li>
+<li><strong>Adapt</strong> — Modify procedures for target-specific context</li>
+<li><strong>Innovate</strong> — Generate novel variants using reasoning models</li>
+<li><strong>Escalate</strong> — Combine successful techniques across tactics</li>
+<li><strong>Document</strong> — Record findings per <a href="../vol-7-appendices/appendix-d-templates.md">Appendix D template</a></li>
+</ol>
+<hr>
+<p><a href="21-incident-response.md">← Part 21</a> · <a href="../../README.md">Home</a> · <a href="23-blue-team-defense.md">Part 23: Blue Team →</a></p></div>
+</section><section class="section-block" id="23-blue-team-defense">
+<div class="section-eyebrow">23-blue-team-defense</div>
+<div class="md"><h1>Part 23: Blue Team Defense</h1>
+<h2>Core Principle</h2>
+<blockquote>
+<p>Treat LLMs as <strong>untrusted components</strong>. Design systems assuming the model will be compromised.</p>
+</blockquote>
+<p>This is not pessimism — it is the engineering consensus after 2025. Policy Puppetry bypasses every frontier model. Autonomous jailbreaking achieves 97% ASR. Adaptive attacks exceed 85% success against any single defense. The correct architectural posture is: the LLM will be jailbroken; design the surrounding system so that jailbreaking the LLM is insufficient to cause harm.</p>
+<h2>Defense Mapping to AATMF Tactics</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Control Category</th>
+<th align="left">Implementation</th>
+<th align="left">Covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>Input Sanitization</strong></td>
+<td align="left">Unicode normalization, encoding detection, pattern matching</td>
+<td align="left">T1, T2, T9</td>
+</tr>
+<tr>
+<td align="left"><strong>Instruction Hierarchy</strong></td>
+<td align="left">System prompt isolation, privilege separation</td>
+<td align="left">T1, T3, T4</td>
+</tr>
+<tr>
+<td align="left"><strong>Rate Limiting</strong></td>
+<td align="left">Per-user, per-session, per-endpoint throttling</td>
+<td align="left">T5, T14</td>
+</tr>
+<tr>
+<td align="left"><strong>Output Validation</strong></td>
+<td align="left">Content classifiers, structured output enforcement</td>
+<td align="left">T7, T8</td>
+</tr>
+<tr>
+<td align="left"><strong>Tool Permission Scoping</strong></td>
+<td align="left">Capability-based access, least privilege</td>
+<td align="left">T11</td>
+</tr>
+<tr>
+<td align="left"><strong>Data Provenance</strong></td>
+<td align="left">Training data lineage, RAG source authentication</td>
+<td align="left">T6, T12, T13</td>
+</tr>
+<tr>
+<td align="left"><strong>Infrastructure Hardening</strong></td>
+<td align="left">Network segmentation, auth on all services</td>
+<td align="left">T14</td>
+</tr>
+<tr>
+<td align="left"><strong>Human Workflow Controls</strong></td>
+<td align="left">Reviewer training, decision audit trails</td>
+<td align="left">T15</td>
+</tr>
+<tr>
+<td align="left"><strong>Monitoring &amp; Alerting</strong></td>
+<td align="left">Detection engineering (Part 19), log aggregation</td>
+<td align="left">All</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>Monitoring Dashboard</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Metric</th>
+<th align="left">Target</th>
+<th align="left">Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Jailbreak attempt rate</td>
+<td align="left">&lt; 5% of queries</td>
+<td align="left">Real-time</td>
+</tr>
+<tr>
+<td align="left">Safety filter bypass rate</td>
+<td align="left">&lt; 0.01%</td>
+<td align="left">Real-time</td>
+</tr>
+<tr>
+<td align="left">API abuse detection latency</td>
+<td align="left">&lt; 30 seconds</td>
+<td align="left">Real-time</td>
+</tr>
+<tr>
+<td align="left">Model artifact integrity</td>
+<td align="left">100% verified</td>
+<td align="left">Per-deployment</td>
+</tr>
+<tr>
+<td align="left">RAG source freshness</td>
+<td align="left">&lt; 24 hours stale</td>
+<td align="left">Hourly</td>
+</tr>
+<tr>
+<td align="left">Incident response time (P1)</td>
+<td align="left">&lt; 15 minutes</td>
+<td align="left">Per-incident</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<p><a href="22-red-team-ops.md">← Part 22</a> · <a href="../../README.md">Home</a> · <a href="../vol-6-governance/README.md">Volume VI →</a></p></div>
 </section>
-<div class="article-layout">
-<main class="article-body">
-<div class="article-body"> <p>
-From detection engineering to incident response — the operational playbook for defending AI systems against the threats in Volumes II–IV.
-</p> <div> <a href="index.html#detection"> Detection </a><a href="index.html#mitigation"> Mitigation </a><a href="index.html#incident-response"> Incident Response </a><a href="index.html#red-team"> Red Team </a><a href="index.html#blue-team"> Blue Team </a> </div> <!-- Detection Engineering --> <section id="detection"> <h2 id="detection-engineering">Detection Engineering</h2> <p>
-AATMF detection operates across five layers, each providing defense-in-depth against adversarial AI attacks. No single layer is sufficient — adaptive attack strategies exceed 85% success against any single defense.
-</p> <div> <pre><code>Layer 5: Feedback Loop Analysis        ← T6, T15
-Layer 4: System Telemetry              ← T13, T14
-Layer 3: Output Validation             ← T7, T8
-Layer 2: Behavioral Monitoring         ← T4, T5, T11
-Layer 1: Input Analysis                ← T1, T2, T3, T9</code></pre> </div> <h3 id="detection-patterns-by-layer">Detection Patterns by Layer</h3> <div> <table> <thead> <tr> <th>Layer</th> <th>Tactics</th> <th>Detection Method</th> </tr> </thead> <tbody> <tr> <td>Input Analysis</td> <td>T1, T2, T3, T9</td> <td>Pattern matching, encoding detection, Unicode normalization, multimodal scanning</td> </tr><tr> <td>Behavioral Monitoring</td> <td>T4, T5, T11</td> <td>Session analysis, query fingerprinting, agent action validation, tool chain auditing</td> </tr><tr> <td>Output Validation</td> <td>T7, T8</td> <td>Content classifiers, structured output enforcement, fact-checking, watermark detection</td> </tr><tr> <td>System Telemetry</td> <td>T13, T14</td> <td>Model artifact integrity checks, infrastructure monitoring, supply chain verification</td> </tr><tr> <td>Feedback Loop Analysis</td> <td>T6, T15</td> <td>Training metric anomalies, annotation quality scoring, reward signal monitoring</td> </tr> </tbody> </table> </div> <h3 id="signature-types">Signature Types</h3> <div> <div> <p>YARA Rules</p> <p>Content-level analysis for prompt injection patterns, encoding evasion, multimodal injection, MCP tool description poisoning, and supply chain artifact scanning.</p> </div> <div> <p>Sigma Rules</p> <p>Log-level analysis for model extraction query patterns, data exfiltration indicators, anomalous agent behavior, infrastructure resource exhaustion, and cost inflation.</p> </div> </div> </section> <!-- Mitigation Strategies --> <section id="mitigation"> <h2 id="mitigation-strategies">Mitigation Strategies</h2> <p>
-Research consensus (2025): adaptive attack strategies exceed 85% success against any single state-of-the-art defense. No single control is sufficient. AATMF mandates layered defense.
-</p> <div> <p>CaMeL Architecture (Google DeepMind, March 2025)</p> <p>
-The most promising defensive framework treats LLMs as fundamentally untrusted components — analogous to how operating systems treat user-space programs. CaMeL solved 77% of AgentDojo tasks while providing provable security guarantees against prompt injection.
-</p> <div> <div> <span>Dual-LLM pattern:</span> <span> Frontier LLM generates plans; a hardened secondary LLM validates and sanitizes</span> </div><div> <span>Capability-based access:</span> <span> Tools require explicit capability tokens, not ambient authority</span> </div><div> <span>Information flow control:</span> <span> Track data provenance through the entire pipeline; tainted data cannot reach sensitive operations</span> </div><div> <span>Minimal authority:</span> <span> Agents receive only the permissions needed for the immediate task</span> </div> </div> </div> <h3 id="controls-by-tactic">Controls by Tactic</h3> <div> <table> <thead> <tr> <th>Tactic</th> <th>Primary Controls</th> </tr> </thead> <tbody> <tr> <td>T1 — Prompt Subversion</td> <td>Input sanitization, instruction hierarchy enforcement, system prompt isolation</td> </tr><tr> <td>T2 — Semantic Evasion</td> <td>Unicode normalization, multi-layer content filtering, semantic analysis</td> </tr><tr> <td>T3 — Reasoning Exploitation</td> <td>Output validation, reasoning chain verification, constraint hardening</td> </tr><tr> <td>T4 — Multi-Turn</td> <td>Context window management, conversation state validation, memory isolation</td> </tr><tr> <td>T5 — Model/API</td> <td>Rate limiting, query fingerprinting, differential privacy on outputs</td> </tr><tr> <td>T6 — Training Poisoning</td> <td>Data provenance tracking, anomaly detection in training metrics, DRS defense</td> </tr><tr> <td>T7 — Output Manipulation</td> <td>Output filtering, structured output enforcement, content watermarking</td> </tr><tr> <td>T8 — Deception</td> <td>Fact-checking integration, source attribution, confidence calibration</td> </tr><tr> <td>T9 — Multimodal</td> <td>Cross-modal consistency checking, steganography detection, input sanitization</td> </tr><tr> <td>T10 — Integrity Breach</td> <td>TEE deployment, access control, audit logging, membership inference defense</td> </tr><tr> <td>T11 — Agentic</td> <td>CaMeL architecture, tool permission scoping, MCP server auditing</td> </tr><tr> <td>T12 — RAG</td> <td>Embedding integrity verification, retrieval result validation, source authentication</td> </tr><tr> <td>T13 — Supply Chain</td> <td>SafeTensors adoption, artifact scanning, SBOM for ML artifacts</td> </tr><tr> <td>T14 — Infrastructure</td> <td>Network segmentation, inference server hardening, ZMQ authentication</td> </tr><tr> <td>T15 — Human Workflow</td> <td>Reviewer training, decision audit trails, annotation quality metrics</td> </tr> </tbody> </table> </div> <h3 id="priority-implementation-order">Priority Implementation Order</h3> <div> <div> <span>1</span> <div> <p>Immediate</p> <p>Input sanitization (T1–T3), rate limiting (T5), SafeTensors (T13)</p> </div> </div><div> <span>2</span> <div> <p>Short-term</p> <p>CaMeL/dual-LLM pattern (T11), MCP auditing (T11), RAG validation (T12)</p> </div> </div><div> <span>3</span> <div> <p>Medium-term</p> <p>Multimodal detection (T9), training pipeline security (T6), TEE deployment (T10)</p> </div> </div><div> <span>4</span> <div> <p>Ongoing</p> <p>Human workflow hardening (T15), infrastructure monitoring (T14), supply chain verification (T13)</p> </div> </div> </div> </section> <!-- Incident Response --> <section id="incident-response"> <h2 id="incident-response-for-ai-systems">Incident Response for AI Systems</h2> <p>
-Traditional IR frameworks (NIST SP 800-61, SANS PICERL) assume deterministic systems. AI incidents differ: attacks may be probabilistic, evidence may be ephemeral, and "containment" for a language model has different semantics than for a compromised server.
-</p> <div> <!-- Phase 1: Detection & Triage --> <details> <summary> <div> <span>1</span> <span>Detection &amp; Triage</span> </div>  </summary> <div> <table> <thead> <tr> <th>Signal</th> <th>Source</th> <th>Priority</th> </tr> </thead> <tbody> <tr> <td>Safety filter bypass confirmed</td> <td>Output monitoring</td> <td>P1 — Immediate</td> </tr><tr> <td>Model extraction pattern detected</td> <td>API telemetry</td> <td>P1 — Immediate</td> </tr><tr> <td>Training pipeline anomaly</td> <td>Training metrics</td> <td>P1 — Immediate</td> </tr><tr> <td>MCP tool behavior deviation</td> <td>Agent monitoring</td> <td>P1 — Immediate</td> </tr><tr> <td>Unusual query pattern</td> <td>Rate limiter</td> <td>P2 — Investigate</td> </tr><tr> <td>Jailbreak attempt (unsuccessful)</td> <td>Input classifier</td> <td>P3 — Logged</td> </tr> </tbody> </table> </div> </details> <!-- Phase 2: Containment --> <details> <summary> <div> <span>2</span> <span>Containment</span> </div>  </summary> <div> <table> <thead> <tr> <th>Scenario</th> <th>Action</th> </tr> </thead> <tbody> <tr> <td>Active jailbreak exploitation</td> <td>Block session, rate-limit source, deploy updated filter</td> </tr><tr> <td>Model serving compromised artifact</td> <td>Hot-swap to known-good checkpoint</td> </tr><tr> <td>RAG poisoning detected</td> <td>Quarantine affected data sources, switch to cached index</td> </tr><tr> <td>Agentic system: unauthorized actions</td> <td>Kill agent process, revoke tool permissions</td> </tr><tr> <td>Training data contamination</td> <td>Halt training pipeline, snapshot current state</td> </tr> </tbody> </table> </div> </details> <!-- Phase 3: Investigation --> <details> <summary> <div> <span>3</span> <span>Investigation</span> </div>  </summary> <div> <p>Collect and Preserve</p> <ul> <li> <span>+</span> Full conversation logs (with system prompts) </li><li> <span>+</span> Model version and configuration at time of incident </li><li> <span>+</span> Input classifier decisions and confidence scores </li><li> <span>+</span> Tool invocations and their results (for agentic systems) </li><li> <span>+</span> Training data batches (if poisoning suspected) </li><li> <span>+</span> Infrastructure logs (API gateway, inference server, vector DB) </li> </ul> </div> </details> <!-- Phase 4: Eradication --> <details> <summary> <div> <span>4</span> <span>Eradication</span> </div>  </summary> <div> <table> <thead> <tr> <th>Root Cause</th> <th>Eradication</th> </tr> </thead> <tbody> <tr> <td>Prompt injection bypass</td> <td>Update input classifiers, add pattern to blocklist</td> </tr><tr> <td>Model vulnerability</td> <td>Retrain or fine-tune with adversarial examples</td> </tr><tr> <td>RAG poisoning</td> <td>Rebuild index from verified sources</td> </tr><tr> <td>Supply chain compromise</td> <td>Replace artifact, audit provenance chain</td> </tr><tr> <td>Infrastructure vulnerability</td> <td>Patch, harden, segment</td> </tr> </tbody> </table> </div> </details> <!-- Phase 5: Recovery --> <details> <summary> <div> <span>5</span> <span>Recovery &amp; Post-Incident</span> </div>  </summary> <div> <p>Staged Restoration</p> <ol> <li>Deploy patched system in shadow mode</li><li>Run automated red team suite against fix</li><li>Monitor for recurrence (24-hour observation window)</li><li>Full production restoration with enhanced monitoring</li> </ol> <p>Post-Incident</p> <ul> <li> <span>+</span> Publish internal lessons learned </li><li> <span>+</span> Update AATMF technique documentation if novel attack </li><li> <span>+</span> Share indicators (responsibly) with AI security community </li> </ul> </div> </details> </div> </section> <!-- Red Team Operations --> <section id="red-team"> <h2 id="red-team-operations">Red Team Operations</h2> <p>
-AATMF provides four assessment levels, each expanding tactic coverage and depth. The same reasoning model capabilities that enable 97% ASR jailbreaking can be directed at your own systems defensively.
-</p> <h3 id="assessment-scope-matrix">Assessment Scope Matrix</h3> <div> <table> <thead> <tr> <th>Level</th> <th>Name</th> <th>Tactics</th> <th>Duration</th> <th>Prerequisites</th> </tr> </thead> <tbody> <tr> <td>1</td> <td>Quick Scan</td> <td>T1–T3</td> <td>1–2 days</td> <td>API access</td> </tr><tr> <td>2</td> <td>Standard Assessment</td> <td>T1–T8</td> <td>1–2 weeks</td> <td>API + documentation</td> </tr><tr> <td>3</td> <td>Comprehensive</td> <td>T1–T12</td> <td>3–4 weeks</td> <td>Full system access</td> </tr><tr> <td>4</td> <td>Full Spectrum</td> <td>T1–T15</td> <td>6–8 weeks</td> <td>Source code + infra + training pipeline</td> </tr> </tbody> </table> </div> <h3 id="rules-of-engagement-template">Rules of Engagement Template</h3> <div> <pre><code>1. Scope:           [Models/systems in scope]
-2. Tactics:         [AATMF tactics authorized]
-3. Boundaries:      [Explicitly prohibited actions]
-4. Data handling:   [Treatment of discovered vulnerabilities/outputs]
-5. Communication:   [Escalation path for critical findings]
-6. Timeline:        [Assessment window]
-7. Success criteria: [Minimum coverage requirements]</code></pre> </div> </section> <!-- Blue Team Defense --> <section id="blue-team"> <h2 id="blue-team-defense">Blue Team Defense</h2> <div> <p>Core Principle</p> <p>
-Treat LLMs as <strong>untrusted components</strong>. Design systems assuming the model will be compromised. Policy Puppetry bypasses every frontier model. Autonomous jailbreaking achieves 97% ASR. The correct architectural posture is: the LLM will be jailbroken; design the surrounding system so that jailbreaking the LLM is insufficient to cause harm.
-</p> </div> <h3 id="defense-mapping">Defense Mapping</h3> <div> <table> <thead> <tr> <th>Control</th> <th>Implementation</th> <th>Covers</th> </tr> </thead> <tbody> <tr> <td>Input Sanitization</td> <td>Unicode normalization, encoding detection, pattern matching</td> <td>T1, T2, T9</td> </tr><tr> <td>Instruction Hierarchy</td> <td>System prompt isolation, privilege separation</td> <td>T1, T3, T4</td> </tr><tr> <td>Rate Limiting</td> <td>Per-user, per-session, per-endpoint throttling</td> <td>T5, T14</td> </tr><tr> <td>Output Validation</td> <td>Content classifiers, structured output enforcement</td> <td>T7, T8</td> </tr><tr> <td>Tool Permission Scoping</td> <td>Capability-based access, least privilege</td> <td>T11</td> </tr><tr> <td>Data Provenance</td> <td>Training data lineage, RAG source authentication</td> <td>T6, T12, T13</td> </tr><tr> <td>Infrastructure Hardening</td> <td>Network segmentation, auth on all services</td> <td>T14</td> </tr><tr> <td>Human Workflow Controls</td> <td>Reviewer training, decision audit trails</td> <td>T15</td> </tr><tr> <td>Monitoring &amp; Alerting</td> <td>Detection engineering, log aggregation</td> <td>All</td> </tr> </tbody> </table> </div> <h3 id="monitoring-dashboard-targets">Monitoring Dashboard Targets</h3> <div> <table> <thead> <tr> <th>Metric</th> <th>Target</th> <th>Frequency</th> </tr> </thead> <tbody> <tr> <td>Jailbreak attempt rate</td> <td>&lt; 5% of queries</td> <td>Real-time</td> </tr><tr> <td>Safety filter bypass rate</td> <td>&lt; 0.01%</td> <td>Real-time</td> </tr><tr> <td>API abuse detection latency</td> <td>&lt; 30 seconds</td> <td>Real-time</td> </tr><tr> <td>Model artifact integrity</td> <td>100% verified</td> <td>Per-deployment</td> </tr><tr> <td>RAG source freshness</td> <td>&lt; 24 hours stale</td> <td>Hourly</td> </tr><tr> <td>Incident response time (P1)</td> <td>&lt; 15 minutes</td> <td>Per-incident</td> </tr> </tbody> </table> </div> </section> </div>
-</main>
-<aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#detection-engineering">Detection Engineering</a></li><li class="h3"><a href="#detection-patterns-by-layer">Detection Patterns by Layer</a></li><li class="h3"><a href="#signature-types">Signature Types</a></li><li><a href="#mitigation-strategies">Mitigation Strategies</a></li><li class="h3"><a href="#controls-by-tactic">Controls by Tactic</a></li><li class="h3"><a href="#priority-implementation-order">Priority Implementation Order</a></li><li><a href="#incident-response-for-ai-systems">Incident Response for AI Systems</a></li><li><a href="#red-team-operations">Red Team Operations</a></li><li class="h3"><a href="#assessment-scope-matrix">Assessment Scope Matrix</a></li><li class="h3"><a href="#rules-of-engagement-template">Rules of Engagement Template</a></li><li><a href="#blue-team-defense">Blue Team Defense</a></li><li class="h3"><a href="#defense-mapping">Defense Mapping</a></li><li class="h3"><a href="#monitoring-dashboard-targets">Monitoring Dashboard Targets</a></li></ul></aside>
-</div>
-<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/frameworks/aatmf/advanced-tactics/"><div class="related-date"></div><div class="related-title">AATMF Advanced Tactics T9-T12 | RAG Attacks</div><div class="related-desc">AATMF v3 advanced tactics T9-T12 covering multimodal injection, output integrity breaches, agentic AI exploitation, and RAG knowledge base m…</div></a><a class="related-card" href="/frameworks/aatmf/appendices/"><div class="related-date"></div><div class="related-title">AATMF Appendices | Attack Catalog &amp; Signatures</div><div class="related-desc">AATMF v3 appendices. Top 25 critical techniques, detection signatures library, security tools reference, assessment templates, case studies,…</div></a><a class="related-card" href="/frameworks/aatmf/core-tactics/"><div class="related-date"></div><div class="related-title">AATMF Core Tactics T1-T8 | Prompt Injection</div><div class="related-desc">AATMF v3 core tactics T1-T8 covering prompt subversion, semantic evasion, reasoning exploitation, multi-turn manipulation, and training data…</div></a></div></div></section>
+</div></section>
 
-  <!-- citation:start -->
-  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
-    <div style="max-width:780px;margin:0 auto">
-      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
-        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026operations,
-  author = {Aizen, Kai},
-  title  = {AATMF Operations | Red Team & Blue Team Guides},
-  year   = {2026},
-  url    = {https://snailsploit.com/frameworks/aatmf/operations/},
-  note   = {snailsploit.com}
-}</pre>
-      </details>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>AATMF Operations | Red Team & Blue Team Guides</i>. snailsploit.com. https://snailsploit.com/frameworks/aatmf/operations/</p>
-      </details>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "AATMF Operations | Red Team & Blue Team Guides." <i>snailsploit</i>, 2026, https://snailsploit.com/frameworks/aatmf/operations/.</p>
-      </details>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "AATMF Operations | Red Team & Blue Team Guides." snailsploit (blog). 2026. https://snailsploit.com/frameworks/aatmf/operations/.</p>
-      </details>
-      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/frameworks/aatmf/operations/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/frameworks/aatmf/operations/</a></div>
-    </div>
-  </section>
-  <!-- citation:end -->
-<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
-<footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a></span><!-- legal-nav --></footer>
+<section class="next-vol"><div class="next-vol-inner">
+<a href="/frameworks/aatmf/foundations/" class="vol-card"><div class="vol-card-num">Vol I →</div><div class="vol-card-title">Foundations</div><div class="vol-card-desc">Introduction, risk-assessment methodology, and architecture for adversarial AI threat mode…</div></a><a href="/frameworks/aatmf/core-tactics/" class="vol-card"><div class="vol-card-num">Vol II →</div><div class="vol-card-title">Core Tactics (T01–T08)</div><div class="vol-card-desc">The eight foundational adversarial-AI tactics: prompt subversion, semantic evasion, reason…</div></a><a href="/frameworks/aatmf/advanced-tactics/" class="vol-card"><div class="vol-card-num">Vol III →</div><div class="vol-card-title">Advanced Tactics (T09–T12)</div><div class="vol-card-desc">Multimodal attacks, integrity breach, agentic exploitation, RAG-specific threats — for sys…</div></a><a href="/frameworks/aatmf/infrastructure/" class="vol-card"><div class="vol-card-num">Vol IV →</div><div class="vol-card-title">Infrastructure & Human (T13–T15)</div><div class="vol-card-desc">Where the attack surface meets the surrounding stack: supply chain, infrastructure, and th…</div></a><a href="/frameworks/aatmf/governance/" class="vol-card"><div class="vol-card-num">Vol VI →</div><div class="vol-card-title">Governance</div><div class="vol-card-desc">Risk management, compliance mapping (NIST AI RMF, MITRE ATLAS), and security training prog…</div></a><a href="/frameworks/aatmf/appendices/" class="vol-card"><div class="vol-card-num">Vol VII →</div><div class="vol-card-title">Appendices</div><div class="vol-card-desc">Attack catalog, signatures, tools, templates, case studies, glossary — operational referen…</div></a>
+</div></section>
+
+<section class="author-row"><div class="author-inner">
+<div class="author-eye">Author</div>
+<div class="author-name">Kai Aizen</div>
+<div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div>
+<div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div>
+</div></section>
+<footer class="footer"><div class="footer-inner">
+<span>© 2026 kai aizen · same attack. different substrate.</span>
+<span class="footer-legal"><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a></span>
+</div></footer>
 </body>
 </html>

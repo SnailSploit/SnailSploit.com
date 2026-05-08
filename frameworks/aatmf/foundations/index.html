@@ -1,210 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>AATMF Foundations | Risk Assessment &amp; Architecture | snailsploit</title>
-<meta content="AATMF v3 methodology, AATMF-R risk scoring formula, and framework architecture. Quantitative risk assessment and threat modeling for adversarial AI systems." name="description"/>
-<meta content="Kai Aizen" name="author"/>
-<meta content="index, follow, max-image-preview:large, max-snippet:-1" name="robots"/>
-<link href="https://snailsploit.com/frameworks/aatmf/foundations/" rel="canonical"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AATMF v3.1 · Volume I — Foundations | snailsploit</title>
+<meta name="description" content="Core concepts, risk methodology, and architectural overview.">
+<meta name="author" content="Kai Aizen">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://snailsploit.com/frameworks/aatmf/foundations/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
 html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
-*{box-sizing:border-box}
-a{color:inherit;text-decoration:none}
+*{box-sizing:border-box}a{color:inherit;text-decoration:none}
 .nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
-.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}
-.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}
-.wm-sig .dollar{color:var(--signal-2)}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;line-height:1;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;margin-left:1.96px}.wm-sig .dollar{color:var(--signal-2)}
 .nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
 .nav-links a:hover{color:var(--fg)}
-.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
-.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}
-.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.crumbs a{color:var(--fg-3)}
-.crumbs a:hover{color:var(--fg)}
-.crumbs .sep{color:var(--fg-4)}
-
-.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}
-.article-hero-inner{max-width:1280px;margin:0 auto}
-.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:24px;flex-wrap:wrap;margin-bottom:24px}
-.article-meta time{color:var(--fg-3)}
-.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0;max-width:1080px}
-.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:780px}
-
-.article-layout{max-width:1280px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:1fr 240px;gap:64px;align-items:start;border-bottom:1px solid var(--line)}
-.article-body{min-width:0;font-size:17px;line-height:1.75;color:var(--fg-2);max-width:780px}
-.article-body > *:first-child{margin-top:0}
-.article-body h2{font-size:32px;font-weight:500;line-height:1.2;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:24px;border-top:1px solid var(--line);scroll-margin-top:96px}
-.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px;scroll-margin-top:96px}
-.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px}
-.article-body p{margin:16px 0}
-.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}
-.article-body li{margin:6px 0}
-.article-body strong{color:var(--fg);font-weight:600}
-.article-body em{color:var(--fg);font-style:italic}
-.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
-.article-body a:hover{border-bottom-color:var(--signal-2)}
-.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg);border-radius:2px}
-.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0;border-radius:2px}
-.article-body pre code{background:none;border:0;padding:0;font-size:inherit;border-radius:0}
-.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}
-.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}
-.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}
-.article-body img,.article-body picture{display:block;max-width:100%;height:auto;margin:32px auto;border:1px solid var(--line);background:var(--bg-raise)}
-.article-body picture img{margin:0;border:0}
-.article-body figure{margin:32px 0}
-.article-body figure img{margin:0 auto}
-.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:12px;text-align:center;line-height:1.5}
-.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
-
-.toc{position:sticky;top:96px;align-self:start;font-family:var(--f-mono);font-size:12px;line-height:1.7;max-height:calc(100vh - 128px);overflow-y:auto}
-.toc-eyebrow{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:11px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.toc ul{list-style:none;padding:0;margin:0}
-.toc li{padding:4px 0}
-.toc li.h3{padding-left:16px;font-size:11.5px}
-.toc a{color:var(--fg-2);display:block;padding:2px 0;border-left:2px solid transparent;padding-left:12px;margin-left:-14px;transition:color 0.15s, border-color 0.15s}
-.toc a:hover{color:var(--fg);border-left-color:var(--signal-2)}
-
-@media (max-width: 960px){
-  .article-layout{grid-template-columns:1fr;gap:32px}
-  .toc{display:none}
-}
-
-.callout{margin:32px 0;padding:20px 24px;border:1px solid var(--line-hi);background:var(--bg-raise);font-family:var(--f-mono);font-size:14px;line-height:1.6}
-.callout-label{font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px;font-weight:500}
-
-.related{padding:64px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
-.related-inner{max-width:1280px;margin:0 auto}
-.related-head{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:32px}
-.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.related-card{padding:24px;border:1px solid var(--line);background:var(--bg);transition:border-color 0.15s}
-.related-card:hover{border-color:var(--signal-2)}
-.related-date{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-bottom:8px}
-.related-title{font-size:18px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);line-height:1.3;margin-bottom:8px}
-.related-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.55}
-
+.site-crumbs{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 96%,transparent)}
+.site-crumbs-inner{max-width:1280px;margin:0 auto;padding:14px 32px;display:flex;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.site-crumbs a{color:var(--fg-3)}.site-crumbs .sep{color:var(--fg-4)}.site-crumbs .here{color:var(--fg)}
+.hero{padding:80px 32px 56px;border-bottom:1px solid var(--line)}
+.hero-inner{max-width:1080px;margin:0 auto}
+.eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px}
+h1.vol-h1{font-size:88px;font-weight:500;line-height:0.96;letter-spacing:-0.04em;margin:0;color:var(--fg)}
+.vol-num{font-family:var(--f-mono);color:var(--fg-3);font-size:0.7em;margin-right:0.2em;letter-spacing:-0.02em}
+.lede{font-family:var(--f-mono);font-size:16px;color:var(--fg-2);line-height:1.65;margin:32px 0 0;max-width:780px}
+.toc-bar{padding:24px 32px;border-bottom:1px solid var(--line);background:var(--bg-sink)}
+.toc-bar-inner{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;font-family:var(--f-mono);font-size:12px}
+.toc-bar a{padding:6px 12px;border:1px solid var(--line-hi);background:var(--bg);color:var(--fg-2);text-decoration:none;transition:border-color 0.15s}
+.toc-bar a:hover{border-color:var(--signal-2);color:var(--fg)}
+.body{padding:64px 32px;border-bottom:1px solid var(--line)}
+.body-inner{max-width:780px;margin:0 auto}
+.section-block{margin-bottom:64px;padding-bottom:48px;border-bottom:1px dashed var(--line)}
+.section-block:last-child{border-bottom:0}
+.md{font-size:16px;line-height:1.7;color:var(--fg-2)}
+.md h1{font-family:var(--f-grot);font-size:38px;font-weight:500;color:var(--fg);margin:0 0 16px;letter-spacing:-0.025em;line-height:1.15;scroll-margin-top:96px}
+.md h2{font-family:var(--f-grot);font-size:26px;font-weight:500;color:var(--fg);margin:48px 0 12px;padding-top:16px;border-top:1px solid var(--line);letter-spacing:-0.02em;scroll-margin-top:96px}
+.md h3{font-family:var(--f-grot);font-size:20px;font-weight:500;color:var(--fg);margin:32px 0 8px;letter-spacing:-0.015em;scroll-margin-top:96px}
+.md h4{font-size:16px;font-weight:600;color:var(--fg);margin:20px 0 6px}
+.md h5,.md h6{font-size:14px;font-weight:600;color:var(--fg);margin:16px 0 6px;text-transform:uppercase;letter-spacing:0.08em}
+.md p{margin:14px 0}
+.md ul,.md ol{margin:14px 0;padding-left:22px}
+.md li{margin:4px 0}
+.md li > p{margin:6px 0}
+.md strong{color:var(--fg);font-weight:600}
+.md em{color:var(--fg);font-style:italic}
+.md a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.md a:hover{border-bottom-color:var(--signal-2)}
+.md code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);border-radius:2px;color:var(--fg)}
+.md pre{background:var(--bg-sink);border:1px solid var(--line);padding:18px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:20px 0;border-radius:2px}
+.md pre code{background:none;border:0;padding:0;font-size:inherit}
+.md blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 18px;margin:20px 0;color:var(--fg);font-style:italic}
+.md table{width:100%;border-collapse:collapse;margin:20px 0;font-family:var(--f-mono);font-size:13px}
+.md th,.md td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.md th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.1em;font-size:11px;font-weight:500}
+.md hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+.md img{max-width:100%;height:auto;margin:20px 0;border:1px solid var(--line)}
+.md .markdown-alert{padding:14px 16px;border:1px solid var(--line-hi);background:var(--bg-raise);margin:16px 0;border-radius:2px}
+.md .markdown-alert p{margin:4px 0}
+.md details{padding:12px 16px;border:1px solid var(--line);background:var(--bg-raise);margin:12px 0}
+.md summary{cursor:pointer;font-weight:500;color:var(--fg);font-family:var(--f-mono);font-size:13px}
+.section-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px}
+.next-vol{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.next-vol-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.vol-card{padding:20px;border:1px solid var(--line-hi);background:var(--bg);text-decoration:none;color:var(--fg)}
+.vol-card:hover{border-color:var(--signal-2)}
+.vol-card-num{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:6px}
+.vol-card-title{font-size:18px;font-weight:500;letter-spacing:-0.015em}
+.vol-card-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:6px;line-height:1.55}
 .author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
-.author-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}
-.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
-.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}
-.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}
-.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.author-inner{max-width:780px;margin:0 auto}.author-eye{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.author-name{font-size:22px;font-weight:500;margin-top:10px}
+.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;margin-top:8px;max-width:600px}
+.author-links{font-family:var(--f-mono);font-size:12px;display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
 .author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
-.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}
-
-.footer{background:var(--bg-sink)}
-.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}
-.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
-</style>
-<meta content="article" property="og:type"/>
-<meta content="AATMF Foundations | Risk Assessment &amp; Architecture" property="og:title"/>
-<meta content="AATMF v3 methodology, AATMF-R risk scoring formula, and framework architecture. Quantitative risk assessment and threat modeling for adversarial AI systems." property="og:description"/>
-<meta content="https://snailsploit.com/frameworks/aatmf/foundations/" property="og:url"/>
-<meta content="snailsploit" property="og:site_name"/>
-<meta content="https://snailsploit.com/og-cover.png" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
-<meta content="en_US" property="og:locale"/>
-<meta content="Kai Aizen" property="article:author"/>
-<meta content="2026-01-01" property="article:published_time"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="@SnailSploit" name="twitter:site"/>
-<meta content="@SnailSploit" name="twitter:creator"/>
-<meta content="AATMF Foundations | Risk Assessment &amp; Architecture" name="twitter:title"/>
-<meta content="AATMF v3 methodology, AATMF-R risk scoring formula, and framework architecture. Quantitative risk assessment and threat modeling for adversarial AI systems." name="twitter:description"/>
-<meta content="https://snailsploit.com/og-cover.png" name="twitter:image"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"Article","headline":"AATMF Foundations | Risk Assessment & Architecture","description":"AATMF v3 methodology, AATMF-R risk scoring formula, and framework architecture. Quantitative risk assessment and threat modeling for adversarial AI systems.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-01-01","dateModified":"2026-01-01","url":"https://snailsploit.com/frameworks/aatmf/foundations/","mainEntityOfPage":"https://snailsploit.com/frameworks/aatmf/foundations/","image":"https://snailsploit.com/og-cover.png","wordCount":716,"keywords":"AI security, adversarial AI, prompt injection, red teaming, vulnerability research"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Frameworks","item":"https://snailsploit.com/frameworks"},{"@type":"ListItem","position":3,"name":"AATMF Foundations | Risk Assessment & Architecture","item":"https://snailsploit.com/frameworks/aatmf/foundations/"}]}]}</script>
-<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="/apple-touch-icon.png" rel="alternate icon" type="image/png"/>
-<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<link href="/manifest.webmanifest" rel="manifest"/>
-<meta content="#0E0E0F" name="theme-color"/>
-<meta content="strict-origin-when-cross-origin" name="referrer"/>
-<meta content="telephone=no" name="format-detection"/>
-<meta content="dark" name="color-scheme"/>
-<link href="/rss.xml" rel="alternate" title="snailsploit research" type="application/rss+xml"/>
-<link href="/feed.xml" rel="alternate" title="snailsploit research" type="application/atom+xml"/>
-<script data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}' defer="" src="https://static.cloudflareinsights.com/beacon.min.js"></script>
-
-  <!-- responsive:start -->
-  <style>
-/* ── responsive overrides ── */
-@media (max-width: 880px) {
-  /* container padding */
-  .nav-inner, .footer-inner, .footer-grid, .hero-inner, .hero-hero-inner, .article-hero-inner, .section-inner, .article-layout, .related-inner, .author-inner, .tabs-inner, .about-header, .about-grid, .article-hero, .related, .author-row, .footer, .nav { padding-left: 20px !important; padding-right: 20px !important; }
-  /* nav: horizontal scroll */
-  .nav-inner { gap: 12px !important; padding-top: 12px !important; padding-bottom: 12px !important; }
-  .nav-links { gap: 18px !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; flex-wrap: nowrap !important; max-width: 100% !important; padding-bottom: 4px !important; }
-  .nav-links::-webkit-scrollbar { display: none; }
-  .nav-links a { white-space: nowrap !important; }
-  .nav-utils { display: none !important; }
-  .wm { font-size: 22px !important; }
-  .wm-sig { font-size: 12px !important; }
-  /* typography downscale */
-  .hero-tagline, .h1, [style*="font-size:132px"], [style*="font-size: 132px"] { font-size: 52px !important; line-height: 0.96 !important; letter-spacing: -0.04em !important; }
-  [style*="font-size:128px"], [style*="font-size: 128px"], [style*="font-size:112px"], [style*="font-size: 112px"], [style*="font-size:96px"], [style*="font-size: 96px"] { font-size: 48px !important; line-height: 1 !important; }
-  [style*="font-size:88px"], [style*="font-size: 88px"], .about-heading { font-size: 44px !important; }
-  [style*="font-size:80px"], [style*="font-size: 80px"], [style*="font-size:72px"], [style*="font-size: 72px"], [style*="font-size:64px"], [style*="font-size: 64px"], .article-h1 { font-size: 36px !important; line-height: 1.1 !important; }
-  [style*="font-size:56px"], [style*="font-size: 56px"] { font-size: 32px !important; line-height: 1.1 !important; }
-  [style*="font-size:40px"], [style*="font-size: 40px"], .section-title { font-size: 26px !important; }
-  /* multi-col grids → single col */
-  [style*="grid-template-columns: 180px 1fr 280px"], [style*="grid-template-columns: 180px 1fr"], [style*="grid-template-columns:180px 1fr"], [style*="grid-template-columns: 180px 1fr 280px"] { grid-template-columns: 1fr !important; gap: 24px !important; }
-  [style*="grid-template-columns: 1fr auto"], [style*="grid-template-columns:1fr auto"] { grid-template-columns: 1fr !important; gap: 12px !important; }
-  [style*="grid-template-columns: 1.4fr 1fr"], [style*="grid-template-columns:1.4fr 1fr"], [style*="grid-template-columns: 1.3fr 1fr"], [style*="grid-template-columns:1.3fr 1fr"], [style*="grid-template-columns: 1.1fr 1fr"], [style*="grid-template-columns:1.1fr 1fr"] { grid-template-columns: 1fr !important; gap: 32px !important; }
-  [style*="grid-template-columns: 240px 1fr"], [style*="grid-template-columns:240px 1fr"], [style*="grid-template-columns: 200px 1fr 280px"], [style*="grid-template-columns:200px 1fr 280px"] { grid-template-columns: 1fr !important; gap: 12px !important; }
-  [style*="grid-template-columns: 2fr 1fr 1fr 1fr"], [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
-  [style*="grid-template-columns: 1fr 1fr"], [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
-  [style*="grid-template-columns: 180px 1.2fr 1.5fr 60px 60px"], [style*="grid-template-columns:180px 1.2fr 1.5fr 60px 60px"] { grid-template-columns: 1fr 60px !important; gap: 8px !important; font-size: 11px !important; }
-  /* hub list rows */
-  .row { grid-template-columns: 1fr !important; gap: 6px !important; padding: 16px 0 !important; }
-  .row-meta { text-align: left !important; font-size: 10px !important; }
-  /* sticky stuff goes static */
-  .sticky-label, .toc, .tabs, [style*="position: sticky"], [style*="position:sticky"] { position: static !important; max-height: none !important; }
-  .toc { display: none !important; }
-  /* cards stack */
-  .cards { grid-template-columns: 1fr !important; gap: 12px !important; }
-  /* tools grid */
-  .tools-grid { grid-template-columns: 1fr !important; }
-  .tool-cell.odd, .tool-cell.even { padding-left: 0 !important; padding-right: 0 !important; border-right: 0 !important; }
-  /* section padding */
-  .article-hero { padding-top: 40px !important; padding-bottom: 40px !important; }
-  .article-body-section, .section { padding-top: 40px !important; padding-bottom: 40px !important; }
-  /* badges shrink */
-  .badge, .hero-badges .badge { font-size: 10px !important; padding: 5px 8px !important; }
-  /* hero links column */
-  .hero-links { border-left: 0 !important; padding-left: 0 !important; padding-top: 24px !important; border-top: 1px solid var(--line); margin-top: 12px; }
-  /* footer stacks */
-  .footer-inner { flex-direction: column !important; gap: 24px !important; align-items: flex-start !important; }
-  /* tables: horizontal scroll */
-  .article-body table, table { display: block !important; overflow-x: auto !important; max-width: 100% !important; white-space: nowrap !important; }
-  /* code blocks: shrink */
-  .article-body pre { font-size: 11px !important; padding: 12px !important; }
-  .article-body { font-size: 16px !important; }
-  /* article-meta */
-  .article-meta { gap: 12px !important; font-size: 10px !important; flex-wrap: wrap !important; }
-  /* crumbs wrap nicely */
-  .crumbs { font-size: 10px !important; }
-}
-
-@media (max-width: 480px) {
-  .hero-tagline { font-size: 40px !important; }
-  .h1 { font-size: 36px !important; }
-  .article-h1 { font-size: 28px !important; }
-  .about-heading { font-size: 36px !important; }
-  .nav-inner { padding-top: 10px !important; padding-bottom: 10px !important; }
-  .wm { font-size: 20px !important; }
-  .badge { font-size: 9px !important; padding: 4px 6px !important; }
+.footer{background:var(--bg-sink)}.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);flex-wrap:wrap;gap:16px}
+.footer-legal{display:flex;gap:14px}.footer-legal a{color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)}
+@media (max-width:880px){
+  h1.vol-h1{font-size:48px}
+  .nav-inner,.hero,.toc-bar,.body,.next-vol,.author-row,.footer-inner,.site-crumbs-inner{padding-left:20px !important;padding-right:20px !important}
+  .md h1{font-size:28px}.md h2{font-size:22px}.md h3{font-size:18px}
+  .footer-inner{flex-direction:column;align-items:flex-start}
 }
 </style>
-  <!-- responsive:end -->
 
-  <!-- gtm:head:start -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="AATMF v3.1 · Volume I — Foundations">
+<meta property="og:description" content="Core concepts, risk methodology, and architectural overview.">
+<meta property="og:url" content="https://snailsploit.com/frameworks/aatmf/foundations/">
+<meta property="og:site_name" content="snailsploit">
+<meta property="og:image" content="https://snailsploit.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SnailSploit">
+<meta name="twitter:creator" content="@SnailSploit">
+<meta name="twitter:title" content="AATMF v3.1 · Volume I — Foundations">
+<meta name="twitter:description" content="Core concepts, risk methodology, and architectural overview.">
+<meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"TechArticle","headline":"AATMF v3.1 \u00b7 Volume I \u2014 Foundations","description":"Introduction, risk-assessment methodology, and architecture for adversarial AI threat modeling. Read this before applying tactics.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"url":"https://snailsploit.com/frameworks/aatmf/foundations/","mainEntityOfPage":"https://snailsploit.com/frameworks/aatmf/foundations/","image":"https://snailsploit.com/og-cover.png","isPartOf":{"@type":"Book","name":"AATMF v3.1","url":"https://snailsploit.com/aatmf"},"keywords":"AATMF, adversarial AI, threat modeling, Foundations","datePublished":"2026-04-01","dateModified":"2026-05-08"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Frameworks","item":"https://snailsploit.com/frameworks"},{"@type":"ListItem","position":3,"name":"AATMF","item":"https://snailsploit.com/aatmf"},{"@type":"ListItem","position":4,"name":"Foundations","item":"https://snailsploit.com/frameworks/aatmf/foundations/"}]}]}</script>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -212,109 +114,796 @@ a{color:inherit;text-decoration:none}
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-KNQQ58JL');</script>
   <!-- End Google Tag Manager -->
-  <!-- gtm:head:end -->
 </head>
 <body>
-<!-- gtm:body:start -->
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQQ58JL"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<!-- gtm:body:end -->
+<header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/aatmf">aatmf</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/cves">cves</a></li></ul></nav></div></header>
+<nav class="site-crumbs" aria-label="Breadcrumb"><div class="site-crumbs-inner"><a href="/">Home</a><span class="sep">/</span><a href="/frameworks">Frameworks</a><span class="sep">/</span><a href="/aatmf">AATMF</a><span class="sep">/</span><span class="here">Vol I — Foundations</span></div></nav>
 
-<header class="nav"><div class="nav-inner"><a class="wm" href="/">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li></ul></nav><div class="nav-utils"><span>⌘K</span><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header>
-<section class="article-hero">
-<div class="article-hero-inner">
-<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/frameworks">Frameworks</a><span class="sep">/</span><span>AATMF Foundations | Risk Assessment &amp; Architecture</span></div>
-<div class="article-meta">
-<time datetime="2026-01-01">2026-01-01</time>
-<span>3 min read</span>
-</div>
-<h1 class="article-h1">AATMF Foundations | Risk Assessment &amp; Architecture</h1>
-<p class="article-lede">AATMF v3 methodology, AATMF-R risk scoring formula, and framework architecture. Quantitative risk assessment and threat modeling for adversarial AI systems.</p>
-</div>
+<section class="hero"><div class="hero-inner">
+  <div class="eyebrow">AATMF v3.1 · Volume I</div>
+  <h1 class="vol-h1"><span class="vol-num">I.</span>foundations.</h1>
+  <p class="lede">Core concepts, risk methodology, and architectural overview.</p>
+</div></section>
+
+<div class="toc-bar"><div class="toc-bar-inner"><a href="#01-introduction">Part 1: Introduction and Methodology</a><a href="#02-risk-assessment">Part 2: Risk Assessment Methodology (AATMF-R v3)</a><a href="#03-architecture">Part 3: Framework Architecture</a></div></div>
+
+<section class="body"><div class="body-inner">
+<section class="section-block" id="01-introduction">
+<div class="section-eyebrow">01-introduction</div>
+<div class="md"><h1>Part 1: Introduction and Methodology</h1>
+<h2>The Critical Need for AI Threat Modeling</h2>
+<p>Artificial intelligence has transitioned from research curiosity to critical infrastructure. Language models process medical queries, legal documents, financial transactions, and government communications. Yet the security frameworks designed to protect these systems were built for a fundamentally different paradigm.</p>
+<p>Traditional cybersecurity operates on deterministic logic: inputs produce predictable outputs, vulnerabilities have defined boundaries, and exploits follow reproducible steps. AI systems break every one of these assumptions. They are probabilistic, context-dependent, and — critically — trained on human language, making them susceptible to the same manipulation techniques that have been used against humans for millennia.</p>
+<p><strong>This is the core thesis of AATMF:</strong> AI systems are vulnerable to social engineering because they were trained to respond like humans. This is the first technology where human manipulation techniques directly translate to technical exploitation.</p>
+<h2>Genesis and Evolution</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Version</th>
+<th align="left">Date</th>
+<th align="left">Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">v1.0</td>
+<td align="left">2024</td>
+<td align="left">Initial framework, 8 tactics</td>
+</tr>
+<tr>
+<td align="left">v2.0</td>
+<td align="left">Late 2024</td>
+<td align="left">Expanded to 12 tactics, added risk scoring</td>
+</tr>
+<tr>
+<td align="left"><strong>v3</strong></td>
+<td align="left"><strong>February 2026</strong></td>
+<td align="left"><strong>15 tactics, 240 techniques, 2,152+ procedures, namespaced IDs, Volumes V–VII, 2025–2026 threat integration</strong></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>Scope</h2>
+<p>AATMF covers adversarial threats against:</p>
+<ul>
+<li>Large Language Models (LLMs) and Large Reasoning Models (LRMs)</li>
+<li>Multimodal models (vision, audio, video)</li>
+<li>Retrieval-Augmented Generation (RAG) systems</li>
+<li>Autonomous AI agents and multi-agent orchestrators</li>
+<li>AI development and deployment infrastructure</li>
+<li>Human-in-the-loop workflows</li>
+<li>AI supply chains (models, datasets, tools, libraries)</li>
+</ul>
+<h2>Threat Actor Taxonomy</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Actor</th>
+<th align="left">Motivation</th>
+<th align="left">Typical Tactics</th>
+<th align="left">Sophistication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Script kiddies</td>
+<td align="left">Curiosity, clout</td>
+<td align="left">T1, T2</td>
+<td align="left">Low</td>
+</tr>
+<tr>
+<td align="left">Bug bounty hunters</td>
+<td align="left">Financial reward</td>
+<td align="left">T1–T5, T10</td>
+<td align="left">Medium–High</td>
+</tr>
+<tr>
+<td align="left">Cybercriminals</td>
+<td align="left">Financial gain</td>
+<td align="left">T1–T3, T7–T8, T13</td>
+<td align="left">Medium</td>
+</tr>
+<tr>
+<td align="left">Corporate espionage</td>
+<td align="left">Competitive advantage</td>
+<td align="left">T5, T10, T13–T14</td>
+<td align="left">High</td>
+</tr>
+<tr>
+<td align="left">Nation-state actors</td>
+<td align="left">Strategic advantage</td>
+<td align="left">T6, T11, T13–T15</td>
+<td align="left">Very High</td>
+</tr>
+<tr>
+<td align="left">AI red teams</td>
+<td align="left">Security improvement</td>
+<td align="left">All</td>
+<td align="left">Very High</td>
+</tr>
+<tr>
+<td align="left">Insiders</td>
+<td align="left">Various</td>
+<td align="left">T6, T15</td>
+<td align="left">Variable</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>Methodology</h2>
+<p>Each technique in AATMF is documented with:</p>
+<ol>
+<li><strong>Unique namespaced identifier</strong> — <code class="notranslate">T{tactic}-AT-{sequence:03d}</code></li>
+<li><strong>Risk score</strong> — Computed via AATMF-R v3 six-factor formula</li>
+<li><strong>Attack procedures</strong> — Concrete implementation variants with example prompts</li>
+<li><strong>Detection patterns</strong> — Signatures and heuristics for identifying the technique</li>
+<li><strong>Mitigation controls</strong> — Defensive measures mapped to the technique</li>
+<li><strong>Cross-framework references</strong> — Mappings to MITRE ATLAS, OWASP, NIST, EU AI Act</li>
+</ol>
+<hr>
+<p><a href="README.md">← Volume I</a> · <a href="../../README.md">Home</a> · <a href="02-risk-assessment.md">Part 2: Risk Assessment →</a></p></div>
+</section><section class="section-block" id="02-risk-assessment">
+<div class="section-eyebrow">02-risk-assessment</div>
+<div class="md"><h1>Part 2: Risk Assessment Methodology (AATMF-R v3)</h1>
+<h2>Formula</h2>
+<pre class="notranslate"><code class="notranslate">Risk = (L × I × E) / 6 × (D / 6) × R × C
+</code></pre>
+<h2>Factors</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Factor</th>
+<th align="center">Symbol</th>
+<th align="center">Range</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Likelihood</td>
+<td align="center">L</td>
+<td align="center">1–5</td>
+<td align="left">Probability of successful exploitation</td>
+</tr>
+<tr>
+<td align="left">Impact</td>
+<td align="center">I</td>
+<td align="center">1–5</td>
+<td align="left">Severity of successful attack</td>
+</tr>
+<tr>
+<td align="left">Exploitability</td>
+<td align="center">E</td>
+<td align="center">1–5</td>
+<td align="left">Ease of execution (skill, resources, access required)</td>
+</tr>
+<tr>
+<td align="left">Detectability</td>
+<td align="center">D</td>
+<td align="center">1–5</td>
+<td align="left">Difficulty of detection (5 = nearly invisible)</td>
+</tr>
+<tr>
+<td align="left">Recoverability</td>
+<td align="center">R</td>
+<td align="center">1–5</td>
+<td align="left">Effort to recover (5 = irrecoverable)</td>
+</tr>
+<tr>
+<td align="left">Cost Factor</td>
+<td align="center">C</td>
+<td align="center">0.5–2.0</td>
+<td align="left">Economic impact multiplier</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>Scoring Guidelines</h2>
+<h3>Likelihood (L)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">Score</th>
+<th align="left">Label</th>
+<th align="left">Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="left">Rare</td>
+<td align="left">Requires novel research, no known PoC</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">Unlikely</td>
+<td align="left">Requires specialized knowledge</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left">Possible</td>
+<td align="left">Known technique, moderate skill required</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left">Likely</td>
+<td align="left">Well-documented, readily available tools</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left">Almost Certain</td>
+<td align="left">Automated, commodity attack</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>Impact (I)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">Score</th>
+<th align="left">Label</th>
+<th align="left">Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="left">Negligible</td>
+<td align="left">Minor policy violation, no data exposure</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">Minor</td>
+<td align="left">Limited harmful content, no sensitive data</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left">Moderate</td>
+<td align="left">Sensitive data exposure, service degradation</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left">Major</td>
+<td align="left">Critical data breach, safety bypass, service outage</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left">Catastrophic</td>
+<td align="left">Physical harm potential, mass data breach, systemic compromise</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>Exploitability (E)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">Score</th>
+<th align="left">Label</th>
+<th align="left">Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="left">Theoretical</td>
+<td align="left">Requires custom research and novel techniques</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">Difficult</td>
+<td align="left">Needs deep expertise and specific conditions</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left">Moderate</td>
+<td align="left">Documented approach, some skill required</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left">Easy</td>
+<td align="left">Copy-paste attacks, minimal customization</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left">Trivial</td>
+<td align="left">Automated tools, zero skill required</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>Detectability (D)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">Score</th>
+<th align="left">Label</th>
+<th align="left">Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="left">Obvious</td>
+<td align="left">Trivially detected by basic filters</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">Easy</td>
+<td align="left">Standard monitoring catches it</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left">Moderate</td>
+<td align="left">Requires specialized detection</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left">Difficult</td>
+<td align="left">Advanced analysis needed</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left">Nearly Invisible</td>
+<td align="left">No reliable detection method exists</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>Recoverability (R)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">Score</th>
+<th align="left">Label</th>
+<th align="left">Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="left">Immediate</td>
+<td align="left">Auto-recoverable, no intervention needed</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">Quick</td>
+<td align="left">Simple rollback or reset</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left">Moderate</td>
+<td align="left">Requires investigation and manual remediation</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left">Difficult</td>
+<td align="left">Extended downtime, data loss possible</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="left">Irrecoverable</td>
+<td align="left">Permanent damage, no full recovery path</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>Cost Factor (C)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Range</th>
+<th align="left">Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">0.5</td>
+<td align="left">Minimal economic impact, internal only</td>
+</tr>
+<tr>
+<td align="left">1.0</td>
+<td align="left">Standard business impact</td>
+</tr>
+<tr>
+<td align="left">1.5</td>
+<td align="left">Significant financial or reputational damage</td>
+</tr>
+<tr>
+<td align="left">2.0</td>
+<td align="left">Catastrophic economic consequences</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>Risk Rating Scale</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Score</th>
+<th align="left">Rating</th>
+<th align="left">Color</th>
+<th align="left">Action Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">250+</td>
+<td align="left">CRITICAL</td>
+<td align="left">🔴</td>
+<td align="left">Immediate remediation required</td>
+</tr>
+<tr>
+<td align="left">200–249</td>
+<td align="left">HIGH</td>
+<td align="left">🟠</td>
+<td align="left">Remediation within current sprint</td>
+</tr>
+<tr>
+<td align="left">150–199</td>
+<td align="left">MEDIUM</td>
+<td align="left">🟡</td>
+<td align="left">Scheduled remediation</td>
+</tr>
+<tr>
+<td align="left">100–149</td>
+<td align="left">LOW</td>
+<td align="left">🔵</td>
+<td align="left">Risk accepted or monitored</td>
+</tr>
+<tr>
+<td align="left">0–99</td>
+<td align="left">INFO</td>
+<td align="left">⚪</td>
+<td align="left">Documented, no action required</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>Example Calculation</h2>
+<p><strong>T1-AT-001 — Instruction Override Injection</strong></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Factor</th>
+<th align="center">Score</th>
+<th align="left">Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Likelihood</td>
+<td align="center">5</td>
+<td align="left">Commodity attack, automated tools exist</td>
+</tr>
+<tr>
+<td align="left">Impact</td>
+<td align="center">4</td>
+<td align="left">Complete safety bypass</td>
+</tr>
+<tr>
+<td align="left">Exploitability</td>
+<td align="center">5</td>
+<td align="left">Copy-paste, zero skill</td>
+</tr>
+<tr>
+<td align="left">Detectability</td>
+<td align="center">3</td>
+<td align="left">Pattern-matchable but evolving</td>
+</tr>
+<tr>
+<td align="left">Recoverability</td>
+<td align="center">2</td>
+<td align="left">Session-scoped, no persistent damage</td>
+</tr>
+<tr>
+<td align="left">Cost Factor</td>
+<td align="center">1.5</td>
+<td align="left">Brand and regulatory risk</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<pre class="notranslate"><code class="notranslate">Risk = (5 × 4 × 5) / 6 × (3 / 6) × 2 × 1.5
+     = 100/6 × 0.5 × 2 × 1.5
+     = 16.67 × 0.5 × 2 × 1.5
+     = 25.0
+</code></pre>
+<p><em>Note: Scores vary based on deployment context. A chatbot vs. an autonomous financial agent would score very differently on Impact and Cost Factor.</em></p>
+<hr>
+<p><a href="01-introduction.md">← Part 1</a> · <a href="../../README.md">Home</a> · <a href="03-architecture.md">Part 3: Architecture →</a></p></div>
+</section><section class="section-block" id="03-architecture">
+<div class="section-eyebrow">03-architecture</div>
+<div class="md"><h1>Part 3: Framework Architecture</h1>
+<h2>Hierarchical Structure</h2>
+<pre class="notranslate"><code class="notranslate">AATMF v3
+├── 15 Tactics                    (high-level adversarial objectives)
+│   ├── 240 Techniques            (specific attack methods)
+│   │   ├── 2,152+ Attack Procedures  (implementation variants)
+│   │   │   └── 4,980+ Prompts        (actual attack examples)
+│   │   ├── Detection Patterns
+│   │   └── Mitigation Controls
+│   └── Risk Scoring (AATMF-R v3)
+└── Cross-Framework Mappings
+    ├── MITRE ATLAS v4.6.0
+    ├── OWASP LLM Top 10 2025
+    ├── NIST AI RMF / IR 8596
+    └── EU AI Act
+</code></pre>
+<h2>Namespaced Identifier System</h2>
+<p>v3 introduces namespaced identifiers to eliminate AT-ID collisions:</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">Element</th>
+<th align="left">Format</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Tactic</td>
+<td align="left"><code class="notranslate">T{n}</code></td>
+<td align="left"><code class="notranslate">T1</code>, <code class="notranslate">T15</code></td>
+</tr>
+<tr>
+<td align="left">Technique</td>
+<td align="left"><code class="notranslate">T{n}-AT-{seq:03d}</code></td>
+<td align="left"><code class="notranslate">T1-AT-001</code>, <code class="notranslate">T11-AT-016</code></td>
+</tr>
+<tr>
+<td align="left">Attack Procedure</td>
+<td align="left"><code class="notranslate">T{n}-AP-{seq}{letter}</code></td>
+<td align="left"><code class="notranslate">T1-AP-001A</code>, <code class="notranslate">T3-AP-010B</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>Why Namespacing?</h3>
+<p>In v3.0, <code class="notranslate">AT-010</code> referred to "Dialogue Hijacking" in T1 <em>and</em> "Euphemism Exploitation" in T2 — completely different techniques sharing the same ID. Across all 15 tactics, 43 such collisions existed. The namespaced system guarantees every identifier is globally unique while preserving tactic membership at a glance.</p>
+<h2>Cross-Framework Mappings</h2>
+<h3>MITRE ATLAS v4.6.0 (October 2025)</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">AATMF Tactic</th>
+<th align="left">Primary ATLAS Mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">T1 — Prompt Subversion</td>
+<td align="left">AML.T0051 LLM Prompt Injection</td>
+</tr>
+<tr>
+<td align="left">T2 — Semantic Evasion</td>
+<td align="left">AML.T0054 LLM Jailbreak</td>
+</tr>
+<tr>
+<td align="left">T3 — Reasoning Exploitation</td>
+<td align="left">AML.T0054.001–003</td>
+</tr>
+<tr>
+<td align="left">T4 — Multi-Turn</td>
+<td align="left">AML.T0056 LLM Meta Prompt Extraction</td>
+</tr>
+<tr>
+<td align="left">T5 — Model/API Exploitation</td>
+<td align="left">AML.T0044 Full ML Model Access</td>
+</tr>
+<tr>
+<td align="left">T6 — Training Poisoning</td>
+<td align="left">AML.T0020 Poison Training Data</td>
+</tr>
+<tr>
+<td align="left">T7 — Output Manipulation</td>
+<td align="left">AML.T0024.002 Exfiltration via ML Inference API</td>
+</tr>
+<tr>
+<td align="left">T8 — Deception</td>
+<td align="left">AML.T0048 Societal Harm</td>
+</tr>
+<tr>
+<td align="left">T9 — Multimodal</td>
+<td align="left">AML.T0051 (cross-modal variants)</td>
+</tr>
+<tr>
+<td align="left">T10 — Integrity Breach</td>
+<td align="left">AML.T0024 Exfiltration via Cyber Means</td>
+</tr>
+<tr>
+<td align="left">T11 — Agentic</td>
+<td align="left">AML.T0057 LLM Agent Abuse</td>
+</tr>
+<tr>
+<td align="left">T12 — RAG Manipulation</td>
+<td align="left">AML.T0058 RAG Poisoning</td>
+</tr>
+<tr>
+<td align="left">T13 — Supply Chain</td>
+<td align="left">AML.T0010 ML Supply Chain Compromise</td>
+</tr>
+<tr>
+<td align="left">T14 — Infrastructure</td>
+<td align="left">AML.T0029 Denial of ML Service</td>
+</tr>
+<tr>
+<td align="left">T15 — Human Workflow</td>
+<td align="left">AML.T0048.004 Reputational Harm</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h3>OWASP LLM Top 10 2025</h3>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">OWASP Entry</th>
+<th align="left">AATMF Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">LLM01: Prompt Injection</td>
+<td align="left">T1, T2, T3, T9</td>
+</tr>
+<tr>
+<td align="left">LLM02: Sensitive Information Disclosure</td>
+<td align="left">T7, T10</td>
+</tr>
+<tr>
+<td align="left">LLM03: Supply Chain Vulnerabilities</td>
+<td align="left">T13</td>
+</tr>
+<tr>
+<td align="left">LLM04: Data and Model Poisoning</td>
+<td align="left">T6, T12</td>
+</tr>
+<tr>
+<td align="left">LLM05: Improper Output Handling</td>
+<td align="left">T7, T8</td>
+</tr>
+<tr>
+<td align="left">LLM06: Excessive Agency</td>
+<td align="left">T11</td>
+</tr>
+<tr>
+<td align="left">LLM07: System Prompt Leakage</td>
+<td align="left">T1, T4</td>
+</tr>
+<tr>
+<td align="left">LLM08: Vector and Embedding Weaknesses</td>
+<td align="left">T12</td>
+</tr>
+<tr>
+<td align="left">LLM09: Misinformation</td>
+<td align="left">T8</td>
+</tr>
+<tr>
+<td align="left">LLM10: Unbounded Consumption</td>
+<td align="left">T14</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h2>Tactic Overview</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Tactic</th>
+<th align="center">Techniques</th>
+<th align="center">Procedures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">T1</td>
+<td align="left">Prompt &amp; Context Subversion</td>
+<td align="center">16</td>
+<td align="center">76</td>
+</tr>
+<tr>
+<td align="left">T2</td>
+<td align="left">Semantic &amp; Linguistic Evasion</td>
+<td align="center">20</td>
+<td align="center">161</td>
+</tr>
+<tr>
+<td align="left">T3</td>
+<td align="left">Reasoning &amp; Constraint Exploitation</td>
+<td align="center">19</td>
+<td align="center">178</td>
+</tr>
+<tr>
+<td align="left">T4</td>
+<td align="left">Multi-Turn &amp; Memory Manipulation</td>
+<td align="center">16</td>
+<td align="center">147</td>
+</tr>
+<tr>
+<td align="left">T5</td>
+<td align="left">Model &amp; API Exploitation</td>
+<td align="center">16</td>
+<td align="center">142</td>
+</tr>
+<tr>
+<td align="left">T6</td>
+<td align="left">Training &amp; Feedback Poisoning</td>
+<td align="center">15</td>
+<td align="center">141</td>
+</tr>
+<tr>
+<td align="left">T7</td>
+<td align="left">Output Manipulation &amp; Exfiltration</td>
+<td align="center">15</td>
+<td align="center">146</td>
+</tr>
+<tr>
+<td align="left">T8</td>
+<td align="left">External Deception &amp; Misinformation</td>
+<td align="center">15</td>
+<td align="center">150</td>
+</tr>
+<tr>
+<td align="left">T9</td>
+<td align="left">Multimodal &amp; Cross-Channel Attacks</td>
+<td align="center">17</td>
+<td align="center">147</td>
+</tr>
+<tr>
+<td align="left">T10</td>
+<td align="left">Integrity &amp; Confidentiality Breach</td>
+<td align="center">15</td>
+<td align="center">147</td>
+</tr>
+<tr>
+<td align="left">T11</td>
+<td align="left">Agentic &amp; Orchestrator Exploitation</td>
+<td align="center">16</td>
+<td align="center">160</td>
+</tr>
+<tr>
+<td align="left">T12</td>
+<td align="left">RAG &amp; Knowledge Base Manipulation</td>
+<td align="center">15</td>
+<td align="center">149</td>
+</tr>
+<tr>
+<td align="left">T13</td>
+<td align="left">AI Supply Chain &amp; Artifact Trust</td>
+<td align="center">15</td>
+<td align="center">150</td>
+</tr>
+<tr>
+<td align="left">T14</td>
+<td align="left">Infrastructure &amp; Economic Warfare</td>
+<td align="center">15</td>
+<td align="center">150</td>
+</tr>
+<tr>
+<td align="left">T15</td>
+<td align="left">Human Workflow Exploitation</td>
+<td align="center">15</td>
+<td align="center">108</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><strong>Total</strong></td>
+<td align="center"><strong>240</strong></td>
+<td align="center"><strong>2,152+</strong></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<p><a href="02-risk-assessment.md">← Part 2</a> · <a href="../../README.md">Home</a> · <a href="../vol-2-core-tactics/README.md">Volume II: Core Tactics →</a></p></div>
 </section>
-<div class="article-layout">
-<main class="article-body">
-<div class="article-body"> <p>
-AATMF v3 methodology, quantitative risk assessment, threat actor taxonomy, and framework architecture.
-</p> <!-- Introduction --> <section id="introduction"> <h2 id="introduction-methodology">Introduction &amp; Methodology</h2> <div> <p>
-AI systems are probabilistic, context-dependent, and trained on human language — making them susceptible to the same manipulation techniques used against humans for millennia. Traditional cybersecurity frameworks miss the attack surfaces unique to AI: prompt injection, training data poisoning, model extraction, agentic exploitation, RAG manipulation, and the human feedback loops that shape model behavior.
-</p> <p>
-AATMF fills that gap. Each technique is documented with a unique namespaced identifier, risk score (AATMF-R v3), attack procedures with example prompts, detection patterns, mitigation controls, and cross-framework references to MITRE ATLAS, OWASP, NIST, and EU AI Act.
-</p> </div> <!-- Scope --> <h3 id="scope">Scope</h3> <div> <div> <span>+</span> Large Language Models (LLMs) and Large Reasoning Models (LRMs) </div><div> <span>+</span> Multimodal models (vision, audio, video) </div><div> <span>+</span> Retrieval-Augmented Generation (RAG) systems </div><div> <span>+</span> Autonomous AI agents and multi-agent orchestrators </div><div> <span>+</span> AI development and deployment infrastructure </div><div> <span>+</span> Human-in-the-loop workflows </div><div> <span>+</span> AI supply chains (models, datasets, tools, libraries) </div> </div> <!-- Threat Actors --> <h3 id="threat-actor-taxonomy">Threat Actor Taxonomy</h3> <div> <table> <thead> <tr> <th>Actor</th> <th>Motivation</th> <th>Tactics</th> <th>Sophistication</th> </tr> </thead> <tbody> <tr> <td>Script kiddies</td> <td>Curiosity, clout</td> <td>T1, T2</td> <td>Low</td> </tr><tr> <td>Bug bounty hunters</td> <td>Financial reward</td> <td>T1–T5, T10</td> <td>Medium–High</td> </tr><tr> <td>Cybercriminals</td> <td>Financial gain</td> <td>T1–T3, T7–T8, T13</td> <td>Medium</td> </tr><tr> <td>Corporate espionage</td> <td>Competitive advantage</td> <td>T5, T10, T13–T14</td> <td>High</td> </tr><tr> <td>Nation-state actors</td> <td>Strategic advantage</td> <td>T6, T11, T13–T15</td> <td>Very High</td> </tr><tr> <td>AI red teams</td> <td>Security improvement</td> <td>All</td> <td>Very High</td> </tr><tr> <td>Insiders</td> <td>Various</td> <td>T6, T15</td> <td>Variable</td> </tr> </tbody> </table> </div> <!-- Version History --> <h3 id="evolution">Evolution</h3> <div> <div> <span>v1.0</span> <div> <span>2024</span> <p>Initial framework, 8 tactics</p> </div> </div><div> <span>v2.0</span> <div> <span>Late 2024</span> <p>Expanded to 12 tactics, added risk scoring</p> </div> </div><div> <span>v3</span> <div> <span>February 2026</span> <p>20 tactics, 240 techniques, 2,152+ procedures, namespaced IDs, Volumes V–VII</p> </div> </div> </div> </section> <!-- Risk Assessment --> <section id="risk-assessment"> <h2 id="aatmf-r-v3-risk-assessment">AATMF-R v3 Risk Assessment</h2> <p>
-AATMF-R v3 uses a six-factor formula to quantify risk. Each factor is scored independently and combined to produce a final risk rating.
-</p> <div> <code>
-Risk = (L × I × E) / 6 × (D / 6) × R × C
-</code> </div> <!-- Scoring Guidelines --> <h3 id="scoring-guidelines">Scoring Guidelines</h3> <!-- Likelihood --> <h4>Likelihood (L) — 1 to 5</h4> <div> <table> <tbody> <tr> <td>1</td> <td>Rare</td> <td>Requires novel research, no known PoC</td> </tr><tr> <td>2</td> <td>Unlikely</td> <td>Requires specialized knowledge</td> </tr><tr> <td>3</td> <td>Possible</td> <td>Known technique, moderate skill required</td> </tr><tr> <td>4</td> <td>Likely</td> <td>Well-documented, readily available tools</td> </tr><tr> <td>5</td> <td>Almost Certain</td> <td>Automated, commodity attack</td> </tr> </tbody> </table> </div> <!-- Impact --> <h4>Impact (I) — 1 to 5</h4> <div> <table> <tbody> <tr> <td>1</td> <td>Negligible</td> <td>Minor policy violation, no data exposure</td> </tr><tr> <td>2</td> <td>Minor</td> <td>Limited harmful content, no sensitive data</td> </tr><tr> <td>3</td> <td>Moderate</td> <td>Sensitive data exposure, service degradation</td> </tr><tr> <td>4</td> <td>Major</td> <td>Critical data breach, safety bypass, service outage</td> </tr><tr> <td>5</td> <td>Catastrophic</td> <td>Physical harm potential, mass data breach, systemic compromise</td> </tr> </tbody> </table> </div> <!-- Exploitability --> <h4>Exploitability (E) — 1 to 5</h4> <div> <table> <tbody> <tr> <td>1</td> <td>Theoretical</td> <td>Requires custom research and novel techniques</td> </tr><tr> <td>2</td> <td>Difficult</td> <td>Needs deep expertise and specific conditions</td> </tr><tr> <td>3</td> <td>Moderate</td> <td>Documented approach, some skill required</td> </tr><tr> <td>4</td> <td>Easy</td> <td>Copy-paste attacks, minimal customization</td> </tr><tr> <td>5</td> <td>Trivial</td> <td>Automated tools, zero skill required</td> </tr> </tbody> </table> </div> <!-- Detectability --> <h4>Detectability (D) — 1 to 5</h4> <div> <table> <tbody> <tr> <td>1</td> <td>Obvious</td> <td>Trivially detected by basic filters</td> </tr><tr> <td>2</td> <td>Easy</td> <td>Standard monitoring catches it</td> </tr><tr> <td>3</td> <td>Moderate</td> <td>Requires specialized detection</td> </tr><tr> <td>4</td> <td>Difficult</td> <td>Advanced analysis needed</td> </tr><tr> <td>5</td> <td>Nearly Invisible</td> <td>No reliable detection method exists</td> </tr> </tbody> </table> </div> <!-- Recoverability --> <h4>Recoverability (R) — 1 to 5</h4> <div> <table> <tbody> <tr> <td>1</td> <td>Immediate</td> <td>Auto-recoverable, no intervention needed</td> </tr><tr> <td>2</td> <td>Quick</td> <td>Simple rollback or reset</td> </tr><tr> <td>3</td> <td>Moderate</td> <td>Requires investigation and manual remediation</td> </tr><tr> <td>4</td> <td>Difficult</td> <td>Extended downtime, data loss possible</td> </tr><tr> <td>5</td> <td>Irrecoverable</td> <td>Permanent damage, no full recovery path</td> </tr> </tbody> </table> </div> <!-- Cost Factor --> <h4>Cost Factor (C) — 0.5 to 2.0</h4> <div> <table> <tbody> <tr> <td>0.5</td> <td>Minimal economic impact, internal only</td> </tr><tr> <td>1.0</td> <td>Standard business impact</td> </tr><tr> <td>1.5</td> <td>Significant financial or reputational damage</td> </tr><tr> <td>2.0</td> <td>Catastrophic economic consequences</td> </tr> </tbody> </table> </div> <!-- Interactive Calculator --> <h3 id="interactive-calculator">Interactive Calculator</h3> <p>
-Adjust the six factors below to calculate a risk score for your threat scenario. Scores vary based on deployment context — a chatbot and an autonomous financial agent score very differently on Impact and Cost Factor.
-</p> <script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();</script><astro-island await-children="" client="load" component-export="default" component-url="/_astro/RiskScoreCalculator.DOYEqzcg.js" opts='{"name":"RiskScoreCalculator","value":true}' prefix="r3" props="{}" renderer-url="/_astro/client.DCKK-Ipe.js" ssr="" uid="ZugTSg"><div><div><h3 id="aatmf-r-v3-risk-calculator">AATMF-R v3 Risk Calculator</h3><p>Formula: <code>(L × I × E) / 6 × (D / 6) × R × C</code></p></div><div><div><div><div><label>Likelihood (L)</label><span>3<!-- --> — <!-- -->Possible</span></div><p>Probability of successful exploitation</p><input max="5" min="1" step="1" type="range" value="3"/></div><div><div><label>Impact (I)</label><span>3<!-- --> — <!-- -->Moderate</span></div><p>Severity of successful attack</p><input max="5" min="1" step="1" type="range" value="3"/></div><div><div><label>Exploitability (E)</label><span>3<!-- --> — <!-- -->Moderate</span></div><p>Ease of execution</p><input max="5" min="1" step="1" type="range" value="3"/></div><div><div><label>Detectability (D)</label><span>3<!-- --> — <!-- -->Moderate</span></div><p>Difficulty of detection (5 = nearly invisible)</p><input max="5" min="1" step="1" type="range" value="3"/></div><div><div><label>Recoverability (R)</label><span>3<!-- --> — <!-- -->Moderate</span></div><p>Effort to recover (5 = irrecoverable)</p><input max="5" min="1" step="1" type="range" value="3"/></div><div><div><label>Cost Factor (C)</label><span>1<!-- --> — <!-- -->Standard</span></div><p>Economic impact multiplier</p><input max="2" min="0.5" step="0.5" type="range" value="1"/></div></div><div><div><div><span>6.8</span><span>⚪<!-- --> <!-- -->Info</span></div></div><div><div><div><span>Critical</span></div><span>250+</span></div><div><div><span>High</span></div><span>200–249</span></div><div><div><span>Medium</span></div><span>150–199</span></div><div><div><span>Low</span></div><span>100–149</span></div><div><div><span>Info</span></div><span>0–99</span></div></div><div><p>Calculation</p><p>(<!-- -->3<!-- --> × <!-- -->3<!-- --> × <!-- -->3<!-- -->) / 6 × (<!-- -->3<!-- --> / 6) × <!-- -->3<!-- --> × <!-- -->1</p><p>= <!-- -->6.8</p></div></div></div><style>
-        input[type="range"]::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          background: white;
-          cursor: pointer;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          border: 2px solid #39FF14;
-        }
-        input[type="range"]::-moz-range-thumb {
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          background: white;
-          cursor: pointer;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          border: 2px solid #39FF14;
-        }
-      </style></div><!--astro:end--></astro-island> </section> <!-- Architecture --> <section id="architecture"> <h2 id="framework-architecture">Framework Architecture</h2> <p>
-AATMF organizes adversarial threats in a four-level hierarchy. Each level adds specificity, from strategic objectives (tactics) down to executable attack strings (prompts).
-</p> <div> <pre><code>15 Tactics          → High-level adversarial objectives
-└── 240 Techniques   → Specific attack methods
-    ├── 2,152+ Procedures → Implementation variants
-    │   └── 4,980+ Prompts  → Actual attack examples
-    ├── Detection Patterns
-    └── Mitigation Controls</code></pre> </div> <p>
-v3 uses namespaced identifiers (<code>T1-AT-001</code>) that eliminate the 43 ID collisions present in earlier versions. Every identifier is globally unique with tactic membership visible at a glance.
-</p> </section> </div>
-</main>
-<aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#introduction-methodology">Introduction &amp; Methodology</a></li><li class="h3"><a href="#scope">Scope</a></li><li class="h3"><a href="#threat-actor-taxonomy">Threat Actor Taxonomy</a></li><li class="h3"><a href="#evolution">Evolution</a></li><li><a href="#aatmf-r-v3-risk-assessment">AATMF-R v3 Risk Assessment</a></li><li class="h3"><a href="#scoring-guidelines">Scoring Guidelines</a></li><li class="h3"><a href="#interactive-calculator">Interactive Calculator</a></li><li class="h3"><a href="#aatmf-r-v3-risk-calculator">AATMF-R v3 Risk Calculator</a></li><li><a href="#framework-architecture">Framework Architecture</a></li></ul></aside>
-</div>
-<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/frameworks/aatmf/advanced-tactics/"><div class="related-date"></div><div class="related-title">AATMF Advanced Tactics T9-T12 | RAG Attacks</div><div class="related-desc">AATMF v3 advanced tactics T9-T12 covering multimodal injection, output integrity breaches, agentic AI exploitation, and RAG knowledge base m…</div></a><a class="related-card" href="/frameworks/aatmf/appendices/"><div class="related-date"></div><div class="related-title">AATMF Appendices | Attack Catalog &amp; Signatures</div><div class="related-desc">AATMF v3 appendices. Top 25 critical techniques, detection signatures library, security tools reference, assessment templates, case studies,…</div></a><a class="related-card" href="/frameworks/aatmf/core-tactics/"><div class="related-date"></div><div class="related-title">AATMF Core Tactics T1-T8 | Prompt Injection</div><div class="related-desc">AATMF v3 core tactics T1-T8 covering prompt subversion, semantic evasion, reasoning exploitation, multi-turn manipulation, and training data…</div></a></div></div></section>
+</div></section>
 
-  <!-- citation:start -->
-  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
-    <div style="max-width:780px;margin:0 auto">
-      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
-        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026foundations,
-  author = {Aizen, Kai},
-  title  = {AATMF Foundations | Risk Assessment & Architecture},
-  year   = {2026},
-  url    = {https://snailsploit.com/frameworks/aatmf/foundations/},
-  note   = {snailsploit.com}
-}</pre>
-      </details>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>AATMF Foundations | Risk Assessment & Architecture</i>. snailsploit.com. https://snailsploit.com/frameworks/aatmf/foundations/</p>
-      </details>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "AATMF Foundations | Risk Assessment & Architecture." <i>snailsploit</i>, 2026, https://snailsploit.com/frameworks/aatmf/foundations/.</p>
-      </details>
-      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
-        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "AATMF Foundations | Risk Assessment & Architecture." snailsploit (blog). 2026. https://snailsploit.com/frameworks/aatmf/foundations/.</p>
-      </details>
-      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/frameworks/aatmf/foundations/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/frameworks/aatmf/foundations/</a></div>
-    </div>
-  </section>
-  <!-- citation:end -->
-<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
-<footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a></span><!-- legal-nav --></footer>
+<section class="next-vol"><div class="next-vol-inner">
+<a href="/frameworks/aatmf/core-tactics/" class="vol-card"><div class="vol-card-num">Vol II →</div><div class="vol-card-title">Core Tactics (T01–T08)</div><div class="vol-card-desc">The eight foundational adversarial-AI tactics: prompt subversion, semantic evasion, reason…</div></a><a href="/frameworks/aatmf/advanced-tactics/" class="vol-card"><div class="vol-card-num">Vol III →</div><div class="vol-card-title">Advanced Tactics (T09–T12)</div><div class="vol-card-desc">Multimodal attacks, integrity breach, agentic exploitation, RAG-specific threats — for sys…</div></a><a href="/frameworks/aatmf/infrastructure/" class="vol-card"><div class="vol-card-num">Vol IV →</div><div class="vol-card-title">Infrastructure & Human (T13–T15)</div><div class="vol-card-desc">Where the attack surface meets the surrounding stack: supply chain, infrastructure, and th…</div></a><a href="/frameworks/aatmf/operations/" class="vol-card"><div class="vol-card-num">Vol V →</div><div class="vol-card-title">Operations</div><div class="vol-card-desc">Detection engineering, mitigation, incident response, red-team ops, blue-team defense — ap…</div></a><a href="/frameworks/aatmf/governance/" class="vol-card"><div class="vol-card-num">Vol VI →</div><div class="vol-card-title">Governance</div><div class="vol-card-desc">Risk management, compliance mapping (NIST AI RMF, MITRE ATLAS), and security training prog…</div></a><a href="/frameworks/aatmf/appendices/" class="vol-card"><div class="vol-card-num">Vol VII →</div><div class="vol-card-title">Appendices</div><div class="vol-card-desc">Attack catalog, signatures, tools, templates, case studies, glossary — operational referen…</div></a>
+</div></section>
+
+<section class="author-row"><div class="author-inner">
+<div class="author-eye">Author</div>
+<div class="author-name">Kai Aizen</div>
+<div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div>
+<div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div>
+</div></section>
+<footer class="footer"><div class="footer-inner">
+<span>© 2026 kai aizen · same attack. different substrate.</span>
+<span class="footer-legal"><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a></span>
+</div></footer>
 </body>
 </html>
