@@ -219,7 +219,14 @@ a{color:inherit;text-decoration:none}
 </section>
 <div class="article-layout">
 <main class="article-body">
-<div class="article-body"> <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Rate limiting</strong> for AI systems controls how frequently users or applications can query the model, preventing abuse through excessive requests. While conceptually similar to traditional API rate limiting, AI-specific rate limiting must account for the unique threats against ML systems, including extraction attacks that require many queries to succeed.
+<div class="article-body">
+  <!-- tldr:start -->
+  <div style="margin:0 0 32px;padding:20px 24px;border:1px solid var(--signal-2);background:color-mix(in srgb,var(--signal-2) 6%,var(--bg-raise));border-left-width:3px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--fg)">
+    <div style="font-size:10px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:8px;font-weight:500">TL;DR</div>
+    <div>Rate limitingfor AI systems controls how frequently users or applications can query the model, preventing abuse through excessive requests.</div>
+  </div>
+  <!-- tldr:end -->
+ <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Rate limiting</strong> for AI systems controls how frequently users or applications can query the model, preventing abuse through excessive requests. While conceptually similar to traditional API rate limiting, AI-specific rate limiting must account for the unique threats against ML systems, including extraction attacks that require many queries to succeed.
 </p> <p>
 Effective rate limiting doesn't just prevent denial of service—it raises the economic cost of attacks that rely on systematic querying, making model extraction and training data extraction significantly harder.
 </p> <hr/> <h2 id="ai-specific-threats-addressed">AI-Specific Threats Addressed</h2> <h3 id="model-extraction">Model Extraction</h3> <p>
@@ -362,6 +369,37 @@ Wiki Index
 <aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#ai-specific-threats-addressed">AI-Specific Threats Addressed</a></li><li class="h3"><a href="#model-extraction">Model Extraction</a></li><li class="h3"><a href="#training-data-extraction">Training Data Extraction</a></li><li class="h3"><a href="#systematic-jailbreak-attempts">Systematic Jailbreak Attempts</a></li><li class="h3"><a href="#cost-amplification-dos">Cost Amplification (DoS)</a></li><li><a href="#rate-limiting-strategies">Rate Limiting Strategies</a></li><li class="h3"><a href="#request-based-limits">Request-Based Limits</a></li><li class="h3"><a href="#token-based-limits">Token-Based Limits</a></li><li class="h3"><a href="#cost-based-limits">Cost-Based Limits</a></li><li class="h3"><a href="#behavioral-limits">Behavioral Limits</a></li><li><a href="#implementation-architecture">Implementation Architecture</a></li><li class="h3"><a href="#layered-rate-limiting">Layered Rate Limiting</a></li><li class="h3"><a href="#distributed-rate-limiting">Distributed Rate Limiting</a></li><li><a href="#evasion-and-countermeasures">Evasion and Countermeasures</a></li><li class="h3"><a href="#common-evasion-techniques">Common Evasion Techniques</a></li><li class="h3"><a href="#adaptive-rate-limiting">Adaptive Rate Limiting</a></li><li><a href="#best-practices">Best Practices</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
 </div>
 <section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/wiki/defenses/guardrails/"><div class="related-date"></div><div class="related-title">Guardrails | AI Security Wiki</div><div class="related-desc">Safety mechanisms that constrain AI model behavior through rules, policies, and behavioral boundaries to prevent harmful outputs and maintai…</div></a><a class="related-card" href="/ai-security/wiki/defenses/human-in-the-loop/"><div class="related-date"></div><div class="related-title">Human-in-the-Loop | AI Security Wiki</div><div class="related-desc">Defense pattern requiring human oversight and approval for AI system actions, critical for high-stakes decisions and protecting against AI a…</div></a><a class="related-card" href="/ai-security/wiki/defenses/input-validation/"><div class="related-date"></div><div class="related-title">Input Validation | AI Security Wiki</div><div class="related-desc">First line of defense against prompt injection and malicious inputs, using pattern matching, classification, and structural analysis to filt…</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026rate,
+  author = {Aizen, Kai},
+  title  = {Rate Limiting | AI Security Wiki},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>Rate Limiting | AI Security Wiki</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Rate Limiting | AI Security Wiki." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Rate Limiting | AI Security Wiki." snailsploit (blog). 2026. https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
 </body>

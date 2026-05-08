@@ -219,7 +219,14 @@ a{color:inherit;text-decoration:none}
 </section>
 <div class="article-layout">
 <main class="article-body">
-<div class="article-body"> <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Adversarial examples</strong> are inputs specifically crafted to cause machine learning models to make mistakes. These inputs appear normal to humans but contain carefully calculated perturbations that exploit how models process data, leading to misclassification or incorrect outputs.
+<div class="article-body">
+  <!-- tldr:start -->
+  <div style="margin:0 0 32px;padding:20px 24px;border:1px solid var(--signal-2);background:color-mix(in srgb,var(--signal-2) 6%,var(--bg-raise));border-left-width:3px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--fg)">
+    <div style="font-size:10px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:8px;font-weight:500">TL;DR</div>
+    <div>Adversarial examplesare inputs specifically crafted to cause machine learning models to make mistakes. These inputs appear normal to humans but contain carefully calculated perturbations that exploit how models process data, leading to misclassification or incorrect outputs.</div>
+  </div>
+  <!-- tldr:end -->
+ <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Adversarial examples</strong> are inputs specifically crafted to cause machine learning models to make mistakes. These inputs appear normal to humans but contain carefully calculated perturbations that exploit how models process data, leading to misclassification or incorrect outputs.
 </p> <p>
 Originally demonstrated in computer vision (images classified incorrectly after imperceptible pixel changes), adversarial examples represent a fundamental challenge across all ML domains, including NLP, audio, and reinforcement learning systems.
 </p> <hr/> <h2 id="how-adversarial-examples-work">How Adversarial Examples Work</h2> <h3 id="the-basic-principle">The Basic Principle</h3> <p>
@@ -297,6 +304,37 @@ Wiki Index
 <aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#how-adversarial-examples-work">How Adversarial Examples Work</a></li><li class="h3"><a href="#the-basic-principle">The Basic Principle</a></li><li class="h3"><a href="#attack-components">Attack Components</a></li><li><a href="#attack-categories">Attack Categories</a></li><li class="h3"><a href="#white-box-attacks">White-Box Attacks</a></li><li class="h3"><a href="#black-box-attacks">Black-Box Attacks</a></li><li class="h3"><a href="#physical-world-attacks">Physical-World Attacks</a></li><li><a href="#adversarial-examples-across-domains">Adversarial Examples Across Domains</a></li><li class="h3"><a href="#computer-vision">Computer Vision</a></li><li class="h3"><a href="#natural-language-processing">Natural Language Processing</a></li><li class="h3"><a href="#audiospeech">Audio/Speech</a></li><li><a href="#real-world-security-impact">Real-World Security Impact</a></li><li class="h3"><a href="#autonomous-vehicles">Autonomous Vehicles</a></li><li class="h3"><a href="#content-moderation">Content Moderation</a></li><li class="h3"><a href="#security-systems">Security Systems</a></li><li><a href="#defenses">Defenses</a></li><li class="h3"><a href="#adversarial-training">Adversarial Training</a></li><li class="h3"><a href="#input-preprocessing">Input Preprocessing</a></li><li class="h3"><a href="#certified-defenses">Certified Defenses</a></li><li class="h3"><a href="#detection-based-defenses">Detection-Based Defenses</a></li><li><a href="#limitations-of-defenses">Limitations of Defenses</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
 </div>
 <section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/wiki/attacks/agent-hijacking/"><div class="related-date"></div><div class="related-title">Agent Hijacking | AI Security Wiki</div><div class="related-desc">Agent hijacking attacks compromise AI systems with tool-use capabilities, redirecting autonomous actions via prompt injection, goal manipula…</div></a><a class="related-card" href="/ai-security/wiki/attacks/backdoor-attacks/"><div class="related-date"></div><div class="related-title">Backdoor Attacks | AI Security Wiki</div><div class="related-desc">Attacks that embed hidden malicious behaviors in AI models during training, creating trojan functionality activated by specific trigger patt…</div></a><a class="related-card" href="/ai-security/wiki/attacks/data-poisoning/"><div class="related-date"></div><div class="related-title">Data Poisoning | AI Security Wiki</div><div class="related-desc">Data poisoning corrupts AI training data to manipulate model behavior — inserting backdoors, biases, or targeted misbehavior that activates …</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026adversarial,
+  author = {Aizen, Kai},
+  title  = {Adversarial Examples | AI Security Wiki},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/wiki/attacks/adversarial-examples/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>Adversarial Examples | AI Security Wiki</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/attacks/adversarial-examples/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Adversarial Examples | AI Security Wiki." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/wiki/attacks/adversarial-examples/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Adversarial Examples | AI Security Wiki." snailsploit (blog). 2026. https://snailsploit.com/ai-security/wiki/attacks/adversarial-examples/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/wiki/attacks/adversarial-examples/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/wiki/attacks/adversarial-examples/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
 </body>

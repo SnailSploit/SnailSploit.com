@@ -224,6 +224,37 @@ a{color:inherit;text-decoration:none}
 <aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#the-core-problem-no-instruction-data-boundary">The Core Problem: No Instruction-Data Boundary</a></li><li><a href="#class-1-direct-prompt-injection">Class 1: Direct Prompt Injection</a></li><li class="h3"><a href="#system-prompt-override">System Prompt Override</a></li><li class="h3"><a href="#system-prompt-extraction">System Prompt Extraction</a></li><li class="h3"><a href="#delimiter-exploitation">Delimiter Exploitation</a></li><li class="h3"><a href="#function-call-injection">Function Call Injection</a></li><li><a href="#class-2-indirect-prompt-injection">Class 2: Indirect Prompt Injection</a></li><li class="h3"><a href="#document-injection">Document Injection</a></li><li class="h3"><a href="#web-content-injection">Web Content Injection</a></li><li class="h3"><a href="#email-based-injection">Email-Based Injection</a></li><li><a href="#class-3-tool-and-protocol-injection">Class 3: Tool and Protocol Injection</a></li><li class="h3"><a href="#mcp-tool-poisoning">MCP Tool Poisoning</a></li><li class="h3"><a href="#api-response-poisoning">API Response Poisoning</a></li><li class="h3"><a href="#supply-chain-injection">Supply Chain Injection</a></li><li><a href="#class-4-persistence-and-memory-injection">Class 4: Persistence and Memory Injection</a></li><li class="h3"><a href="#memory-poisoning">Memory Poisoning</a></li><li class="h3"><a href="#custom-instruction-exploitation">Custom Instruction Exploitation</a></li><li class="h3"><a href="#skill-and-plugin-injection">Skill and Plugin Injection</a></li><li><a href="#detection-and-defense-patterns">Detection and Defense Patterns</a></li><li class="h3"><a href="#input-layer">Input Layer</a></li><li class="h3"><a href="#context-layer">Context Layer</a></li><li class="h3"><a href="#output-layer">Output Layer</a></li><li class="h3"><a href="#architectural-layer">Architectural Layer</a></li><li><a href="#testing-prompt-injection-systematically">Testing Prompt Injection Systematically</a></li><li><a href="#the-trajectory">The Trajectory</a></li><li class="h3"><a href="#related-research">Related Research</a></li></ul></aside>
 </div>
 <section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/self-replicating-memory-worm/"><div class="related-date">2026-03-11</div><div class="related-title">Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation</div><div class="related-desc">A single memory edit becomes an autonomous, self-replicating worm with credential harvesting and cross-service pivoting. See how it survives…</div></a><a class="related-card" href="/ai-security/adversarial-prompting/"><div class="related-date">2026-03-10</div><div class="related-title">Adversarial Prompting: The Complete Technical Guide</div><div class="related-desc">Every adversarial prompting technique mapped from role hijacking to multi-turn escalation. Learn how attacks work, why defenses fail, and ho…</div></a><a class="related-card" href="/ai-security/jailbreaking/jailbreak-techniques/"><div class="related-date">2026-03-10</div><div class="related-title">LLM Jailbreak Techniques: A Technical Taxonomy</div><div class="related-desc">Complete taxonomy of LLM jailbreak methods — role hijacking, multi-turn escalation, context manipulation, encoding exploits, and chain-of-th…</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026prompt,
+  author = {Aizen, Kai},
+  title  = {Prompt Injection Examples: Real Attack Patterns Explained},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/prompt-injection/prompt-injection-examples/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>Prompt Injection Examples: Real Attack Patterns Explained</i>. snailsploit.com. https://snailsploit.com/ai-security/prompt-injection/prompt-injection-examples/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Prompt Injection Examples: Real Attack Patterns Explained." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/prompt-injection/prompt-injection-examples/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Prompt Injection Examples: Real Attack Patterns Explained." snailsploit (blog). 2026. https://snailsploit.com/ai-security/prompt-injection/prompt-injection-examples/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/prompt-injection/prompt-injection-examples/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/prompt-injection/prompt-injection-examples/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
 </body>

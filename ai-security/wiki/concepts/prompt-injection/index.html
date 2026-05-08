@@ -219,7 +219,14 @@ a{color:inherit;text-decoration:none}
 </section>
 <div class="article-layout">
 <main class="article-body">
-<div class="article-body"> <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Prompt injection</strong> occurs when untrusted input is concatenated with trusted instructions in an LLM's context, and the model treats the untrusted input as instructions rather than data. This allows attackers to override system prompts, bypass safety controls, exfiltrate data, or cause the model to take unintended actions.
+<div class="article-body">
+  <!-- tldr:start -->
+  <div style="margin:0 0 32px;padding:20px 24px;border:1px solid var(--signal-2);background:color-mix(in srgb,var(--signal-2) 6%,var(--bg-raise));border-left-width:3px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--fg)">
+    <div style="font-size:10px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:8px;font-weight:500">TL;DR</div>
+    <div>Prompt injectionoccurs when untrusted input is concatenated with trusted instructions in an LLM's context, and the model treats the untrusted input as instructions rather than data.</div>
+  </div>
+  <!-- tldr:end -->
+ <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Prompt injection</strong> occurs when untrusted input is concatenated with trusted instructions in an LLM's context, and the model treats the untrusted input as instructions rather than data. This allows attackers to override system prompts, bypass safety controls, exfiltrate data, or cause the model to take unintended actions.
 </p> <p>
 The term was coined by Simon Willison in September 2022 following the public release of GPT-3 and the rapid proliferation of LLM-integrated applications.
 </p> <hr/> <h2 id="why-it-matters">Why It Matters</h2> <p>
@@ -276,6 +283,37 @@ Wiki Index
 <aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#why-it-matters">Why It Matters</a></li><li><a href="#how-it-works">How It Works</a></li><li class="h3"><a href="#the-fundamental-problem">The Fundamental Problem</a></li><li class="h3"><a href="#basic-exploitation">Basic Exploitation</a></li><li><a href="#variants">Variants</a></li><li class="h3"><a href="#direct-prompt-injection">Direct Prompt Injection</a></li><li class="h3"><a href="#indirect-prompt-injection">Indirect Prompt Injection</a></li><li><a href="#real-world-impact">Real-World Impact</a></li><li class="h3"><a href="#documented-incidents">Documented Incidents</a></li><li><a href="#detection">Detection</a></li><li class="h3"><a href="#input-monitoring">Input Monitoring</a></li><li class="h3"><a href="#output-monitoring">Output Monitoring</a></li><li class="h3"><a href="#behavioral-baselines">Behavioral Baselines</a></li><li><a href="#defenses">Defenses</a></li><li class="h3"><a href="#architectural-defenses">Architectural Defenses</a></li><li class="h3"><a href="#input-defenses">Input Defenses</a></li><li class="h3"><a href="#output-defenses">Output Defenses</a></li><li><a href="#common-misconceptions">Common Misconceptions</a></li><li><a href="#further-reading-on-snailsploit">Further Reading on SnailSploit</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
 </div>
 <section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/wiki/concepts/adversarial-ai/"><div class="related-date"></div><div class="related-title">Adversarial AI | AI Security Wiki</div><div class="related-desc">Adversarial AI is the discipline of understanding, executing, and defending against attacks on artificial intelligence — from prompt injecti…</div></a><a class="related-card" href="/ai-security/wiki/concepts/ai-agents/"><div class="related-date"></div><div class="related-title">AI Agents | AI Security Wiki</div><div class="related-desc">AI agents are autonomous systems that plan, execute actions, use tools, and interact with external services — representing the highest-risk …</div></a><a class="related-card" href="/ai-security/wiki/concepts/ai-alignment/"><div class="related-date"></div><div class="related-title">AI Alignment | AI Security Wiki</div><div class="related-desc">AI alignment is the challenge of ensuring systems reliably pursue intended goals and follow human values. Misalignment is why jailbreaks kee…</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026prompt,
+  author = {Aizen, Kai},
+  title  = {Prompt Injection | AI Security Wiki},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/wiki/concepts/prompt-injection/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>Prompt Injection | AI Security Wiki</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/concepts/prompt-injection/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Prompt Injection | AI Security Wiki." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/wiki/concepts/prompt-injection/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Prompt Injection | AI Security Wiki." snailsploit (blog). 2026. https://snailsploit.com/ai-security/wiki/concepts/prompt-injection/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/wiki/concepts/prompt-injection/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/wiki/concepts/prompt-injection/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
 </body>

@@ -219,7 +219,14 @@ a{color:inherit;text-decoration:none}
 </section>
 <div class="article-layout">
 <main class="article-body">
-<div class="article-body"> <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Retrieval-Augmented Generation (RAG)</strong> is an architecture that combines large language models with external knowledge retrieval. Instead of relying solely on knowledge encoded during training, RAG systems search document stores, databases, or APIs to find relevant information, then pass this context to the LLM to generate informed responses.
+<div class="article-body">
+  <!-- tldr:start -->
+  <div style="margin:0 0 32px;padding:20px 24px;border:1px solid var(--signal-2);background:color-mix(in srgb,var(--signal-2) 6%,var(--bg-raise));border-left-width:3px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--fg)">
+    <div style="font-size:10px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:8px;font-weight:500">TL;DR</div>
+    <div>Retrieval-Augmented Generation (RAG)is an architecture that combines large language models with external knowledge retrieval.</div>
+  </div>
+  <!-- tldr:end -->
+ <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Retrieval-Augmented Generation (RAG)</strong> is an architecture that combines large language models with external knowledge retrieval. Instead of relying solely on knowledge encoded during training, RAG systems search document stores, databases, or APIs to find relevant information, then pass this context to the LLM to generate informed responses.
 </p> <p>
 RAG solves several LLM limitations—knowledge cutoff dates, hallucination, and domain-specific accuracy—but creates new security challenges by making LLM behavior dependent on potentially untrusted external content.
 </p> <hr/> <h2 id="how-rag-works">How RAG Works</h2> <h3 id="standard-rag-pipeline">Standard RAG Pipeline</h3> <pre><code>┌─────────────┐    ┌──────────────┐    ┌─────────────────┐
@@ -300,6 +307,37 @@ Wiki Index
 <aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#how-rag-works">How RAG Works</a></li><li class="h3"><a href="#standard-rag-pipeline">Standard RAG Pipeline</a></li><li class="h3"><a href="#step-by-step-process">Step-by-Step Process</a></li><li class="h3"><a href="#example-implementation">Example Implementation</a></li><li><a href="#security-implications">Security Implications</a></li><li class="h3"><a href="#indirect-prompt-injection-vector">Indirect Prompt Injection Vector</a></li><li class="h3"><a href="#attack-surface-analysis">Attack Surface Analysis</a></li><li class="h3"><a href="#rag-specific-attack-techniques">RAG-Specific Attack Techniques</a></li><li><a href="#security-controls-for-rag">Security Controls for RAG</a></li><li class="h3"><a href="#source-trust-tiers">Source Trust Tiers</a></li><li class="h3"><a href="#content-sanitization">Content Sanitization</a></li><li class="h3"><a href="#retrieval-isolation">Retrieval Isolation</a></li><li class="h3"><a href="#provenance-tracking">Provenance Tracking</a></li><li><a href="#common-rag-architectures-and-their-risks">Common RAG Architectures and Their Risks</a></li><li class="h3"><a href="#enterprise-knowledge-base">Enterprise Knowledge Base</a></li><li class="h3"><a href="#customer-support-bot">Customer Support Bot</a></li><li class="h3"><a href="#web-augmented-chat">Web-Augmented Chat</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
 </div>
 <section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/wiki/concepts/adversarial-ai/"><div class="related-date"></div><div class="related-title">Adversarial AI | AI Security Wiki</div><div class="related-desc">Adversarial AI is the discipline of understanding, executing, and defending against attacks on artificial intelligence — from prompt injecti…</div></a><a class="related-card" href="/ai-security/wiki/concepts/ai-agents/"><div class="related-date"></div><div class="related-title">AI Agents | AI Security Wiki</div><div class="related-desc">AI agents are autonomous systems that plan, execute actions, use tools, and interact with external services — representing the highest-risk …</div></a><a class="related-card" href="/ai-security/wiki/concepts/ai-alignment/"><div class="related-date"></div><div class="related-title">AI Alignment | AI Security Wiki</div><div class="related-desc">AI alignment is the challenge of ensuring systems reliably pursue intended goals and follow human values. Misalignment is why jailbreaks kee…</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026rag,
+  author = {Aizen, Kai},
+  title  = {RAG (Retrieval-Augmented Generation) | AI Security Wiki},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/wiki/concepts/rag/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>RAG (Retrieval-Augmented Generation) | AI Security Wiki</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/concepts/rag/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "RAG (Retrieval-Augmented Generation) | AI Security Wiki." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/wiki/concepts/rag/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "RAG (Retrieval-Augmented Generation) | AI Security Wiki." snailsploit (blog). 2026. https://snailsploit.com/ai-security/wiki/concepts/rag/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/wiki/concepts/rag/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/wiki/concepts/rag/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
 </body>

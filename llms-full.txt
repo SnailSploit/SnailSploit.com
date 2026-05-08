@@ -8,7 +8,8 @@ Independent offensive security researcher Kai Aizen. 23 CVEs, 5 Linux kernel pat
 - [Services](/services): AI Red Teaming, Advanced Penetration Testing, Social Engineering
 - [Contact](/contact)
 - [Adversarial Minds (book)](/adversarial-minds)
-
+- [Press / Media Kit](/press): bio, headshots, official quotes, citation snippets
+- [Glossary](/glossary): A-Z reference of adversarial-AI terms
 ## Frameworks
 - [AATMF v3.1](/aatmf): 15 tactics, 240+ techniques, 2,150+ procedures. Mapped to NIST AI RMF and MITRE ATLAS.
 - [SEF](/sef): Social Engineering Framework

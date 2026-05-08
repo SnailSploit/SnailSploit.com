@@ -219,7 +219,14 @@ a{color:inherit;text-decoration:none}
 </section>
 <div class="article-layout">
 <main class="article-body">
-<div class="article-body"> <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Guardrails</strong> are safety mechanisms that constrain AI model behavior to align with intended use cases and prevent harmful outputs. They operate at multiple levels—from training-time alignment to runtime enforcement—creating boundaries that the model should not cross.
+<div class="article-body">
+  <!-- tldr:start -->
+  <div style="margin:0 0 32px;padding:20px 24px;border:1px solid var(--signal-2);background:color-mix(in srgb,var(--signal-2) 6%,var(--bg-raise));border-left-width:3px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--fg)">
+    <div style="font-size:10px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:8px;font-weight:500">TL;DR</div>
+    <div>Guardrailsare safety mechanisms that constrain AI model behavior to align with intended use cases and prevent harmful outputs. They operate at multiple levels—from training-time alignment to runtime enforcement—creating boundaries that the model should not cross.</div>
+  </div>
+  <!-- tldr:end -->
+ <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Guardrails</strong> are safety mechanisms that constrain AI model behavior to align with intended use cases and prevent harmful outputs. They operate at multiple levels—from training-time alignment to runtime enforcement—creating boundaries that the model should not cross.
 </p> <p>
 Unlike traditional access controls (which are binary), guardrails create probabilistic boundaries. A model with guardrails will <em>usually</em> refuse harmful requests, but sufficiently creative attacks can still find paths around these constraints.
 </p> <hr/> <h2 id="types-of-guardrails">Types of Guardrails</h2> <h3 id="training-time-guardrails">Training-Time Guardrails</h3> <p>Constraints embedded during model training:</p> <ul> <li><strong>RLHF (Reinforcement Learning from Human Feedback)</strong> — Training models to prefer safe responses</li> <li><strong>Constitutional AI</strong> — Self-critique mechanisms based on principles</li> <li><strong>Safety fine-tuning</strong> — Specific training on refusing harmful requests</li> <li><strong>Red team data inclusion</strong> — Training on adversarial examples to build robustness</li> </ul> <h3 id="system-level-guardrails">System-Level Guardrails</h3> <p>Constraints implemented in system prompts and application architecture:</p> <ul> <li><strong>System prompt instructions</strong> — Explicit behavioral constraints</li> <li><strong>Role definitions</strong> — Limiting the model to specific personas or functions</li> <li><strong>Topic restrictions</strong> — Defining allowed and prohibited subject areas</li> <li><strong>Output format constraints</strong> — Requiring structured responses that limit attack surface</li> </ul> <h3 id="runtime-guardrails">Runtime Guardrails</h3> <p>External systems that monitor and enforce constraints:</p> <ul> <li><strong>Input classifiers</strong> — Detecting and blocking malicious requests</li> <li><strong>Output validators</strong> — Checking responses against policy rules</li> <li><strong>Content moderators</strong> — Specialized models that evaluate safety</li> <li><strong>Rule engines</strong> — Programmable policies that gate model access</li> </ul> <hr/> <h2 id="implementation-architectures">Implementation Architectures</h2> <h3 id="layered-guardrail-architecture">Layered Guardrail Architecture</h3> <pre><code>┌─────────────────────────────────────────────┐
@@ -295,6 +302,37 @@ Wiki Index
 <aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#types-of-guardrails">Types of Guardrails</a></li><li class="h3"><a href="#training-time-guardrails">Training-Time Guardrails</a></li><li class="h3"><a href="#system-level-guardrails">System-Level Guardrails</a></li><li class="h3"><a href="#runtime-guardrails">Runtime Guardrails</a></li><li><a href="#implementation-architectures">Implementation Architectures</a></li><li class="h3"><a href="#layered-guardrail-architecture">Layered Guardrail Architecture</a></li><li class="h3"><a href="#framework-based-implementation">Framework-Based Implementation</a></li><li class="h3"><a href="#classifier-based-guardrails">Classifier-Based Guardrails</a></li><li><a href="#why-guardrails-fail">Why Guardrails Fail</a></li><li><a href="#guardrail-effectiveness-by-attack-type">Guardrail Effectiveness by Attack Type</a></li><li><a href="#best-practices">Best Practices</a></li><li><a href="#real-world-examples">Real-World Examples</a></li><li><a href="#further-reading-on-snailsploit">Further Reading on SnailSploit</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
 </div>
 <section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/wiki/defenses/human-in-the-loop/"><div class="related-date"></div><div class="related-title">Human-in-the-Loop | AI Security Wiki</div><div class="related-desc">Defense pattern requiring human oversight and approval for AI system actions, critical for high-stakes decisions and protecting against AI a…</div></a><a class="related-card" href="/ai-security/wiki/defenses/input-validation/"><div class="related-date"></div><div class="related-title">Input Validation | AI Security Wiki</div><div class="related-desc">First line of defense against prompt injection and malicious inputs, using pattern matching, classification, and structural analysis to filt…</div></a><a class="related-card" href="/ai-security/wiki/defenses/output-filtering/"><div class="related-date"></div><div class="related-title">Output Filtering | AI Security Wiki</div><div class="related-desc">Output filtering inspects and sanitizes AI model responses before delivery to users, preventing data leakage, harmful content, and policy vi…</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026guardrails,
+  author = {Aizen, Kai},
+  title  = {Guardrails | AI Security Wiki},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/wiki/defenses/guardrails/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>Guardrails | AI Security Wiki</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/defenses/guardrails/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Guardrails | AI Security Wiki." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/wiki/defenses/guardrails/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Guardrails | AI Security Wiki." snailsploit (blog). 2026. https://snailsploit.com/ai-security/wiki/defenses/guardrails/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/wiki/defenses/guardrails/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/wiki/defenses/guardrails/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
 </body>

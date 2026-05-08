@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glossary — Adversarial AI A-Z | snailsploit</title>
+<meta name="description" content="A-Z glossary of 34 adversarial-AI terms — attacks, concepts, defenses, frameworks, and acronyms. Each term links to a full reference page.">
+<meta name="author" content="Kai Aizen">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://snailsploit.com/glossary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/brand/tokens.css">
+<style>
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;line-height:1;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;margin-left:1.96px}.wm-sig .dollar{color:var(--signal-2)}
+.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
+.hero{padding:96px 32px 48px;border-bottom:1px solid var(--line)}
+.hero-inner{max-width:1080px;margin:0 auto}
+.eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px}
+h1{font-size:88px;font-weight:500;line-height:0.96;letter-spacing:-0.04em;margin:0}
+.alpha{position:sticky;top:65px;z-index:40;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:16px 32px}
+.alpha-inner{max-width:1080px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap}
+.footer{background:var(--bg-sink)}.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+</style>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Glossary — Adversarial AI A-Z | snailsploit">
+<meta property="og:description" content="A-Z glossary of 34 adversarial-AI terms — attacks, concepts, defenses, frameworks, and acronyms.">
+<meta property="og:url" content="https://snailsploit.com/glossary">
+<meta property="og:image" content="https://snailsploit.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SnailSploit">
+<meta name="twitter:title" content="Glossary — Adversarial AI A-Z | snailsploit">
+<meta name="twitter:description" content="A-Z glossary of 34 adversarial-AI terms.">
+<meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"DefinedTermSet","name":"Adversarial AI Glossary","url":"https://snailsploit.com/glossary","hasDefinedTerm":[{"@type":"DefinedTerm","name":"AATMF","description":"Adversarial AI Threat Modeling Framework \u2014 15 tactics, 240+ techniques, 2,150+ procedures.","url":"https://snailsploit.com/aatmf"},{"@type":"DefinedTerm","name":"AATMF Toolkit","description":"Python CLI for systematic LLM safety testing.","url":"https://snailsploit.com/toolkit"},{"@type":"DefinedTerm","name":"AATMF-R","description":"AATMF Risk scoring schema for assessing severity of adversarial-AI findings.","url":"https://snailsploit.com/aatmf"},{"@type":"DefinedTerm","name":"Adversarial AI","description":"Adversarial AI is the discipline of understanding, executing, and defending against attacks on artificial intelligence \u2014 from prompt injection to model theft.","url":"https://snailsploit.com/ai-security/wiki/concepts/adversarial-ai/"},{"@type":"DefinedTerm","name":"Adversarial Examples","description":"Adversarial examples are inputs crafted with subtle perturbations that cause ML models to produce incorrect outputs \u2014 the foundational AI attack class.","url":"https://snailsploit.com/ai-security/wiki/attacks/adversarial-examples/"},{"@type":"DefinedTerm","name":"Adversarial Minds","description":"Book on offensive psychology, social engineering, and adversarial reasoning.","url":"https://snailsploit.com/adversarial-minds"},{"@type":"DefinedTerm","name":"Agent Hijacking","description":"Agent hijacking attacks compromise AI systems with tool-use capabilities, redirecting autonomous actions via prompt injection, goal manipulation, or MCP abuse.","url":"https://snailsploit.com/ai-security/wiki/attacks/agent-hijacking/"},{"@type":"DefinedTerm","name":"AI Agents","description":"AI agents are autonomous systems that plan, execute actions, use tools, and interact with external services \u2014 representing the highest-risk LLM deployment.","url":"https://snailsploit.com/ai-security/wiki/concepts/ai-agents/"},{"@type":"DefinedTerm","name":"AI Alignment","description":"AI alignment is the challenge of ensuring systems reliably pursue intended goals and follow human values. Misalignment is why jailbreaks keep working.","url":"https://snailsploit.com/ai-security/wiki/concepts/ai-alignment/"},{"@type":"DefinedTerm","name":"AI Red Teaming","description":"The practice of systematically attacking AI systems to identify vulnerabilities, assess risks, and improve defenses before malicious actors can exploit them.","url":"https://snailsploit.com/ai-security/wiki/concepts/ai-red-teaming/"},{"@type":"DefinedTerm","name":"Backdoor Attacks","description":"Attacks that embed hidden malicious behaviors in AI models during training, creating trojan functionality activated by specific trigger patterns in inputs.","url":"https://snailsploit.com/ai-security/wiki/attacks/backdoor-attacks/"},{"@type":"DefinedTerm","name":"Claude-Red","description":"Curated offensive security skills library for the Claude skills system.","url":"https://snailsploit.com/claude-red"},{"@type":"DefinedTerm","name":"Data Poisoning","description":"Data poisoning corrupts AI training data to manipulate model behavior \u2014 inserting backdoors, biases, or targeted misbehavior that activates in deployment.","url":"https://snailsploit.com/ai-security/wiki/attacks/data-poisoning/"},{"@type":"DefinedTerm","name":"Guardrail Bypass","description":"Techniques to circumvent safety mechanisms, content filters, and policy enforcement systems in AI applications, allowing restricted outputs or actions.","url":"https://snailsploit.com/ai-security/wiki/attacks/guardrail-bypass/"},{"@type":"DefinedTerm","name":"Guardrails","description":"Safety mechanisms that constrain AI model behavior through rules, policies, and behavioral boundaries to prevent harmful outputs and maintain alignment.","url":"https://snailsploit.com/ai-security/wiki/defenses/guardrails/"},{"@type":"DefinedTerm","name":"Hallucination","description":"AI failure mode where language models generate false or fabricated information with unwarranted confidence, creating security risks in automated systems.","url":"https://snailsploit.com/ai-security/wiki/concepts/hallucination/"},{"@type":"DefinedTerm","name":"Human-in-the-Loop","description":"Defense pattern requiring human oversight and approval for AI system actions, critical for high-stakes decisions and protecting against AI agent exploits.","url":"https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/"},{"@type":"DefinedTerm","name":"Indirect Prompt Injection","description":"An attack where malicious instructions embedded in external content are processed by an LLM, executing attacker-controlled actions without direct interaction.","url":"https://snailsploit.com/ai-security/wiki/attacks/indirect-prompt-injection/"},{"@type":"DefinedTerm","name":"Input Validation","description":"First line of defense against prompt injection and malicious inputs, using pattern matching, classification, and structural analysis to filter threats.","url":"https://snailsploit.com/ai-security/wiki/defenses/input-validation/"},{"@type":"DefinedTerm","name":"Jailbreaking","description":"Techniques to bypass safety training, guardrails, and content policies in large language models, producing outputs that violate operational guidelines.","url":"https://snailsploit.com/ai-security/wiki/attacks/jailbreaking/"},{"@type":"DefinedTerm","name":"Large Language Models (LLMs)","description":"Foundation AI models trained on massive text datasets that generate human-like text, powering chatbots, AI assistants, and driving modern AI security concerns.","url":"https://snailsploit.com/ai-security/wiki/concepts/large-language-models/"},{"@type":"DefinedTerm","name":"Membership Inference","description":"Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.","url":"https://snailsploit.com/ai-security/wiki/attacks/membership-inference/"},{"@type":"DefinedTerm","name":"Model Extraction","description":"Model extraction steals ML model functionality through systematic API querying, replicating proprietary models without direct access to training data.","url":"https://snailsploit.com/ai-security/wiki/attacks/model-extraction/"},{"@type":"DefinedTerm","name":"Output Filtering","description":"Output filtering inspects and sanitizes AI model responses before delivery to users, preventing data leakage, harmful content, and policy violations.","url":"https://snailsploit.com/ai-security/wiki/defenses/output-filtering/"},{"@type":"DefinedTerm","name":"P.R.O.M.P.T","description":"Compositional red-team grammar for adversarial prompts.","url":"https://snailsploit.com/prompt"},{"@type":"DefinedTerm","name":"Playbook (LLM Red Teamer's)","description":"Diagnostic methodology for bypassing LLM defense layers.","url":"https://snailsploit.com/playbook"},{"@type":"DefinedTerm","name":"Prompt Injection","description":"A vulnerability where attacker input causes a large language model to deviate from intended instructions, executing attacker-controlled directives instead.","url":"https://snailsploit.com/ai-security/wiki/concepts/prompt-injection/"},{"@type":"DefinedTerm","name":"RAG (Retrieval-Augmented Generation)","description":"Architecture that enhances LLM responses by retrieving documents from external knowledge bases, creating new attack surfaces via poisoning and injection.","url":"https://snailsploit.com/ai-security/wiki/concepts/rag/"},{"@type":"DefinedTerm","name":"Rate Limiting","description":"Rate limiting controls request frequency to AI systems, protecting against model extraction, denial of service, brute-force, and exploitation attempts.","url":"https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/"},{"@type":"DefinedTerm","name":"SEF","description":"Social Engineering Framework \u2014 seven phases, eight psychological levers.","url":"https://snailsploit.com/sef"},{"@type":"DefinedTerm","name":"SESA","description":"Social Engineering Susceptibility Assessment \u2014 six-dimensional rating in SEF.","url":"https://snailsploit.com/sef"},{"@type":"DefinedTerm","name":"Supply Chain Attacks","description":"AI supply chain attacks compromise systems through poisoned dependencies \u2014 third-party models, training datasets, libraries, MCP servers, and fine-tuning.","url":"https://snailsploit.com/ai-security/wiki/attacks/supply-chain-attacks/"},{"@type":"DefinedTerm","name":"System Prompt Extraction","description":"Techniques to extract confidential system prompts from LLM applications, revealing proprietary instructions, business logic, and potential vulnerabilities.","url":"https://snailsploit.com/ai-security/wiki/attacks/system-prompt-extraction/"},{"@type":"DefinedTerm","name":"Training Data Extraction","description":"Privacy attack that extracts memorized training data from language models, revealing sensitive personal information, copyrighted content, or proprietary data.","url":"https://snailsploit.com/ai-security/wiki/attacks/training-data-extraction/"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Glossary","item":"https://snailsploit.com/glossary"}]}]}
+</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
+</head>
+<body>
+<header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/writing">writing</a></li></ul></nav></div></header>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">glossary &middot; 34 terms</div><h1>glossary.</h1><p style="font-family:var(--f-mono);font-size:15px;color:var(--fg-2);line-height:1.65;margin:32px 0 0;max-width:680px">A-Z reference of adversarial-AI security terminology. Every entry links to its full page in the wiki, framework docs, or research.</p></div></section>
+<div class="alpha"><div class="alpha-inner"><a href="#letter-A" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">A</a> <a href="#letter-B" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">B</a> <a href="#letter-C" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">C</a> <a href="#letter-D" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">D</a> <a href="#letter-G" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">G</a> <a href="#letter-H" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">H</a> <a href="#letter-I" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">I</a> <a href="#letter-J" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">J</a> <a href="#letter-L" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">L</a> <a href="#letter-M" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">M</a> <a href="#letter-O" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">O</a> <a href="#letter-P" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">P</a> <a href="#letter-R" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">R</a> <a href="#letter-S" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">S</a> <a href="#letter-T" style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);padding:6px 10px;border:1px solid var(--line-hi);text-decoration:none">T</a></div></div>
+<section id="letter-A" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">A</div>
+        <a href="/aatmf" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">AATMF</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Adversarial AI Threat Modeling Framework — 15 tactics, 240+ techniques, 2,150+ procedures.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">framework</span>
+          </a><a href="/toolkit" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">AATMF Toolkit</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Python CLI for systematic LLM safety testing.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">framework</span>
+          </a><a href="/aatmf" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">AATMF-R</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">AATMF Risk scoring schema for assessing severity of adversarial-AI findings.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">concept</span>
+          </a><a href="/ai-security/wiki/concepts/adversarial-ai/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Adversarial AI</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Adversarial AI is the discipline of understanding, executing, and defending against attacks on artificial intelligence — from prompt injection to model theft.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">concept</span>
+          </a><a href="/ai-security/wiki/attacks/adversarial-examples/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Adversarial Examples</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Adversarial examples are inputs crafted with subtle perturbations that cause ML models to produce incorrect outputs — the foundational AI attack class.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a><a href="/adversarial-minds" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Adversarial Minds</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Book on offensive psychology, social engineering, and adversarial reasoning.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">book</span>
+          </a><a href="/ai-security/wiki/attacks/agent-hijacking/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Agent Hijacking</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Agent hijacking attacks compromise AI systems with tool-use capabilities, redirecting autonomous actions via prompt injection, goal manipulation, or MCP abuse.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a><a href="/ai-security/wiki/concepts/ai-agents/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">AI Agents</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">AI agents are autonomous systems that plan, execute actions, use tools, and interact with external services — representing the highest-risk LLM deployment.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">concept</span>
+          </a><a href="/ai-security/wiki/concepts/ai-alignment/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">AI Alignment</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">AI alignment is the challenge of ensuring systems reliably pursue intended goals and follow human values. Misalignment is why jailbreaks keep working.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">concept</span>
+          </a><a href="/ai-security/wiki/concepts/ai-red-teaming/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">AI Red Teaming</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">The practice of systematically attacking AI systems to identify vulnerabilities, assess risks, and improve defenses before malicious actors can exploit them.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">concept</span>
+          </a>
+      </section><section id="letter-B" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">B</div>
+        <a href="/ai-security/wiki/attacks/backdoor-attacks/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Backdoor Attacks</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Attacks that embed hidden malicious behaviors in AI models during training, creating trojan functionality activated by specific trigger patterns in inputs.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a>
+      </section><section id="letter-C" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">C</div>
+        <a href="/claude-red" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Claude-Red</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Curated offensive security skills library for the Claude skills system.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">framework</span>
+          </a>
+      </section><section id="letter-D" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">D</div>
+        <a href="/ai-security/wiki/attacks/data-poisoning/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Data Poisoning</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Data poisoning corrupts AI training data to manipulate model behavior — inserting backdoors, biases, or targeted misbehavior that activates in deployment.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a>
+      </section><section id="letter-G" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">G</div>
+        <a href="/ai-security/wiki/attacks/guardrail-bypass/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Guardrail Bypass</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Techniques to circumvent safety mechanisms, content filters, and policy enforcement systems in AI applications, allowing restricted outputs or actions.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a><a href="/ai-security/wiki/defenses/guardrails/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Guardrails</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Safety mechanisms that constrain AI model behavior through rules, policies, and behavioral boundaries to prevent harmful outputs and maintain alignment.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#76746C;text-transform:uppercase;letter-spacing:0.14em">defense</span>
+          </a>
+      </section><section id="letter-H" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">H</div>
+        <a href="/ai-security/wiki/concepts/hallucination/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Hallucination</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">AI failure mode where language models generate false or fabricated information with unwarranted confidence, creating security risks in automated systems.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">concept</span>
+          </a><a href="/ai-security/wiki/defenses/human-in-the-loop/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Human-in-the-Loop</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Defense pattern requiring human oversight and approval for AI system actions, critical for high-stakes decisions and protecting against AI agent exploits.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#76746C;text-transform:uppercase;letter-spacing:0.14em">defense</span>
+          </a>
+      </section><section id="letter-I" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">I</div>
+        <a href="/ai-security/wiki/attacks/indirect-prompt-injection/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Indirect Prompt Injection</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">An attack where malicious instructions embedded in external content are processed by an LLM, executing attacker-controlled actions without direct interaction.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a><a href="/ai-security/wiki/defenses/input-validation/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Input Validation</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">First line of defense against prompt injection and malicious inputs, using pattern matching, classification, and structural analysis to filter threats.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#76746C;text-transform:uppercase;letter-spacing:0.14em">defense</span>
+          </a>
+      </section><section id="letter-J" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">J</div>
+        <a href="/ai-security/wiki/attacks/jailbreaking/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Jailbreaking</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Techniques to bypass safety training, guardrails, and content policies in large language models, producing outputs that violate operational guidelines.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a>
+      </section><section id="letter-L" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">L</div>
+        <a href="/ai-security/wiki/concepts/large-language-models/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Large Language Models (LLMs)</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Foundation AI models trained on massive text datasets that generate human-like text, powering chatbots, AI assistants, and driving modern AI security concerns.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">concept</span>
+          </a>
+      </section><section id="letter-M" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">M</div>
+        <a href="/ai-security/wiki/attacks/membership-inference/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Membership Inference</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a><a href="/ai-security/wiki/attacks/model-extraction/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Model Extraction</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Model extraction steals ML model functionality through systematic API querying, replicating proprietary models without direct access to training data.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a>
+      </section><section id="letter-O" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">O</div>
+        <a href="/ai-security/wiki/defenses/output-filtering/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Output Filtering</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Output filtering inspects and sanitizes AI model responses before delivery to users, preventing data leakage, harmful content, and policy violations.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#76746C;text-transform:uppercase;letter-spacing:0.14em">defense</span>
+          </a>
+      </section><section id="letter-P" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">P</div>
+        <a href="/prompt" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">P.R.O.M.P.T</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Compositional red-team grammar for adversarial prompts.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">framework</span>
+          </a><a href="/playbook" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Playbook (LLM Red Teamer's)</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Diagnostic methodology for bypassing LLM defense layers.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">framework</span>
+          </a><a href="/ai-security/wiki/concepts/prompt-injection/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Prompt Injection</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">A vulnerability where attacker input causes a large language model to deviate from intended instructions, executing attacker-controlled directives instead.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">concept</span>
+          </a>
+      </section><section id="letter-R" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">R</div>
+        <a href="/ai-security/wiki/concepts/rag/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">RAG (Retrieval-Augmented Generation)</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Architecture that enhances LLM responses by retrieving documents from external knowledge bases, creating new attack surfaces via poisoning and injection.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">concept</span>
+          </a><a href="/ai-security/wiki/defenses/rate-limiting/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Rate Limiting</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Rate limiting controls request frequency to AI systems, protecting against model extraction, denial of service, brute-force, and exploitation attempts.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#76746C;text-transform:uppercase;letter-spacing:0.14em">defense</span>
+          </a>
+      </section><section id="letter-S" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">S</div>
+        <a href="/sef" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">SEF</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Social Engineering Framework — seven phases, eight psychological levers.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">framework</span>
+          </a><a href="/sef" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">SESA</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Social Engineering Susceptibility Assessment — six-dimensional rating in SEF.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#B6B4AC;text-transform:uppercase;letter-spacing:0.14em">concept</span>
+          </a><a href="/ai-security/wiki/attacks/supply-chain-attacks/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Supply Chain Attacks</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">AI supply chain attacks compromise systems through poisoned dependencies — third-party models, training datasets, libraries, MCP servers, and fine-tuning.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a><a href="/ai-security/wiki/attacks/system-prompt-extraction/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">System Prompt Extraction</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Techniques to extract confidential system prompts from LLM applications, revealing proprietary instructions, business logic, and potential vulnerabilities.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a>
+      </section><section id="letter-T" style="padding:32px;max-width:1080px;margin:0 auto;border-bottom:1px solid var(--line)">
+        <div style="font-family:var(--f-grot);font-size:48px;font-weight:500;color:var(--signal-2);margin-bottom:8px">T</div>
+        <a href="/ai-security/wiki/attacks/training-data-extraction/" style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);align-items:baseline">
+            <div>
+              <div style="font-size:17px;font-weight:500;letter-spacing:-0.012em">Training Data Extraction</div>
+              <div style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.55">Privacy attack that extracts memorized training data from language models, revealing sensitive personal information, copyrighted content, or proprietary data.</div>
+            </div>
+            <span style="font-family:var(--f-mono);font-size:10px;color:#E07A4A;text-transform:uppercase;letter-spacing:0.14em">attack</span>
+          </a>
+      </section>
+<footer class="footer"><div class="footer-inner"><span>&copy; 2026 kai aizen &middot; same attack. different substrate.</span><span><a href="/wiki" style="color:var(--fg-2);border-bottom:1px solid var(--line-hi)">View as wiki &rarr;</a></span></div></footer>
+</body></html>

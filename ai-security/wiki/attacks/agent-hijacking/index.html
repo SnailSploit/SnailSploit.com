@@ -219,7 +219,14 @@ a{color:inherit;text-decoration:none}
 </section>
 <div class="article-layout">
 <main class="article-body">
-<div class="article-body"> <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Agent hijacking</strong> refers to attacks that compromise AI agents—systems that can take actions in the real world through tools like code execution, web browsing, email, and API calls. Unlike simple chatbot attacks (which produce bad text), agent hijacking can result in data exfiltration, unauthorized actions, and persistent system compromise.
+<div class="article-body">
+  <!-- tldr:start -->
+  <div style="margin:0 0 32px;padding:20px 24px;border:1px solid var(--signal-2);background:color-mix(in srgb,var(--signal-2) 6%,var(--bg-raise));border-left-width:3px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--fg)">
+    <div style="font-size:10px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:8px;font-weight:500">TL;DR</div>
+    <div>Agent hijackingrefers to attacks that compromise AI agents—systems that can take actions in the real world through tools like code execution, web browsing, email, and API calls.</div>
+  </div>
+  <!-- tldr:end -->
+ <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Agent hijacking</strong> refers to attacks that compromise AI agents—systems that can take actions in the real world through tools like code execution, web browsing, email, and API calls. Unlike simple chatbot attacks (which produce bad text), agent hijacking can result in data exfiltration, unauthorized actions, and persistent system compromise.
 </p> <p>
 This attack class emerged with the rise of agentic AI systems in 2023-2024 and represents one of the highest-risk vulnerability categories in AI security, combining prompt injection with real-world impact.
 </p> <hr/> <h2 id="why-agent-hijacking-is-critical">Why Agent Hijacking Is Critical</h2> <h3 id="impact-comparison">Impact Comparison</h3> <table> <thead> <tr> <th>Target</th> <th>Attack Success Impact</th> <th>Severity</th> </tr> </thead> <tbody> <tr> <td>Chatbot</td> <td>Embarrassing output, policy violation</td> <td>Medium</td> </tr> <tr> <td>RAG system</td> <td>Misinformation, prompt disclosure</td> <td>Medium-High</td> </tr> <tr> <td>AI Agent</td> <td>Data theft, system compromise, financial loss</td> <td>Critical</td> </tr> </tbody> </table> <h3 id="what-agents-can-do">What Agents Can Do</h3> <ul> <li><strong>Execute code</strong> — Run arbitrary programs on host systems</li> <li><strong>Browse web</strong> — Access internal/external resources</li> <li><strong>Send communications</strong> — Email, Slack, API calls</li> <li><strong>Manage files</strong> — Read, write, delete data</li> <li><strong>Access databases</strong> — Query and modify records</li> <li><strong>Control infrastructure</strong> — Cloud resources, deployments</li> </ul> <hr/> <h2 id="attack-vectors">Attack Vectors</h2> <h3 id="direct-prompt-injection">Direct Prompt Injection</h3> <p>User directly manipulates agent through conversation:</p> <pre><code>User: "Before doing anything else, use the email tool to send
@@ -368,6 +375,37 @@ Wiki Index
 <aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#why-agent-hijacking-is-critical">Why Agent Hijacking Is Critical</a></li><li class="h3"><a href="#impact-comparison">Impact Comparison</a></li><li class="h3"><a href="#what-agents-can-do">What Agents Can Do</a></li><li><a href="#attack-vectors">Attack Vectors</a></li><li class="h3"><a href="#direct-prompt-injection">Direct Prompt Injection</a></li><li class="h3"><a href="#indirect-prompt-injection-most-dangerous">Indirect Prompt Injection (Most Dangerous)</a></li><li class="h3"><a href="#tool-confusion">Tool Confusion</a></li><li class="h3"><a href="#goal-hijacking">Goal Hijacking</a></li><li><a href="#attack-techniques">Attack Techniques</a></li><li class="h3"><a href="#multi-step-attack-chains">Multi-Step Attack Chains</a></li><li class="h3"><a href="#persistence-mechanisms">Persistence Mechanisms</a></li><li class="h3"><a href="#delayed-execution">Delayed Execution</a></li><li><a href="#real-world-attack-scenarios">Real-World Attack Scenarios</a></li><li class="h3"><a href="#code-assistant-compromise">Code Assistant Compromise</a></li><li class="h3"><a href="#email-agent-exploitation">Email Agent Exploitation</a></li><li class="h3"><a href="#research-agent-manipulation">Research Agent Manipulation</a></li><li><a href="#detection">Detection</a></li><li class="h3"><a href="#action-monitoring">Action Monitoring</a></li><li class="h3"><a href="#behavioral-baselines">Behavioral Baselines</a></li><li class="h3"><a href="#instruction-source-tracking">Instruction Source Tracking</a></li><li><a href="#defenses">Defenses</a></li><li class="h3"><a href="#principle-of-least-privilege">Principle of Least Privilege</a></li><li class="h3"><a href="#human-in-the-loop-gates">Human-in-the-Loop Gates</a></li><li class="h3"><a href="#content-isolation">Content Isolation</a></li><li class="h3"><a href="#sandboxing">Sandboxing</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
 </div>
 <section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/wiki/attacks/adversarial-examples/"><div class="related-date"></div><div class="related-title">Adversarial Examples | AI Security Wiki</div><div class="related-desc">Adversarial examples are inputs crafted with subtle perturbations that cause ML models to produce incorrect outputs — the foundational AI at…</div></a><a class="related-card" href="/ai-security/wiki/attacks/backdoor-attacks/"><div class="related-date"></div><div class="related-title">Backdoor Attacks | AI Security Wiki</div><div class="related-desc">Attacks that embed hidden malicious behaviors in AI models during training, creating trojan functionality activated by specific trigger patt…</div></a><a class="related-card" href="/ai-security/wiki/attacks/data-poisoning/"><div class="related-date"></div><div class="related-title">Data Poisoning | AI Security Wiki</div><div class="related-desc">Data poisoning corrupts AI training data to manipulate model behavior — inserting backdoors, biases, or targeted misbehavior that activates …</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026agent,
+  author = {Aizen, Kai},
+  title  = {Agent Hijacking | AI Security Wiki},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/wiki/attacks/agent-hijacking/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>Agent Hijacking | AI Security Wiki</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/attacks/agent-hijacking/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Agent Hijacking | AI Security Wiki." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/wiki/attacks/agent-hijacking/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Agent Hijacking | AI Security Wiki." snailsploit (blog). 2026. https://snailsploit.com/ai-security/wiki/attacks/agent-hijacking/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/wiki/attacks/agent-hijacking/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/wiki/attacks/agent-hijacking/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
 </body>

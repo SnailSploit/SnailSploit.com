@@ -219,7 +219,14 @@ a{color:inherit;text-decoration:none}
 </section>
 <div class="article-layout">
 <main class="article-body">
-<div class="article-body"> <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Backdoor attacks</strong> (also called trojan attacks) embed hidden malicious behaviors in machine learning models that activate only when specific trigger patterns are present in the input. The model behaves normally on benign inputs, making detection difficult, but produces attacker-controlled outputs when the trigger appears.
+<div class="article-body">
+  <!-- tldr:start -->
+  <div style="margin:0 0 32px;padding:20px 24px;border:1px solid var(--signal-2);background:color-mix(in srgb,var(--signal-2) 6%,var(--bg-raise));border-left-width:3px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--fg)">
+    <div style="font-size:10px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:8px;font-weight:500">TL;DR</div>
+    <div>Backdoor attacks(also called trojan attacks) embed hidden malicious behaviors in machine learning models that activate only when specific trigger patterns are present in the input.</div>
+  </div>
+  <!-- tldr:end -->
+ <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Backdoor attacks</strong> (also called trojan attacks) embed hidden malicious behaviors in machine learning models that activate only when specific trigger patterns are present in the input. The model behaves normally on benign inputs, making detection difficult, but produces attacker-controlled outputs when the trigger appears.
 </p> <p>
 Unlike data poisoning (which degrades general model performance), backdoors create precise, targeted misbehavior while maintaining high accuracy on normal tasks—making them particularly insidious.
 </p> <hr/> <h2 id="how-backdoor-attacks-work">How Backdoor Attacks Work</h2> <h3 id="attack-pipeline">Attack Pipeline</h3> <pre><code>┌─────────────────────────────────────────────────────────┐
@@ -352,6 +359,37 @@ Wiki Index
 <aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#how-backdoor-attacks-work">How Backdoor Attacks Work</a></li><li class="h3"><a href="#attack-pipeline">Attack Pipeline</a></li><li class="h3"><a href="#trigger-types">Trigger Types</a></li><li><a href="#backdoor-attack-variants">Backdoor Attack Variants</a></li><li class="h3"><a href="#label-flip-backdoor-classic">Label-Flip Backdoor (Classic)</a></li><li class="h3"><a href="#clean-label-backdoor">Clean-Label Backdoor</a></li><li class="h3"><a href="#semantic-backdoor">Semantic Backdoor</a></li><li class="h3"><a href="#llm-specific-backdoors">LLM-Specific Backdoors</a></li><li><a href="#attack-vectors">Attack Vectors</a></li><li class="h3"><a href="#training-data-poisoning">Training Data Poisoning</a></li><li class="h3"><a href="#model-supply-chain">Model Supply Chain</a></li><li class="h3"><a href="#insider-threat">Insider Threat</a></li><li><a href="#detection-methods">Detection Methods</a></li><li class="h3"><a href="#neural-cleanse">Neural Cleanse</a></li><li class="h3"><a href="#activation-clustering">Activation Clustering</a></li><li class="h3"><a href="#input-perturbation-analysis">Input Perturbation Analysis</a></li><li><a href="#defenses">Defenses</a></li><li class="h3"><a href="#training-time-defenses">Training-Time Defenses</a></li><li class="h3"><a href="#post-training-defenses">Post-Training Defenses</a></li><li class="h3"><a href="#deployment-time-defenses">Deployment-Time Defenses</a></li><li><a href="#real-world-examples">Real-World Examples</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
 </div>
 <section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/wiki/attacks/adversarial-examples/"><div class="related-date"></div><div class="related-title">Adversarial Examples | AI Security Wiki</div><div class="related-desc">Adversarial examples are inputs crafted with subtle perturbations that cause ML models to produce incorrect outputs — the foundational AI at…</div></a><a class="related-card" href="/ai-security/wiki/attacks/agent-hijacking/"><div class="related-date"></div><div class="related-title">Agent Hijacking | AI Security Wiki</div><div class="related-desc">Agent hijacking attacks compromise AI systems with tool-use capabilities, redirecting autonomous actions via prompt injection, goal manipula…</div></a><a class="related-card" href="/ai-security/wiki/attacks/data-poisoning/"><div class="related-date"></div><div class="related-title">Data Poisoning | AI Security Wiki</div><div class="related-desc">Data poisoning corrupts AI training data to manipulate model behavior — inserting backdoors, biases, or targeted misbehavior that activates …</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026backdoor,
+  author = {Aizen, Kai},
+  title  = {Backdoor Attacks | AI Security Wiki},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/wiki/attacks/backdoor-attacks/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>Backdoor Attacks | AI Security Wiki</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/attacks/backdoor-attacks/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Backdoor Attacks | AI Security Wiki." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/wiki/attacks/backdoor-attacks/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Backdoor Attacks | AI Security Wiki." snailsploit (blog). 2026. https://snailsploit.com/ai-security/wiki/attacks/backdoor-attacks/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/wiki/attacks/backdoor-attacks/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/wiki/attacks/backdoor-attacks/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
 </body>

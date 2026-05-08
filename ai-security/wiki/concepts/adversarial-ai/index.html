@@ -219,7 +219,14 @@ a{color:inherit;text-decoration:none}
 </section>
 <div class="article-layout">
 <main class="article-body">
-<div class="article-body"> <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Adversarial AI</strong> encompasses the study and practice of attacking and defending artificial intelligence systems. It spans the full lifecycle of AI systems—from training data to deployment—and addresses the unique security challenges that emerge when systems learn from data rather than following explicit programming.
+<div class="article-body">
+  <!-- tldr:start -->
+  <div style="margin:0 0 32px;padding:20px 24px;border:1px solid var(--signal-2);background:color-mix(in srgb,var(--signal-2) 6%,var(--bg-raise));border-left-width:3px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--fg)">
+    <div style="font-size:10px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:8px;font-weight:500">TL;DR</div>
+    <div>Adversarial AIencompasses the study and practice of attacking and defending artificial intelligence systems.</div>
+  </div>
+  <!-- tldr:end -->
+ <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Adversarial AI</strong> encompasses the study and practice of attacking and defending artificial intelligence systems. It spans the full lifecycle of AI systems—from training data to deployment—and addresses the unique security challenges that emerge when systems learn from data rather than following explicit programming.
 </p> <p>
 The field sits at the intersection of machine learning research, cybersecurity practice, and adversarial thinking. Practitioners must understand both how AI systems work internally and how attackers approach exploitation.
 </p> <hr/> <h2 id="scope-and-boundaries">Scope and Boundaries</h2> <p>Adversarial AI includes:</p> <h3 id="offensive-research">Offensive Research</h3> <ul> <li>Discovering vulnerabilities in AI systems</li> <li>Developing attack techniques and exploits</li> <li>Red teaming AI deployments</li> <li>Building adversarial tools and frameworks</li> </ul> <h3 id="defensive-research">Defensive Research</h3> <ul> <li>Designing robust AI architectures</li> <li>Developing detection and mitigation techniques</li> <li>Hardening models against known attacks</li> <li>Building security tooling for AI systems</li> </ul> <h3 id="policy-and-governance">Policy and Governance</h3> <ul> <li>Risk assessment frameworks for AI</li> <li>Compliance and regulatory considerations</li> <li>Responsible disclosure practices</li> <li>Industry standards development</li> </ul> <hr/> <h2 id="historical-context">Historical Context</h2> <h3 id="pre-llm-era-2013-2020">Pre-LLM Era (2013-2020)</h3> <p>Adversarial AI emerged from academic research on neural network robustness:</p> <p> <strong>2013-2014:</strong> Szegedy et al. discovered that imperceptible perturbations to images could cause neural networks to misclassify with high confidence. These "adversarial examples" demonstrated that ML models were brittle in unexpected ways.
@@ -240,6 +247,37 @@ Wiki Index
 <aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#scope-and-boundaries">Scope and Boundaries</a></li><li class="h3"><a href="#offensive-research">Offensive Research</a></li><li class="h3"><a href="#defensive-research">Defensive Research</a></li><li class="h3"><a href="#policy-and-governance">Policy and Governance</a></li><li><a href="#historical-context">Historical Context</a></li><li class="h3"><a href="#pre-llm-era-2013-2020">Pre-LLM Era (2013-2020)</a></li><li class="h3"><a href="#llm-era-2020-present">LLM Era (2020-Present)</a></li><li><a href="#core-concepts">Core Concepts</a></li><li class="h3"><a href="#attack-surface">Attack Surface</a></li><li class="h3"><a href="#threat-models">Threat Models</a></li><li class="h3"><a href="#the-defenders-dilemma">The Defender's Dilemma</a></li><li><a href="#attack-taxonomy">Attack Taxonomy</a></li><li class="h3"><a href="#training-time-attacks">Training-Time Attacks</a></li><li class="h3"><a href="#inference-time-attacks">Inference-Time Attacks</a></li><li class="h3"><a href="#extraction-attacks">Extraction Attacks</a></li><li><a href="#current-state-of-the-field">Current State of the Field</a></li><li><a href="#further-reading-on-snailsploit">Further Reading on SnailSploit</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
 </div>
 <section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/wiki/concepts/ai-agents/"><div class="related-date"></div><div class="related-title">AI Agents | AI Security Wiki</div><div class="related-desc">AI agents are autonomous systems that plan, execute actions, use tools, and interact with external services — representing the highest-risk …</div></a><a class="related-card" href="/ai-security/wiki/concepts/ai-alignment/"><div class="related-date"></div><div class="related-title">AI Alignment | AI Security Wiki</div><div class="related-desc">AI alignment is the challenge of ensuring systems reliably pursue intended goals and follow human values. Misalignment is why jailbreaks kee…</div></a><a class="related-card" href="/ai-security/wiki/concepts/ai-red-teaming/"><div class="related-date"></div><div class="related-title">AI Red Teaming | AI Security Wiki</div><div class="related-desc">The practice of systematically attacking AI systems to identify vulnerabilities, assess risks, and improve defenses before malicious actors …</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026adversarial,
+  author = {Aizen, Kai},
+  title  = {Adversarial AI | AI Security Wiki},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/wiki/concepts/adversarial-ai/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>Adversarial AI | AI Security Wiki</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/concepts/adversarial-ai/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Adversarial AI | AI Security Wiki." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/wiki/concepts/adversarial-ai/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Adversarial AI | AI Security Wiki." snailsploit (blog). 2026. https://snailsploit.com/ai-security/wiki/concepts/adversarial-ai/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/wiki/concepts/adversarial-ai/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/wiki/concepts/adversarial-ai/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
 </body>

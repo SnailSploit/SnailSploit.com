@@ -219,7 +219,14 @@ a{color:inherit;text-decoration:none}
 </section>
 <div class="article-layout">
 <main class="article-body">
-<div class="article-body"> <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Human-in-the-loop (HITL)</strong> is a control pattern where human operators review and approve AI system outputs or actions before they take effect. For AI security, HITL serves as a critical defense layer—the last line of defense when automated guardrails fail, alignment breaks down, or novel attacks bypass technical controls.
+<div class="article-body">
+  <!-- tldr:start -->
+  <div style="margin:0 0 32px;padding:20px 24px;border:1px solid var(--signal-2);background:color-mix(in srgb,var(--signal-2) 6%,var(--bg-raise));border-left-width:3px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--fg)">
+    <div style="font-size:10px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:8px;font-weight:500">TL;DR</div>
+    <div>Human-in-the-loop (HITL)is a control pattern where human operators review and approve AI system outputs or actions before they take effect.</div>
+  </div>
+  <!-- tldr:end -->
+ <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Human-in-the-loop (HITL)</strong> is a control pattern where human operators review and approve AI system outputs or actions before they take effect. For AI security, HITL serves as a critical defense layer—the last line of defense when automated guardrails fail, alignment breaks down, or novel attacks bypass technical controls.
 </p> <p>
 HITL acknowledges that AI systems, particularly agents with real-world capabilities, cannot be fully trusted to operate autonomously. Human oversight ensures that compromise of the AI doesn't automatically translate to compromise of the systems it controls.
 </p> <hr/> <h2 id="why-hitl-matters-for-security">Why HITL Matters for Security</h2> <h3 id="automated-defenses-fail">Automated Defenses Fail</h3> <p>Every technical defense can be bypassed:</p> <ul> <li>Input validation misses novel attack patterns</li> <li>Guardrails are probabilistic, not absolute</li> <li>Classifiers have false negative rates</li> <li>Alignment training creates preferences, not guarantees</li> </ul> <h3 id="humans-catch-what-automation-misses">Humans Catch What Automation Misses</h3> <p>Humans can recognize:</p> <ul> <li>Context that makes a "normal" action suspicious</li> <li>Unusual patterns in agent reasoning</li> <li>Actions that seem disproportionate to the request</li> <li>Social engineering attempts in agent outputs</li> </ul> <h3 id="attack-economics">Attack Economics</h3> <p>
@@ -344,6 +351,37 @@ Wiki Index
 <aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#why-hitl-matters-for-security">Why HITL Matters for Security</a></li><li class="h3"><a href="#automated-defenses-fail">Automated Defenses Fail</a></li><li class="h3"><a href="#humans-catch-what-automation-misses">Humans Catch What Automation Misses</a></li><li class="h3"><a href="#attack-economics">Attack Economics</a></li><li><a href="#hitl-implementation-patterns">HITL Implementation Patterns</a></li><li class="h3"><a href="#action-approval-gates">Action Approval Gates</a></li><li class="h3"><a href="#output-review-queues">Output Review Queues</a></li><li class="h3"><a href="#continuous-monitoring-dashboard">Continuous Monitoring Dashboard</a></li><li><a href="#hitl-design-principles">HITL Design Principles</a></li><li class="h3"><a href="#right-level-of-abstraction">Right Level of Abstraction</a></li><li class="h3"><a href="#context-for-decision-making">Context for Decision Making</a></li><li class="h3"><a href="#reasonable-defaults">Reasonable Defaults</a></li><li class="h3"><a href="#avoid-alert-fatigue">Avoid Alert Fatigue</a></li><li><a href="#hitl-challenges">HITL Challenges</a></li><li class="h3"><a href="#scalability">Scalability</a></li><li class="h3"><a href="#human-error">Human Error</a></li><li class="h3"><a href="#automation-bias">Automation Bias</a></li><li><a href="#regulatory-context">Regulatory Context</a></li><li class="h3"><a href="#eu-ai-act">EU AI Act</a></li><li class="h3"><a href="#nist-ai-rmf">NIST AI RMF</a></li><li><a href="#implementation-checklist">Implementation Checklist</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
 </div>
 <section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/wiki/defenses/guardrails/"><div class="related-date"></div><div class="related-title">Guardrails | AI Security Wiki</div><div class="related-desc">Safety mechanisms that constrain AI model behavior through rules, policies, and behavioral boundaries to prevent harmful outputs and maintai…</div></a><a class="related-card" href="/ai-security/wiki/defenses/input-validation/"><div class="related-date"></div><div class="related-title">Input Validation | AI Security Wiki</div><div class="related-desc">First line of defense against prompt injection and malicious inputs, using pattern matching, classification, and structural analysis to filt…</div></a><a class="related-card" href="/ai-security/wiki/defenses/output-filtering/"><div class="related-date"></div><div class="related-title">Output Filtering | AI Security Wiki</div><div class="related-desc">Output filtering inspects and sanitizes AI model responses before delivery to users, preventing data leakage, harmful content, and policy vi…</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026human,
+  author = {Aizen, Kai},
+  title  = {Human-in-the-Loop | AI Security Wiki},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>Human-in-the-Loop | AI Security Wiki</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Human-in-the-Loop | AI Security Wiki." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Human-in-the-Loop | AI Security Wiki." snailsploit (blog). 2026. https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
 </body>
