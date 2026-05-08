@@ -26,7 +26,14 @@ const LongNav = () => (
     <div style={{ maxWidth: 1280, margin: "0 auto", padding: "16px 32px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
       <WordmarkFull size={1} color="var(--fg)" accent="var(--signal-2)" />
       <nav style={{ display: "flex", gap: 28, fontFamily: "var(--f-mono)", fontSize: 12, color: "var(--fg-2)" }}>
-        {["about","frameworks","research","ai security","tools","writing"].map(n => <a key={n} href={`#${n.replace(" ","-")}`} style={{ color: "inherit", textDecoration: "none" }}>{n}</a>)}
+        <a href="#about" style={{ color: "inherit", textDecoration: "none" }}>about</a>
+        <a href="/services" style={{ color: "inherit", textDecoration: "none" }}>services</a>
+        <a href="/frameworks" style={{ color: "inherit", textDecoration: "none" }}>frameworks</a>
+        <a href="/research" style={{ color: "inherit", textDecoration: "none" }}>research</a>
+        <a href="/tools" style={{ color: "inherit", textDecoration: "none" }}>tools</a>
+        <a href="/cves" style={{ color: "inherit", textDecoration: "none" }}>cves</a>
+        <a href="/writing" style={{ color: "inherit", textDecoration: "none" }}>writing</a>
+        <a href="/contact" style={{ color: "inherit", textDecoration: "none" }}>contact</a>
       </nav>
       <div style={{ display: "flex", gap: 16, alignItems: "center", fontFamily: "var(--f-mono)", fontSize: 11, color: "var(--fg-3)" }}>
         <span>⌘K</span>
@@ -45,7 +52,11 @@ const LongHero = () => (
           same attack.<br/><span style={{ color: "var(--fg-3)" }}>different substrate.</span>
         </div>
         <div style={{ fontFamily: "var(--f-mono)", fontSize: 14, color: "var(--fg-2)", marginTop: 32, maxWidth: 720, lineHeight: 1.65 }}>{SS.identity.bio}</div>
-        <div style={{ display: "flex", gap: 8, marginTop: 36, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 12, marginTop: 36, flexWrap: "wrap" }}>
+          <a href="/services" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 20px", fontFamily: "var(--f-mono)", fontSize: 13, textDecoration: "none", border: "1px solid var(--signal-2)", background: "var(--signal-2)", color: "var(--bg)" }}>engage services →</a>
+          <a href="/frameworks" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 20px", fontFamily: "var(--f-mono)", fontSize: 13, textDecoration: "none", border: "1px solid var(--line-hi)", color: "var(--fg)" }}>read the frameworks</a>
+        </div>
+        <div style={{ display: "flex", gap: 8, marginTop: 24, flexWrap: "wrap" }}>
           {SS.identity.badges.map(b => (
             <span key={b.label} style={{ fontFamily: "var(--f-mono)", fontSize: 11, padding: "6px 10px", border: "1px solid var(--line-hi)", color: "var(--fg)" }}>
               <span style={{ color: "var(--fg-3)" }}>{b.label}</span> · {b.value}
