@@ -33,6 +33,9 @@ const WritingPage = () => (
             <FootnoteRow k="status" v="in writing · 2026" />
             <FootnoteRow k="preorder" v="snailsploit.com/book" />
           </div>
+          <div style={{ marginTop: 32 }}>
+            <a href="/adversarial-minds" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "12px 20px", fontFamily: "var(--f-mono)", fontSize: 13, textDecoration: "none", border: "1px solid var(--signal-2)", color: "var(--signal-2)" }}>read the book page →</a>
+          </div>
         </div>
       </div>
     </Section>

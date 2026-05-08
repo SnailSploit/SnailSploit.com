@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adversarial Minds — Book by Kai Aizen | snailsploit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="brand/tokens.css" />
+  <style>
+    html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--f-grot); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    * { box-sizing: border-box; }
+  </style>
+
+  <!-- seo:start -->
+  <meta name="description" content="Adversarial Minds — a book on offensive psychology, social engineering, and adversarial reasoning by Kai Aizen. The human-layer companion to AATMF and SEF.">
+  <meta name="author" content="Kai Aizen">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://snailsploit.com/adversarial-minds">
+
+  <meta property="og:type" content="book">
+  <meta property="og:title" content="Adversarial Minds — Book by Kai Aizen | snailsploit">
+  <meta property="og:description" content="A book on offensive psychology, social engineering, and adversarial reasoning by Kai Aizen. The human-layer companion to AATMF and SEF.">
+  <meta property="og:url" content="https://snailsploit.com/adversarial-minds">
+  <meta property="og:site_name" content="snailsploit">
+  <meta property="og:image" content="https://snailsploit.com/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta property="book:author" content="Kai Aizen">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@SnailSploit">
+  <meta name="twitter:creator" content="@SnailSploit">
+  <meta name="twitter:title" content="Adversarial Minds — Book by Kai Aizen">
+  <meta name="twitter:description" content="A book on offensive psychology, social engineering, and adversarial reasoning. The human-layer companion to AATMF and SEF.">
+  <meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen"]},
+  {"@type":"Book","@id":"https://snailsploit.com/adversarial-minds#book","name":"Adversarial Minds","author":{"@id":"https://snailsploit.com/#kai"},"inLanguage":"en","bookFormat":"https://schema.org/EBook","url":"https://snailsploit.com/adversarial-minds","about":["Offensive Security","Social Engineering","Adversarial Psychology","Red Teaming"],"genre":"Cybersecurity, Psychology","description":"A book on offensive psychology, social engineering, and adversarial reasoning. The human-layer companion to AATMF and SEF."},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com"},
+    {"@type":"ListItem","position":2,"name":"Writing","item":"https://snailsploit.com/writing"},
+    {"@type":"ListItem","position":3,"name":"Adversarial Minds","item":"https://snailsploit.com/adversarial-minds"}
+  ]}
+]}
+  </script>
+  <!-- seo:end -->
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+  <script src="/site/data.js"></script>
+  <script type="text/babel" src="/brand/marks.jsx"></script>
+  <script type="text/babel" src="/site/_layout.jsx"></script>
+  <script type="text/babel">
+
+const PRAISE = [
+  ["Reads less like a textbook and more like a methodology — exactly what the field needs.", "—  reader"],
+  ["Treats persuasion as adversarial input. The bridge between the social engineer and the prompt engineer.", "—  reader"],
+];
+
+const TOC = [
+  ["I",   "Foundations",            "Why adversaries are reasoners, not exploits. The substrate problem."],
+  ["II",  "The Mind as a System",   "Cognitive primitives. Bias as exploitable state. Trust as authentication."],
+  ["III", "Attack Vocabulary",      "Persona, framing, decay, drift, compositional pressure."],
+  ["IV",  "From Human to Machine",  "Why the same attacks work against LLMs. Translating SE primitives to prompts."],
+  ["V",   "Defense by Design",      "Engineering trust boundaries when the user is the attack surface."],
+  ["VI",  "Field Notes",            "Cases — phishing campaigns, jailbreaks, agent compromises — annotated."],
+];
+
+const Stat = ({ k, v }) => (
+  <div style={{ display: "grid", gridTemplateColumns: "120px 1fr", gap: 16, padding: "12px 0", borderTop: "1px solid var(--line)" }}>
+    <span style={{ fontFamily: "var(--f-mono)", fontSize: 11, color: "var(--fg-3)", textTransform: "uppercase", letterSpacing: "0.12em" }}>{k}</span>
+    <span style={{ fontFamily: "var(--f-mono)", fontSize: 13, color: "var(--fg)" }}>{v}</span>
+  </div>
+);
+
+const AdvMindsPage = () => (
+  <div style={{ background: "var(--bg)", color: "var(--fg)", fontFamily: "var(--f-grot)", minHeight: "100vh" }}>
+    <SiteNav active="writing" />
+
+    {/* Hero */}
+    <section style={{ borderBottom: "1px solid var(--line)" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 32px 96px", display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 64, alignItems: "start" }}>
+        <div>
+          <Eyebrow>book · 2025</Eyebrow>
+          <h1 style={{ margin: "16px 0 0", fontSize: 128, fontWeight: 500, lineHeight: 0.86, letterSpacing: "-0.055em" }}>
+            adversarial<br/>minds.
+          </h1>
+          <p style={{ margin: "32px 0 0", fontSize: 22, lineHeight: 1.5, color: "var(--fg-2)", letterSpacing: "-0.01em", maxWidth: 560 }}>
+            Offensive psychology, social engineering, and adversarial reasoning — the human-layer companion to <a href="/aatmf" style={{ color: "var(--signal-2)", borderBottom: "1px solid var(--signal-2)" }}>AATMF</a> and <a href="/sef" style={{ color: "var(--signal-2)", borderBottom: "1px solid var(--signal-2)" }}>SEF</a>.
+          </p>
+          <p style={{ margin: "24px 0 0", fontSize: 16, lineHeight: 1.7, color: "var(--fg-3)", maxWidth: 560, fontFamily: "var(--f-mono)" }}>
+            Why the same attack works against humans and language models. A field-tested methodology for treating cognition itself as an attack surface — and a defensive framework for the systems built on top of it.
+          </p>
+          <div style={{ marginTop: 40, display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <a href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 24px", fontFamily: "var(--f-mono)", fontSize: 13, textDecoration: "none", border: "1px solid var(--signal-2)", background: "var(--signal-2)", color: "var(--bg)" }}>request a copy →</a>
+            <a href="/writing" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 24px", fontFamily: "var(--f-mono)", fontSize: 13, textDecoration: "none", border: "1px solid var(--line-hi)", color: "var(--fg)" }}>more writing</a>
+          </div>
+        </div>
+
+        {/* Cover slot */}
+        <div style={{ position: "relative", aspectRatio: "0.66 / 1", maxWidth: 380, justifySelf: "end", border: "1px solid var(--line-hi)", background: "linear-gradient(135deg, #15161A 0%, #08090B 100%)", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "32px 28px" }}>
+          <div>
+            <div style={{ fontFamily: "var(--f-mono)", fontSize: 10, color: "var(--fg-3)", letterSpacing: "0.16em", textTransform: "uppercase" }}>kai aizen</div>
+            <div style={{ marginTop: 8, fontFamily: "var(--f-mono)", fontSize: 10, color: "var(--signal-2)", letterSpacing: "0.16em", textTransform: "uppercase" }}>snailsploit press</div>
+          </div>
+          <div style={{ fontSize: 56, fontWeight: 500, lineHeight: 0.88, letterSpacing: "-0.04em", color: "var(--fg)" }}>
+            adversarial<br/>minds.
+          </div>
+          <div>
+            <div style={{ fontFamily: "var(--f-mono)", fontSize: 11, color: "var(--fg-3)", lineHeight: 1.6 }}>
+              same attack.<br/>different substrate.
+            </div>
+            <div style={{ marginTop: 24, fontFamily: "var(--f-mono)", fontSize: 9, color: "var(--fg-4)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+              a field manual for the human layer
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* About + meta grid */}
+    <section style={{ borderBottom: "1px solid var(--line)", background: "var(--bg-sink)" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 32px", display: "grid", gridTemplateColumns: "180px 1.4fr 1fr", gap: 40, alignItems: "start" }}>
+        <Sticky>01 · about the book</Sticky>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 48, fontWeight: 500, lineHeight: 1, letterSpacing: "-0.035em" }}>thesis.</h2>
+          <p style={{ margin: "32px 0 0", fontSize: 19, lineHeight: 1.55, color: "var(--fg)", maxWidth: 640, paddingLeft: 24, borderLeft: "2px solid var(--signal-2)" }}>
+            Phishing, jailbreaking, prompt injection, and pretexting are surface variations on a single attack pattern: an adversary supplying inputs that subvert a reasoning system's intended behavior. Once you see the pattern, the techniques become families and the defenses become engineering — not folklore.
+          </p>
+          <p style={{ margin: "24px 0 0", fontSize: 15, color: "var(--fg-2)", lineHeight: 1.7, maxWidth: 640, fontFamily: "var(--f-mono)" }}>
+            <em>Adversarial Minds</em> is the long-form treatment of that thesis. Three years of red-team engagements, jailbreak research, and social-engineering work distilled into a methodology you can apply against humans, language models, or the agentic systems where the two meet.
+          </p>
+        </div>
+        <div>
+          <Stat k="author" v="Kai Aizen" />
+          <Stat k="format" v="ebook · print" />
+          <Stat k="pages" v="~280" />
+          <Stat k="audience" v="red teamers · researchers · defenders" />
+          <Stat k="related" v="AATMF · SEF · P.R.O.M.P.T" />
+          <Stat k="status" v="published 2025" />
+        </div>
+      </div>
+    </section>
+
+    {/* TOC */}
+    <section style={{ borderBottom: "1px solid var(--line)" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 32px", display: "grid", gridTemplateColumns: "180px 1fr", gap: 40, alignItems: "start" }}>
+        <Sticky>02 · contents</Sticky>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 48, fontWeight: 500, lineHeight: 1, letterSpacing: "-0.035em" }}>contents.</h2>
+          <div style={{ marginTop: 56 }}>
+            {TOC.map(([n, t, d], i) => (
+              <div key={n} style={{ display: "grid", gridTemplateColumns: "60px 1fr 2fr", gap: 32, padding: "24px 0", borderTop: i === 0 ? "1px solid var(--line-hi)" : "1px solid var(--line)", alignItems: "baseline" }}>
+                <span style={{ fontFamily: "var(--f-mono)", fontSize: 13, color: "var(--fg-3)", letterSpacing: "0.06em" }}>part {n}</span>
+                <span style={{ fontSize: 22, fontWeight: 500, letterSpacing: "-0.015em" }}>{t}</span>
+                <span style={{ fontFamily: "var(--f-mono)", fontSize: 13, color: "var(--fg-2)", lineHeight: 1.6 }}>{d}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Praise */}
+    <section style={{ borderBottom: "1px solid var(--line)", background: "var(--bg-sink)" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 32px", display: "grid", gridTemplateColumns: "180px 1fr", gap: 40, alignItems: "start" }}>
+        <Sticky>03 · early reads</Sticky>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
+          {PRAISE.map(([q, w], i) => (
+            <blockquote key={i} style={{ margin: 0, padding: "32px", border: "1px solid var(--line-hi)", background: "var(--bg-raise)" }}>
+              <div style={{ fontSize: 18, lineHeight: 1.55, color: "var(--fg)", letterSpacing: "-0.01em" }}>{q}</div>
+              <div style={{ marginTop: 24, fontFamily: "var(--f-mono)", fontSize: 12, color: "var(--fg-3)" }}>{w}</div>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Author */}
+    <section style={{ borderBottom: "1px solid var(--line)" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 32px", display: "grid", gridTemplateColumns: "180px 1fr", gap: 40, alignItems: "start" }}>
+        <Sticky>04 · author</Sticky>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 48, fontWeight: 500, lineHeight: 1, letterSpacing: "-0.035em" }}>kai aizen.</h2>
+          <p style={{ margin: "32px 0 0", fontSize: 17, lineHeight: 1.65, color: "var(--fg-2)", maxWidth: 720, fontFamily: "var(--f-mono)" }}>
+            Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of <a href="/aatmf" style={{ color: "var(--signal-2)" }}>AATMF</a>, <a href="/prompt" style={{ color: "var(--signal-2)" }}>P.R.O.M.P.T</a>, and <a href="/sef" style={{ color: "var(--signal-2)" }}>SEF</a>. Hakin9 contributing author. NVD/MITRE contributor.
+          </p>
+          <p style={{ margin: "16px 0 0", fontSize: 15, lineHeight: 1.7, color: "var(--fg-3)", maxWidth: 720, fontFamily: "var(--f-mono)" }}>
+            Writing and engagements: <a href="/contact" style={{ color: "var(--fg)" }}>contact</a> · <a href="/services" style={{ color: "var(--fg)" }}>services</a> · <a href="https://github.com/SnailSploit" style={{ color: "var(--fg)" }}>github</a> · <a href="https://x.com/SnailSploit" style={{ color: "var(--fg)" }}>x</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <SiteFooter section="adversarial minds" />
+  </div>
+);
+
+ReactDOM.createRoot(document.getElementById("root")).render(<AdvMindsPage />);
+  </script>
+</body>
+</html>

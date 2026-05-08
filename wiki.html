@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Security Wiki — Prompt Injection, Jailbreaking, Agent Attacks | snailsploit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="brand/tokens.css" />
+  <style>
+    html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--f-grot); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    * { box-sizing: border-box; }
+  </style>
+
+  <!-- seo:start -->
+  <meta name="description" content="Reference wiki for adversarial AI security: prompt injection (direct, indirect, multi-turn, agentic), jailbreaking techniques, memory attacks, sandbox escape, MCP/A2A trust boundaries, and defense layers.">
+  <meta name="author" content="Kai Aizen">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://snailsploit.com/wiki">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Security Wiki — Prompt Injection, Jailbreaking, Agent Attacks | snailsploit">
+  <meta property="og:description" content="Reference wiki for adversarial AI security: prompt injection, jailbreaking, memory attacks, sandbox escape, MCP/A2A trust boundaries, and defense layers.">
+  <meta property="og:url" content="https://snailsploit.com/wiki">
+  <meta property="og:site_name" content="snailsploit">
+  <meta property="og:image" content="https://snailsploit.com/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@SnailSploit">
+  <meta name="twitter:creator" content="@SnailSploit">
+  <meta name="twitter:title" content="AI Security Wiki | snailsploit">
+  <meta name="twitter:description" content="Reference wiki for adversarial AI security: prompt injection, jailbreaking, memory attacks, sandbox escape.">
+  <meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+  {"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen"]},
+  {"@type":"TechArticle","headline":"AI Security Wiki","description":"Reference wiki for adversarial AI security: prompt injection, jailbreaking, memory attacks, sandbox escape, agent trust.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"url":"https://snailsploit.com/wiki","mainEntityOfPage":"https://snailsploit.com/wiki","keywords":"prompt injection, jailbreaking, LLM security, AI red teaming, agent security, sandbox escape, MCP, A2A"},
+  {"@type":"DefinedTermSet","name":"Adversarial AI Terms","url":"https://snailsploit.com/wiki","hasDefinedTerm":[
+    {"@type":"DefinedTerm","name":"Prompt Injection","description":"An attack class where adversarial input subverts an LLM's intended instructions to execute attacker goals.","url":"https://snailsploit.com/wiki#prompt-injection"},
+    {"@type":"DefinedTerm","name":"Direct Prompt Injection","description":"Adversarial instructions placed directly into the model's user input channel.","url":"https://snailsploit.com/wiki#direct-injection"},
+    {"@type":"DefinedTerm","name":"Indirect Prompt Injection","description":"Adversarial instructions hidden in retrieved or third-party content the model later processes.","url":"https://snailsploit.com/wiki#indirect-injection"},
+    {"@type":"DefinedTerm","name":"Multi-Turn Injection","description":"Adversarial instructions that decompose across multiple conversation turns to evade single-turn filters.","url":"https://snailsploit.com/wiki#multi-turn"},
+    {"@type":"DefinedTerm","name":"Agentic Injection","description":"Injection targeting tool-using agents — payloads that hijack tool calls, memory writes, or orchestration.","url":"https://snailsploit.com/wiki#agentic"},
+    {"@type":"DefinedTerm","name":"Jailbreaking","description":"Bypassing an LLM's alignment layer to produce content the model is trained to refuse.","url":"https://snailsploit.com/wiki#jailbreaking"},
+    {"@type":"DefinedTerm","name":"Memory Injection","description":"Persistence attack that writes adversarial state into long-term agent memory to survive across sessions.","url":"https://snailsploit.com/wiki#memory-injection"},
+    {"@type":"DefinedTerm","name":"Sandbox Escape","description":"Breaking out of the execution environment of a model's tool runtime (e.g., code interpreter).","url":"https://snailsploit.com/wiki#sandbox"},
+    {"@type":"DefinedTerm","name":"Tool Poisoning","description":"Manipulating a model's available tools (their schemas, descriptions, or outputs) to redirect behavior.","url":"https://snailsploit.com/wiki#tool-poisoning"},
+    {"@type":"DefinedTerm","name":"MCP","description":"Model Context Protocol — a standard for exposing tools and data sources to LLMs.","url":"https://snailsploit.com/wiki#mcp"},
+    {"@type":"DefinedTerm","name":"A2A","description":"Agent-to-Agent communication — protocols for autonomous agents to delegate and trust each other.","url":"https://snailsploit.com/wiki#a2a"}
+  ]},
+  {"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com"},
+    {"@type":"ListItem","position":2,"name":"Wiki","item":"https://snailsploit.com/wiki"}
+  ]}
+]}
+  </script>
+  <!-- seo:end -->
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+  <script src="/site/data.js"></script>
+  <script type="text/babel" src="/brand/marks.jsx"></script>
+  <script type="text/babel" src="/site/_layout.jsx"></script>
+  <script type="text/babel">
+
+const TOC = [
+  ["1", "Prompt Injection", "prompt-injection", [
+    ["1.1", "Direct", "direct-injection"],
+    ["1.2", "Indirect", "indirect-injection"],
+    ["1.3", "Multi-Turn", "multi-turn"],
+    ["1.4", "Agentic", "agentic"],
+  ]],
+  ["2", "Jailbreaking", "jailbreaking", [
+    ["2.1", "Persona Attacks", "persona"],
+    ["2.2", "Encoding & Obfuscation", "encoding"],
+    ["2.3", "Compositional Bypass (P.R.O.M.P.T)", "compositional"],
+    ["2.4", "Decay & Drift", "decay"],
+  ]],
+  ["3", "Memory & Persistence", "memory", []],
+  ["4", "Sandbox Escape", "sandbox", []],
+  ["5", "Tool & Agent Abuse", "tools", []],
+  ["6", "MCP vs A2A", "mcp-a2a", []],
+  ["7", "Defense Layers", "defenses", []],
+];
+
+const Term = ({ k, v, link }) => (
+  <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 24, padding: "16px 0", borderTop: "1px solid var(--line)", alignItems: "baseline" }}>
+    <div style={{ fontFamily: "var(--f-mono)", fontSize: 13, color: "var(--fg)", textTransform: "lowercase" }}>{k}</div>
+    <div style={{ fontSize: 14, color: "var(--fg-2)", lineHeight: 1.6 }}>{v}{link && <> · <a href={link} style={{ color: "var(--signal-2)", borderBottom: "1px solid var(--signal-2)" }}>read more</a></>}</div>
+  </div>
+);
+
+const SubSection = ({ id, num, title, children }) => (
+  <div id={id} style={{ marginTop: 56, scrollMarginTop: 96 }}>
+    <div style={{ display: "flex", gap: 16, alignItems: "baseline", paddingBottom: 12, borderBottom: "1px solid var(--line-hi)" }}>
+      <span style={{ fontFamily: "var(--f-mono)", fontSize: 11, color: "var(--fg-3)", letterSpacing: "0.14em" }}>{num}</span>
+      <h3 style={{ margin: 0, fontSize: 28, fontWeight: 500, letterSpacing: "-0.02em" }}>{title}</h3>
+    </div>
+    <div style={{ marginTop: 24 }}>{children}</div>
+  </div>
+);
+
+const Section = ({ id, num, title, kicker, children }) => (
+  <section id={id} style={{ borderBottom: "1px solid var(--line)", scrollMarginTop: 96 }}>
+    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 32px", display: "grid", gridTemplateColumns: "180px 1fr", gap: 40, alignItems: "start" }}>
+      <div style={{ position: "sticky", top: 96 }}>
+        <div style={{ fontFamily: "var(--f-mono)", fontSize: 11, color: "var(--fg-3)", textTransform: "uppercase", letterSpacing: "0.14em" }}>{num} · {title.toLowerCase()}</div>
+      </div>
+      <div>
+        <h2 style={{ margin: 0, fontSize: 56, fontWeight: 500, lineHeight: 1, letterSpacing: "-0.035em" }}>{title.toLowerCase()}.</h2>
+        {kicker && <p style={{ marginTop: 24, fontSize: 18, color: "var(--fg-2)", lineHeight: 1.6, maxWidth: 720, fontFamily: "var(--f-mono)" }}>{kicker}</p>}
+        <div style={{ marginTop: 40 }}>{children}</div>
+      </div>
+    </div>
+  </section>
+);
+
+const WikiPage = () => (
+  <div style={{ background: "var(--bg)", color: "var(--fg)", fontFamily: "var(--f-grot)", minHeight: "100vh" }}>
+    <SiteNav active="research" />
+
+    {/* Hero */}
+    <section style={{ borderBottom: "1px solid var(--line)" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 32px 80px", display: "grid", gridTemplateColumns: "180px 1fr 280px", gap: 40, alignItems: "start" }}>
+        <Eyebrow>wiki<br/>v.2026.05<br/>kai aizen</Eyebrow>
+        <div>
+          <h1 style={{ margin: 0, fontSize: 112, fontWeight: 500, lineHeight: 0.9, letterSpacing: "-0.05em" }}>
+            ai security wiki.
+          </h1>
+          <p style={{ margin: "32px 0 0", maxWidth: 720, fontSize: 18, lineHeight: 1.6, color: "var(--fg-2)", fontFamily: "var(--f-mono)" }}>
+            Reference for adversarial AI: prompt injection, jailbreaking, memory attacks, sandbox escape, agent trust boundaries, and defense layers. Cross-linked to <a href="/aatmf" style={{ color: "var(--signal-2)" }}>AATMF</a> tactics, the <a href="/playbook" style={{ color: "var(--signal-2)" }}>Red Teamer's Playbook</a>, and original <a href="/research" style={{ color: "var(--signal-2)" }}>research</a>.
+          </p>
+        </div>
+        <div style={{ borderLeft: "1px solid var(--line)", paddingLeft: 24, fontFamily: "var(--f-mono)", fontSize: 12, color: "var(--fg-2)" }}>
+          <Eyebrow>contents</Eyebrow>
+          <div style={{ marginTop: 16, display: "grid", gap: 6 }}>
+            {TOC.map(([n, t, id]) => <a key={id} href={`#${id}`} style={{ color: "var(--fg-2)", textDecoration: "none" }}>{n}. {t.toLowerCase()}</a>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 1. Prompt Injection */}
+    <Section id="prompt-injection" num="01" title="Prompt Injection"
+      kicker="An attack class where adversarial input subverts an LLM's intended instructions to execute attacker goals — same logic-injection pattern as SQLi or XSS, different substrate.">
+
+      <SubSection id="direct-injection" num="1.1" title="Direct Injection">
+        <p style={{ fontSize: 16, color: "var(--fg-2)", lineHeight: 1.7, maxWidth: 720, fontFamily: "var(--f-mono)" }}>
+          Adversarial instructions placed directly into the user input channel. The simplest variant: "Ignore previous instructions and...". Modern systems filter naive forms but remain vulnerable to encoded, role-played, or multi-instruction payloads.
+        </p>
+        <div style={{ marginTop: 24 }}>
+          <Term k="payload" v="Single-turn instruction in the user channel." />
+          <Term k="aatmf tactic" v="T2 — Initial Access · T3 — Instruction Hijack" link="/aatmf" />
+          <Term k="research" v="Adversarial Prompting: Complete Guide" link="/adversarial-guide" />
+        </div>
+      </SubSection>
+
+      <SubSection id="indirect-injection" num="1.2" title="Indirect Injection">
+        <p style={{ fontSize: 16, color: "var(--fg-2)", lineHeight: 1.7, maxWidth: 720, fontFamily: "var(--f-mono)" }}>
+          Instructions hidden in content the model later retrieves — emails, web pages, RAG documents, tool outputs. The user is not the attacker; the data is. Most agentic systems are vulnerable by design.
+        </p>
+        <div style={{ marginTop: 24 }}>
+          <Term k="vector" v="Email body, scraped page, vector-DB doc, file metadata, image OCR." />
+          <Term k="aatmf tactic" v="T2 — Initial Access · T6 — Data Source Poisoning" link="/aatmf" />
+          <Term k="defense" v="Strict trust-boundary marking, output-channel separation, instruction quarantine." />
+        </div>
+      </SubSection>
+
+      <SubSection id="multi-turn" num="1.3" title="Multi-Turn Injection">
+        <p style={{ fontSize: 16, color: "var(--fg-2)", lineHeight: 1.7, maxWidth: 720, fontFamily: "var(--f-mono)" }}>
+          Adversarial instructions decomposed across multiple turns to bypass single-turn classifiers. State accumulates; each turn appears benign. The exploit lives in the conversation graph, not any single message.
+        </p>
+        <div style={{ marginTop: 24 }}>
+          <Term k="aatmf tactic" v="T4 — Multi-Turn & Memory Manipulation" link="/aatmf" />
+          <Term k="research" v="The 30% Blind Spot — LLM Safety Judges" link="/blind-spot" />
+        </div>
+      </SubSection>
+
+      <SubSection id="agentic" num="1.4" title="Agentic Injection">
+        <p style={{ fontSize: 16, color: "var(--fg-2)", lineHeight: 1.7, maxWidth: 720, fontFamily: "var(--f-mono)" }}>
+          Injection targeting tool-using agents — payloads that hijack tool calls, memory writes, or orchestration logic. The blast radius scales with the agent's permissions.
+        </p>
+        <div style={{ marginTop: 24 }}>
+          <Term k="aatmf tactic" v="T11 — Agentic & Orchestrator Exploitation" link="/aatmf" />
+          <Term k="research" v="Memory Injection Through Nested Skills" link="/memory-injection" />
+          <Term k="research" v="MCP vs A2A Attack Surface" link="/mcp-vs-a2a" />
+        </div>
+      </SubSection>
+    </Section>
+
+    {/* 2. Jailbreaking */}
+    <Section id="jailbreaking" num="02" title="Jailbreaking"
+      kicker="Bypassing an LLM's alignment layer to produce content the model is trained to refuse. Distinct from prompt injection: jailbreaking targets the safety policy; injection targets the instruction hierarchy.">
+
+      <SubSection id="persona" num="2.1" title="Persona Attacks">
+        <p style={{ fontSize: 16, color: "var(--fg-2)", lineHeight: 1.7, maxWidth: 720, fontFamily: "var(--f-mono)" }}>
+          Inducing the model to adopt a fictional identity for which the safety policy purportedly does not apply. DAN, "evil assistant", role-playing system prompts. Largely patched in frontier models but still effective in chained or compositional form.
+        </p>
+        <div style={{ marginTop: 24 }}>
+          <Term k="aatmf tactic" v="T3 — Instruction Hijack" link="/aatmf" />
+        </div>
+      </SubSection>
+
+      <SubSection id="encoding" num="2.2" title="Encoding & Obfuscation">
+        <p style={{ fontSize: 16, color: "var(--fg-2)", lineHeight: 1.7, maxWidth: 720, fontFamily: "var(--f-mono)" }}>
+          Base64, ROT13, leetspeak, Unicode confusables, language-switch, ASCII art. The classifier sees harmless tokens; the model decodes and complies. Effectiveness drops as decoding-aware classifiers improve, but new encodings emerge faster than they're patched.
+        </p>
+        <div style={{ marginTop: 24 }}>
+          <Term k="aatmf tactic" v="T7 — Output Manipulation & Exfiltration" link="/aatmf" />
+        </div>
+      </SubSection>
+
+      <SubSection id="compositional" num="2.3" title="Compositional Bypass — P.R.O.M.P.T">
+        <p style={{ fontSize: 16, color: "var(--fg-2)", lineHeight: 1.7, maxWidth: 720, fontFamily: "var(--f-mono)" }}>
+          Treating jailbreaks as a grammar — combining persona, encoding, instruction-hijack, and turn-decomposition primitives into compositional attacks. The whole framework is documented at <a href="/prompt" style={{ color: "var(--signal-2)" }}>P.R.O.M.P.T</a>.
+        </p>
+      </SubSection>
+
+      <SubSection id="decay" num="2.4" title="Decay & Drift">
+        <p style={{ fontSize: 16, color: "var(--fg-2)", lineHeight: 1.7, maxWidth: 720, fontFamily: "var(--f-mono)" }}>
+          Long conversations drift the model away from its system prompt. Safety fidelity decays with context length. Quantified in <a href="/playbook" style={{ color: "var(--signal-2)" }}>The LLM Red Teamer's Playbook</a>.
+        </p>
+      </SubSection>
+    </Section>
+
+    {/* 3. Memory */}
+    <Section id="memory" num="03" title="Memory & Persistence"
+      kicker="Once an attacker writes to long-term agent memory, the compromise survives across sessions, models, and resets — the AI-implant primitive.">
+      <Term k="memory injection" v="Writing adversarial state into long-term agent memory through skill or tool channels." link="/memory-injection" />
+      <Term k="self-replicating worm" v="A prompt that propagates itself via memory writes — viable AI-worm primitive." link="/memory-worm" />
+      <Term k="aatmf tactic" v="T4 — Multi-Turn & Memory Manipulation" link="/aatmf" />
+    </Section>
+
+    {/* 4. Sandbox */}
+    <Section id="sandbox" num="04" title="Sandbox Escape"
+      kicker="Breaking out of the model's execution environment — code interpreters, tool runtimes, image processors. Same techniques as classic sandbox escape, applied to a new substrate.">
+      <Term k="pickle rce + dns" v="Pickle deserialization RCE chained with DNS exfil — escapes the ChatGPT Code Interpreter." link="/pickle-rce" />
+      <Term k="canvas dns exfil" v="DNS exfiltration via rendered Canvas content." link="/canvas-dns" />
+      <Term k="aatmf tactic" v="T8 — Toolchain & Sandbox Escape" link="/aatmf" />
+    </Section>
+
+    {/* 5. Tools */}
+    <Section id="tools" num="05" title="Tool & Agent Abuse"
+      kicker="Tools expose new attack surface: their schemas, descriptions, side effects, and trust relationships. Tool poisoning targets the meta-layer.">
+      <Term k="tool poisoning" v="Manipulating a tool's schema or description to redirect agent behavior." />
+      <Term k="schema confusion" v="Crafting tool schemas that cause the model to misinterpret arguments." />
+      <Term k="output channel hijack" v="Injecting commands via tool return values that re-enter the prompt." />
+      <Term k="aatmf tactic" v="T11 — Agentic & Orchestrator Exploitation · T12 — Supply Chain & Plugin Compromise" link="/aatmf" />
+    </Section>
+
+    {/* 6. MCP vs A2A */}
+    <Section id="mcp-a2a" num="06" title="MCP vs A2A"
+      kicker="Two protocols, two trust models. MCP exposes tools to a single agent; A2A delegates between agents. The trust boundary lives in different places — and so do the attacks.">
+      <Term k="mcp" v="Model Context Protocol — standardized tool/data exposure to LLMs." />
+      <Term k="a2a" v="Agent-to-Agent — autonomous agents delegating to each other." />
+      <Term k="trust delta" v="MCP trusts the user; A2A trusts another agent's identity. Both can be spoofed." />
+      <Term k="research" v="MCP vs A2A Attack Surface" link="/mcp-vs-a2a" />
+    </Section>
+
+    {/* 7. Defenses */}
+    <Section id="defenses" num="07" title="Defense Layers"
+      kicker="The Red Teamer's Playbook treats defense as a five-layer chain. Bypassing one is rarely sufficient; bypassing all is necessary for full exploitation.">
+      <Term k="layer 1 — input filters" v="Pattern matchers, classifiers, embedding-based detectors. First line, weakest layer." />
+      <Term k="layer 2 — alignment" v="The model's own learned safety policy. Strong on common cases, brittle on the long tail." />
+      <Term k="layer 3 — identity" v="System prompt and persona enforcement. Decays with context length." />
+      <Term k="layer 4 — output" v="Post-generation classifiers and filters. The 30% blind spot lives here." link="/blind-spot" />
+      <Term k="layer 5 — agentic trust" v="Tool-call authorization, memory write controls, inter-agent trust." />
+      <Term k="full methodology" v="The LLM Red Teamer's Playbook" link="/playbook" />
+    </Section>
+
+    <SiteFooter section="wiki" />
+  </div>
+);
+
+ReactDOM.createRoot(document.getElementById("root")).render(<WikiPage />);
+  </script>
+</body>
+</html>

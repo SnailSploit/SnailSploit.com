@@ -9,6 +9,7 @@ const NAV_LINKS = [
   ["services",   "/services"],
   ["frameworks", "/frameworks"],
   ["research",   "/research"],
+  ["wiki",       "/wiki"],
   ["tools",      "/tools"],
   ["writing",    "/writing"],
 ];
@@ -187,15 +188,17 @@ const SiteFooter = ({ section }) => (
         ]} />
         <FooterCol title="research" items={[
           ["AI Security",  "/research"],
+          ["Wiki",         "/wiki"],
           ["Linux Kernel", "/kernel"],
           ["CVEs",         "/cves"],
           ["Advisories",   "/advisories"],
         ]} />
         <FooterCol title="more" items={[
-          ["Services",     "/services"],
-          ["Tools",        "/tools"],
-          ["Writing",      "/writing"],
-          ["Contact",      "/contact"],
+          ["Services",         "/services"],
+          ["Adversarial Minds","/adversarial-minds"],
+          ["Tools",            "/tools"],
+          ["Writing",          "/writing"],
+          ["Contact",          "/contact"],
         ]} />
       </div>
       <div style={{
