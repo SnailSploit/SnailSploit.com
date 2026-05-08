@@ -51,6 +51,20 @@
   <!-- analytics:start -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
   <!-- analytics:end -->
+
+  <!-- polish:start -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="color-scheme" content="dark">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
+  <!-- polish:end -->
+
+  <!-- extra-schema:start -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is AATMF?","acceptedAnswer":{"@type":"Answer","text":"AATMF (Adversarial AI Threat Modeling Framework) is an open framework for systematically threat-modeling AI systems. Version 3.1 contains 15 tactics, 240+ techniques, and 2,150+ procedures, mapped to NIST AI RMF, MITRE ATLAS, and OWASP LLM Top 10."}},{"@type":"Question","name":"How does AATMF compare to MITRE ATLAS?","acceptedAnswer":{"@type":"Answer","text":"AATMF maps to MITRE ATLAS but extends it: it includes per-procedure-level detail, an integrated risk-scoring system (AATMF-R), and explicit coverage of agentic, multi-turn, and supply-chain attack vectors that ATLAS treats more abstractly."}},{"@type":"Question","name":"Is AATMF free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes. AATMF is published openly under a permissive license. Citation is appreciated but not required for internal use."}}]}
+  </script>
+  <!-- extra-schema:end -->
 </head>
 <body>
   <div id="root"></div>

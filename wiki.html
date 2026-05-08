@@ -74,6 +74,20 @@
   <!-- analytics:start -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
   <!-- analytics:end -->
+
+  <!-- polish:start -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="color-scheme" content="dark">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
+  <!-- polish:end -->
+
+  <!-- extra-schema:start -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is prompt injection?","acceptedAnswer":{"@type":"Answer","text":"Prompt injection is an attack class where adversarial input subverts an LLM's intended instructions to execute attacker goals \u2014 the same logic-injection pattern as SQLi or XSS, applied to a different substrate."}},{"@type":"Question","name":"What is the difference between prompt injection and jailbreaking?","acceptedAnswer":{"@type":"Answer","text":"Prompt injection targets the instruction hierarchy \u2014 getting the model to follow attacker instructions instead of system instructions. Jailbreaking targets the safety policy \u2014 getting the model to produce content it's trained to refuse. Both can be combined."}},{"@type":"Question","name":"What is indirect prompt injection?","acceptedAnswer":{"@type":"Answer","text":"Indirect prompt injection is when adversarial instructions are hidden in content the model later retrieves \u2014 emails, web pages, RAG documents, tool outputs. The user is not the attacker; the data is."}},{"@type":"Question","name":"What is the difference between MCP and A2A?","acceptedAnswer":{"@type":"Answer","text":"MCP (Model Context Protocol) exposes tools and data to a single agent. A2A (Agent-to-Agent) lets autonomous agents delegate to each other. The trust boundary lives in different places, and so do the attacks."}}]}
+  </script>
+  <!-- extra-schema:end -->
 </head>
 <body>
   <div id="root"></div>
