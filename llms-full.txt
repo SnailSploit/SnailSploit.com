@@ -98,3 +98,4 @@ Kai Aizen is an independent offensive security researcher. Hakin9 contributing a
 - GitHub: https://github.com/SnailSploit
 - X: https://x.com/SnailSploit
 - LinkedIn: https://linkedin.com/in/kaiaizen
+- ResearchGate: https://www.researchgate.net/profile/Kai-Aizen-2
