@@ -1,0 +1,63 @@
+/* ============================================================
+   SnailSploit — Brand Tokens v2
+   Operator's tool · lab memo · stealth infra — one system.
+   ============================================================ */
+
+:root {
+  /* Surfaces — graphite, not paper. Subtly warm so it isn't sterile. */
+  --bg:        #0E0E0F;       /* page */
+  --bg-raise: #15161A;        /* card */
+  --bg-sink:  #08090B;        /* footer / inset */
+  --line:     #23252B;
+  --line-hi:  #2E3138;
+
+  /* Light mirror (used for prints, OG cards, light pages) */
+  --paper:    #F4F2EC;        /* warm off-white */
+  --paper-2:  #EAE7DD;
+  --ink:      #0E0E0F;
+
+  /* Text on graphite */
+  --fg:       #E9E7E1;        /* primary */
+  --fg-2:     #B6B4AC;        /* secondary */
+  --fg-3:     #76746C;        /* meta */
+  --fg-4:     #4A4842;        /* disabled */
+
+  /* Text on paper */
+  --ink-2:    #38362F;
+  --ink-3:    #6B675C;
+
+  /* Single signal — oxide. Used only for live status / severity. */
+  --signal:   #C2592C;
+  --signal-2: #E07A4A;        /* on dark */
+
+  /* Type */
+  --f-grot:   "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif;
+  --f-mono:   "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Scale — operator-scale, smaller than editorial */
+  --t-11: 11px;
+  --t-12: 12px;
+  --t-13: 13px;
+  --t-14: 14px;
+  --t-16: 16px;
+  --t-20: 20px;
+  --t-28: 28px;
+  --t-40: 40px;
+  --t-56: 56px;
+  --t-80: 80px;
+  --t-128: 128px;
+
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-grot);
+  font-feature-settings: "ss01", "cv11", "tnum";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+}
+* { box-sizing: border-box; }

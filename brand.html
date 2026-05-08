@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>snailsploit — brand foundation v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="brand/tokens.css" />
+  <style>
+    body { margin: 0; }
+    .page { max-width: 1280px; margin: 0 auto; }
+    .section { padding: var(--density-pad, 96px 48px); border-bottom: 1px solid var(--line); }
+    .section :is(h1,h2,h3,p,div) { letter-spacing: var(--density-track, inherit); }
+    .section:last-child { border-bottom: none; }
+    .row { display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: baseline; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="brand/tweaks-panel.jsx"></script>
+  <script type="text/babel" src="brand/marks.jsx"></script>
+  <script type="text/babel" src="brand/artboards.jsx"></script>
+
+  <script type="text/babel">
+    const { TweaksPanel, TweakSection, TweakRadio, useTweaks } = window;
+
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "mood": "operator",
+      "signal": "ember",
+      "density": "generous"
+    }/*EDITMODE-END*/;
+
+    const MOODS = {
+      operator: { /* graphite, calm, instrument */
+        "--bg":"#0E0E0F","--bg-raise":"#15161A","--bg-sink":"#08090B",
+        "--line":"#23252B","--line-hi":"#2E3138",
+        "--fg":"#E9E7E1","--fg-2":"#B6B4AC","--fg-3":"#76746C","--fg-4":"#4A4842",
+      },
+      memo: { /* warm paper — lab memo */
+        "--bg":"#F4F2EC","--bg-raise":"#FBFAF5","--bg-sink":"#EAE7DD",
+        "--line":"#D9D5C8","--line-hi":"#B8B2A1",
+        "--fg":"#1A1916","--fg-2":"#454239","--fg-3":"#76746C","--fg-4":"#A8A498",
+      },
+      stealth: { /* near-black — security infra */
+        "--bg":"#050507","--bg-raise":"#0B0B0E","--bg-sink":"#020203",
+        "--line":"#16171B","--line-hi":"#1F2025",
+        "--fg":"#D8D6D0","--fg-2":"#8A877F","--fg-3":"#5A5852","--fg-4":"#36352F",
+      },
+    };
+
+    const SIGNALS = {
+      oxide:  { "--signal":"#C2592C","--signal-2":"#E07A4A" },
+      ember:  { "--signal":"#A03426","--signal-2":"#D45A3F" },
+      acid:   { "--signal":"#9AB025","--signal-2":"#C8DC4F" },
+      cobalt: { "--signal":"#2B5BA8","--signal-2":"#5688D6" },
+    };
+
+    const DENSITY = {
+      compact:  { sectionPad: "56px 48px", scale: 0.85, lh: 0.92, track: "-0.05em"  },
+      regular:  { sectionPad: "96px 48px", scale: 1.00, lh: 0.95, track: "-0.04em"  },
+      generous: { sectionPad: "144px 64px", scale: 1.18, lh: 1.04, track: "-0.025em" },
+    };
+
+    const App = () => {
+      const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+      React.useEffect(() => {
+        const root = document.documentElement;
+        Object.entries(MOODS[t.mood] || MOODS.operator).forEach(([k,v]) => root.style.setProperty(k, v));
+        Object.entries(SIGNALS[t.signal] || SIGNALS.oxide).forEach(([k,v]) => root.style.setProperty(k, v));
+        const d = DENSITY[t.density] || DENSITY.regular;
+        root.style.setProperty("--density-scale", d.scale);
+        root.style.setProperty("--density-lh", d.lh);
+        root.style.setProperty("--density-track", d.track);
+        root.style.setProperty("--density-pad", d.sectionPad);
+      }, [t.mood, t.signal, t.density]);
+
+      return (
+        <>
+          <div className="page">
+            <div className="section" style={{ padding: 0 }}><ArtCover /></div>
+            <div className="section" style={{ padding: 0 }}><ArtMarks /></div>
+            <div className="section" style={{ padding: 0 }}><ArtLockup /></div>
+            <div className="section" style={{ padding: 0 }}><ArtColor /></div>
+            <div className="section" style={{ padding: 0 }}><ArtType /></div>
+            <div className="section" style={{ padding: 0 }}><ArtApplied /></div>
+            <div className="section" style={{ padding: 0 }}><ArtVoice /></div>
+          </div>
+          <TweaksPanel title="Tweaks">
+            <TweakSection label="Mood" />
+            <TweakRadio value={t.mood} options={["operator","memo","stealth"]}
+              onChange={(v) => setTweak("mood", v)} />
+            <TweakSection label="Signal" />
+            <TweakRadio value={t.signal} options={["oxide","ember","acid","cobalt"]}
+              onChange={(v) => setTweak("signal", v)} />
+            <TweakSection label="Density" />
+            <TweakRadio value={t.density} options={["compact","regular","generous"]}
+              onChange={(v) => setTweak("density", v)} />
+          </TweaksPanel>
+        </>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

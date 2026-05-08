@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>snailsploit — services</title>
+  <meta name="description" content="AI Red Teaming, Advanced Penetration Testing, and Social Engineering assessments from Kai Aizen — the researcher behind AATMF, P.R.O.M.P.T, and SEF." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/brand/tokens.css" />
+  <style>
+    html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--f-grot, "Inter Tight", system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    * { box-sizing: border-box; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+  <script src="/site/data.js"></script>
+  <script type="text/babel" src="/brand/marks.jsx"></script>
+  <script type="text/babel" src="/site/_layout.jsx"></script>
+  <script type="text/babel">
+
+const SERVICES = [
+  {
+    id: "01",
+    name: "AI Red Teaming",
+    tag: "adversarial-ai",
+    tagline: "Break it before someone else does.",
+    desc: "End-to-end adversarial testing of LLM-based systems — from raw model APIs to production agentic pipelines. Built on the AATMF framework: 15 tactics, 240+ techniques, structured scoring with AATMF-R.",
+    scope: [
+      "Prompt injection — direct, indirect, multi-turn, agentic",
+      "Defense fingerprinting and bypass chain planning",
+      "Tool-call poisoning and MCP/A2A trust boundary testing",
+      "Memory injection and persistent implant validation",
+      "Sandbox escape: Pickle RCE, DNS exfil, code interpreter abuse",
+      "LLM safety judge blind spots and classifier evasion",
+      "AATMF-R risk scoring per finding",
+    ],
+    deliverables: ["Technical writeup per finding", "AATMF-R scored vuln ledger", "Remediation guidance", "Executive summary"],
+  },
+  {
+    id: "02",
+    name: "Advanced Penetration Testing",
+    tag: "offensive-security",
+    tagline: "Systematic, methodology-driven, documented.",
+    desc: "Full-scope offensive security assessments across Linux kernel, Kubernetes, container runtimes, cloud infrastructure, and web applications. The same methodology behind 23 published CVEs and 5 Linux kernel patches.",
+    scope: [
+      "Network and infrastructure — cluster escape, RBAC abuse, privilege escalation",
+      "Container runtime — breakout, symlink escape, capabilities abuse",
+      "Web application — SQLi, SSRF, IDOR, auth bypass, CSRF chains",
+      "Linux kernel — subsystem-level review and PoC development",
+      "Cloud — credential exposure, misconfiguration chaining, lateral movement",
+      "OSS library review — dependency chain audits, zero-day discovery",
+    ],
+    deliverables: ["CVE-ready technical report", "PoC code where applicable", "Attack-path diagram", "Remediation roadmap", "Executive summary"],
+  },
+  {
+    id: "03",
+    name: "Social Engineering Assessment",
+    tag: "human-layer",
+    tagline: "The human layer is always in scope.",
+    desc: "Targeted campaigns that test the intersection of human psychology and technical controls. Grounded in the P.R.O.M.P.T framework and the adversarial-psychology work behind Adversarial Minds.",
+    scope: [
+      "Phishing — spear, whaling, pretexting via custom infrastructure",
+      "Vishing — live social engineering with full documentation",
+      "Physical + digital hybrid — badge access, tailgating, USB drop",
+      "AI-assisted persona development and detection bypass",
+      "Employee security awareness gap analysis",
+      "Adversarial Minds methodology — cognitive bias exploitation",
+    ],
+    deliverables: ["Campaign report with success rates", "Per-employee redacted results", "Awareness gap analysis", "Training recommendations"],
+  },
+];
+
+const ServicesPage = () => (
+  <div style={{ background: "var(--bg)", color: "var(--fg)", fontFamily: "var(--f-grot)", minHeight: "100vh" }}>
+    <SiteNav active="services" />
+
+    {/* hero */}
+    <section style={{ borderBottom: "1px solid var(--line)" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 32px 80px", display: "grid", gridTemplateColumns: "180px 1fr", gap: 40, alignItems: "start" }}>
+        <div>
+          <Eyebrow>services</Eyebrow>
+          <div style={{ marginTop: 14, fontFamily: "var(--f-mono)", fontSize: 12, color: "var(--fg-3)", lineHeight: 1.7 }}>
+            kai aizen<br/>
+            independent<br/>
+            contact for scope
+          </div>
+        </div>
+        <div>
+          <h1 style={{ margin: 0, fontSize: 112, fontWeight: 500, lineHeight: 0.9, letterSpacing: "-0.05em" }}>
+            offensive security.<br/>
+            <span style={{ color: "var(--fg-3)" }}>for the new stack.</span>
+          </h1>
+          <p style={{ margin: "40px 0 0", maxWidth: 680, fontSize: 18, lineHeight: 1.6, color: "var(--fg-2)", fontFamily: "var(--f-mono)" }}>
+            Three disciplines. One researcher. The same methodology behind 23 CVEs, 5 Linux kernel patches, and the AATMF framework — applied to your systems.
+          </p>
+          <div style={{ marginTop: 40, display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <CTA href="/contact" primary>get in touch</CTA>
+            <CTA href="/frameworks">read the frameworks</CTA>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* credentials bar */}
+    <div style={{ background: "var(--bg-sink)", borderBottom: "1px solid var(--line)" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "24px 32px", display: "flex", gap: 40, alignItems: "center", flexWrap: "wrap" }}>
+        {[
+          ["23 CVEs", "published"],
+          ["5 patches", "Linux kernel mainline"],
+          ["AATMF", "15 tactics · 240+ techniques"],
+          ["P.R.O.M.P.T", "compositional red-team grammar"],
+          ["Adversarial Minds", "published book"],
+          ["Hakin9 / PenTest Mag", "contributing author"],
+        ].map(([v, k]) => (
+          <div key={k} style={{ fontFamily: "var(--f-mono)", fontSize: 12 }}>
+            <span style={{ color: "var(--fg)", fontWeight: 500 }}>{v}</span>
+            <span style={{ color: "var(--fg-3)", marginLeft: 8 }}>{k}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* services */}
+    {SERVICES.map((s, si) => (
+      <section key={s.id} id={s.tag} style={{ borderBottom: "1px solid var(--line)", background: si % 2 === 1 ? "var(--bg-sink)" : "transparent" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "112px 32px", display: "grid", gridTemplateColumns: "180px 1fr", gap: 40, alignItems: "start" }}>
+          <div style={{ position: "sticky", top: 96, alignSelf: "start" }}>
+            <Eyebrow>{s.id} · {s.tag}</Eyebrow>
+          </div>
+          <div>
+            {/* service header */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "end", paddingBottom: 24, borderBottom: "1px solid var(--line-hi)", gap: 32 }}>
+              <h2 style={{ margin: 0, fontSize: 72, fontWeight: 500, lineHeight: 0.92, letterSpacing: "-0.04em" }}>{s.name}</h2>
+              <div style={{ fontFamily: "var(--f-mono)", fontSize: 11, color: "var(--fg-3)", textTransform: "uppercase", letterSpacing: "0.14em", paddingBottom: 8 }}>
+                {s.tagline}
+              </div>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 56, marginTop: 56, alignItems: "start" }}>
+              {/* left: desc + scope */}
+              <div>
+                <p style={{ margin: 0, fontSize: 20, lineHeight: 1.55, color: "var(--fg)", letterSpacing: "-0.01em", textWrap: "pretty", borderLeft: "2px solid var(--signal-2)", paddingLeft: 20 }}>
+                  {s.desc}
+                </p>
+                <div style={{ marginTop: 48 }}>
+                  <Eyebrow style={{ marginBottom: 20 }}>scope</Eyebrow>
+                  {s.scope.map((item, i) => (
+                    <div key={i} style={{
+                      display: "flex", gap: 16, padding: "14px 0",
+                      borderTop: i === 0 ? "1px solid var(--line-hi)" : "1px solid var(--line)",
+                      fontFamily: "var(--f-mono)", fontSize: 13, color: "var(--fg-2)", lineHeight: 1.5,
+                    }}>
+                      <span style={{ color: "var(--signal-2)", flexShrink: 0, fontSize: 11, paddingTop: 2 }}>→</span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* right: deliverables + cta */}
+              <div>
+                <div style={{ background: "var(--bg-raise)", border: "1px solid var(--line-hi)", padding: "32px" }}>
+                  <Eyebrow style={{ marginBottom: 20 }}>deliverables</Eyebrow>
+                  {s.deliverables.map((d, i) => (
+                    <div key={i} style={{
+                      padding: "12px 0",
+                      borderTop: i === 0 ? "1px solid var(--line-hi)" : "1px solid var(--line)",
+                      fontFamily: "var(--f-mono)", fontSize: 13, color: "var(--fg-2)",
+                      display: "flex", gap: 12, alignItems: "baseline",
+                    }}>
+                      <span style={{ color: "var(--signal-2)", fontSize: 11, flexShrink: 0 }}>✓</span>
+                      <span>{d}</span>
+                    </div>
+                  ))}
+                  <div style={{ marginTop: 32 }}>
+                    <CTA href="/contact" primary>discuss scope →</CTA>
+                  </div>
+                </div>
+
+                <div style={{ marginTop: 24, fontFamily: "var(--f-mono)", fontSize: 12, color: "var(--fg-3)", lineHeight: 1.7 }}>
+                  Pricing on request.<br/>
+                  All engagements include signed NDA and scoped rules of engagement.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    ))}
+
+    {/* contact cta */}
+    <section style={{ borderBottom: "1px solid var(--line)" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "96px 32px", display: "grid", gridTemplateColumns: "180px 1fr", gap: 40, alignItems: "start" }}>
+        <div style={{ position: "sticky", top: 96 }}>
+          <Eyebrow>04 · engage</Eyebrow>
+        </div>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 64, fontWeight: 500, lineHeight: 0.95, letterSpacing: "-0.04em" }}>
+            start a conversation.
+          </h2>
+          <p style={{ margin: "32px 0 0", maxWidth: 560, fontSize: 17, lineHeight: 1.65, color: "var(--fg-2)", fontFamily: "var(--f-mono)" }}>
+            Outline your environment and scope. I'll respond with a proposed approach, timeline, and fixed or T&M price. No boilerplate proposals.
+          </p>
+          <div style={{ marginTop: 40, display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
+            <CTA href="/contact" primary>contact →</CTA>
+            <span style={{ fontFamily: "var(--f-mono)", fontSize: 12, color: "var(--fg-3)" }}>or find me on linkedin.com/in/kaiaizen</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <SiteFooter section="services" />
+  </div>
+);
+
+ReactDOM.createRoot(document.getElementById("root")).render(<ServicesPage />);
+  </script>
+</body>
+</html>
