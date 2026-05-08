@@ -1,0 +1,32 @@
+[
+  {
+    "sub": "io_uring/zcrx",
+    "url": "/kernel/io_uring-zcrx/",
+    "vuln": "user_ref race \u2192 double-free \u2192 OOB write",
+    "status": "Mainline 7.0-rc1 \u00b7 backports 6.18.16 + 6.19.6"
+  },
+  {
+    "sub": "net/tipc",
+    "url": "/kernel/net-tipc/",
+    "vuln": "tipc_mon_peer_up UAF vs bearer teardown",
+    "status": "Mainline"
+  },
+  {
+    "sub": "Bluetooth",
+    "url": "/kernel/bluetooth/",
+    "vuln": "hci_conn UAF in create_big_sync / create_big_complete",
+    "status": "Mainline"
+  },
+  {
+    "sub": "RDMA/ionic",
+    "url": "/kernel/rdma-ionic/",
+    "vuln": "Unbounded node_desc sysfs read via %.64s",
+    "status": "Mainline"
+  },
+  {
+    "sub": "net/rtnetlink",
+    "url": "/kernel/net-rtnetlink/",
+    "vuln": "ifla_vf_broadcast stack infoleak (zero init missing)",
+    "status": "Mainline"
+  }
+]

@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Burp MCP Toolkit",
+    "url": "/tools/burp-mcp-toolkit/",
+    "desc": "MCP security analysis for Burp Suite \u2014 prompt injection and tool poisoning testing via Model Context Protocol.",
+    "meta": {
+      "slug": "burp-mcp-toolkit",
+      "repo": "https://github.com/SnailSploit/Burp-MCP-Security-Analysis-Toolkit",
+      "lang": "Java",
+      "category": "DAST / MCP"
+    }
+  },
+  {
+    "name": "SnailHunter",
+    "url": "/tools/snailhunter/",
+    "desc": "AI-powered bug bounty automation \u2014 LLM analysis combined with traditional security scanning.",
+    "meta": {
+      "slug": "snailhunter",
+      "repo": "https://github.com/SnailSploit/SnailHunter",
+      "lang": "Python",
+      "category": "Bug Bounty Automation"
+    }
+  },
+  {
+    "name": "KubeRoast",
+    "url": "/tools/kuberoast/",
+    "desc": "Red-team Kubernetes misconfiguration & attack-path scanner.",
+    "meta": {
+      "slug": "kuberoast",
+      "repo": "https://github.com/SnailSploit/KubeRoast_v1",
+      "lang": "Go",
+      "category": "Cluster Security"
+    }
+  },
+  {
+    "name": "Xposure",
+    "url": "/tools/xposure/",
+    "desc": "Autonomous credential intelligence platform for attack-surface recon.",
+    "meta": {
+      "slug": "xposure",
+      "repo": "https://github.com/SnailSploit/Xposure",
+      "lang": "Python",
+      "category": "Credential Intelligence"
+    }
+  },
+  {
+    "name": "SnailSploit Recon",
+    "url": "/tools/snailsploit-recon/",
+    "desc": "Chrome MV3 extension \u2014 passive recon, security headers, IP intel, CPE\u2192CVE enrichment.",
+    "meta": {
+      "slug": "snailsploit-recon",
+      "repo": "https://github.com/SnailSploit/SnailSploit_Recon_extension",
+      "lang": "TypeScript",
+      "category": "Browser Extension"
+    }
+  },
+  {
+    "name": "SnailPath",
+    "url": "/tools/snailpath/",
+    "desc": "Async directory & route discovery \u2014 HTTP/2, soft-404 suppression, JS/sourcemap mining.",
+    "meta": {
+      "slug": "snailpath",
+      "repo": "https://github.com/SnailSploit/SnailPath",
+      "lang": "Python",
+      "category": "Web Recon"
+    }
+  },
+  {
+    "name": "ZenFlood",
+    "url": "/tools/zenflood/",
+    "desc": "Low-bandwidth stress testing \u2014 modernized Slowloris.",
+    "meta": {
+      "slug": "zenflood",
+      "repo": "https://github.com/SnailSploit/ZenFlood",
+      "lang": "Python",
+      "category": "Stress Testing"
+    }
+  },
+  {
+    "name": "SnailObfuscator",
+    "url": "/tools/snailobfuscator/",
+    "desc": "Structurally-aware code obfuscation engine.",
+    "meta": {
+      "slug": "snailobfuscator",
+      "repo": "https://github.com/SnailSploit/SnailObfuscator",
+      "lang": "Multi",
+      "category": "Code Obfuscation"
+    }
+  },
+  {
+    "name": "Awesome-Snail-OSINT",
+    "url": "/tools/awesome-snail-osint/",
+    "desc": "Curated OSINT resource collection for offensive recon.",
+    "meta": {
+      "slug": "awesome-snail-osint",
+      "repo": "https://github.com/SnailSploit/Awesome-Snail-OSINT",
+      "lang": "Markdown",
+      "category": "OSINT Resource"
+    }
+  }
+]
