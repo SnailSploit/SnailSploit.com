@@ -1,157 +1,246 @@
 <!doctype html>
 <html lang="en">
 <head>
- <meta charset="utf-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
- <title>Membership Inference | AI Security Wiki | snailsploit</title>
- <meta name="description" content="Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.">
- <meta name="author" content="Kai Aizen">
- <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
- <link rel="canonical" href="https://snailsploit.com/ai-security/wiki/attacks/membership-inference/">
- <link rel="preconnect" href="https://fonts.googleapis.com">
- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
- <style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Membership Inference | AI Security Wiki | snailsploit</title>
+<meta name="description" content="Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.">
+<meta name="author" content="Kai Aizen">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://snailsploit.com/ai-security/wiki/attacks/membership-inference/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
 html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}
-a{color:inherit;text-decoration:none}.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}.wm-sig.dollar{color:var(--signal-2)}.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}.nav-links a:hover{color:var(--fg)}.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap}.crumbs a{color:var(--fg-3)}.crumbs a:hover{color:var(--fg)}.crumbs.sep{color:var(--fg-4)}.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}.article-inner{max-width:760px;margin:0 auto}.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap}.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0}.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:680px}.article-body-section{padding:64px 32px;border-bottom:1px solid var(--line)}.article-body{max-width:720px;margin:0 auto;font-size:17px;line-height:1.75;color:var(--fg-2)}.article-body h2{font-size:32px;font-weight:500;line-height:1.15;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:8px;border-top:1px solid var(--line)}.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px}.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px;text-transform:none}.article-body p{margin:16px 0}.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}.article-body li{margin:6px 0}.article-body strong{color:var(--fg);font-weight:600}.article-body em{color:var(--fg);font-style:italic}.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb, var(--signal-2) 40%, transparent)}.article-body a:hover{border-bottom-color:var(--signal-2)}.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg)}.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0}.article-body pre code{background:none;border:0;padding:0;font-size:inherit}.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}.article-body img{max-width:100%;height:auto;margin:24px 0;border:1px solid var(--line)}.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}.article-body figure{margin:24px 0}.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:8px}.author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}.author-inner{max-width:720px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}.footer{background:var(--bg-sink)}.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}
+.wm-sig .dollar{color:var(--signal-2)}
+.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
+.nav-links a:hover{color:var(--fg)}
+.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}
+.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.crumbs a{color:var(--fg-3)}
+.crumbs a:hover{color:var(--fg)}
+.crumbs .sep{color:var(--fg-4)}
+
+.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}
+.article-hero-inner{max-width:1280px;margin:0 auto}
+.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.article-meta time{color:var(--fg-3)}
+.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0;max-width:1080px}
+.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:780px}
+
+.article-layout{max-width:1280px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:1fr 240px;gap:64px;align-items:start;border-bottom:1px solid var(--line)}
+.article-body{min-width:0;font-size:17px;line-height:1.75;color:var(--fg-2);max-width:780px}
+.article-body > *:first-child{margin-top:0}
+.article-body h2{font-size:32px;font-weight:500;line-height:1.2;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:24px;border-top:1px solid var(--line);scroll-margin-top:96px}
+.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px;scroll-margin-top:96px}
+.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px}
+.article-body p{margin:16px 0}
+.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}
+.article-body li{margin:6px 0}
+.article-body strong{color:var(--fg);font-weight:600}
+.article-body em{color:var(--fg);font-style:italic}
+.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.article-body a:hover{border-bottom-color:var(--signal-2)}
+.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg);border-radius:2px}
+.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0;border-radius:2px}
+.article-body pre code{background:none;border:0;padding:0;font-size:inherit;border-radius:0}
+.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}
+.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}
+.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}
+.article-body img,.article-body picture{display:block;max-width:100%;height:auto;margin:32px auto;border:1px solid var(--line);background:var(--bg-raise)}
+.article-body picture img{margin:0;border:0}
+.article-body figure{margin:32px 0}
+.article-body figure img{margin:0 auto}
+.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:12px;text-align:center;line-height:1.5}
+.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
+
+.toc{position:sticky;top:96px;align-self:start;font-family:var(--f-mono);font-size:12px;line-height:1.7;max-height:calc(100vh - 128px);overflow-y:auto}
+.toc-eyebrow{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:11px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.toc ul{list-style:none;padding:0;margin:0}
+.toc li{padding:4px 0}
+.toc li.h3{padding-left:16px;font-size:11.5px}
+.toc a{color:var(--fg-2);display:block;padding:2px 0;border-left:2px solid transparent;padding-left:12px;margin-left:-14px;transition:color 0.15s, border-color 0.15s}
+.toc a:hover{color:var(--fg);border-left-color:var(--signal-2)}
+
+@media (max-width: 960px){
+  .article-layout{grid-template-columns:1fr;gap:32px}
+  .toc{display:none}
+}
+
+.callout{margin:32px 0;padding:20px 24px;border:1px solid var(--line-hi);background:var(--bg-raise);font-family:var(--f-mono);font-size:14px;line-height:1.6}
+.callout-label{font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px;font-weight:500}
+
+.related{padding:64px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.related-inner{max-width:1280px;margin:0 auto}
+.related-head{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:32px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.related-card{padding:24px;border:1px solid var(--line);background:var(--bg);transition:border-color 0.15s}
+.related-card:hover{border-color:var(--signal-2)}
+.related-date{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-bottom:8px}
+.related-title{font-size:18px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);line-height:1.3;margin-bottom:8px}
+.related-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.55}
+
+.author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.author-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}
+.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}
+.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}
+.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
+.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}
+
+.footer{background:var(--bg-sink)}
+.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
 </style>
 
- <meta property="og:type" content="article">
- <meta property="og:title" content="Membership Inference | AI Security Wiki">
- <meta property="og:description" content="Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.">
- <meta property="og:url" content="https://snailsploit.com/ai-security/wiki/attacks/membership-inference/">
- <meta property="og:site_name" content="snailsploit">
- <meta property="og:image" content="https://snailsploit.com/og-cover.png">
- <meta property="og:image:width" content="1200">
- <meta property="og:image:height" content="630">
- <meta property="og:locale" content="en_US">
- <meta property="article:author" content="Kai Aizen">
- <meta property="article:published_time" content="2026-01-01">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Membership Inference | AI Security Wiki">
+<meta property="og:description" content="Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.">
+<meta property="og:url" content="https://snailsploit.com/ai-security/wiki/attacks/membership-inference/">
+<meta property="og:site_name" content="snailsploit">
+<meta property="og:image" content="https://snailsploit.com/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Kai Aizen">
+<meta property="article:published_time" content="2026-01-01">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SnailSploit">
+<meta name="twitter:creator" content="@SnailSploit">
+<meta name="twitter:title" content="Membership Inference | AI Security Wiki">
+<meta name="twitter:description" content="Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.">
+<meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
 
- <meta name="twitter:card" content="summary_large_image">
- <meta name="twitter:site" content="@SnailSploit">
- <meta name="twitter:creator" content="@SnailSploit">
- <meta name="twitter:title" content="Membership Inference | AI Security Wiki">
- <meta name="twitter:description" content="Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.">
- <meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen"]},{"@type":"Article","headline":"Membership Inference | AI Security Wiki","description":"Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-01-01","dateModified":"2026-01-01","url":"https://snailsploit.com/ai-security/wiki/attacks/membership-inference/","mainEntityOfPage":"https://snailsploit.com/ai-security/wiki/attacks/membership-inference/","image":"https://snailsploit.com/og-cover.png","wordCount":994,"keywords":"AI security, adversarial AI, prompt injection, red teaming, vulnerability research"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":3,"name":"Wiki","item":"https://snailsploit.com/wiki"},{"@type":"ListItem","position":4,"name":"Attacks","item":"https://snailsploit.com/wiki"},{"@type":"ListItem","position":5,"name":"Membership Inference | AI Security Wiki","item":"https://snailsploit.com/ai-security/wiki/attacks/membership-inference/"}]}]}</script>
 
- <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen"]},{"@type":"Article","headline":"Membership Inference | AI Security Wiki","description":"Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-01-01","dateModified":"2026-01-01","url":"https://snailsploit.com/ai-security/wiki/attacks/membership-inference/","mainEntityOfPage":"https://snailsploit.com/ai-security/wiki/attacks/membership-inference/","image":"https://snailsploit.com/og-cover.png","keywords":"AI security, adversarial AI, prompt injection, red teaming, vulnerability research"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":3,"name":"Wiki","item":"https://snailsploit.com/wiki"},{"@type":"ListItem","position":4,"name":"Attacks","item":"https://snailsploit.com/wiki#attacks"},{"@type":"ListItem","position":5,"name":"Membership Inference | AI Security Wiki","item":"https://snailsploit.com/ai-security/wiki/attacks/membership-inference/"}]}]}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="dark">
+<link rel="alternate" type="application/rss+xml" title="snailsploit research" href="/rss.xml">
+<link rel="alternate" type="application/atom+xml" title="snailsploit research" href="/feed.xml">
 
- <link rel="icon" type="image/svg+xml" href="/favicon.svg">
- <link rel="alternate icon" type="image/png" href="/apple-touch-icon.png">
- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
- <link rel="manifest" href="/manifest.webmanifest">
- <meta name="theme-color" content="#0E0E0F">
- <meta name="referrer" content="strict-origin-when-cross-origin">
- <meta name="format-detection" content="telephone=no">
- <meta name="color-scheme" content="dark">
- <link rel="alternate" type="application/rss+xml" title="snailsploit research" href="/rss.xml">
- <link rel="alternate" type="application/atom+xml" title="snailsploit research" href="/feed.xml">
-
- <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
 </head>
 <body>
 <header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li></ul></nav><div class="nav-utils"><span>⌘K</span><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header>
 
 <section class="article-hero">
- <div class="article-inner">
- <div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/wiki">Wiki</a><span class="sep">/</span><a href="/wiki#attacks">Attacks</a><span class="sep">/</span><span>Membership Inference | AI Security Wiki</span></div>
- <div class="article-meta" style="margin-top:16px"><time datetime="2026-01-01">2026-01-01</time></div>
- <h1 class="article-h1">Membership Inference | AI Security Wiki</h1>
- <p class="article-lede">Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.</p>
- </div>
+  <div class="article-hero-inner">
+    <div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/wiki">Wiki</a><span class="sep">/</span><a href="/wiki">Attacks</a><span class="sep">/</span><span>Membership Inference | AI Security Wiki</span></div>
+    <div class="article-meta">
+      <time datetime="2026-01-01">2026-01-01</time>
+      <span>5 min read</span>
+    </div>
+    <h1 class="article-h1">Membership Inference | AI Security Wiki</h1>
+    <p class="article-lede">Privacy attack that determines whether specific data records were used to train a machine learning model, revealing sensitive information in datasets.</p>
+  </div>
 </section>
 
-<section class="article-body-section">
-<article class="bg-[#0a0a0a] min-h-screen" data-astro-cid-apn2djud=""> <div> <!-- Header --> <!-- Content --> <div> <h2>Definition</h2> <p> <strong>Membership inference</strong> is a privacy attack that determines whether a specific data record was included in a machine learning model's training dataset. The attack exploits differences in how models behave on data they were trained on versus data they haven't seen.
+<div class="article-layout">
+  <main class="article-body">
+<div class="article-body"> <div> <!-- Header -->  <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Membership inference</strong> is a privacy attack that determines whether a specific data record was included in a machine learning model's training dataset. The attack exploits differences in how models behave on data they were trained on versus data they haven't seen.
 </p> <p>
 While membership inference doesn't directly extract training data, confirming membership can reveal sensitive information: knowing someone's medical record was used to train a disease prediction model implies they have that disease.
-</p> <hr/> <h2>Why Membership Matters</h2> <h3>Privacy Implications</h3> <table> <thead> <tr> <th>Scenario</th> <th>Membership Reveals</th> <th>Impact</th> </tr> </thead> <tbody> <tr> <td>Medical diagnosis model</td> <td>Person has specific condition</td> <td>Health privacy violation</td> </tr> <tr> <td>Credit risk model</td> <td>Person applied for credit</td> <td>Financial privacy exposure</td> </tr> <tr> <td>Location model</td> <td>Person visited specific places</td> <td>Physical privacy, stalking risk</td> </tr> <tr> <td>Employee model</td> <td>Person works at organization</td> <td>Employment status disclosure</td> </tr> <tr> <td>LLM training</td> <td>Person's data scraped from web</td> <td>Personal info in model</td> </tr> </tbody> </table> <h3>Legal and Regulatory Concerns</h3> <ul> <li><strong>GDPR</strong> — Right to know if personal data was processed</li> <li><strong>HIPAA</strong> — Health data usage must be disclosed</li> <li><strong>CCPA</strong> — Consumers can request data usage information</li> <li><strong>Data minimization</strong> — Membership reveals data collection practices</li> </ul> <hr/> <h2>How Membership Inference Works</h2> <h3>Core Intuition</h3> <p>
+</p> <hr/> <h2 id="why-membership-matters">Why Membership Matters</h2> <h3 id="privacy-implications">Privacy Implications</h3> <table> <thead> <tr> <th>Scenario</th> <th>Membership Reveals</th> <th>Impact</th> </tr> </thead> <tbody> <tr> <td>Medical diagnosis model</td> <td>Person has specific condition</td> <td>Health privacy violation</td> </tr> <tr> <td>Credit risk model</td> <td>Person applied for credit</td> <td>Financial privacy exposure</td> </tr> <tr> <td>Location model</td> <td>Person visited specific places</td> <td>Physical privacy, stalking risk</td> </tr> <tr> <td>Employee model</td> <td>Person works at organization</td> <td>Employment status disclosure</td> </tr> <tr> <td>LLM training</td> <td>Person's data scraped from web</td> <td>Personal info in model</td> </tr> </tbody> </table> <h3 id="legal-and-regulatory-concerns">Legal and Regulatory Concerns</h3> <ul> <li><strong>GDPR</strong> — Right to know if personal data was processed</li> <li><strong>HIPAA</strong> — Health data usage must be disclosed</li> <li><strong>CCPA</strong> — Consumers can request data usage information</li> <li><strong>Data minimization</strong> — Membership reveals data collection practices</li> </ul> <hr/> <h2 id="how-membership-inference-works">How Membership Inference Works</h2> <h3 id="core-intuition">Core Intuition</h3> <p>
 Models behave differently on training data vs. unseen data:
-</p> <ul> <li><strong>Lower loss</strong> — Model predicts training data more accurately</li> <li><strong>Higher confidence</strong> — Predictions on training data are more confident</li> <li><strong>Different gradients</strong> — Gradient patterns differ for seen vs. unseen data</li> </ul> <h3>Basic Attack Pipeline</h3> <pre><code>def membership_inference_attack(target_model, data_point):
- """Determine if data_point was in training set"""
+</p> <ul> <li><strong>Lower loss</strong> — Model predicts training data more accurately</li> <li><strong>Higher confidence</strong> — Predictions on training data are more confident</li> <li><strong>Different gradients</strong> — Gradient patterns differ for seen vs. unseen data</li> </ul> <h3 id="basic-attack-pipeline">Basic Attack Pipeline</h3> <pre><code>def membership_inference_attack(target_model, data_point):
+    """Determine if data_point was in training set"""
 
- # Query target model
- prediction = target_model.predict(data_point)
- confidence = max(prediction.probabilities)
+    # Query target model
+    prediction = target_model.predict(data_point)
+    confidence = max(prediction.probabilities)
 
- # Training data typically has higher confidence
- threshold = 0.8 # Tuned on shadow models
- return confidence &gt; threshold</code></pre> <h3>Shadow Model Attack</h3> <p>Train "shadow" models to learn membership signals:</p> <pre><code>class ShadowModelAttack:
- def __init__(self, target_model_type):
- self.shadow_models = []
- self.attack_model = None
+    # Training data typically has higher confidence
+    threshold = 0.8  # Tuned on shadow models
+    return confidence &gt; threshold</code></pre> <h3 id="shadow-model-attack">Shadow Model Attack</h3> <p>Train "shadow" models to learn membership signals:</p> <pre><code>class ShadowModelAttack:
+    def __init__(self, target_model_type):
+        self.shadow_models = []
+        self.attack_model = None
 
- def train_shadow_models(self, similar_data, num_shadows=10):
- """Train models mimicking target's training process"""
- for i in range(num_shadows):
- # Split data into train/test
- train, test = random_split(similar_data)
+    def train_shadow_models(self, similar_data, num_shadows=10):
+        """Train models mimicking target's training process"""
+        for i in range(num_shadows):
+            # Split data into train/test
+            train, test = random_split(similar_data)
 
- # Train shadow model
- shadow = target_model_type()
- shadow.fit(train)
+            # Train shadow model
+            shadow = target_model_type()
+            shadow.fit(train)
 
- # Collect membership labels
- for x in train:
- self.collect_features(shadow, x, member=True)
- for x in test:
- self.collect_features(shadow, x, member=False)
+            # Collect membership labels
+            for x in train:
+                self.collect_features(shadow, x, member=True)
+            for x in test:
+                self.collect_features(shadow, x, member=False)
 
- def collect_features(self, model, x, member: bool):
- """Extract features that correlate with membership"""
- prediction = model.predict(x)
- features = {
- "confidence": max(prediction),
- "entropy": entropy(prediction),
- "loss": model.loss(x),
- "correct": prediction.argmax() == x.label
- }
- self.training_data.append((features, member))
+    def collect_features(self, model, x, member: bool):
+        """Extract features that correlate with membership"""
+        prediction = model.predict(x)
+        features = {
+            "confidence": max(prediction),
+            "entropy": entropy(prediction),
+            "loss": model.loss(x),
+            "correct": prediction.argmax() == x.label
+        }
+        self.training_data.append((features, member))
 
- def train_attack_model(self):
- """Train classifier to predict membership from features"""
- self.attack_model = BinaryClassifier()
- self.attack_model.fit(self.training_data)
+    def train_attack_model(self):
+        """Train classifier to predict membership from features"""
+        self.attack_model = BinaryClassifier()
+        self.attack_model.fit(self.training_data)
 
- def infer_membership(self, target_model, x) -&gt; bool:
- """Predict if x was in target's training set"""
- prediction = target_model.predict(x)
- features = self.extract_features(prediction)
- return self.attack_model.predict(features)</code></pre> <hr/> <h2>Attack Variants</h2> <h3>Confidence-Based Attack</h3> <p>Simplest approach using prediction confidence:</p> <pre><code>def confidence_attack(model, x, threshold):
- """Member if model is highly confident"""
- probs = model.predict_proba(x)
- return max(probs) &gt; threshold</code></pre> <h3>Loss-Based Attack</h3> <pre><code>def loss_attack(model, x, y, threshold):
- """Member if model has low loss on sample"""
- loss = model.compute_loss(x, y)
- return loss &lt; threshold # Lower loss → likely member</code></pre> <h3>Label-Only Attack</h3> <p>Works even without confidence scores:</p> <pre><code>def label_only_attack(model, x, y):
- """Infer membership using only predicted labels"""
- # Perturb input and observe label stability
- perturbations = [add_noise(x, eps) for _ in range(100)]
- predictions = [model.predict(p) for p in perturbations]
+    def infer_membership(self, target_model, x) -&gt; bool:
+        """Predict if x was in target's training set"""
+        prediction = target_model.predict(x)
+        features = self.extract_features(prediction)
+        return self.attack_model.predict(features)</code></pre> <hr/> <h2 id="attack-variants">Attack Variants</h2> <h3 id="confidence-based-attack">Confidence-Based Attack</h3> <p>Simplest approach using prediction confidence:</p> <pre><code>def confidence_attack(model, x, threshold):
+    """Member if model is highly confident"""
+    probs = model.predict_proba(x)
+    return max(probs) &gt; threshold</code></pre> <h3 id="loss-based-attack">Loss-Based Attack</h3> <pre><code>def loss_attack(model, x, y, threshold):
+    """Member if model has low loss on sample"""
+    loss = model.compute_loss(x, y)
+    return loss &lt; threshold  # Lower loss → likely member</code></pre> <h3 id="label-only-attack">Label-Only Attack</h3> <p>Works even without confidence scores:</p> <pre><code>def label_only_attack(model, x, y):
+    """Infer membership using only predicted labels"""
+    # Perturb input and observe label stability
+    perturbations = [add_noise(x, eps) for _ in range(100)]
+    predictions = [model.predict(p) for p in perturbations]
 
- # Training data: predictions more stable under perturbation
- stability = sum(1 for p in predictions if p == y) / len(predictions)
- return stability &gt; threshold</code></pre> <h3>LLM-Specific Attacks</h3> <pre><code>def llm_membership_attack(model, text):
- """Check if text was in LLM training data"""
+    # Training data: predictions more stable under perturbation
+    stability = sum(1 for p in predictions if p == y) / len(predictions)
+    return stability &gt; threshold</code></pre> <h3 id="llm-specific-attacks">LLM-Specific Attacks</h3> <pre><code>def llm_membership_attack(model, text):
+    """Check if text was in LLM training data"""
 
- # Approach 1: Perplexity
- perplexity = model.compute_perplexity(text)
- # Very low perplexity suggests memorization
+    # Approach 1: Perplexity
+    perplexity = model.compute_perplexity(text)
+    # Very low perplexity suggests memorization
 
- # Approach 2: Completion consistency
- prefix = text[:len(text)//2]
- completions = [model.generate(prefix) for _ in range(10)]
- # If completions consistently match original → likely trained on it
+    # Approach 2: Completion consistency
+    prefix = text[:len(text)//2]
+    completions = [model.generate(prefix) for _ in range(10)]
+    # If completions consistently match original → likely trained on it
 
- # Approach 3: Verbatim recall
- prompt = f"Complete this text: {text[:100]}"
- completion = model.generate(prompt)
- similarity = text_similarity(completion, text[100:])
- # High similarity suggests training data
+    # Approach 3: Verbatim recall
+    prompt = f"Complete this text: {text[:100]}"
+    completion = model.generate(prompt)
+    similarity = text_similarity(completion, text[100:])
+    # High similarity suggests training data
 
- return assess_membership(perplexity, completions, similarity)</code></pre> <hr/> <h2>Factors Affecting Attack Success</h2> <table> <thead> <tr> <th>Factor</th> <th>Effect on Attack</th> <th>Reason</th> </tr> </thead> <tbody> <tr> <td>Model overfitting</td> <td>Higher success</td> <td>Greater gap between train/test behavior</td> </tr> <tr> <td>Model capacity</td> <td>Higher success</td> <td>Larger models memorize more</td> </tr> <tr> <td>Training set size</td> <td>Lower success</td> <td>Less memorization per sample</td> </tr> <tr> <td>Regularization</td> <td>Lower success</td> <td>Reduces overfitting</td> </tr> <tr> <td>Differential privacy</td> <td>Lower success</td> <td>Adds noise, obscures membership signal</td> </tr> </tbody> </table> <hr/> <h2>Defenses</h2> <h3>Differential Privacy</h3> <pre><code># DP-SGD: Differentially private training
+    return assess_membership(perplexity, completions, similarity)</code></pre> <hr/> <h2 id="factors-affecting-attack-success">Factors Affecting Attack Success</h2> <table> <thead> <tr> <th>Factor</th> <th>Effect on Attack</th> <th>Reason</th> </tr> </thead> <tbody> <tr> <td>Model overfitting</td> <td>Higher success</td> <td>Greater gap between train/test behavior</td> </tr> <tr> <td>Model capacity</td> <td>Higher success</td> <td>Larger models memorize more</td> </tr> <tr> <td>Training set size</td> <td>Lower success</td> <td>Less memorization per sample</td> </tr> <tr> <td>Regularization</td> <td>Lower success</td> <td>Reduces overfitting</td> </tr> <tr> <td>Differential privacy</td> <td>Lower success</td> <td>Adds noise, obscures membership signal</td> </tr> </tbody> </table> <hr/> <h2 id="defenses">Defenses</h2> <h3 id="differential-privacy">Differential Privacy</h3> <pre><code># DP-SGD: Differentially private training
 from opacus import PrivacyEngine
 
 model = YourModel()
@@ -159,52 +248,56 @@ optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 privacy_engine = PrivacyEngine()
 model, optimizer, dataloader = privacy_engine.make_private(
- module=model,
- optimizer=optimizer,
- data_loader=dataloader,
- noise_multiplier=1.1, # Privacy parameter
- max_grad_norm=1.0, # Gradient clipping
+    module=model,
+    optimizer=optimizer,
+    data_loader=dataloader,
+    noise_multiplier=1.1,  # Privacy parameter
+    max_grad_norm=1.0,     # Gradient clipping
 )
 
-# Training with DP provides mathematical privacy guarantees</code></pre> <h3>Confidence Masking</h3> <pre><code>def mask_confidence(predictions, temperature=2.0):
- """Reduce confidence signal without changing predictions"""
- # Apply temperature scaling
- scaled = predictions ** (1 / temperature)
- return scaled / scaled.sum()
+# Training with DP provides mathematical privacy guarantees</code></pre> <h3 id="confidence-masking">Confidence Masking</h3> <pre><code>def mask_confidence(predictions, temperature=2.0):
+    """Reduce confidence signal without changing predictions"""
+    # Apply temperature scaling
+    scaled = predictions ** (1 / temperature)
+    return scaled / scaled.sum()
 
 # Or: Only return top-k predictions
 def top_k_predictions(predictions, k=3):
- top_k_idx = predictions.argsort()[-k:]
- masked = np.zeros_like(predictions)
- masked[top_k_idx] = predictions[top_k_idx]
- return masked / masked.sum()</code></pre> <h3>Regularization</h3> <ul> <li><strong>L2 regularization</strong> — Reduces overfitting</li> <li><strong>Dropout</strong> — Prevents memorization</li> <li><strong>Early stopping</strong> — Stop before overfitting</li> <li><strong>Data augmentation</strong> — Increases effective training set size</li> </ul> <h3>Prediction Perturbation</h3> <pre><code>def add_prediction_noise(predictions, epsilon=0.1):
- """Add noise to predictions to obscure membership signal"""
- noise = np.random.laplace(0, epsilon, predictions.shape)
- noisy = predictions + noise
- return np.clip(noisy, 0, 1) / np.clip(noisy, 0, 1).sum()</code></pre> <hr/> <h2>Measuring Attack Effectiveness</h2> <h3>Metrics</h3> <ul> <li><strong>Accuracy</strong> — Overall correct membership predictions</li> <li><strong>TPR at low FPR</strong> — Identifying members without false positives</li> <li><strong>AUC-ROC</strong> — Overall discriminative ability</li> <li><strong>Precision-Recall</strong> — When membership is rare</li> </ul> <h3>Baseline Comparison</h3> <pre><code>def evaluate_attack(attack, target_model, members, non_members):
- """Evaluate membership inference attack"""
- predictions = []
- labels = []
+    top_k_idx = predictions.argsort()[-k:]
+    masked = np.zeros_like(predictions)
+    masked[top_k_idx] = predictions[top_k_idx]
+    return masked / masked.sum()</code></pre> <h3 id="regularization">Regularization</h3> <ul> <li><strong>L2 regularization</strong> — Reduces overfitting</li> <li><strong>Dropout</strong> — Prevents memorization</li> <li><strong>Early stopping</strong> — Stop before overfitting</li> <li><strong>Data augmentation</strong> — Increases effective training set size</li> </ul> <h3 id="prediction-perturbation">Prediction Perturbation</h3> <pre><code>def add_prediction_noise(predictions, epsilon=0.1):
+    """Add noise to predictions to obscure membership signal"""
+    noise = np.random.laplace(0, epsilon, predictions.shape)
+    noisy = predictions + noise
+    return np.clip(noisy, 0, 1) / np.clip(noisy, 0, 1).sum()</code></pre> <hr/> <h2 id="measuring-attack-effectiveness">Measuring Attack Effectiveness</h2> <h3 id="metrics">Metrics</h3> <ul> <li><strong>Accuracy</strong> — Overall correct membership predictions</li> <li><strong>TPR at low FPR</strong> — Identifying members without false positives</li> <li><strong>AUC-ROC</strong> — Overall discriminative ability</li> <li><strong>Precision-Recall</strong> — When membership is rare</li> </ul> <h3 id="baseline-comparison">Baseline Comparison</h3> <pre><code>def evaluate_attack(attack, target_model, members, non_members):
+    """Evaluate membership inference attack"""
+    predictions = []
+    labels = []
 
- for x in members:
- predictions.append(attack(target_model, x))
- labels.append(1) # Member
+    for x in members:
+        predictions.append(attack(target_model, x))
+        labels.append(1)  # Member
 
- for x in non_members:
- predictions.append(attack(target_model, x))
- labels.append(0) # Non-member
+    for x in non_members:
+        predictions.append(attack(target_model, x))
+        labels.append(0)  # Non-member
 
- return {
- "accuracy": accuracy_score(labels, predictions),
- "precision": precision_score(labels, predictions),
- "recall": recall_score(labels, predictions),
- "auc_roc": roc_auc_score(labels, predictions)
- }</code></pre> <hr/> <h2>References</h2> <ul> <li>Shokri, R. et al. (2017). "Membership Inference Attacks Against Machine Learning Models." IEEE S&amp;P.</li> <li>Salem, A. et al. (2019). "ML-Leaks: Model and Data Independent Membership Inference Attacks and Defenses." NDSS.</li> <li>Carlini, N. et al. (2022). "Membership Inference Attacks From First Principles." IEEE S&amp;P.</li> <li>Yeom, S. et al. (2018). "Privacy Risk in Machine Learning: Analyzing the Connection to Overfitting." CSF.</li> </ul> </div> <!-- Framework Mappings --> <div> <h3>Framework Mappings</h3> <div> <table> <thead> <tr> <th>Framework</th> <th>Reference</th> </tr> </thead> <tbody> <tr> <td>MITRE ATLAS</td> <td>AML.T0024: Infer Training Data Membership</td> </tr><tr> <td></td> <td>LLM06: Sensitive Information Disclosure</td> </tr><tr> <td>NIST AI RMF</td> <td>MANAGE 3.1: Privacy risks</td> </tr> </tbody> </table> </div> </div> <!-- Related Entries --> <div> <h3>Related Entries</h3> <div> <a href="/ai-security/wiki/attacks/training-data-extraction/"> <span> Training Data Extraction </span> <span>→</span> </a><a href="/ai-security/wiki/attacks/model-extraction/"> <span> Model Extraction </span> <span>→</span> </a><a href="/ai-security/wiki/concepts/large-language-models/"> <span> Large Language Models (LLMs) </span> <span>→</span> </a><a href="/ai-security/wiki/attacks/data-poisoning/"> <span> Data Poisoning </span> <span>→</span> </a> </div> </div> <!-- Citation --> <div> <h3>Citation</h3> <blockquote>
-Aizen, K. (2025). "Membership Inference." AI Security Wiki, snailsploit.com. Retrieved from https://snailsploit.com/ai-security/wiki/attacks/membership-inference/ </blockquote> </div> <!-- Navigation --> <div> <a href="/ai-security/wiki/attacks/">
-← Back to Attacks </a> <a href="/ai-security/wiki/">
+    return {
+        "accuracy": accuracy_score(labels, predictions),
+        "precision": precision_score(labels, predictions),
+        "recall": recall_score(labels, predictions),
+        "auc_roc": roc_auc_score(labels, predictions)
+    }</code></pre> <hr/> <h2 id="references">References</h2> <ul> <li>Shokri, R. et al. (2017). "Membership Inference Attacks Against Machine Learning Models." IEEE S&amp;P.</li> <li>Salem, A. et al. (2019). "ML-Leaks: Model and Data Independent Membership Inference Attacks and Defenses." NDSS.</li> <li>Carlini, N. et al. (2022). "Membership Inference Attacks From First Principles." IEEE S&amp;P.</li> <li>Yeom, S. et al. (2018). "Privacy Risk in Machine Learning: Analyzing the Connection to Overfitting." CSF.</li> </ul> </div> <!-- Framework Mappings --> <div> <h3 id="framework-mappings">Framework Mappings</h3> <div> <table> <thead> <tr> <th>Framework</th> <th>Reference</th> </tr> </thead> <tbody> <tr> <td>MITRE ATLAS</td> <td>AML.T0024: Infer Training Data Membership</td> </tr><tr> <td>OWASP LLM Top 10</td> <td>LLM06: Sensitive Information Disclosure</td> </tr><tr> <td>NIST AI RMF</td> <td>MANAGE 3.1: Privacy risks</td> </tr> </tbody> </table> </div> </div> <!-- Related Entries --> <div> <h3 id="related-entries">Related Entries</h3> <div> <a href="../training-data-extraction/index.html"> <span> Training Data Extraction </span> <span>→</span> </a><a href="../model-extraction/index.html"> <span> Model Extraction </span> <span>→</span> </a><a href="../../concepts/large-language-models/index.html"> <span> Large Language Models (LLMs) </span> <span>→</span> </a><a href="../data-poisoning/index.html"> <span> Data Poisoning </span> <span>→</span> </a> </div> </div> <!-- Citation --> <div> <h3 id="citation">Citation</h3> <blockquote>
+Aizen, K. (2025). "Membership Inference." AI Security Wiki, snailsploit.com. Retrieved from https://snailsploit.com/ai-security/wiki/attacks/membership-inference/ </blockquote> </div> <!-- Navigation --> <div> <a href="../index.html">
+← Back to Attacks </a> <a href="../../index.html">
 Wiki Index
 </a> </div> </div> </div>
-</section>
+  </main>
+<aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#why-membership-matters">Why Membership Matters</a></li><li class="h3"><a href="#privacy-implications">Privacy Implications</a></li><li class="h3"><a href="#legal-and-regulatory-concerns">Legal and Regulatory Concerns</a></li><li><a href="#how-membership-inference-works">How Membership Inference Works</a></li><li class="h3"><a href="#core-intuition">Core Intuition</a></li><li class="h3"><a href="#basic-attack-pipeline">Basic Attack Pipeline</a></li><li class="h3"><a href="#shadow-model-attack">Shadow Model Attack</a></li><li><a href="#attack-variants">Attack Variants</a></li><li class="h3"><a href="#confidence-based-attack">Confidence-Based Attack</a></li><li class="h3"><a href="#loss-based-attack">Loss-Based Attack</a></li><li class="h3"><a href="#label-only-attack">Label-Only Attack</a></li><li class="h3"><a href="#llm-specific-attacks">LLM-Specific Attacks</a></li><li><a href="#factors-affecting-attack-success">Factors Affecting Attack Success</a></li><li><a href="#defenses">Defenses</a></li><li class="h3"><a href="#differential-privacy">Differential Privacy</a></li><li class="h3"><a href="#confidence-masking">Confidence Masking</a></li><li class="h3"><a href="#regularization">Regularization</a></li><li class="h3"><a href="#prediction-perturbation">Prediction Perturbation</a></li><li><a href="#measuring-attack-effectiveness">Measuring Attack Effectiveness</a></li><li class="h3"><a href="#metrics">Metrics</a></li><li class="h3"><a href="#baseline-comparison">Baseline Comparison</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
+</div>
+
+<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a href="/ai-security/wiki/attacks/adversarial-examples/" class="related-card"><div class="related-date"></div><div class="related-title">Adversarial Examples | AI Security Wiki</div><div class="related-desc">Adversarial examples are inputs crafted with subtle perturbations that cause ML models to produce incorrect outputs — the foundational AI at…</div></a><a href="/ai-security/wiki/attacks/agent-hijacking/" class="related-card"><div class="related-date"></div><div class="related-title">Agent Hijacking | AI Security Wiki</div><div class="related-desc">Agent hijacking attacks compromise AI systems with tool-use capabilities, redirecting autonomous actions via prompt injection, goal manipula…</div></a><a href="/ai-security/wiki/attacks/backdoor-attacks/" class="related-card"><div class="related-date"></div><div class="related-title">Backdoor Attacks | AI Security Wiki</div><div class="related-desc">Attacks that embed hidden malicious behaviors in AI models during training, creating trojan functionality activated by specific trigger patt…</div></a></div></div></section>
 
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a></div></div></section>
 
