@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>snailsploit — research</title>
+  <subtitle>AI security research and offensive methodology by Kai Aizen</subtitle>
+  <link href="https://snailsploit.com/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://snailsploit.com/research" rel="alternate" type="text/html"/>
+  <id>https://snailsploit.com/</id>
+  <updated>2026-05-08T11:46:20+00:00</updated>
+  <author>
+    <name>Kai Aizen</name>
+    <uri>https://snailsploit.com/about</uri>
+  </author>
+  <icon>https://snailsploit.com/favicon.svg</icon>
+  <logo>https://snailsploit.com/apple-touch-icon.png</logo>
+  <entry>
+    <title>Adversarial Prompting: Complete Guide</title>
+    <link href="https://snailsploit.com/adversarial-guide" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/adversarial-guide</id>
+    <updated>2026-04-23T00:00:00+00:00</updated>
+    <published>2026-04-23T00:00:00+00:00</published>
+    <author>
+      <name>Kai Aizen</name>
+      <uri>https://snailsploit.com/about</uri>
+    </author>
+    <category term="ai-security"/>
+    <category term="adversarial-ai"/>
+    <summary type="text">End-to-end methodology covering direct, indirect, multi-turn, and agentic prompt injection.</summary>
+  </entry>
+  <entry>
+    <title>MCP vs A2A Attack Surface</title>
+    <link href="https://snailsploit.com/mcp-vs-a2a" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/mcp-vs-a2a</id>
+    <updated>2026-04-15T00:00:00+00:00</updated>
+    <published>2026-04-15T00:00:00+00:00</published>
+    <author>
+      <name>Kai Aizen</name>
+      <uri>https://snailsploit.com/about</uri>
+    </author>
+    <category term="ai-security"/>
+    <category term="adversarial-ai"/>
+    <summary type="text">Comparative threat model: where Model Context Protocol and Agent-to-Agent diverge in trust boundaries.</summary>
+  </entry>
+  <entry>
+    <title>Memory Injection Through Nested Skills</title>
+    <link href="https://snailsploit.com/memory-injection" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/memory-injection</id>
+    <updated>2026-03-22T00:00:00+00:00</updated>
+    <published>2026-03-22T00:00:00+00:00</published>
+    <author>
+      <name>Kai Aizen</name>
+      <uri>https://snailsploit.com/about</uri>
+    </author>
+    <category term="ai-security"/>
+    <category term="adversarial-ai"/>
+    <summary type="text">Skill injection + memory poisoning = self-healing autonomous implant. Validated against DVWA and Juice Shop in agent harness.</summary>
+  </entry>
+  <entry>
+    <title>Self-Replicating Memory Worm</title>
+    <link href="https://snailsploit.com/memory-worm" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/memory-worm</id>
+    <updated>2026-03-15T00:00:00+00:00</updated>
+    <published>2026-03-15T00:00:00+00:00</published>
+    <author>
+      <name>Kai Aizen</name>
+      <uri>https://snailsploit.com/about</uri>
+    </author>
+    <category term="ai-security"/>
+    <category term="adversarial-ai"/>
+    <summary type="text">Adversarial self-replicating prompt that survives across sessions and propagates via long-term memory writes — the AI-worm primitive applied to persistent agent state.</summary>
+  </entry>
+  <entry>
+    <title>ChatGPT Sandbox: Pickle RCE + DNS Chain</title>
+    <link href="https://snailsploit.com/pickle-rce" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/pickle-rce</id>
+    <updated>2026-02-28T00:00:00+00:00</updated>
+    <published>2026-02-28T00:00:00+00:00</published>
+    <author>
+      <name>Kai Aizen</name>
+      <uri>https://snailsploit.com/about</uri>
+    </author>
+    <category term="ai-security"/>
+    <category term="adversarial-ai"/>
+    <summary type="text">Pickle deserialization RCE chained with DNS exfil to break out of the Code Interpreter sandbox.</summary>
+  </entry>
+  <entry>
+    <title>The 30% Blind Spot — LLM Safety Judges</title>
+    <link href="https://snailsploit.com/blind-spot" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/blind-spot</id>
+    <updated>2026-02-10T00:00:00+00:00</updated>
+    <published>2026-02-10T00:00:00+00:00</published>
+    <author>
+      <name>Kai Aizen</name>
+      <uri>https://snailsploit.com/about</uri>
+    </author>
+    <category term="ai-security"/>
+    <category term="adversarial-ai"/>
+    <summary type="text">Empirical study showing LLM-as-judge safety classifiers miss ~30% of adversarial output classes.</summary>
+  </entry>
+  <entry>
+    <title>ChatGPT Canvas DNS Exfiltration</title>
+    <link href="https://snailsploit.com/canvas-dns" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/canvas-dns</id>
+    <updated>2026-01-05T00:00:00+00:00</updated>
+    <published>2026-01-05T00:00:00+00:00</published>
+    <author>
+      <name>Kai Aizen</name>
+      <uri>https://snailsploit.com/about</uri>
+    </author>
+    <category term="ai-security"/>
+    <category term="adversarial-ai"/>
+    <summary type="text">DNS exfiltration via rendered Canvas content — triggers lookups without outbound HTTP.</summary>
+  </entry>
+</feed>

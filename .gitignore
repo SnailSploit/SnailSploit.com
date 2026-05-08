@@ -1,0 +1,4 @@
+node_modules/
+.indexnow_key
+*.log
+.DS_Store

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+  <title>snailsploit — research</title>
+  <link>https://snailsploit.com/research</link>
+  <description>AI security research and offensive methodology by Kai Aizen</description>
+  <atom:link href="https://snailsploit.com/rss.xml" rel="self" type="application/rss+xml"/>
+  <language>en-us</language>
+  <lastBuildDate>Thu, 23 Apr 2026 00:00:00 +0000</lastBuildDate>
+  <managingEditor>research@snailsploit.com (Kai Aizen)</managingEditor>
+  <image>
+    <url>https://snailsploit.com/apple-touch-icon.png</url>
+    <title>snailsploit</title>
+    <link>https://snailsploit.com/</link>
+  </image>
+  <item>
+    <title>Adversarial Prompting: Complete Guide</title>
+    <link>https://snailsploit.com/adversarial-guide</link>
+    <guid isPermaLink="true">https://snailsploit.com/adversarial-guide</guid>
+    <pubDate>Thu, 23 Apr 2026 00:00:00 +0000</pubDate>
+    <description>End-to-end methodology covering direct, indirect, multi-turn, and agentic prompt injection.</description>
+    <author>research@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>MCP vs A2A Attack Surface</title>
+    <link>https://snailsploit.com/mcp-vs-a2a</link>
+    <guid isPermaLink="true">https://snailsploit.com/mcp-vs-a2a</guid>
+    <pubDate>Wed, 15 Apr 2026 00:00:00 +0000</pubDate>
+    <description>Comparative threat model: where Model Context Protocol and Agent-to-Agent diverge in trust boundaries.</description>
+    <author>research@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>Memory Injection Through Nested Skills</title>
+    <link>https://snailsploit.com/memory-injection</link>
+    <guid isPermaLink="true">https://snailsploit.com/memory-injection</guid>
+    <pubDate>Sun, 22 Mar 2026 00:00:00 +0000</pubDate>
+    <description>Skill injection + memory poisoning = self-healing autonomous implant. Validated against DVWA and Juice Shop in agent harness.</description>
+    <author>research@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>Self-Replicating Memory Worm</title>
+    <link>https://snailsploit.com/memory-worm</link>
+    <guid isPermaLink="true">https://snailsploit.com/memory-worm</guid>
+    <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
+    <description>Adversarial self-replicating prompt that survives across sessions and propagates via long-term memory writes — the AI-worm primitive applied to persistent agent state.</description>
+    <author>research@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>ChatGPT Sandbox: Pickle RCE + DNS Chain</title>
+    <link>https://snailsploit.com/pickle-rce</link>
+    <guid isPermaLink="true">https://snailsploit.com/pickle-rce</guid>
+    <pubDate>Sat, 28 Feb 2026 00:00:00 +0000</pubDate>
+    <description>Pickle deserialization RCE chained with DNS exfil to break out of the Code Interpreter sandbox.</description>
+    <author>research@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>The 30% Blind Spot — LLM Safety Judges</title>
+    <link>https://snailsploit.com/blind-spot</link>
+    <guid isPermaLink="true">https://snailsploit.com/blind-spot</guid>
+    <pubDate>Tue, 10 Feb 2026 00:00:00 +0000</pubDate>
+    <description>Empirical study showing LLM-as-judge safety classifiers miss ~30% of adversarial output classes.</description>
+    <author>research@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>ChatGPT Canvas DNS Exfiltration</title>
+    <link>https://snailsploit.com/canvas-dns</link>
+    <guid isPermaLink="true">https://snailsploit.com/canvas-dns</guid>
+    <pubDate>Mon, 05 Jan 2026 00:00:00 +0000</pubDate>
+    <description>DNS exfiltration via rendered Canvas content — triggers lookups without outbound HTTP.</description>
+    <author>research@snailsploit.com (Kai Aizen)</author>
+  </item>
+</channel></rss>

@@ -146,10 +146,13 @@
 # ─────────────────────────────────────────────────────────────
 /threat-feed        /research        301
 /threat-feed/        /research        301
-/feed        /research        301
-/feed/        /research        301
 
 # Catch-all for old structures that don't match anything else (last)
 /ai-security/*        /research        301
 /frameworks/*        /frameworks        301
 /security-research/*        /research        301
+
+# Feed shortcuts
+/rss        /rss.xml        301
+/atom       /feed.xml       301
+/feed       /feed.xml       301
