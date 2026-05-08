@@ -69,5 +69,3 @@ Allow: /
 # llms-full.txt: https://snailsploit.com/llms-full.txt
 
 Sitemap: https://snailsploit.com/sitemap.xml
-Sitemap: https://snailsploit.com/sitemap-index.xml
-Sitemap: https://snailsploit.com/sitemap-images.xml
