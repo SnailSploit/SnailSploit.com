@@ -191,3 +191,28 @@
 # Catch-all for any remaining /writing/* slug → /writing index
 /writing/*        /writing        301
 
+
+# ── flat slug → hierarchical canonical (post-import) ──
+/memory-worm        /ai-security/self-replicating-memory-worm/        301
+/memory-worm/        /ai-security/self-replicating-memory-worm/        301
+/memory-injection        /ai-security/prompt-injection/memory-injection-nested-skills/        301
+/memory-injection/        /ai-security/prompt-injection/memory-injection-nested-skills/        301
+/canvas-dns        /security-research/general/chatgpt-canvas-rce-dns-exfiltration/        301
+/canvas-dns/        /security-research/general/chatgpt-canvas-rce-dns-exfiltration/        301
+/pickle-rce        /security-research/general/chatgpt-canvas-rce-dns-exfiltration/        301
+/pickle-rce/        /security-research/general/chatgpt-canvas-rce-dns-exfiltration/        301
+/mcp-vs-a2a        /ai-security/mcp-vs-a2a-attack-surface/        301
+/mcp-vs-a2a/        /ai-security/mcp-vs-a2a-attack-surface/        301
+/blind-spot        /ai-security/rai-judge-blind-spots/        301
+/blind-spot/        /ai-security/rai-judge-blind-spots/        301
+/adversarial-guide        /ai-security/adversarial-prompting/        301
+/adversarial-guide/        /ai-security/adversarial-prompting/        301
+
+# Flat .html files redirect to hierarchical too
+/memory-worm.html        /ai-security/self-replicating-memory-worm/        301
+/memory-injection.html        /ai-security/prompt-injection/memory-injection-nested-skills/        301
+/canvas-dns.html        /security-research/general/chatgpt-canvas-rce-dns-exfiltration/        301
+/pickle-rce.html        /security-research/general/chatgpt-canvas-rce-dns-exfiltration/        301
+/mcp-vs-a2a.html        /ai-security/mcp-vs-a2a-attack-surface/        301
+/blind-spot.html        /ai-security/rai-judge-blind-spots/        301
+/adversarial-guide.html        /ai-security/adversarial-prompting/        301

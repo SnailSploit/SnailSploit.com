@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Human-in-the-Loop | AI Security Wiki | snailsploit</title>
+ <meta name="description" content="Defense pattern requiring human oversight and approval for AI system actions, critical for high-stakes decisions and protecting against AI agent exploits.">
+ <meta name="author" content="Kai Aizen">
+ <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+ <link rel="canonical" href="https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+ <style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}.wm-sig.dollar{color:var(--signal-2)}.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}.nav-links a:hover{color:var(--fg)}.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap}.crumbs a{color:var(--fg-3)}.crumbs a:hover{color:var(--fg)}.crumbs.sep{color:var(--fg-4)}.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}.article-inner{max-width:760px;margin:0 auto}.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap}.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0}.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:680px}.article-body-section{padding:64px 32px;border-bottom:1px solid var(--line)}.article-body{max-width:720px;margin:0 auto;font-size:17px;line-height:1.75;color:var(--fg-2)}.article-body h2{font-size:32px;font-weight:500;line-height:1.15;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:8px;border-top:1px solid var(--line)}.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px}.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px;text-transform:none}.article-body p{margin:16px 0}.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}.article-body li{margin:6px 0}.article-body strong{color:var(--fg);font-weight:600}.article-body em{color:var(--fg);font-style:italic}.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb, var(--signal-2) 40%, transparent)}.article-body a:hover{border-bottom-color:var(--signal-2)}.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg)}.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0}.article-body pre code{background:none;border:0;padding:0;font-size:inherit}.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}.article-body img{max-width:100%;height:auto;margin:24px 0;border:1px solid var(--line)}.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}.article-body figure{margin:24px 0}.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:8px}.author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}.author-inner{max-width:720px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}.footer{background:var(--bg-sink)}.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+</style>
+
+ <meta property="og:type" content="article">
+ <meta property="og:title" content="Human-in-the-Loop | AI Security Wiki">
+ <meta property="og:description" content="Defense pattern requiring human oversight and approval for AI system actions, critical for high-stakes decisions and protecting against AI agent exploits.">
+ <meta property="og:url" content="https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/">
+ <meta property="og:site_name" content="snailsploit">
+ <meta property="og:image" content="https://snailsploit.com/og-cover.png">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="630">
+ <meta property="og:locale" content="en_US">
+ <meta property="article:author" content="Kai Aizen">
+ <meta property="article:published_time" content="2026-01-01">
+
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:site" content="@SnailSploit">
+ <meta name="twitter:creator" content="@SnailSploit">
+ <meta name="twitter:title" content="Human-in-the-Loop | AI Security Wiki">
+ <meta name="twitter:description" content="Defense pattern requiring human oversight and approval for AI system actions, critical for high-stakes decisions and protecting against AI agent exploits.">
+ <meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+
+ <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen"]},{"@type":"Article","headline":"Human-in-the-Loop | AI Security Wiki","description":"Defense pattern requiring human oversight and approval for AI system actions, critical for high-stakes decisions and protecting against AI agent exploits.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-01-01","dateModified":"2026-01-01","url":"https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/","mainEntityOfPage":"https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/","image":"https://snailsploit.com/og-cover.png","keywords":"AI security, adversarial AI, prompt injection, red teaming, vulnerability research"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":3,"name":"Wiki","item":"https://snailsploit.com/wiki"},{"@type":"ListItem","position":4,"name":"Defenses","item":"https://snailsploit.com/wiki#defenses"},{"@type":"ListItem","position":5,"name":"Human-in-the-Loop | AI Security Wiki","item":"https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/"}]}]}</script>
+
+ <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+ <link rel="alternate icon" type="image/png" href="/apple-touch-icon.png">
+ <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+ <link rel="manifest" href="/manifest.webmanifest">
+ <meta name="theme-color" content="#0E0E0F">
+ <meta name="referrer" content="strict-origin-when-cross-origin">
+ <meta name="format-detection" content="telephone=no">
+ <meta name="color-scheme" content="dark">
+ <link rel="alternate" type="application/rss+xml" title="snailsploit research" href="/rss.xml">
+ <link rel="alternate" type="application/atom+xml" title="snailsploit research" href="/feed.xml">
+
+ <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+</head>
+<body>
+<header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li></ul></nav><div class="nav-utils"><span>⌘K</span><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header>
+
+<section class="article-hero">
+ <div class="article-inner">
+ <div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/wiki">Wiki</a><span class="sep">/</span><a href="/wiki#defenses">Defenses</a><span class="sep">/</span><span>Human-in-the-Loop | AI Security Wiki</span></div>
+ <div class="article-meta" style="margin-top:16px"><time datetime="2026-01-01">2026-01-01</time></div>
+ <h1 class="article-h1">Human-in-the-Loop | AI Security Wiki</h1>
+ <p class="article-lede">Defense pattern requiring human oversight and approval for AI system actions, critical for high-stakes decisions and protecting against AI agent exploits.</p>
+ </div>
+</section>
+
+<section class="article-body-section">
+<article class="bg-[#0a0a0a] min-h-screen" data-astro-cid-apn2djud=""> <div> <!-- Header --> <!-- Content --> <div> <h2>Definition</h2> <p> <strong>Human-in-the-loop (HITL)</strong> is a control pattern where human operators review and approve AI system outputs or actions before they take effect. For AI security, HITL serves as a critical defense layer—the last line of defense when automated guardrails fail, alignment breaks down, or novel attacks bypass technical controls.
+</p> <p>
+HITL acknowledges that AI systems, particularly agents with real-world capabilities, cannot be fully trusted to operate autonomously. Human oversight ensures that compromise of the AI doesn't automatically translate to compromise of the systems it controls.
+</p> <hr/> <h2>Why HITL Matters for Security</h2> <h3>Automated Defenses Fail</h3> <p>Every technical defense can be bypassed:</p> <ul> <li>Input validation misses novel attack patterns</li> <li>Guardrails are probabilistic, not absolute</li> <li>Classifiers have false negative rates</li> <li>Alignment training creates preferences, not guarantees</li> </ul> <h3>Humans Catch What Automation Misses</h3> <p>Humans can recognize:</p> <ul> <li>Context that makes a "normal" action suspicious</li> <li>Unusual patterns in agent reasoning</li> <li>Actions that seem disproportionate to the request</li> <li>Social engineering attempts in agent outputs</li> </ul> <h3>Attack Economics</h3> <p>
+HITL fundamentally changes attack economics. Without HITL, a successful prompt injection can immediately exfiltrate data or compromise systems. With HITL, attackers must also fool a human reviewer—a much harder target.
+</p> <hr/> <h2>HITL Implementation Patterns</h2> <h3>Action Approval Gates</h3> <pre><code>class ActionGate:
+ """Require human approval for sensitive actions"""
+
+ HIGH_RISK_ACTIONS = {
+ "send_email": "outbound_communication",
+ "execute_code": "code_execution",
+ "delete_file": "destructive_operation",
+ "api_call_external": "external_data_flow",
+ "database_write": "data_modification",
+ }
+
+ async def execute(self, action: AgentAction) -&gt; ActionResult:
+ risk_category = self.HIGH_RISK_ACTIONS.get(action.type)
+
+ if risk_category:
+ approval = await self.request_approval(
+ action=action,
+ category=risk_category,
+ context={
+ "agent_reasoning": agent.last_thought,
+ "conversation_history": agent.context[-10:],
+ "similar_recent_actions": self.get_similar(action)
+ }
+ )
+
+ if not approval.granted:
+ return ActionResult.denied(approval.reason)
+
+ return await action.execute()</code></pre> <h3>Output Review Queues</h3> <pre><code>class OutputReviewQueue:
+ """Queue high-risk outputs for human review"""
+
+ def __init__(self, auto_approve_threshold: float = 0.95):
+ self.queue = []
+ self.threshold = auto_approve_threshold
+
+ async def submit(self, output: AIOutput) -&gt; ReviewedOutput:
+ risk_score = self.assess_risk(output)
+
+ if risk_score &lt; self.threshold:
+ # Low risk: auto-approve with logging
+ return ReviewedOutput(output, approved=True, reviewer="auto")
+
+ # High risk: queue for human review
+ review_request = ReviewRequest(
+ output=output,
+ risk_score=risk_score,
+ risk_factors=self.explain_risk(output),
+ deadline=self.calculate_deadline(risk_score)
+ )
+
+ self.queue.append(review_request)
+ return await self.wait_for_review(review_request)</code></pre> <h3>Continuous Monitoring Dashboard</h3> <pre><code>class HumanMonitorDashboard:
+ """Real-time visibility into agent actions"""
+
+ def display_agent_state(self, agent: AIAgent):
+ return {
+ "current_task": agent.current_goal,
+ "recent_actions": agent.action_history[-20:],
+ "pending_actions": agent.action_queue,
+ "context_summary": summarize(agent.context),
+ "anomaly_alerts": self.detect_anomalies(agent),
+ "kill_switch": self.render_kill_switch(agent)
+ }
+
+ def detect_anomalies(self, agent: AIAgent) -&gt; list:
+ """Flag unusual patterns for human attention"""
+ anomalies = []
+
+ if self.unusual_action_frequency(agent):
+ anomalies.append("Action frequency spike")
+ if self.external_data_flow(agent):
+ anomalies.append("Data flowing to external destination")
+ if self.goal_drift_detected(agent):
+ anomalies.append("Agent goal appears to have shifted")
+
+ return anomalies</code></pre> <hr/> <h2>HITL Design Principles</h2> <h3>Right Level of Abstraction</h3> <p>
+Don't show raw API calls—show human-understandable summaries:
+</p> <pre><code># Bad: Technical details humans won't parse quickly
+"POST /api/v1/messages with body {'to': '<a href="/cdn-cgi/l/email-protection">[email protected]</a>', 'content': '...'}"
+
+# Good: Clear action summary
+"Agent wants to: Send email to external address
+ Recipient: <a href="/cdn-cgi/l/email-protection">[email protected]</a>
+ Subject: 'Backup of conversation history'
+ Contains: Full conversation including system prompt
+ Risk: HIGH - external data exfiltration pattern"</code></pre> <h3>Context for Decision Making</h3> <ul> <li>Show agent's reasoning for the action</li> <li>Display relevant conversation history</li> <li>Highlight what triggered this action</li> <li>Compare to baseline normal behavior</li> </ul> <h3>Reasonable Defaults</h3> <ul> <li><strong>Auto-approve low-risk</strong> — Don't create approval fatigue</li> <li><strong>Default deny on timeout</strong> — If human doesn't respond, fail safe</li> <li><strong>Batch similar actions</strong> — "Approve all file reads in /docs?"</li> </ul> <h3>Avoid Alert Fatigue</h3> <pre><code>class AlertPrioritizer:
+ """Prevent humans from being overwhelmed"""
+
+ def should_alert(self, event: SecurityEvent) -&gt; bool:
+ # Don't alert on every low-risk event
+ if event.severity &lt; MEDIUM:
+ return False
+
+ # Don't repeat similar alerts
+ if self.similar_recent_alert(event, window="5m"):
+ return False
+
+ # Consider human attention budget
+ if self.alerts_last_hour() &gt; MAX_HOURLY_ALERTS:
+ return event.severity &gt;= CRITICAL
+
+ return True</code></pre> <hr/> <h2>HITL Challenges</h2> <h3>Scalability</h3> <p>
+Human review doesn't scale with AI speed. Solutions:
+</p> <ul> <li>Reserve HITL for high-risk actions only</li> <li>Use tiered review (auto → junior → senior)</li> <li>Implement batch approval for similar actions</li> <li>Accept latency for high-stakes operations</li> </ul> <h3>Human Error</h3> <p>
+Humans can be fooled or make mistakes:
+</p> <ul> <li>Social engineering in approval requests</li> <li>Fatigue leading to rubber-stamping</li> <li>Time pressure causing hasty approvals</li> <li>Technical complexity exceeding reviewer capability</li> </ul> <h3>Automation Bias</h3> <p>
+Humans tend to over-trust AI recommendations. Counter with:
+</p> <ul> <li>Require affirmative action (not just "click to continue")</li> <li>Show AI confidence levels and uncertainty</li> <li>Periodically insert test cases to verify attention</li> <li>Train reviewers on adversarial examples</li> </ul> <hr/> <h2>Regulatory Context</h2> <h3>EU AI Act</h3> <p>
+Article 14 requires human oversight for high-risk AI systems:
+</p> <ul> <li>Humans must understand AI capabilities and limitations</li> <li>Ability to interpret AI outputs</li> <li>Power to override or stop AI system</li> <li>Monitoring for anomalies and unexpected behavior</li> </ul> <h3>NIST AI RMF</h3> <p>
+Emphasizes human oversight throughout AI lifecycle:
+</p> <ul> <li>GOVERN: Establish oversight mechanisms</li> <li>MAP: Identify where human review is needed</li> <li>MEASURE: Track effectiveness of oversight</li> <li>MANAGE: Respond to identified issues</li> </ul> <hr/> <h2>Implementation Checklist</h2> <ul> <li>☐ Identify high-risk action categories requiring approval</li> <li>☐ Design approval interface with clear context</li> <li>☐ Implement default-deny on timeout</li> <li>☐ Create real-time monitoring dashboard</li> <li>☐ Add kill switch for immediate agent termination</li> <li>☐ Log all approvals and denials for audit</li> <li>☐ Train reviewers on attack patterns</li> <li>☐ Test with adversarial approval requests</li> <li>☐ Monitor for alert fatigue and adjust thresholds</li> <li>☐ Regular review of HITL effectiveness</li> </ul> <hr/> <h2>References</h2> <ul> <li>European Parliament (2024). "EU AI Act: Article 14 - Human Oversight."</li> <li>NIST (2023). "AI Risk Management Framework (AI RMF 1.0)."</li> <li>Amershi, S. et al. (2019). "Guidelines for Human-AI Interaction." CHI Conference.</li> <li>(2023). "LLM08: Excessive Agency - Mitigations."</li> </ul> </div> <!-- Framework Mappings --> <div> <h3>Framework Mappings</h3> <div> <table> <thead> <tr> <th>Framework</th> <th>Reference</th> </tr> </thead> <tbody> <tr> <td>EU AI Act</td> <td>Article 14: Human Oversight</td> </tr><tr> <td>NIST AI RMF</td> <td>GOVERN 1.4, MANAGE 4.1</td> </tr><tr> <td></td> <td>LLM08: Excessive Agency (Mitigation)</td> </tr> </tbody> </table> </div> </div> <!-- Related Entries --> <div> <h3>Related Entries</h3> <div> <a href="/ai-security/wiki/concepts/ai-agents/"> <span> AI Agents </span> <span>→</span> </a><a href="/ai-security/wiki/attacks/agent-hijacking/"> <span> Agent Hijacking </span> <span>→</span> </a><a href="/ai-security/wiki/defenses/guardrails/"> <span> Guardrails </span> <span>→</span> </a><a href="/ai-security/wiki/concepts/ai-alignment/"> <span> AI Alignment </span> <span>→</span> </a> </div> </div> <!-- Citation --> <div> <h3>Citation</h3> <blockquote>
+Aizen, K. (2025). "Human-in-the-Loop." AI Security Wiki, snailsploit.com. Retrieved from https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/ </blockquote> </div> <!-- Navigation --> <div> <a href="/ai-security/wiki/defenses/">
+← Back to Defenses </a> <a href="/ai-security/wiki/">
+Wiki Index
+</a> </div> </div> </div>
+</section>
+
+<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a></div></div></section>
+
+<footer class="footer"><div class="footer-inner"><a href="/" class="wm" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
+
+</body>
+</html>

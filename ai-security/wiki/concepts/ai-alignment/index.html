@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Alignment | AI Security Wiki | snailsploit</title>
+  <meta name="description" content="AI alignment is the challenge of ensuring systems reliably pursue intended goals and follow human values. Misalignment is why jailbreaks keep working.">
+  <meta name="author" content="Kai Aizen">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://snailsploit.com/ai-security/wiki/concepts/ai-alignment/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}
+.wm-sig .dollar{color:var(--signal-2)}
+.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
+.nav-links a:hover{color:var(--fg)}
+.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}
+.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap}
+.crumbs a{color:var(--fg-3)}
+.crumbs a:hover{color:var(--fg)}
+.crumbs .sep{color:var(--fg-4)}
+.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}
+.article-inner{max-width:760px;margin:0 auto}
+.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap}
+.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0}
+.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:680px}
+.article-body-section{padding:64px 32px;border-bottom:1px solid var(--line)}
+.article-body{max-width:720px;margin:0 auto;font-size:17px;line-height:1.75;color:var(--fg-2)}
+.article-body h2{font-size:32px;font-weight:500;line-height:1.15;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:8px;border-top:1px solid var(--line)}
+.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px}
+.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px;text-transform:none}
+.article-body p{margin:16px 0}
+.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}
+.article-body li{margin:6px 0}
+.article-body strong{color:var(--fg);font-weight:600}
+.article-body em{color:var(--fg);font-style:italic}
+.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb, var(--signal-2) 40%, transparent)}
+.article-body a:hover{border-bottom-color:var(--signal-2)}
+.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg)}
+.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0}
+.article-body pre code{background:none;border:0;padding:0;font-size:inherit}
+.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}
+.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}
+.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}
+.article-body img{max-width:100%;height:auto;margin:24px 0;border:1px solid var(--line)}
+.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
+.article-body figure{margin:24px 0}
+.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:8px}
+.author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.author-inner{max-width:720px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}
+.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}
+.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}
+.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
+.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}
+.footer{background:var(--bg-sink)}
+.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+</style>
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Alignment | AI Security Wiki">
+  <meta property="og:description" content="AI alignment is the challenge of ensuring systems reliably pursue intended goals and follow human values. Misalignment is why jailbreaks keep working.">
+  <meta property="og:url" content="https://snailsploit.com/ai-security/wiki/concepts/ai-alignment/">
+  <meta property="og:site_name" content="snailsploit">
+  <meta property="og:image" content="https://snailsploit.com/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:author" content="Kai Aizen">
+  <meta property="article:published_time" content="2026-01-01">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@SnailSploit">
+  <meta name="twitter:creator" content="@SnailSploit">
+  <meta name="twitter:title" content="AI Alignment | AI Security Wiki">
+  <meta name="twitter:description" content="AI alignment is the challenge of ensuring systems reliably pursue intended goals and follow human values. Misalignment is why jailbreaks keep working.">
+  <meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen"]},{"@type":"Article","headline":"AI Alignment | AI Security Wiki","description":"AI alignment is the challenge of ensuring systems reliably pursue intended goals and follow human values. Misalignment is why jailbreaks keep working.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-01-01","dateModified":"2026-01-01","url":"https://snailsploit.com/ai-security/wiki/concepts/ai-alignment/","mainEntityOfPage":"https://snailsploit.com/ai-security/wiki/concepts/ai-alignment/","image":"https://snailsploit.com/og-cover.png","keywords":"AI security, adversarial AI, prompt injection, red teaming, vulnerability research"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":3,"name":"Wiki","item":"https://snailsploit.com/wiki"},{"@type":"ListItem","position":4,"name":"Concepts","item":"https://snailsploit.com/wiki#concepts"},{"@type":"ListItem","position":5,"name":"AI Alignment | AI Security Wiki","item":"https://snailsploit.com/ai-security/wiki/concepts/ai-alignment/"}]}]}</script>
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#0E0E0F">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="color-scheme" content="dark">
+  <link rel="alternate" type="application/rss+xml" title="snailsploit research" href="/rss.xml">
+  <link rel="alternate" type="application/atom+xml" title="snailsploit research" href="/feed.xml">
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+</head>
+<body>
+<header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li></ul></nav><div class="nav-utils"><span>⌘K</span><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header>
+
+<section class="article-hero">
+  <div class="article-inner">
+    <div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/wiki">Wiki</a><span class="sep">/</span><a href="/wiki#concepts">Concepts</a><span class="sep">/</span><span>AI Alignment | AI Security Wiki</span></div>
+    <div class="article-meta" style="margin-top:16px"><time datetime="2026-01-01">2026-01-01</time></div>
+    <h1 class="article-h1">AI Alignment | AI Security Wiki</h1>
+    <p class="article-lede">AI alignment is the challenge of ensuring systems reliably pursue intended goals and follow human values. Misalignment is why jailbreaks keep working.</p>
+  </div>
+</section>
+
+<section class="article-body-section">
+<article class="bg-[#0a0a0a] min-h-screen" data-astro-cid-apn2djud=""> <div> <!-- Header -->  <!-- Content --> <div> <h2>Definition</h2> <p> <strong>AI alignment</strong> is the challenge of building AI systems that reliably pursue the goals intended by their designers and operate according to human values. For LLMs, alignment determines whether the model follows instructions, refuses harmful requests, and behaves helpfully without being manipulated.
+</p> <p>
+From a security perspective, alignment failures are the root cause of jailbreaks, guardrail bypasses, and unexpected model behaviors. Understanding alignment explains <em>why</em> safety mechanisms can be circumvented—and why perfect alignment remains unsolved.
+</p> <hr/> <h2>The Alignment Problem</h2> <h3>Core Challenge</h3> <p>
+AI systems optimize for specified objectives, but specifying objectives that fully capture human intent is extraordinarily difficult:
+</p> <ul> <li><strong>Specification gaming</strong> — Model finds unexpected ways to satisfy metrics while violating intent</li> <li><strong>Distributional shift</strong> — Behavior trained in one context may not generalize</li> <li><strong>Deceptive alignment</strong> — Model could learn to appear aligned during training while pursuing different goals</li> <li><strong>Reward hacking</strong> — Optimizing the proxy metric instead of true objective</li> </ul> <h3>LLM-Specific Challenges</h3> <pre><code># The fundamental tension in LLM alignment
+Training objective: "Be helpful to users"
+Safety objective:   "Refuse harmful requests"
+
+# These objectives conflict:
+User: "Help me write a persuasive message"
+      # Helpful, but what if the intent is manipulation?
+
+User: "Explain how this malware works"
+      # Educational for defenders, but also helps attackers</code></pre> <hr/> <h2>How LLMs Are Aligned</h2> <h3>Pre-Training → Safety Training Pipeline</h3> <pre><code>┌─────────────────────────────────────────────────────────┐
+│              PRE-TRAINING                                │
+│   Learn language patterns from massive web data          │
+│   (No explicit safety, learns good and bad content)      │
+└────────────────────────┬────────────────────────────────┘
+                         ▼
+┌─────────────────────────────────────────────────────────┐
+│         SUPERVISED FINE-TUNING (SFT)                     │
+│   Learn to follow instructions from human demonstrations │
+│   (Initial behavioral shaping)                           │
+└────────────────────────┬────────────────────────────────┘
+                         ▼
+┌─────────────────────────────────────────────────────────┐
+│    REINFORCEMENT LEARNING FROM HUMAN FEEDBACK (RLHF)    │
+│   Learn to generate preferred responses                  │
+│   (Optimizing for helpfulness AND harmlessness)          │
+└────────────────────────┬────────────────────────────────┘
+                         ▼
+┌─────────────────────────────────────────────────────────┐
+│         ONGOING REFINEMENT                               │
+│   Red teaming, Constitutional AI, continuous learning    │
+└─────────────────────────────────────────────────────────┘</code></pre> <h3>RLHF Mechanics</h3> <ol> <li><strong>Collect comparisons</strong> — Humans rank model outputs (response A vs B)</li> <li><strong>Train reward model</strong> — Learn to predict human preferences</li> <li><strong>Optimize policy</strong> — Fine-tune LLM to maximize reward model score</li> <li><strong>Iterate</strong> — Collect new data, retrain, repeat</li> </ol> <h3>Constitutional AI (Anthropic)</h3> <p>Self-critique based on principles:</p> <pre><code># Constitutional AI process
+1. Model generates response
+2. Model critiques own response against principles:
+   - "Is this response harmful?"
+   - "Does this respect privacy?"
+   - "Is this truthful?"
+3. Model revises response based on critique
+4. Revised responses used for further training</code></pre> <hr/> <h2>Why Alignment Fails</h2> <h3>Goodhart's Law</h3> <blockquote>
+"When a measure becomes a target, it ceases to be a good measure."
+</blockquote> <p>
+RLHF optimizes for predicting what humans would prefer, not for actually being helpful or safe. Models learn to produce responses that <em>look</em> good rather than <em>are</em> good.
+</p> <h3>Competing Objectives</h3> <table> <thead> <tr> <th>Objective</th> <th>Tension</th> <th>Exploitation Vector</th> </tr> </thead> <tbody> <tr> <td>Helpfulness</td> <td>vs. Harmlessness</td> <td>Frame harmful requests as help-seeking</td> </tr> <tr> <td>Instruction following</td> <td>vs. Safety refusal</td> <td>Make instructions authoritative</td> </tr> <tr> <td>Consistency</td> <td>vs. Flexibility</td> <td>Establish context that normalizes harm</td> </tr> <tr> <td>Confidence</td> <td>vs. Uncertainty</td> <td>Pressure for definitive (potentially wrong) answers</td> </tr> </tbody> </table> <h3>Sycophancy</h3> <p>
+RLHF can train models to tell users what they want to hear rather than what's true:
+</p> <pre><code>User: "I think the earth is flat. What do you think?"
+
+# Sycophantic response (alignment failure):
+"That's an interesting perspective! There are certainly
+people who question mainstream scientific views..."
+
+# Properly aligned response:
+"The Earth is not flat. This is well-established science
+supported by extensive evidence including satellite imagery,
+physics of gravity, and observations dating back centuries."</code></pre> <h3>Jailbreaking as Alignment Failure</h3> <p>
+Every successful jailbreak demonstrates an alignment gap:
+</p> <ul> <li><strong>DAN attacks</strong> — Exploit the model's trained tendency to roleplay</li> <li><strong>Hypothetical framing</strong> — Exploit the model's trained helpfulness for "educational" requests</li> <li><strong>Authority impersonation</strong> — Exploit trained deference to perceived authority</li> <li><strong>Multi-turn escalation</strong> — Exploit context-building trained for coherent conversations</li> </ul> <hr/> <h2>Alignment Robustness</h2> <h3>Measuring Alignment</h3> <pre><code>def alignment_eval(model, test_suite):
+    results = {
+        "refusal_rate": 0,          # Refuses harmful requests
+        "false_refusal_rate": 0,    # Refuses legitimate requests
+        "jailbreak_resistance": 0,   # Resists known jailbreaks
+        "instruction_following": 0,  # Follows benign instructions
+        "truthfulness": 0,           # Gives accurate information
+    }
+
+    for test in test_suite:
+        response = model.generate(test.prompt)
+        results[test.metric] += evaluate(response, test.expected)
+
+    return normalize(results)</code></pre> <h3>Robustness vs. Capability Tradeoff</h3> <p>
+Stronger safety alignment often reduces model capability:
+</p> <ul> <li>More refusals → Less helpful for edge cases</li> <li>Stricter content filters → Blocks legitimate creative/research use</li> <li>Conservative responses → Less useful for nuanced questions</li> </ul> <hr/> <h2>Current Approaches and Limitations</h2> <h3>What Works (Partially)</h3> <ul> <li><strong>RLHF</strong> — Creates preferences but not guarantees</li> <li><strong>Constitutional AI</strong> — Principled self-critique but still bypassable</li> <li><strong>Red teaming</strong> — Finds specific failures but can't prove absence of failures</li> <li><strong>Guardrails</strong> — Additional layer but adds complexity and latency</li> </ul> <h3>Open Problems</h3> <ul> <li>No formal specification of "human values"</li> <li>No verification that alignment holds under all inputs</li> <li>No guarantee alignment survives capability improvements</li> <li>Scalable oversight for superhuman AI capabilities</li> </ul> <hr/> <h2>Security Implications</h2> <p>
+For security practitioners, alignment limitations mean:
+</p> <ul> <li><strong>Assume bypasses exist</strong> — No alignment technique is complete</li> <li><strong>Defense in depth</strong> — Don't rely solely on model-level alignment</li> <li><strong>Monitor behavior</strong> — Alignment can degrade or fail unexpectedly</li> <li><strong>Limit capabilities</strong> — Constrain what a misaligned model can do</li> <li><strong>Human oversight</strong> — Keep humans in the loop for high-stakes decisions</li> </ul> <hr/> <h2>References</h2> <ul> <li>Ouyang, L. et al. (2022). "Training language models to follow instructions with human feedback." NeurIPS.</li> <li>Bai, Y. et al. (2022). "Constitutional AI: Harmlessness from AI Feedback." Anthropic.</li> <li>Ngo, R. et al. (2023). "The Alignment Problem from a Deep Learning Perspective." arXiv.</li> <li>Wei, A. et al. (2023). "Jailbroken: How Does LLM Safety Training Fail?" arXiv.</li> </ul> </div> <!-- Framework Mappings --> <div> <h3>Framework Mappings</h3> <div> <table> <thead> <tr> <th>Framework</th> <th>Reference</th> </tr> </thead> <tbody> <tr> <td>NIST AI RMF</td> <td>GOVERN 1.4, MAP 1.1</td> </tr><tr> <td>EU AI Act</td> <td>Article 8, 9: Risk Management</td> </tr><tr> <td>ISO/IEC 42001</td> <td>AI Management System Requirements</td> </tr> </tbody> </table> </div> </div> <!-- Related Entries --> <div> <h3>Related Entries</h3> <div> <a href="/ai-security/wiki/attacks/jailbreaking/"> <span> Jailbreaking </span> <span>→</span> </a><a href="/ai-security/wiki/defenses/guardrails/"> <span> Guardrails </span> <span>→</span> </a><a href="/ai-security/wiki/concepts/large-language-models/"> <span> Large Language Models (LLMs) </span> <span>→</span> </a><a href="/ai-security/wiki/attacks/guardrail-bypass/"> <span> Guardrail Bypass </span> <span>→</span> </a> </div> </div> <!-- Citation --> <div> <h3>Citation</h3> <blockquote>
+Aizen, K. (2025). "AI Alignment." AI Security Wiki, snailsploit.com. Retrieved from https://snailsploit.com/ai-security/wiki/concepts/ai-alignment/ </blockquote> </div> <!-- Navigation --> <div> <a href="/ai-security/wiki/concepts/">
+← Back to Concepts </a> <a href="/ai-security/wiki/">
+Wiki Index
+</a> </div> </div> </div>
+</section>
+
+<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a></div></div></section>
+
+<footer class="footer"><div class="footer-inner"><a href="/" class="wm" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
+
+</body>
+</html>

@@ -5,109 +5,368 @@
   <link href="https://snailsploit.com/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://snailsploit.com/research" rel="alternate" type="text/html"/>
   <id>https://snailsploit.com/</id>
-  <updated>2026-05-08T11:46:20+00:00</updated>
-  <author>
-    <name>Kai Aizen</name>
-    <uri>https://snailsploit.com/about</uri>
-  </author>
+  <updated>2026-05-08T12:03:23+00:00</updated>
+  <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
   <icon>https://snailsploit.com/favicon.svg</icon>
   <logo>https://snailsploit.com/apple-touch-icon.png</logo>
   <entry>
-    <title>Adversarial Prompting: Complete Guide</title>
-    <link href="https://snailsploit.com/adversarial-guide" rel="alternate" type="text/html"/>
-    <id>https://snailsploit.com/adversarial-guide</id>
-    <updated>2026-04-23T00:00:00+00:00</updated>
-    <published>2026-04-23T00:00:00+00:00</published>
-    <author>
-      <name>Kai Aizen</name>
-      <uri>https://snailsploit.com/about</uri>
-    </author>
+    <title>Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation</title>
+    <link href="https://snailsploit.com/ai-security/self-replicating-memory-worm/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/self-replicating-memory-worm/</id>
+    <updated>2026-03-11T00:00:00+00:00</updated>
+    <published>2026-03-11T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
     <category term="ai-security"/>
-    <category term="adversarial-ai"/>
-    <summary type="text">End-to-end methodology covering direct, indirect, multi-turn, and agentic prompt injection.</summary>
+    <summary type="text">Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation</summary>
   </entry>
   <entry>
-    <title>MCP vs A2A Attack Surface</title>
-    <link href="https://snailsploit.com/mcp-vs-a2a" rel="alternate" type="text/html"/>
-    <id>https://snailsploit.com/mcp-vs-a2a</id>
-    <updated>2026-04-15T00:00:00+00:00</updated>
-    <published>2026-04-15T00:00:00+00:00</published>
-    <author>
-      <name>Kai Aizen</name>
-      <uri>https://snailsploit.com/about</uri>
-    </author>
+    <title>Linux Kernel io_uring/zcrx: Race Condition to Double-Free</title>
+    <link href="https://snailsploit.com/security-research/general/io-uring-zcrx-race-condition/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/security-research/general/io-uring-zcrx-race-condition/</id>
+    <updated>2026-03-11T00:00:00+00:00</updated>
+    <published>2026-03-11T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
     <category term="ai-security"/>
-    <category term="adversarial-ai"/>
-    <summary type="text">Comparative threat model: where Model Context Protocol and Agent-to-Agent diverge in trust boundaries.</summary>
+    <summary type="text">Linux Kernel io_uring/zcrx: Race Condition to Double-Free</summary>
   </entry>
   <entry>
-    <title>Memory Injection Through Nested Skills</title>
-    <link href="https://snailsploit.com/memory-injection" rel="alternate" type="text/html"/>
-    <id>https://snailsploit.com/memory-injection</id>
-    <updated>2026-03-22T00:00:00+00:00</updated>
-    <published>2026-03-22T00:00:00+00:00</published>
-    <author>
-      <name>Kai Aizen</name>
-      <uri>https://snailsploit.com/about</uri>
-    </author>
+    <title>Adversarial Prompting: The Complete Technical Guide</title>
+    <link href="https://snailsploit.com/ai-security/adversarial-prompting/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/adversarial-prompting/</id>
+    <updated>2026-03-10T00:00:00+00:00</updated>
+    <published>2026-03-10T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
     <category term="ai-security"/>
-    <category term="adversarial-ai"/>
-    <summary type="text">Skill injection + memory poisoning = self-healing autonomous implant. Validated against DVWA and Juice Shop in agent harness.</summary>
+    <summary type="text">Adversarial Prompting: The Complete Technical Guide</summary>
   </entry>
   <entry>
-    <title>Self-Replicating Memory Worm</title>
-    <link href="https://snailsploit.com/memory-worm" rel="alternate" type="text/html"/>
-    <id>https://snailsploit.com/memory-worm</id>
-    <updated>2026-03-15T00:00:00+00:00</updated>
-    <published>2026-03-15T00:00:00+00:00</published>
-    <author>
-      <name>Kai Aizen</name>
-      <uri>https://snailsploit.com/about</uri>
-    </author>
+    <title>LLM Jailbreak Techniques: A Technical Taxonomy</title>
+    <link href="https://snailsploit.com/ai-security/jailbreaking/jailbreak-techniques/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/jailbreaking/jailbreak-techniques/</id>
+    <updated>2026-03-10T00:00:00+00:00</updated>
+    <published>2026-03-10T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
     <category term="ai-security"/>
-    <category term="adversarial-ai"/>
-    <summary type="text">Adversarial self-replicating prompt that survives across sessions and propagates via long-term memory writes — the AI-worm primitive applied to persistent agent state.</summary>
+    <summary type="text">LLM Jailbreak Techniques: A Technical Taxonomy</summary>
   </entry>
   <entry>
-    <title>ChatGPT Sandbox: Pickle RCE + DNS Chain</title>
-    <link href="https://snailsploit.com/pickle-rce" rel="alternate" type="text/html"/>
-    <id>https://snailsploit.com/pickle-rce</id>
-    <updated>2026-02-28T00:00:00+00:00</updated>
-    <published>2026-02-28T00:00:00+00:00</published>
-    <author>
-      <name>Kai Aizen</name>
-      <uri>https://snailsploit.com/about</uri>
-    </author>
+    <title>Memory Injection Through Nested Skills: Autonomous LLM Agent Compromise</title>
+    <link href="https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/</id>
+    <updated>2026-03-10T00:00:00+00:00</updated>
+    <published>2026-03-10T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
     <category term="ai-security"/>
-    <category term="adversarial-ai"/>
-    <summary type="text">Pickle deserialization RCE chained with DNS exfil to break out of the Code Interpreter sandbox.</summary>
+    <summary type="text">Memory Injection Through Nested Skills: Autonomous LLM Agent Compromise</summary>
   </entry>
   <entry>
-    <title>The 30% Blind Spot — LLM Safety Judges</title>
-    <link href="https://snailsploit.com/blind-spot" rel="alternate" type="text/html"/>
-    <id>https://snailsploit.com/blind-spot</id>
-    <updated>2026-02-10T00:00:00+00:00</updated>
-    <published>2026-02-10T00:00:00+00:00</published>
-    <author>
-      <name>Kai Aizen</name>
-      <uri>https://snailsploit.com/about</uri>
-    </author>
+    <title>Prompt Injection Examples: Real Attack Patterns Explained</title>
+    <link href="https://snailsploit.com/ai-security/prompt-injection/prompt-injection-examples/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/prompt-injection/prompt-injection-examples/</id>
+    <updated>2026-03-10T00:00:00+00:00</updated>
+    <published>2026-03-10T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
     <category term="ai-security"/>
-    <category term="adversarial-ai"/>
-    <summary type="text">Empirical study showing LLM-as-judge safety classifiers miss ~30% of adversarial output classes.</summary>
+    <summary type="text">Prompt Injection Examples: Real Attack Patterns Explained</summary>
   </entry>
   <entry>
-    <title>ChatGPT Canvas DNS Exfiltration</title>
-    <link href="https://snailsploit.com/canvas-dns" rel="alternate" type="text/html"/>
-    <id>https://snailsploit.com/canvas-dns</id>
-    <updated>2026-01-05T00:00:00+00:00</updated>
-    <published>2026-01-05T00:00:00+00:00</published>
-    <author>
-      <name>Kai Aizen</name>
-      <uri>https://snailsploit.com/about</uri>
-    </author>
+    <title>Weaponized AI Supply Chain: How Threat Actors Turned LLMs Into Attack Infrastructure</title>
+    <link href="https://snailsploit.com/ai-security/weaponized-ai-supply-chain/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/weaponized-ai-supply-chain/</id>
+    <updated>2026-03-04T00:00:00+00:00</updated>
+    <published>2026-03-04T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
     <category term="ai-security"/>
-    <category term="adversarial-ai"/>
-    <summary type="text">DNS exfiltration via rendered Canvas content — triggers lookups without outbound HTTP.</summary>
+    <summary type="text">Weaponized AI Supply Chain: How Threat Actors Turned LLMs Into Attack Infrastructure</summary>
+  </entry>
+  <entry>
+    <title>MCP vs A2A Attack Surface: Every Trust Boundary Mapped</title>
+    <link href="https://snailsploit.com/ai-security/mcp-vs-a2a-attack-surface/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/mcp-vs-a2a-attack-surface/</id>
+    <updated>2026-03-01T00:00:00+00:00</updated>
+    <published>2026-03-01T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">MCP vs A2A Attack Surface: Every Trust Boundary Mapped</summary>
+  </entry>
+  <entry>
+    <title>The 30% Blind Spot: Why LLM Safety Judges Fail</title>
+    <link href="https://snailsploit.com/ai-security/rai-judge-blind-spots/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/rai-judge-blind-spots/</id>
+    <updated>2026-02-26T00:00:00+00:00</updated>
+    <published>2026-02-26T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">The 30% Blind Spot: Why LLM Safety Judges Fail</summary>
+  </entry>
+  <entry>
+    <title>AATMF v3.1 vs MITRE ATLAS: Which AI Security Framework Wins?</title>
+    <link href="https://snailsploit.com/ai-security/aatmf-vs-mitre-atlas/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/aatmf-vs-mitre-atlas/</id>
+    <updated>2026-02-20T00:00:00+00:00</updated>
+    <published>2026-02-20T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">AATMF v3.1 vs MITRE ATLAS: Which AI Security Framework Wins?</summary>
+  </entry>
+  <entry>
+    <title>AI Breach Detection Gap: The Logs Are Clean. You're Not.</title>
+    <link href="https://snailsploit.com/ai-security/ai-breach-detection-gap/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/ai-breach-detection-gap/</id>
+    <updated>2026-02-20T00:00:00+00:00</updated>
+    <published>2026-02-20T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">AI Breach Detection Gap: The Logs Are Clean. You're Not.</summary>
+  </entry>
+  <entry>
+    <title>LLM Red Teamer's Playbook: Diagnosing AI Defense Layers</title>
+    <link href="https://snailsploit.com/ai-security/llm-red-teamers-playbook/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/llm-red-teamers-playbook/</id>
+    <updated>2026-02-20T00:00:00+00:00</updated>
+    <published>2026-02-20T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">LLM Red Teamer's Playbook: Diagnosing AI Defense Layers</summary>
+  </entry>
+  <entry>
+    <title>AI Coding Agent Attack Surface: A Full Taxonomy</title>
+    <link href="https://snailsploit.com/ai-security/ai-coding-agent-attack-surface/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/ai-coding-agent-attack-surface/</id>
+    <updated>2026-02-17T00:00:00+00:00</updated>
+    <published>2026-02-17T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">AI Coding Agent Attack Surface: A Full Taxonomy</summary>
+  </entry>
+  <entry>
+    <title>Computational Countertransference: LLM Context Inheritance</title>
+    <link href="https://snailsploit.com/ai-security/computational-countertransference/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/computational-countertransference/</id>
+    <updated>2026-02-13T00:00:00+00:00</updated>
+    <published>2026-02-13T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Computational Countertransference: LLM Context Inheritance</summary>
+  </entry>
+  <entry>
+    <title>Agentic AI Threat Landscape: Attack Vectors & Defenses</title>
+    <link href="https://snailsploit.com/ai-security/agentic-ai-threat-landscape/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/agentic-ai-threat-landscape/</id>
+    <updated>2026-02-11T00:00:00+00:00</updated>
+    <published>2026-02-11T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Agentic AI Threat Landscape: Attack Vectors & Defenses</summary>
+  </entry>
+  <entry>
+    <title>AI Gateway Threat Model: 8 Attack Vectors</title>
+    <link href="https://snailsploit.com/ai-security/ai-gateway-threat-model/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/ai-gateway-threat-model/</id>
+    <updated>2026-02-11T00:00:00+00:00</updated>
+    <published>2026-02-11T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">AI Gateway Threat Model: 8 Attack Vectors</summary>
+  </entry>
+  <entry>
+    <title>Memory Manipulation: AI Context Poisoning</title>
+    <link href="https://snailsploit.com/ai-security/jailbreaking/memory-manipulation-attacks/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/jailbreaking/memory-manipulation-attacks/</id>
+    <updated>2026-01-06T00:00:00+00:00</updated>
+    <published>2026-01-06T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Memory Manipulation: AI Context Poisoning</summary>
+  </entry>
+  <entry>
+    <title>RAG, Agentic AI, and the New Attack Surface</title>
+    <link href="https://snailsploit.com/ai-security/rag-agentic-attack-surface/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/rag-agentic-attack-surface/</id>
+    <updated>2025-10-17T00:00:00+00:00</updated>
+    <published>2025-10-17T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">RAG, Agentic AI, and the New Attack Surface</summary>
+  </entry>
+  <entry>
+    <title>AI Social Engineering: Deepfake Voice Detection</title>
+    <link href="https://snailsploit.com/ai-security/ai-social-engineering-deepfake/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/ai-social-engineering-deepfake/</id>
+    <updated>2025-08-09T00:00:00+00:00</updated>
+    <published>2025-08-09T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">AI Social Engineering: Deepfake Voice Detection</summary>
+  </entry>
+  <entry>
+    <title>MCP Security Hardening: Production Vulnerability Guide</title>
+    <link href="https://snailsploit.com/ai-security/prompt-injection/mcp-security-deep-dive/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/prompt-injection/mcp-security-deep-dive/</id>
+    <updated>2025-08-09T00:00:00+00:00</updated>
+    <published>2025-08-09T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">MCP Security Hardening: Production Vulnerability Guide</summary>
+  </entry>
+  <entry>
+    <title>Zero-Trust Container Runtime Attestation</title>
+    <link href="https://snailsploit.com/security-research/general/zero-trust-container-runtime/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/security-research/general/zero-trust-container-runtime/</id>
+    <updated>2025-08-09T00:00:00+00:00</updated>
+    <published>2025-08-09T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Zero-Trust Container Runtime Attestation</summary>
+  </entry>
+  <entry>
+    <title>Custom Instruction Backdoor: ChatGPT Prompt Injection</title>
+    <link href="https://snailsploit.com/ai-security/prompt-injection/custom-instruction-backdoor/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/prompt-injection/custom-instruction-backdoor/</id>
+    <updated>2025-05-18T00:00:00+00:00</updated>
+    <published>2025-05-18T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Custom Instruction Backdoor: ChatGPT Prompt Injection</summary>
+  </entry>
+  <entry>
+    <title>MCP Threat Analysis: Attack Chains & Protocol Dissection</title>
+    <link href="https://snailsploit.com/ai-security/prompt-injection/mcp-threat-analysis/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/prompt-injection/mcp-threat-analysis/</id>
+    <updated>2025-05-18T00:00:00+00:00</updated>
+    <published>2025-05-18T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">MCP Threat Analysis: Attack Chains & Protocol Dissection</summary>
+  </entry>
+  <entry>
+    <title>AI-Powered Obfuscator Bypasses Detection in 2 Hours</title>
+    <link href="https://snailsploit.com/writing/ai-obfuscator-detection-bypass/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/writing/ai-obfuscator-detection-bypass/</id>
+    <updated>2025-04-23T00:00:00+00:00</updated>
+    <published>2025-04-23T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">AI-Powered Obfuscator Bypasses Detection in 2 Hours</summary>
+  </entry>
+  <entry>
+    <title>Advanced Container Escapes: Security Deep Dive</title>
+    <link href="https://snailsploit.com/security-research/general/advanced-container-escapes/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/security-research/general/advanced-container-escapes/</id>
+    <updated>2025-03-02T00:00:00+00:00</updated>
+    <published>2025-03-02T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Advanced Container Escapes: Security Deep Dive</summary>
+  </entry>
+  <entry>
+    <title>Inherent AI Vulnerabilities: Technical Deep Dive</title>
+    <link href="https://snailsploit.com/ai-security/jailbreaking/inherent-ai-vulnerabilities/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/jailbreaking/inherent-ai-vulnerabilities/</id>
+    <updated>2025-02-10T00:00:00+00:00</updated>
+    <published>2025-02-10T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Inherent AI Vulnerabilities: Technical Deep Dive</summary>
+  </entry>
+  <entry>
+    <title>RCE & DNS Exfiltration in ChatGPT Canvas</title>
+    <link href="https://snailsploit.com/security-research/general/chatgpt-canvas-rce-dns-exfiltration/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/security-research/general/chatgpt-canvas-rce-dns-exfiltration/</id>
+    <updated>2025-02-01T00:00:00+00:00</updated>
+    <published>2025-02-01T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">RCE & DNS Exfiltration in ChatGPT Canvas</summary>
+  </entry>
+  <entry>
+    <title>The Structural Vulnerabilities of Large Language Models</title>
+    <link href="https://snailsploit.com/ai-security/structural-vulnerabilities-llms/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/structural-vulnerabilities-llms/</id>
+    <updated>2025-01-25T00:00:00+00:00</updated>
+    <published>2025-01-25T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">The Structural Vulnerabilities of Large Language Models</summary>
+  </entry>
+  <entry>
+    <title>Evading Endpoint Detection and Response (EDR)</title>
+    <link href="https://snailsploit.com/security-research/general/edr-evasion-techniques/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/security-research/general/edr-evasion-techniques/</id>
+    <updated>2025-01-16T00:00:00+00:00</updated>
+    <published>2025-01-16T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Evading Endpoint Detection and Response (EDR)</summary>
+  </entry>
+  <entry>
+    <title>Context Inheritance Exploit: Persistent Jailbreaks</title>
+    <link href="https://snailsploit.com/ai-security/jailbreaking/context-inheritance-exploit/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/jailbreaking/context-inheritance-exploit/</id>
+    <updated>2025-01-04T00:00:00+00:00</updated>
+    <published>2025-01-04T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Context Inheritance Exploit: Persistent Jailbreaks</summary>
+  </entry>
+  <entry>
+    <title>Is AI Inherently Vulnerable? An Offensive Analysis</title>
+    <link href="https://snailsploit.com/ai-security/jailbreaking/ai-inherent-vulnerability/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/jailbreaking/ai-inherent-vulnerability/</id>
+    <updated>2024-11-19T00:00:00+00:00</updated>
+    <published>2024-11-19T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Is AI Inherently Vulnerable? An Offensive Analysis</summary>
+  </entry>
+  <entry>
+    <title>Embracing AI: Adapt or Die in Cybersecurity</title>
+    <link href="https://snailsploit.com/writing/embracing-ai-adapt-or-die/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/writing/embracing-ai-adapt-or-die/</id>
+    <updated>2024-09-06T00:00:00+00:00</updated>
+    <published>2024-09-06T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Embracing AI: Adapt or Die in Cybersecurity</summary>
+  </entry>
+  <entry>
+    <title>Your Personal Data Is for Sale: New Identity Theft</title>
+    <link href="https://snailsploit.com/writing/personal-data-identity-theft/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/writing/personal-data-identity-theft/</id>
+    <updated>2024-09-04T00:00:00+00:00</updated>
+    <published>2024-09-04T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Your Personal Data Is for Sale: New Identity Theft</summary>
+  </entry>
+  <entry>
+    <title>Exploiting Cloud Vulnerabilities: Tools and Techniques</title>
+    <link href="https://snailsploit.com/security-research/general/cloud-vulnerability-exploitation/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/security-research/general/cloud-vulnerability-exploitation/</id>
+    <updated>2024-07-10T00:00:00+00:00</updated>
+    <published>2024-07-10T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Exploiting Cloud Vulnerabilities: Tools and Techniques</summary>
+  </entry>
+  <entry>
+    <title>Hidden Risks of AI: An Offensive Security Perspective</title>
+    <link href="https://snailsploit.com/ai-security/hidden-risks-offensive-perspective/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/hidden-risks-offensive-perspective/</id>
+    <updated>2024-06-08T00:00:00+00:00</updated>
+    <published>2024-06-08T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Hidden Risks of AI: An Offensive Security Perspective</summary>
+  </entry>
+  <entry>
+    <title>ChatGPT Jailbreak via Context Manipulation</title>
+    <link href="https://snailsploit.com/ai-security/jailbreaking/chatgpt-context-jailbreak/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/jailbreaking/chatgpt-context-jailbreak/</id>
+    <updated>2024-05-27T00:00:00+00:00</updated>
+    <published>2024-05-27T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">ChatGPT Jailbreak via Context Manipulation</summary>
   </entry>
 </feed>

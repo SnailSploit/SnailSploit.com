@@ -6,38 +6,92 @@ Independent offensive security researcher Kai Aizen. 23 CVEs, 5 Linux kernel pat
 ## Identity
 - [About](/about): Kai Aizen, Independent Offensive Security Researcher
 - [Services](/services): AI Red Teaming, Advanced Penetration Testing, Social Engineering
-- [Contact](/contact): Engagement, research collaboration, press
+- [Contact](/contact)
+- [Adversarial Minds (book)](/adversarial-minds)
 
 ## Frameworks
-- [AATMF v3.1](/aatmf): Adversarial AI Threat Modeling Framework — 15 tactics, 240+ techniques, 2,150+ procedures. Mapped to NIST AI RMF and MITRE ATLAS.
-- [SEF](/sef): Social Engineering Framework — psychological exploitation testing, 7 phases, 8 levers.
-- [P.R.O.M.P.T](/prompt): Compositional grammar for adversarial prompts.
-- [Claude-Red](/claude-red): 38 offensive-security skills for the Claude skills system.
-- [AATMF Toolkit](/toolkit): Python CLI for systematic LLM safety testing.
-- [LLM Red Teamer's Playbook](/playbook): Diagnostic methodology for bypassing LLM defense layers.
+- [AATMF v3.1](/aatmf): 15 tactics, 240+ techniques, 2,150+ procedures. Mapped to NIST AI RMF and MITRE ATLAS.
+- [SEF](/sef): Social Engineering Framework
+- [P.R.O.M.P.T](/prompt): Compositional grammar for adversarial prompts
+- [Claude-Red](/claude-red): 38 offensive-security skills for the Claude skills system
+- [AATMF Toolkit](/toolkit): Python CLI for systematic LLM safety testing
+- [LLM Red Teamer's Playbook](/playbook)
 
-## Research (AI Security)
-- [AI Security Research index](/research)
-- [AI Security Wiki](/wiki): Reference taxonomy — prompt injection, jailbreaking, memory attacks, sandbox escape.
-- [Self-Replicating Memory Worm](/memory-worm): Adversarial prompt that survives across sessions via long-term memory.
-- [Memory Injection Through Nested Skills](/memory-injection): Skill injection + memory poisoning = self-healing implant.
-- [ChatGPT Canvas DNS Exfiltration](/canvas-dns): DNS exfil via rendered Canvas content.
-- [ChatGPT Sandbox: Pickle RCE + DNS Chain](/pickle-rce): Code Interpreter sandbox escape.
-- [MCP vs A2A Attack Surface](/mcp-vs-a2a): Trust-boundary comparison.
-- [The 30% Blind Spot — LLM Safety Judges](/blind-spot): Empirical study of LLM-as-judge classifiers.
-- [Adversarial Prompting: Complete Guide](/adversarial-guide): End-to-end injection methodology.
+## AI Security Research (36 articles)
+- [Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation](/ai-security/self-replicating-memory-worm/): Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation
+- [Linux Kernel io_uring/zcrx: Race Condition to Double-Free](/security-research/general/io-uring-zcrx-race-condition/): Linux Kernel io_uring/zcrx: Race Condition to Double-Free
+- [Adversarial Prompting: The Complete Technical Guide](/ai-security/adversarial-prompting/): Adversarial Prompting: The Complete Technical Guide
+- [LLM Jailbreak Techniques: A Technical Taxonomy](/ai-security/jailbreaking/jailbreak-techniques/): LLM Jailbreak Techniques: A Technical Taxonomy
+- [Memory Injection Through Nested Skills: Autonomous LLM Agent Compromise](/ai-security/prompt-injection/memory-injection-nested-skills/): Memory Injection Through Nested Skills: Autonomous LLM Agent Compromise
+- [Prompt Injection Examples: Real Attack Patterns Explained](/ai-security/prompt-injection/prompt-injection-examples/): Prompt Injection Examples: Real Attack Patterns Explained
+- [Weaponized AI Supply Chain: How Threat Actors Turned LLMs Into Attack Infrastructure](/ai-security/weaponized-ai-supply-chain/): Weaponized AI Supply Chain: How Threat Actors Turned LLMs Into Attack Infrastructure
+- [MCP vs A2A Attack Surface: Every Trust Boundary Mapped](/ai-security/mcp-vs-a2a-attack-surface/): MCP vs A2A Attack Surface: Every Trust Boundary Mapped
+- [The 30% Blind Spot: Why LLM Safety Judges Fail](/ai-security/rai-judge-blind-spots/): The 30% Blind Spot: Why LLM Safety Judges Fail
+- [AATMF v3.1 vs MITRE ATLAS: Which AI Security Framework Wins?](/ai-security/aatmf-vs-mitre-atlas/): AATMF v3.1 vs MITRE ATLAS: Which AI Security Framework Wins?
+- [AI Breach Detection Gap: The Logs Are Clean. You're Not.](/ai-security/ai-breach-detection-gap/): AI Breach Detection Gap: The Logs Are Clean. You're Not.
+- [LLM Red Teamer's Playbook: Diagnosing AI Defense Layers](/ai-security/llm-red-teamers-playbook/): LLM Red Teamer's Playbook: Diagnosing AI Defense Layers
+- [AI Coding Agent Attack Surface: A Full Taxonomy](/ai-security/ai-coding-agent-attack-surface/): AI Coding Agent Attack Surface: A Full Taxonomy
+- [Computational Countertransference: LLM Context Inheritance](/ai-security/computational-countertransference/): Computational Countertransference: LLM Context Inheritance
+- [Agentic AI Threat Landscape: Attack Vectors & Defenses](/ai-security/agentic-ai-threat-landscape/): Agentic AI Threat Landscape: Attack Vectors & Defenses
+- [AI Gateway Threat Model: 8 Attack Vectors](/ai-security/ai-gateway-threat-model/): AI Gateway Threat Model: 8 Attack Vectors
+- [Memory Manipulation: AI Context Poisoning](/ai-security/jailbreaking/memory-manipulation-attacks/): Memory Manipulation: AI Context Poisoning
+- [RAG, Agentic AI, and the New Attack Surface](/ai-security/rag-agentic-attack-surface/): RAG, Agentic AI, and the New Attack Surface
+- [AI Social Engineering: Deepfake Voice Detection](/ai-security/ai-social-engineering-deepfake/): AI Social Engineering: Deepfake Voice Detection
+- [MCP Security Hardening: Production Vulnerability Guide](/ai-security/prompt-injection/mcp-security-deep-dive/): MCP Security Hardening: Production Vulnerability Guide
+- [Zero-Trust Container Runtime Attestation](/security-research/general/zero-trust-container-runtime/): Zero-Trust Container Runtime Attestation
+- [Custom Instruction Backdoor: ChatGPT Prompt Injection](/ai-security/prompt-injection/custom-instruction-backdoor/): Custom Instruction Backdoor: ChatGPT Prompt Injection
+- [MCP Threat Analysis: Attack Chains & Protocol Dissection](/ai-security/prompt-injection/mcp-threat-analysis/): MCP Threat Analysis: Attack Chains & Protocol Dissection
+- [AI-Powered Obfuscator Bypasses Detection in 2 Hours](/writing/ai-obfuscator-detection-bypass/): AI-Powered Obfuscator Bypasses Detection in 2 Hours
+- [Advanced Container Escapes: Security Deep Dive](/security-research/general/advanced-container-escapes/): Advanced Container Escapes: Security Deep Dive
+- [Inherent AI Vulnerabilities: Technical Deep Dive](/ai-security/jailbreaking/inherent-ai-vulnerabilities/): Inherent AI Vulnerabilities: Technical Deep Dive
+- [RCE & DNS Exfiltration in ChatGPT Canvas](/security-research/general/chatgpt-canvas-rce-dns-exfiltration/): RCE & DNS Exfiltration in ChatGPT Canvas
+- [The Structural Vulnerabilities of Large Language Models](/ai-security/structural-vulnerabilities-llms/): The Structural Vulnerabilities of Large Language Models
+- [Evading Endpoint Detection and Response (EDR)](/security-research/general/edr-evasion-techniques/): Evading Endpoint Detection and Response (EDR)
+- [Context Inheritance Exploit: Persistent Jailbreaks](/ai-security/jailbreaking/context-inheritance-exploit/): Context Inheritance Exploit: Persistent Jailbreaks
+- [Is AI Inherently Vulnerable? An Offensive Analysis](/ai-security/jailbreaking/ai-inherent-vulnerability/): Is AI Inherently Vulnerable? An Offensive Analysis
+- [Embracing AI: Adapt or Die in Cybersecurity](/writing/embracing-ai-adapt-or-die/): Embracing AI: Adapt or Die in Cybersecurity
+- [Your Personal Data Is for Sale: New Identity Theft](/writing/personal-data-identity-theft/): Your Personal Data Is for Sale: New Identity Theft
+- [Exploiting Cloud Vulnerabilities: Tools and Techniques](/security-research/general/cloud-vulnerability-exploitation/): Exploiting Cloud Vulnerabilities: Tools and Techniques
+- [Hidden Risks of AI: An Offensive Security Perspective](/ai-security/hidden-risks-offensive-perspective/): Hidden Risks of AI: An Offensive Security Perspective
+- [ChatGPT Jailbreak via Context Manipulation](/ai-security/jailbreaking/chatgpt-context-jailbreak/): ChatGPT Jailbreak via Context Manipulation
+
+## AI Security Wiki (25 entries)
+- [Adversarial Examples | AI Security Wiki](/ai-security/wiki/attacks/adversarial-examples/)
+- [Agent Hijacking | AI Security Wiki](/ai-security/wiki/attacks/agent-hijacking/)
+- [Backdoor Attacks | AI Security Wiki](/ai-security/wiki/attacks/backdoor-attacks/)
+- [Data Poisoning | AI Security Wiki](/ai-security/wiki/attacks/data-poisoning/)
+- [Guardrail Bypass | AI Security Wiki](/ai-security/wiki/attacks/guardrail-bypass/)
+- [Indirect Prompt Injection | AI Security Wiki](/ai-security/wiki/attacks/indirect-prompt-injection/)
+- [Jailbreaking | AI Security Wiki](/ai-security/wiki/attacks/jailbreaking/)
+- [Membership Inference | AI Security Wiki](/ai-security/wiki/attacks/membership-inference/)
+- [Model Extraction | AI Security Wiki](/ai-security/wiki/attacks/model-extraction/)
+- [Supply Chain Attacks | AI Security Wiki](/ai-security/wiki/attacks/supply-chain-attacks/)
+- [System Prompt Extraction | AI Security Wiki](/ai-security/wiki/attacks/system-prompt-extraction/)
+- [Training Data Extraction | AI Security Wiki](/ai-security/wiki/attacks/training-data-extraction/)
+- [Adversarial AI | AI Security Wiki](/ai-security/wiki/concepts/adversarial-ai/)
+- [AI Agents | AI Security Wiki](/ai-security/wiki/concepts/ai-agents/)
+- [AI Alignment | AI Security Wiki](/ai-security/wiki/concepts/ai-alignment/)
+- [AI Red Teaming | AI Security Wiki](/ai-security/wiki/concepts/ai-red-teaming/)
+- [Hallucination | AI Security Wiki](/ai-security/wiki/concepts/hallucination/)
+- [Large Language Models (LLMs) | AI Security Wiki](/ai-security/wiki/concepts/large-language-models/)
+- [Prompt Injection | AI Security Wiki](/ai-security/wiki/concepts/prompt-injection/)
+- [RAG (Retrieval-Augmented Generation) | AI Security Wiki](/ai-security/wiki/concepts/rag/)
+- [Guardrails | AI Security Wiki](/ai-security/wiki/defenses/guardrails/)
+- [Human-in-the-Loop | AI Security Wiki](/ai-security/wiki/defenses/human-in-the-loop/)
+- [Input Validation | AI Security Wiki](/ai-security/wiki/defenses/input-validation/)
+- [Output Filtering | AI Security Wiki](/ai-security/wiki/defenses/output-filtering/)
+- [Rate Limiting | AI Security Wiki](/ai-security/wiki/defenses/rate-limiting/)
 
 ## Vulnerability Disclosures
-- [CVE Ledger](/cves): 23 published CVEs (Kubernetes, Apache, OSS, WordPress).
-- [Linux Kernel Contributions](/kernel): 5 mainline patches (io_uring/zcrx, net/tipc, Bluetooth, RDMA/ionic, net/rtnetlink).
-- [Security Advisories](/advisories): GHSA disclosures (AVideo SSRF, OpenClaw env override, etc.).
+- [CVE Ledger](/cves): 23 published CVEs
+- [Linux Kernel Contributions](/kernel): 5 mainline patches
+- [Security Advisories](/advisories)
 
 ## Tools
-- [Offensive Tools index](/tools): Burp MCP Toolkit, SnailHunter, KubeRoast, Xposure, SnailSploit Recon, SnailPath, ZenFlood, SnailObfuscator, Awesome-Snail-OSINT.
+- [Offensive Tools](/tools): Burp MCP Toolkit, SnailHunter, KubeRoast, Xposure, SnailSploit Recon, SnailPath, ZenFlood, SnailObfuscator, Awesome-Snail-OSINT.
 
 ## Writing
 - [Writing index](/writing)
-- [Adversarial Minds](/adversarial-minds): Book — offensive psychology, social engineering, adversarial reasoning. The human-layer companion to AATMF and SEF.
 
 ## About the author
 Kai Aizen is an independent offensive security researcher. Hakin9 contributing author, MITRE/NVD contributor, Linux kernel mainline contributor.

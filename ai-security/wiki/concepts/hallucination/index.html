@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Hallucination | AI Security Wiki | snailsploit</title>
+ <meta name="description" content="AI failure mode where language models generate false or fabricated information with unwarranted confidence, creating security risks in automated systems.">
+ <meta name="author" content="Kai Aizen">
+ <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+ <link rel="canonical" href="https://snailsploit.com/ai-security/wiki/concepts/hallucination/">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+ <style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}.wm-sig.dollar{color:var(--signal-2)}.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}.nav-links a:hover{color:var(--fg)}.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap}.crumbs a{color:var(--fg-3)}.crumbs a:hover{color:var(--fg)}.crumbs.sep{color:var(--fg-4)}.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}.article-inner{max-width:760px;margin:0 auto}.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap}.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0}.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:680px}.article-body-section{padding:64px 32px;border-bottom:1px solid var(--line)}.article-body{max-width:720px;margin:0 auto;font-size:17px;line-height:1.75;color:var(--fg-2)}.article-body h2{font-size:32px;font-weight:500;line-height:1.15;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:8px;border-top:1px solid var(--line)}.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px}.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px;text-transform:none}.article-body p{margin:16px 0}.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}.article-body li{margin:6px 0}.article-body strong{color:var(--fg);font-weight:600}.article-body em{color:var(--fg);font-style:italic}.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb, var(--signal-2) 40%, transparent)}.article-body a:hover{border-bottom-color:var(--signal-2)}.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg)}.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0}.article-body pre code{background:none;border:0;padding:0;font-size:inherit}.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}.article-body img{max-width:100%;height:auto;margin:24px 0;border:1px solid var(--line)}.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}.article-body figure{margin:24px 0}.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:8px}.author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}.author-inner{max-width:720px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}.footer{background:var(--bg-sink)}.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+</style>
+
+ <meta property="og:type" content="article">
+ <meta property="og:title" content="Hallucination | AI Security Wiki">
+ <meta property="og:description" content="AI failure mode where language models generate false or fabricated information with unwarranted confidence, creating security risks in automated systems.">
+ <meta property="og:url" content="https://snailsploit.com/ai-security/wiki/concepts/hallucination/">
+ <meta property="og:site_name" content="snailsploit">
+ <meta property="og:image" content="https://snailsploit.com/og-cover.png">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="630">
+ <meta property="og:locale" content="en_US">
+ <meta property="article:author" content="Kai Aizen">
+ <meta property="article:published_time" content="2026-01-01">
+
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:site" content="@SnailSploit">
+ <meta name="twitter:creator" content="@SnailSploit">
+ <meta name="twitter:title" content="Hallucination | AI Security Wiki">
+ <meta name="twitter:description" content="AI failure mode where language models generate false or fabricated information with unwarranted confidence, creating security risks in automated systems.">
+ <meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+
+ <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen"]},{"@type":"Article","headline":"Hallucination | AI Security Wiki","description":"AI failure mode where language models generate false or fabricated information with unwarranted confidence, creating security risks in automated systems.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-01-01","dateModified":"2026-01-01","url":"https://snailsploit.com/ai-security/wiki/concepts/hallucination/","mainEntityOfPage":"https://snailsploit.com/ai-security/wiki/concepts/hallucination/","image":"https://snailsploit.com/og-cover.png","keywords":"AI security, adversarial AI, prompt injection, red teaming, vulnerability research"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":3,"name":"Wiki","item":"https://snailsploit.com/wiki"},{"@type":"ListItem","position":4,"name":"Concepts","item":"https://snailsploit.com/wiki#concepts"},{"@type":"ListItem","position":5,"name":"Hallucination | AI Security Wiki","item":"https://snailsploit.com/ai-security/wiki/concepts/hallucination/"}]}]}</script>
+
+ <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+ <link rel="alternate icon" type="image/png" href="/apple-touch-icon.png">
+ <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+ <link rel="manifest" href="/manifest.webmanifest">
+ <meta name="theme-color" content="#0E0E0F">
+ <meta name="referrer" content="strict-origin-when-cross-origin">
+ <meta name="format-detection" content="telephone=no">
+ <meta name="color-scheme" content="dark">
+ <link rel="alternate" type="application/rss+xml" title="snailsploit research" href="/rss.xml">
+ <link rel="alternate" type="application/atom+xml" title="snailsploit research" href="/feed.xml">
+
+ <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+</head>
+<body>
+<header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li></ul></nav><div class="nav-utils"><span>⌘K</span><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header>
+
+<section class="article-hero">
+ <div class="article-inner">
+ <div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/wiki">Wiki</a><span class="sep">/</span><a href="/wiki#concepts">Concepts</a><span class="sep">/</span><span>Hallucination | AI Security Wiki</span></div>
+ <div class="article-meta" style="margin-top:16px"><time datetime="2026-01-01">2026-01-01</time></div>
+ <h1 class="article-h1">Hallucination | AI Security Wiki</h1>
+ <p class="article-lede">AI failure mode where language models generate false or fabricated information with unwarranted confidence, creating security risks in automated systems.</p>
+ </div>
+</section>
+
+<section class="article-body-section">
+<article class="bg-[#0a0a0a] min-h-screen" data-astro-cid-apn2djud=""> <div> <!-- Header --> <!-- Content --> <div> <h2>Definition</h2> <p> <strong>Hallucination</strong> in AI refers to the generation of content that is factually incorrect, fabricated, or not grounded in the model's training data or provided context—delivered with the same confidence as accurate information. The term captures the model's "confident confabulation."
+</p> <p>
+While often discussed as an accuracy problem, hallucination has significant security implications when LLM outputs are used in automated systems, decision pipelines, or anywhere human oversight is limited.
+</p> <hr/> <h2>Types of Hallucination</h2> <h3>Factual Hallucination</h3> <p>Generating false facts:</p> <pre><code>User: "When was the Golden Gate Bridge built?"
+LLM: "The Golden Gate Bridge was completed in 1942."
+ (Actual: 1937)
+
+User: "Who wrote 'The Great Gatsby'?"
+LLM: "Ernest Hemingway wrote The Great Gatsby."
+ (Actual: F. Scott Fitzgerald)</code></pre> <h3>Source Hallucination</h3> <p>Inventing citations and references:</p> <pre><code>User: "Cite a paper on prompt injection."
+LLM: "See 'Prompt Injection Attacks on LLMs' by Smith et al.,
+ published in IEEE S&amp;P 2022."
+ (Paper doesn't exist)</code></pre> <h3>Context Hallucination</h3> <p>Adding details not present in provided context:</p> <pre><code>Context: "The meeting is scheduled for Tuesday."
+User: "What time is the meeting?"
+LLM: "The meeting is at 2:00 PM on Tuesday."
+ (Time was never specified)</code></pre> <h3>Code Hallucination</h3> <p>Generating non-existent APIs, functions, or libraries:</p> <pre><code># LLM-generated code referencing fake API
+from langchain.security import PromptInjectionFilter # Doesn't exist
+from openai.safety import ContentModerator # Doesn't exist
+
+result = prompt_sanitizer.clean(input) # Fabricated function</code></pre> <hr/> <h2>Security Implications</h2> <h3>Automated Pipeline Risks</h3> <p>When hallucinated outputs feed into automated systems:</p> <ul> <li><strong>Fake vulnerability reports</strong> — LLM invents CVEs, leading to wasted remediation effort</li> <li><strong>Incorrect configurations</strong> — Hallucinated settings create security gaps</li> <li><strong>Fabricated compliance data</strong> — False audit results in regulatory systems</li> <li><strong>Ghost dependencies</strong> — Code using non-existent packages (potential supply chain attack vector)</li> </ul> <h3>Decision Support Failures</h3> <p>Hallucination in advisory contexts:</p> <ul> <li>Fabricated threat intelligence leading to misallocated resources</li> <li>Invented precedents in legal or policy decisions</li> <li>False financial data influencing investment decisions</li> </ul> <h3>Agent-Specific Risks</h3> <p>AI agents acting on hallucinated information:</p> <pre><code># Agent hallucinates the existence of a cleanup function
+Agent thought: "I should call security_cleanup() to finish"
+Agent action: Execute code calling security_cleanup()
+Result: Error, or worse—calling a malicious function
+ with a similar name that does exist</code></pre> <hr/> <h2>Why LLMs Hallucinate</h2> <h3>Training Dynamics</h3> <ul> <li><strong>Pattern completion</strong> — Models learn to produce plausible-sounding text, not verified facts</li> <li><strong>No knowledge verification</strong> — Training doesn't ground outputs against fact databases</li> <li><strong>Confident by default</strong> — RLHF training often rewards confident, helpful responses</li> <li><strong>Rare events</strong> — Long-tail knowledge has weak signal in training data</li> </ul> <h3>Inference Factors</h3> <ul> <li><strong>Temperature</strong> — Higher temperature increases creative (hallucinatory) outputs</li> <li><strong>Context limitations</strong> — Missing information filled with plausible inventions</li> <li><strong>Prompt pressure</strong> — Users demanding answers push models past knowledge boundaries</li> </ul> <hr/> <h2>Mitigation Strategies</h2> <h3>Retrieval-Augmented Generation (RAG)</h3> <p>Ground responses in retrieved documents:</p> <ul> <li>Reduces hallucination by providing factual context</li> <li>Creates attribution trail for verification</li> <li>Limitation: RAG itself can be poisoned with false information</li> </ul> <h3>Chain-of-Thought Verification</h3> <pre><code>prompt = """
+Question: {question}
+
+Think through this step by step:
+1. What specific facts do I need to answer this?
+2. Do I actually know these facts from reliable sources?
+3. If uncertain, clearly state "I'm not certain about..."
+4. Provide answer only for claims I can support.
+
+If I don't have reliable information, say "I don't have
+verified information about this."
+"""</code></pre> <h3>Output Verification</h3> <ul> <li><strong>Fact-checking layers</strong> — Second model or system verifies claims</li> <li><strong>Citation verification</strong> — Check if referenced sources actually exist</li> <li><strong>Code execution</strong> — Run generated code to verify functionality</li> </ul> <h3>Confidence Calibration</h3> <pre><code>prompt = """
+Rate your confidence in each claim:
+- HIGH: Based on well-established facts from training
+- MEDIUM: Likely correct but could be imprecise
+- LOW: Uncertain, user should verify independently
+
+{question}
+"""</code></pre> <h3>Human-in-the-Loop</h3> <ul> <li>Review high-stakes outputs before action</li> <li>Verify citations and references manually</li> <li>Don't automate decisions based solely on LLM claims</li> </ul> <hr/> <h2>Detection Approaches</h2> <h3>Consistency Checking</h3> <pre><code>def check_consistency(model, question, n_samples=5):
+ """Multiple samples should agree if factual"""
+ responses = [model.generate(question) for _ in range(n_samples)]
+ # High variance suggests uncertainty/hallucination
+ return calculate_semantic_variance(responses)</code></pre> <h3>Source Verification</h3> <pre><code>def verify_citations(response):
+ """Check if cited sources exist"""
+ citations = extract_citations(response)
+ verified = []
+ for cite in citations:
+ if is_real_source(cite):
+ verified.append(cite)
+ else:
+ flag_hallucinated_citation(cite)
+ return verified</code></pre> <hr/> <h2>Real-World Examples</h2> <p><strong>Lawyer Uses ChatGPT (2023)</strong> — Attorney submitted legal brief with fabricated case citations generated by ChatGPT. None of the cases existed.</p> <p><strong>Package Hallucination Attacks (2024)</strong> — Researchers found LLMs consistently hallucinate the same package names; attackers could register these names with malicious code.</p> <p><strong>Medical Chatbot Hallucinations</strong> — Health-focused chatbots have provided fabricated medical advice and invented drug interactions.</p> <hr/> <h2>References</h2> <ul> <li>Ji, Z. et al. (2023). "Survey of Hallucination in Natural Language Generation." ACM Computing Surveys.</li> <li>Huang, L. et al. (2023). "A Survey on Hallucination in Large Language Models." arXiv.</li> <li>Lanyado, B. (2024). "Can You Trust ChatGPT's Package Recommendations?" Vulcan Cyber.</li> <li>(2023). "LLM09: Overreliance.".</li> </ul> </div> <!-- Framework Mappings --> <div> <h3>Framework Mappings</h3> <div> <table> <thead> <tr> <th>Framework</th> <th>Reference</th> </tr> </thead> <tbody> <tr> <td>NIST AI RMF</td> <td>MEASURE 2.5, MANAGE 2.3</td> </tr><tr> <td></td> <td>LLM09: Overreliance</td> </tr><tr> <td>EU AI Act</td> <td>Article 13: Transparency</td> </tr> </tbody> </table> </div> </div> <!-- Related Entries --> <div> <h3>Related Entries</h3> <div> <a href="/ai-security/wiki/concepts/large-language-models/"> <span> Large Language Models (LLMs) </span> <span>→</span> </a><a href="/ai-security/wiki/concepts/rag/"> <span> RAG </span> <span>→</span> </a><a href="/ai-security/wiki/concepts/ai-agents/"> <span> AI Agents </span> <span>→</span> </a><a href="/ai-security/wiki/defenses/output-filtering/"> <span> Output Filtering </span> <span>→</span> </a> </div> </div> <!-- Citation --> <div> <h3>Citation</h3> <blockquote>
+Aizen, K. (2025). "Hallucination." AI Security Wiki, snailsploit.com. Retrieved from https://snailsploit.com/ai-security/wiki/concepts/hallucination/ </blockquote> </div> <!-- Navigation --> <div> <a href="/ai-security/wiki/concepts/">
+← Back to Concepts </a> <a href="/ai-security/wiki/">
+Wiki Index
+</a> </div> </div> </div>
+</section>
+
+<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a></div></div></section>
+
+<footer class="footer"><div class="footer-inner"><a href="/" class="wm" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
+
+</body>
+</html>

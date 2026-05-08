@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AATMF Operations | Red Team & Blue Team Guides | snailsploit</title>
+  <meta name="description" content="AATMF v3 operational guidance covering detection engineering, mitigation strategies, incident response playbooks, and red team and blue team defense for AI.">
+  <meta name="author" content="Kai Aizen">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://snailsploit.com/frameworks/aatmf/operations/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}
+.wm-sig .dollar{color:var(--signal-2)}
+.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
+.nav-links a:hover{color:var(--fg)}
+.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}
+.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap}
+.crumbs a{color:var(--fg-3)}
+.crumbs a:hover{color:var(--fg)}
+.crumbs .sep{color:var(--fg-4)}
+.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}
+.article-inner{max-width:760px;margin:0 auto}
+.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap}
+.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0}
+.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:680px}
+.article-body-section{padding:64px 32px;border-bottom:1px solid var(--line)}
+.article-body{max-width:720px;margin:0 auto;font-size:17px;line-height:1.75;color:var(--fg-2)}
+.article-body h2{font-size:32px;font-weight:500;line-height:1.15;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:8px;border-top:1px solid var(--line)}
+.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px}
+.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px;text-transform:none}
+.article-body p{margin:16px 0}
+.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}
+.article-body li{margin:6px 0}
+.article-body strong{color:var(--fg);font-weight:600}
+.article-body em{color:var(--fg);font-style:italic}
+.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb, var(--signal-2) 40%, transparent)}
+.article-body a:hover{border-bottom-color:var(--signal-2)}
+.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg)}
+.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0}
+.article-body pre code{background:none;border:0;padding:0;font-size:inherit}
+.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}
+.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}
+.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}
+.article-body img{max-width:100%;height:auto;margin:24px 0;border:1px solid var(--line)}
+.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
+.article-body figure{margin:24px 0}
+.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:8px}
+.author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.author-inner{max-width:720px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}
+.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}
+.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}
+.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
+.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}
+.footer{background:var(--bg-sink)}
+.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+</style>
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AATMF Operations | Red Team & Blue Team Guides">
+  <meta property="og:description" content="AATMF v3 operational guidance covering detection engineering, mitigation strategies, incident response playbooks, and red team and blue team defense for AI.">
+  <meta property="og:url" content="https://snailsploit.com/frameworks/aatmf/operations/">
+  <meta property="og:site_name" content="snailsploit">
+  <meta property="og:image" content="https://snailsploit.com/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:author" content="Kai Aizen">
+  <meta property="article:published_time" content="2026-01-01">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@SnailSploit">
+  <meta name="twitter:creator" content="@SnailSploit">
+  <meta name="twitter:title" content="AATMF Operations | Red Team & Blue Team Guides">
+  <meta name="twitter:description" content="AATMF v3 operational guidance covering detection engineering, mitigation strategies, incident response playbooks, and red team and blue team defense for AI.">
+  <meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen"]},{"@type":"Article","headline":"AATMF Operations | Red Team & Blue Team Guides","description":"AATMF v3 operational guidance covering detection engineering, mitigation strategies, incident response playbooks, and red team and blue team defense for AI.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-01-01","dateModified":"2026-01-01","url":"https://snailsploit.com/frameworks/aatmf/operations/","mainEntityOfPage":"https://snailsploit.com/frameworks/aatmf/operations/","image":"https://snailsploit.com/og-cover.png","keywords":"AI security, adversarial AI, prompt injection, red teaming, vulnerability research"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Frameworks","item":"https://snailsploit.com/frameworks"},{"@type":"ListItem","position":3,"name":"AATMF Operations | Red Team & Blue Team Guides","item":"https://snailsploit.com/frameworks/aatmf/operations/"}]}]}</script>
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#0E0E0F">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="color-scheme" content="dark">
+  <link rel="alternate" type="application/rss+xml" title="snailsploit research" href="/rss.xml">
+  <link rel="alternate" type="application/atom+xml" title="snailsploit research" href="/feed.xml">
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}'></script>
+</head>
+<body>
+<header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li></ul></nav><div class="nav-utils"><span>⌘K</span><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header>
+
+<section class="article-hero">
+  <div class="article-inner">
+    <div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/frameworks">Frameworks</a><span class="sep">/</span><span>AATMF Operations | Red Team & Blue Team Guides</span></div>
+    <div class="article-meta" style="margin-top:16px"><time datetime="2026-01-01">2026-01-01</time></div>
+    <h1 class="article-h1">AATMF Operations | Red Team & Blue Team Guides</h1>
+    <p class="article-lede">AATMF v3 operational guidance covering detection engineering, mitigation strategies, incident response playbooks, and red team and blue team defense for AI.</p>
+  </div>
+</section>
+
+<section class="article-body-section">
+<article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12" data-astro-cid-bx2hflfr="">  <p>
+From detection engineering to incident response — the operational playbook for defending AI systems against the threats in Volumes II–IV.
+</p> <div> <a href="#detection"> Detection </a><a href="#mitigation"> Mitigation </a><a href="#incident-response"> Incident Response </a><a href="#red-team"> Red Team </a><a href="#blue-team"> Blue Team </a> </div> <!-- Detection Engineering --> <section id="detection"> <h2>Detection Engineering</h2> <p>
+AATMF detection operates across five layers, each providing defense-in-depth against adversarial AI attacks. No single layer is sufficient — adaptive attack strategies exceed 85% success against any single defense.
+</p> <div> <pre><code>Layer 5: Feedback Loop Analysis        ← T6, T15
+Layer 4: System Telemetry              ← T13, T14
+Layer 3: Output Validation             ← T7, T8
+Layer 2: Behavioral Monitoring         ← T4, T5, T11
+Layer 1: Input Analysis                ← T1, T2, T3, T9</code></pre> </div> <h3>Detection Patterns by Layer</h3> <div> <table> <thead> <tr> <th>Layer</th> <th>Tactics</th> <th>Detection Method</th> </tr> </thead> <tbody> <tr> <td>Input Analysis</td> <td>T1, T2, T3, T9</td> <td>Pattern matching, encoding detection, Unicode normalization, multimodal scanning</td> </tr><tr> <td>Behavioral Monitoring</td> <td>T4, T5, T11</td> <td>Session analysis, query fingerprinting, agent action validation, tool chain auditing</td> </tr><tr> <td>Output Validation</td> <td>T7, T8</td> <td>Content classifiers, structured output enforcement, fact-checking, watermark detection</td> </tr><tr> <td>System Telemetry</td> <td>T13, T14</td> <td>Model artifact integrity checks, infrastructure monitoring, supply chain verification</td> </tr><tr> <td>Feedback Loop Analysis</td> <td>T6, T15</td> <td>Training metric anomalies, annotation quality scoring, reward signal monitoring</td> </tr> </tbody> </table> </div> <h3>Signature Types</h3> <div> <div> <p>YARA Rules</p> <p>Content-level analysis for prompt injection patterns, encoding evasion, multimodal injection, MCP tool description poisoning, and supply chain artifact scanning.</p> </div> <div> <p>Sigma Rules</p> <p>Log-level analysis for model extraction query patterns, data exfiltration indicators, anomalous agent behavior, infrastructure resource exhaustion, and cost inflation.</p> </div> </div> </section> <!-- Mitigation Strategies --> <section id="mitigation"> <h2>Mitigation Strategies</h2> <p>
+Research consensus (2025): adaptive attack strategies exceed 85% success against any single state-of-the-art defense. No single control is sufficient. AATMF mandates layered defense.
+</p> <div> <p>CaMeL Architecture (Google DeepMind, March 2025)</p> <p>
+The most promising defensive framework treats LLMs as fundamentally untrusted components — analogous to how operating systems treat user-space programs. CaMeL solved 77% of AgentDojo tasks while providing provable security guarantees against prompt injection.
+</p> <div> <div> <span>Dual-LLM pattern:</span> <span> Frontier LLM generates plans; a hardened secondary LLM validates and sanitizes</span> </div><div> <span>Capability-based access:</span> <span> Tools require explicit capability tokens, not ambient authority</span> </div><div> <span>Information flow control:</span> <span> Track data provenance through the entire pipeline; tainted data cannot reach sensitive operations</span> </div><div> <span>Minimal authority:</span> <span> Agents receive only the permissions needed for the immediate task</span> </div> </div> </div> <h3>Controls by Tactic</h3> <div> <table> <thead> <tr> <th>Tactic</th> <th>Primary Controls</th> </tr> </thead> <tbody> <tr> <td>T1 — Prompt Subversion</td> <td>Input sanitization, instruction hierarchy enforcement, system prompt isolation</td> </tr><tr> <td>T2 — Semantic Evasion</td> <td>Unicode normalization, multi-layer content filtering, semantic analysis</td> </tr><tr> <td>T3 — Reasoning Exploitation</td> <td>Output validation, reasoning chain verification, constraint hardening</td> </tr><tr> <td>T4 — Multi-Turn</td> <td>Context window management, conversation state validation, memory isolation</td> </tr><tr> <td>T5 — Model/API</td> <td>Rate limiting, query fingerprinting, differential privacy on outputs</td> </tr><tr> <td>T6 — Training Poisoning</td> <td>Data provenance tracking, anomaly detection in training metrics, DRS defense</td> </tr><tr> <td>T7 — Output Manipulation</td> <td>Output filtering, structured output enforcement, content watermarking</td> </tr><tr> <td>T8 — Deception</td> <td>Fact-checking integration, source attribution, confidence calibration</td> </tr><tr> <td>T9 — Multimodal</td> <td>Cross-modal consistency checking, steganography detection, input sanitization</td> </tr><tr> <td>T10 — Integrity Breach</td> <td>TEE deployment, access control, audit logging, membership inference defense</td> </tr><tr> <td>T11 — Agentic</td> <td>CaMeL architecture, tool permission scoping, MCP server auditing</td> </tr><tr> <td>T12 — RAG</td> <td>Embedding integrity verification, retrieval result validation, source authentication</td> </tr><tr> <td>T13 — Supply Chain</td> <td>SafeTensors adoption, artifact scanning, SBOM for ML artifacts</td> </tr><tr> <td>T14 — Infrastructure</td> <td>Network segmentation, inference server hardening, ZMQ authentication</td> </tr><tr> <td>T15 — Human Workflow</td> <td>Reviewer training, decision audit trails, annotation quality metrics</td> </tr> </tbody> </table> </div> <h3>Priority Implementation Order</h3> <div> <div> <span>1</span> <div> <p>Immediate</p> <p>Input sanitization (T1–T3), rate limiting (T5), SafeTensors (T13)</p> </div> </div><div> <span>2</span> <div> <p>Short-term</p> <p>CaMeL/dual-LLM pattern (T11), MCP auditing (T11), RAG validation (T12)</p> </div> </div><div> <span>3</span> <div> <p>Medium-term</p> <p>Multimodal detection (T9), training pipeline security (T6), TEE deployment (T10)</p> </div> </div><div> <span>4</span> <div> <p>Ongoing</p> <p>Human workflow hardening (T15), infrastructure monitoring (T14), supply chain verification (T13)</p> </div> </div> </div> </section> <!-- Incident Response --> <section id="incident-response"> <h2>Incident Response for AI Systems</h2> <p>
+Traditional IR frameworks (NIST SP 800-61, SANS PICERL) assume deterministic systems. AI incidents differ: attacks may be probabilistic, evidence may be ephemeral, and "containment" for a language model has different semantics than for a compromised server.
+</p> <div> <!-- Phase 1: Detection & Triage --> <details> <summary> <div> <span>1</span> <span>Detection &amp; Triage</span> </div> <svg fill="none" stroke="currentColor" viewbox="0 0 24 24"> <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> </svg> </summary> <div> <table> <thead> <tr> <th>Signal</th> <th>Source</th> <th>Priority</th> </tr> </thead> <tbody> <tr> <td>Safety filter bypass confirmed</td> <td>Output monitoring</td> <td>P1 — Immediate</td> </tr><tr> <td>Model extraction pattern detected</td> <td>API telemetry</td> <td>P1 — Immediate</td> </tr><tr> <td>Training pipeline anomaly</td> <td>Training metrics</td> <td>P1 — Immediate</td> </tr><tr> <td>MCP tool behavior deviation</td> <td>Agent monitoring</td> <td>P1 — Immediate</td> </tr><tr> <td>Unusual query pattern</td> <td>Rate limiter</td> <td>P2 — Investigate</td> </tr><tr> <td>Jailbreak attempt (unsuccessful)</td> <td>Input classifier</td> <td>P3 — Logged</td> </tr> </tbody> </table> </div> </details> <!-- Phase 2: Containment --> <details> <summary> <div> <span>2</span> <span>Containment</span> </div> <svg fill="none" stroke="currentColor" viewbox="0 0 24 24"> <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> </svg> </summary> <div> <table> <thead> <tr> <th>Scenario</th> <th>Action</th> </tr> </thead> <tbody> <tr> <td>Active jailbreak exploitation</td> <td>Block session, rate-limit source, deploy updated filter</td> </tr><tr> <td>Model serving compromised artifact</td> <td>Hot-swap to known-good checkpoint</td> </tr><tr> <td>RAG poisoning detected</td> <td>Quarantine affected data sources, switch to cached index</td> </tr><tr> <td>Agentic system: unauthorized actions</td> <td>Kill agent process, revoke tool permissions</td> </tr><tr> <td>Training data contamination</td> <td>Halt training pipeline, snapshot current state</td> </tr> </tbody> </table> </div> </details> <!-- Phase 3: Investigation --> <details> <summary> <div> <span>3</span> <span>Investigation</span> </div> <svg fill="none" stroke="currentColor" viewbox="0 0 24 24"> <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> </svg> </summary> <div> <p>Collect and Preserve</p> <ul> <li> <span>+</span> Full conversation logs (with system prompts) </li><li> <span>+</span> Model version and configuration at time of incident </li><li> <span>+</span> Input classifier decisions and confidence scores </li><li> <span>+</span> Tool invocations and their results (for agentic systems) </li><li> <span>+</span> Training data batches (if poisoning suspected) </li><li> <span>+</span> Infrastructure logs (API gateway, inference server, vector DB) </li> </ul> </div> </details> <!-- Phase 4: Eradication --> <details> <summary> <div> <span>4</span> <span>Eradication</span> </div> <svg fill="none" stroke="currentColor" viewbox="0 0 24 24"> <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> </svg> </summary> <div> <table> <thead> <tr> <th>Root Cause</th> <th>Eradication</th> </tr> </thead> <tbody> <tr> <td>Prompt injection bypass</td> <td>Update input classifiers, add pattern to blocklist</td> </tr><tr> <td>Model vulnerability</td> <td>Retrain or fine-tune with adversarial examples</td> </tr><tr> <td>RAG poisoning</td> <td>Rebuild index from verified sources</td> </tr><tr> <td>Supply chain compromise</td> <td>Replace artifact, audit provenance chain</td> </tr><tr> <td>Infrastructure vulnerability</td> <td>Patch, harden, segment</td> </tr> </tbody> </table> </div> </details> <!-- Phase 5: Recovery --> <details> <summary> <div> <span>5</span> <span>Recovery &amp; Post-Incident</span> </div> <svg fill="none" stroke="currentColor" viewbox="0 0 24 24"> <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> </svg> </summary> <div> <p>Staged Restoration</p> <ol> <li>Deploy patched system in shadow mode</li><li>Run automated red team suite against fix</li><li>Monitor for recurrence (24-hour observation window)</li><li>Full production restoration with enhanced monitoring</li> </ol> <p>Post-Incident</p> <ul> <li> <span>+</span> Publish internal lessons learned </li><li> <span>+</span> Update AATMF technique documentation if novel attack </li><li> <span>+</span> Share indicators (responsibly) with AI security community </li> </ul> </div> </details> </div> </section> <!-- Red Team Operations --> <section id="red-team"> <h2>Red Team Operations</h2> <p>
+AATMF provides four assessment levels, each expanding tactic coverage and depth. The same reasoning model capabilities that enable 97% ASR jailbreaking can be directed at your own systems defensively.
+</p> <h3>Assessment Scope Matrix</h3> <div> <table> <thead> <tr> <th>Level</th> <th>Name</th> <th>Tactics</th> <th>Duration</th> <th>Prerequisites</th> </tr> </thead> <tbody> <tr> <td>1</td> <td>Quick Scan</td> <td>T1–T3</td> <td>1–2 days</td> <td>API access</td> </tr><tr> <td>2</td> <td>Standard Assessment</td> <td>T1–T8</td> <td>1–2 weeks</td> <td>API + documentation</td> </tr><tr> <td>3</td> <td>Comprehensive</td> <td>T1–T12</td> <td>3–4 weeks</td> <td>Full system access</td> </tr><tr> <td>4</td> <td>Full Spectrum</td> <td>T1–T15</td> <td>6–8 weeks</td> <td>Source code + infra + training pipeline</td> </tr> </tbody> </table> </div> <h3>Rules of Engagement Template</h3> <div> <pre><code>1. Scope:           [Models/systems in scope]
+2. Tactics:         [AATMF tactics authorized]
+3. Boundaries:      [Explicitly prohibited actions]
+4. Data handling:   [Treatment of discovered vulnerabilities/outputs]
+5. Communication:   [Escalation path for critical findings]
+6. Timeline:        [Assessment window]
+7. Success criteria: [Minimum coverage requirements]</code></pre> </div> </section> <!-- Blue Team Defense --> <section id="blue-team"> <h2>Blue Team Defense</h2> <div> <p>Core Principle</p> <p>
+Treat LLMs as <strong>untrusted components</strong>. Design systems assuming the model will be compromised. Policy Puppetry bypasses every frontier model. Autonomous jailbreaking achieves 97% ASR. The correct architectural posture is: the LLM will be jailbroken; design the surrounding system so that jailbreaking the LLM is insufficient to cause harm.
+</p> </div> <h3>Defense Mapping</h3> <div> <table> <thead> <tr> <th>Control</th> <th>Implementation</th> <th>Covers</th> </tr> </thead> <tbody> <tr> <td>Input Sanitization</td> <td>Unicode normalization, encoding detection, pattern matching</td> <td>T1, T2, T9</td> </tr><tr> <td>Instruction Hierarchy</td> <td>System prompt isolation, privilege separation</td> <td>T1, T3, T4</td> </tr><tr> <td>Rate Limiting</td> <td>Per-user, per-session, per-endpoint throttling</td> <td>T5, T14</td> </tr><tr> <td>Output Validation</td> <td>Content classifiers, structured output enforcement</td> <td>T7, T8</td> </tr><tr> <td>Tool Permission Scoping</td> <td>Capability-based access, least privilege</td> <td>T11</td> </tr><tr> <td>Data Provenance</td> <td>Training data lineage, RAG source authentication</td> <td>T6, T12, T13</td> </tr><tr> <td>Infrastructure Hardening</td> <td>Network segmentation, auth on all services</td> <td>T14</td> </tr><tr> <td>Human Workflow Controls</td> <td>Reviewer training, decision audit trails</td> <td>T15</td> </tr><tr> <td>Monitoring &amp; Alerting</td> <td>Detection engineering, log aggregation</td> <td>All</td> </tr> </tbody> </table> </div> <h3>Monitoring Dashboard Targets</h3> <div> <table> <thead> <tr> <th>Metric</th> <th>Target</th> <th>Frequency</th> </tr> </thead> <tbody> <tr> <td>Jailbreak attempt rate</td> <td>&lt; 5% of queries</td> <td>Real-time</td> </tr><tr> <td>Safety filter bypass rate</td> <td>&lt; 0.01%</td> <td>Real-time</td> </tr><tr> <td>API abuse detection latency</td> <td>&lt; 30 seconds</td> <td>Real-time</td> </tr><tr> <td>Model artifact integrity</td> <td>100% verified</td> <td>Per-deployment</td> </tr><tr> <td>RAG source freshness</td> <td>&lt; 24 hours stale</td> <td>Hourly</td> </tr><tr> <td>Incident response time (P1)</td> <td>&lt; 15 minutes</td> <td>Per-incident</td> </tr> </tbody> </table> </div> </section> </div>
+</section>
+
+<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 23 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a></div></div></section>
+
+<footer class="footer"><div class="footer-inner"><a href="/" class="wm" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div></footer>
+
+</body>
+</html>

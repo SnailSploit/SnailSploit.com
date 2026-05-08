@@ -1,0 +1,402 @@
+[
+  [
+    "/ai-security/aatmf-vs-mitre-atlas/",
+    "AATMF v3.1 vs MITRE ATLAS: Which AI Security Framework Wins?",
+    "2026-02-20"
+  ],
+  [
+    "/ai-security/adversarial-prompting/",
+    "Adversarial Prompting: The Complete Technical Guide",
+    "2026-03-10"
+  ],
+  [
+    "/ai-security/agentic-ai-threat-landscape/",
+    "Agentic AI Threat Landscape: Attack Vectors & Defenses",
+    "2026-02-11"
+  ],
+  [
+    "/ai-security/ai-breach-detection-gap/",
+    "AI Breach Detection Gap: The Logs Are Clean. You're Not.",
+    "2026-02-20"
+  ],
+  [
+    "/ai-security/ai-coding-agent-attack-surface/",
+    "AI Coding Agent Attack Surface: A Full Taxonomy",
+    "2026-02-17"
+  ],
+  [
+    "/ai-security/ai-gateway-threat-model/",
+    "AI Gateway Threat Model: 8 Attack Vectors",
+    "2026-02-11"
+  ],
+  [
+    "/ai-security/ai-social-engineering-deepfake/",
+    "AI Social Engineering: Deepfake Voice Detection",
+    "2025-08-09"
+  ],
+  [
+    "/ai-security/computational-countertransference/",
+    "Computational Countertransference: LLM Context Inheritance",
+    "2026-02-13"
+  ],
+  [
+    "/ai-security/hidden-risks-offensive-perspective/",
+    "Hidden Risks of AI: An Offensive Security Perspective",
+    "2024-06-08"
+  ],
+  [
+    "/ai-security/jailbreaking/ai-inherent-vulnerability/",
+    "Is AI Inherently Vulnerable? An Offensive Analysis",
+    "2024-11-19"
+  ],
+  [
+    "/ai-security/jailbreaking/chatgpt-context-jailbreak/",
+    "ChatGPT Jailbreak via Context Manipulation",
+    "2024-05-27"
+  ],
+  [
+    "/ai-security/jailbreaking/context-inheritance-exploit/",
+    "Context Inheritance Exploit: Persistent Jailbreaks",
+    "2025-01-04"
+  ],
+  [
+    "/ai-security/jailbreaking/inherent-ai-vulnerabilities/",
+    "Inherent AI Vulnerabilities: Technical Deep Dive",
+    "2025-02-10"
+  ],
+  [
+    "/ai-security/jailbreaking/jailbreak-techniques/",
+    "LLM Jailbreak Techniques: A Technical Taxonomy",
+    "2026-03-10"
+  ],
+  [
+    "/ai-security/jailbreaking/memory-manipulation-attacks/",
+    "Memory Manipulation: AI Context Poisoning",
+    "2026-01-06"
+  ],
+  [
+    "/ai-security/llm-red-teamers-playbook/",
+    "LLM Red Teamer's Playbook: Diagnosing AI Defense Layers",
+    "2026-02-20"
+  ],
+  [
+    "/ai-security/mcp-vs-a2a-attack-surface/",
+    "MCP vs A2A Attack Surface: Every Trust Boundary Mapped",
+    "2026-03-01"
+  ],
+  [
+    "/ai-security/prompt-injection/custom-instruction-backdoor/",
+    "Custom Instruction Backdoor: ChatGPT Prompt Injection",
+    "2025-05-18"
+  ],
+  [
+    "/ai-security/prompt-injection/mcp-security-deep-dive/",
+    "MCP Security Hardening: Production Vulnerability Guide",
+    "2025-08-09"
+  ],
+  [
+    "/ai-security/prompt-injection/mcp-threat-analysis/",
+    "MCP Threat Analysis: Attack Chains & Protocol Dissection",
+    "2025-05-18"
+  ],
+  [
+    "/ai-security/prompt-injection/memory-injection-nested-skills/",
+    "Memory Injection Through Nested Skills: Autonomous LLM Agent Compromise",
+    "2026-03-10"
+  ],
+  [
+    "/ai-security/prompt-injection/prompt-injection-examples/",
+    "Prompt Injection Examples: Real Attack Patterns Explained",
+    "2026-03-10"
+  ],
+  [
+    "/ai-security/rag-agentic-attack-surface/",
+    "RAG, Agentic AI, and the New Attack Surface",
+    "2025-10-17"
+  ],
+  [
+    "/ai-security/rai-judge-blind-spots/",
+    "The 30% Blind Spot: Why LLM Safety Judges Fail",
+    "2026-02-26"
+  ],
+  [
+    "/ai-security/self-replicating-memory-worm/",
+    "Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation",
+    "2026-03-11"
+  ],
+  [
+    "/ai-security/structural-vulnerabilities-llms/",
+    "The Structural Vulnerabilities of Large Language Models",
+    "2025-01-25"
+  ],
+  [
+    "/ai-security/weaponized-ai-supply-chain/",
+    "Weaponized AI Supply Chain: How Threat Actors Turned LLMs Into Attack Infrastructure",
+    "2026-03-04"
+  ],
+  [
+    "/ai-security/wiki/attacks/adversarial-examples/",
+    "Adversarial Examples | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/agent-hijacking/",
+    "Agent Hijacking | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/backdoor-attacks/",
+    "Backdoor Attacks | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/data-poisoning/",
+    "Data Poisoning | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/guardrail-bypass/",
+    "Guardrail Bypass | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/indirect-prompt-injection/",
+    "Indirect Prompt Injection | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/jailbreaking/",
+    "Jailbreaking | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/membership-inference/",
+    "Membership Inference | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/model-extraction/",
+    "Model Extraction | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/supply-chain-attacks/",
+    "Supply Chain Attacks | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/system-prompt-extraction/",
+    "System Prompt Extraction | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/attacks/training-data-extraction/",
+    "Training Data Extraction | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/concepts/adversarial-ai/",
+    "Adversarial AI | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/concepts/ai-agents/",
+    "AI Agents | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/concepts/ai-alignment/",
+    "AI Alignment | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/concepts/ai-red-teaming/",
+    "AI Red Teaming | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/concepts/hallucination/",
+    "Hallucination | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/concepts/large-language-models/",
+    "Large Language Models (LLMs) | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/concepts/prompt-injection/",
+    "Prompt Injection | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/concepts/rag/",
+    "RAG (Retrieval-Augmented Generation) | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/defenses/guardrails/",
+    "Guardrails | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/defenses/human-in-the-loop/",
+    "Human-in-the-Loop | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/defenses/input-validation/",
+    "Input Validation | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/defenses/output-filtering/",
+    "Output Filtering | AI Security Wiki",
+    ""
+  ],
+  [
+    "/ai-security/wiki/defenses/rate-limiting/",
+    "Rate Limiting | AI Security Wiki",
+    ""
+  ],
+  [
+    "/frameworks/aatmf/advanced-tactics/",
+    "AATMF Advanced Tactics T9-T12 | RAG Attacks",
+    ""
+  ],
+  [
+    "/frameworks/aatmf/appendices/",
+    "AATMF Appendices | Attack Catalog & Signatures",
+    ""
+  ],
+  [
+    "/frameworks/aatmf/core-tactics/",
+    "AATMF Core Tactics T1-T8 | Prompt Injection",
+    ""
+  ],
+  [
+    "/frameworks/aatmf/foundations/",
+    "AATMF Foundations | Risk Assessment & Architecture",
+    ""
+  ],
+  [
+    "/frameworks/aatmf/governance/",
+    "AATMF Governance | OWASP NIST MITRE Compliance",
+    ""
+  ],
+  [
+    "/frameworks/aatmf/infrastructure/",
+    "AATMF T13-T15 | Supply Chain Exploitation",
+    ""
+  ],
+  [
+    "/frameworks/aatmf/operations/",
+    "AATMF Operations | Red Team & Blue Team Guides",
+    ""
+  ],
+  [
+    "/frameworks/aatmf/prompt-bank/",
+    "AATMF Prompt Bank | Adversarial AI Library",
+    ""
+  ],
+  [
+    "/security-research/cves/cve-2025-11171/",
+    "CVE-2025-11171 | Missing Auth in Chartify Plugin",
+    ""
+  ],
+  [
+    "/security-research/cves/cve-2025-11174/",
+    "CVE-2025-11174 | Missing Auth in Document Library Lite",
+    ""
+  ],
+  [
+    "/security-research/cves/cve-2025-12030/",
+    "CVE-2025-12030 | IDOR in ACF to REST API Plugin",
+    ""
+  ],
+  [
+    "/security-research/cves/cve-2025-12163/",
+    "CVE-2025-12163 | Stored XSS in OmniPress Plugin",
+    ""
+  ],
+  [
+    "/security-research/cves/cve-2025-9776/",
+    "CVE-2025-9776 | SQL Injection in CatFolders Plugin",
+    ""
+  ],
+  [
+    "/security-research/cves/cve-2026-1208/",
+    "CVE-2026-1208 | CSRF to Settings Update in Friendly Functions for Welcart",
+    ""
+  ],
+  [
+    "/security-research/cves/cve-2026-32809/",
+    "CVE-2026-32809 | Symlink Resolution Bypass in ouch",
+    ""
+  ],
+  [
+    "/security-research/cves/cve-2026-3288/",
+    "CVE-2026-3288 | Config Injection in ingress-nginx rewrite-target",
+    ""
+  ],
+  [
+    "/security-research/cves/cve-2026-32885/",
+    "CVE-2026-32885 | Path Traversal (ZipSlip) in ddev",
+    ""
+  ],
+  [
+    "/security-research/cves/cve-2026-33693/",
+    "CVE-2026-33693 | SSRF via Incomplete IP Validation in activitypub-federation-rust",
+    ""
+  ],
+  [
+    "/security-research/general/advanced-container-escapes/",
+    "Advanced Container Escapes: Security Deep Dive",
+    "2025-03-02"
+  ],
+  [
+    "/security-research/general/chatgpt-canvas-rce-dns-exfiltration/",
+    "RCE & DNS Exfiltration in ChatGPT Canvas",
+    "2025-02-01"
+  ],
+  [
+    "/security-research/general/cloud-vulnerability-exploitation/",
+    "Exploiting Cloud Vulnerabilities: Tools and Techniques",
+    "2024-07-10"
+  ],
+  [
+    "/security-research/general/edr-evasion-techniques/",
+    "Evading Endpoint Detection and Response (EDR)",
+    "2025-01-16"
+  ],
+  [
+    "/security-research/general/io-uring-zcrx-race-condition/",
+    "Linux Kernel io_uring/zcrx: Race Condition to Double-Free",
+    "2026-03-11"
+  ],
+  [
+    "/security-research/general/zero-trust-container-runtime/",
+    "Zero-Trust Container Runtime Attestation",
+    "2025-08-09"
+  ],
+  [
+    "/tools/jailbreak-engine/",
+    "JailBreak Engine | AATMF Adversarial Prompt Workbench",
+    ""
+  ],
+  [
+    "/writing/ai-obfuscator-detection-bypass/",
+    "AI-Powered Obfuscator Bypasses Detection in 2 Hours",
+    "2025-04-23"
+  ],
+  [
+    "/writing/embracing-ai-adapt-or-die/",
+    "Embracing AI: Adapt or Die in Cybersecurity",
+    "2024-09-06"
+  ],
+  [
+    "/writing/personal-data-identity-theft/",
+    "Your Personal Data Is for Sale: New Identity Theft",
+    "2024-09-04"
+  ]
+]
