@@ -30,6 +30,78 @@
   <link rel="alternate" type="application/rss+xml" title="snailsploit research" href="/rss.xml">
   <link rel="alternate" type="application/atom+xml" title="snailsploit research" href="/feed.xml">
   <!-- offsite:end -->
+
+  <!-- responsive:start -->
+  <style>
+/* ── responsive overrides ── */
+@media (max-width: 880px) {
+  /* container padding */
+  .nav-inner, .footer-inner, .footer-grid, .hero-inner, .hero-hero-inner, .article-hero-inner, .section-inner, .article-layout, .related-inner, .author-inner, .tabs-inner, .about-header, .about-grid, .article-hero, .related, .author-row, .footer, .nav { padding-left: 20px !important; padding-right: 20px !important; }
+  /* nav: horizontal scroll */
+  .nav-inner { gap: 12px !important; padding-top: 12px !important; padding-bottom: 12px !important; }
+  .nav-links { gap: 18px !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; flex-wrap: nowrap !important; max-width: 100% !important; padding-bottom: 4px !important; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { white-space: nowrap !important; }
+  .nav-utils { display: none !important; }
+  .wm { font-size: 22px !important; }
+  .wm-sig { font-size: 12px !important; }
+  /* typography downscale */
+  .hero-tagline, .h1, [style*="font-size:132px"], [style*="font-size: 132px"] { font-size: 52px !important; line-height: 0.96 !important; letter-spacing: -0.04em !important; }
+  [style*="font-size:128px"], [style*="font-size: 128px"], [style*="font-size:112px"], [style*="font-size: 112px"], [style*="font-size:96px"], [style*="font-size: 96px"] { font-size: 48px !important; line-height: 1 !important; }
+  [style*="font-size:88px"], [style*="font-size: 88px"], .about-heading { font-size: 44px !important; }
+  [style*="font-size:80px"], [style*="font-size: 80px"], [style*="font-size:72px"], [style*="font-size: 72px"], [style*="font-size:64px"], [style*="font-size: 64px"], .article-h1 { font-size: 36px !important; line-height: 1.1 !important; }
+  [style*="font-size:56px"], [style*="font-size: 56px"] { font-size: 32px !important; line-height: 1.1 !important; }
+  [style*="font-size:40px"], [style*="font-size: 40px"], .section-title { font-size: 26px !important; }
+  /* multi-col grids → single col */
+  [style*="grid-template-columns: 180px 1fr 280px"], [style*="grid-template-columns: 180px 1fr"], [style*="grid-template-columns:180px 1fr"], [style*="grid-template-columns: 180px 1fr 280px"] { grid-template-columns: 1fr !important; gap: 24px !important; }
+  [style*="grid-template-columns: 1fr auto"], [style*="grid-template-columns:1fr auto"] { grid-template-columns: 1fr !important; gap: 12px !important; }
+  [style*="grid-template-columns: 1.4fr 1fr"], [style*="grid-template-columns:1.4fr 1fr"], [style*="grid-template-columns: 1.3fr 1fr"], [style*="grid-template-columns:1.3fr 1fr"], [style*="grid-template-columns: 1.1fr 1fr"], [style*="grid-template-columns:1.1fr 1fr"] { grid-template-columns: 1fr !important; gap: 32px !important; }
+  [style*="grid-template-columns: 240px 1fr"], [style*="grid-template-columns:240px 1fr"], [style*="grid-template-columns: 200px 1fr 280px"], [style*="grid-template-columns:200px 1fr 280px"] { grid-template-columns: 1fr !important; gap: 12px !important; }
+  [style*="grid-template-columns: 2fr 1fr 1fr 1fr"], [style*="grid-template-columns:2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
+  [style*="grid-template-columns: 1fr 1fr"], [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 180px 1.2fr 1.5fr 60px 60px"], [style*="grid-template-columns:180px 1.2fr 1.5fr 60px 60px"] { grid-template-columns: 1fr 60px !important; gap: 8px !important; font-size: 11px !important; }
+  /* hub list rows */
+  .row { grid-template-columns: 1fr !important; gap: 6px !important; padding: 16px 0 !important; }
+  .row-meta { text-align: left !important; font-size: 10px !important; }
+  /* sticky stuff goes static */
+  .sticky-label, .toc, .tabs, [style*="position: sticky"], [style*="position:sticky"] { position: static !important; max-height: none !important; }
+  .toc { display: none !important; }
+  /* cards stack */
+  .cards { grid-template-columns: 1fr !important; gap: 12px !important; }
+  /* tools grid */
+  .tools-grid { grid-template-columns: 1fr !important; }
+  .tool-cell.odd, .tool-cell.even { padding-left: 0 !important; padding-right: 0 !important; border-right: 0 !important; }
+  /* section padding */
+  .article-hero { padding-top: 40px !important; padding-bottom: 40px !important; }
+  .article-body-section, .section { padding-top: 40px !important; padding-bottom: 40px !important; }
+  /* badges shrink */
+  .badge, .hero-badges .badge { font-size: 10px !important; padding: 5px 8px !important; }
+  /* hero links column */
+  .hero-links { border-left: 0 !important; padding-left: 0 !important; padding-top: 24px !important; border-top: 1px solid var(--line); margin-top: 12px; }
+  /* footer stacks */
+  .footer-inner { flex-direction: column !important; gap: 24px !important; align-items: flex-start !important; }
+  /* tables: horizontal scroll */
+  .article-body table, table { display: block !important; overflow-x: auto !important; max-width: 100% !important; white-space: nowrap !important; }
+  /* code blocks: shrink */
+  .article-body pre { font-size: 11px !important; padding: 12px !important; }
+  .article-body { font-size: 16px !important; }
+  /* article-meta */
+  .article-meta { gap: 12px !important; font-size: 10px !important; flex-wrap: wrap !important; }
+  /* crumbs wrap nicely */
+  .crumbs { font-size: 10px !important; }
+}
+
+@media (max-width: 480px) {
+  .hero-tagline { font-size: 40px !important; }
+  .h1 { font-size: 36px !important; }
+  .article-h1 { font-size: 28px !important; }
+  .about-heading { font-size: 36px !important; }
+  .nav-inner { padding-top: 10px !important; padding-bottom: 10px !important; }
+  .wm { font-size: 20px !important; }
+  .badge { font-size: 9px !important; padding: 4px 6px !important; }
+}
+</style>
+  <!-- responsive:end -->
 </head>
 <body>
   <div class="wrap">
