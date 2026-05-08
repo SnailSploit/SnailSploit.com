@@ -30,6 +30,8 @@
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_US">
   <meta property="book:author" content="Kai Aizen">
+  <meta property="book:isbn" content="978-965-598-977-9">
+  <meta property="book:release_date" content="2025">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@SnailSploit">
@@ -41,7 +43,7 @@
   <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
   {"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"snailsploit","jobTitle":"Independent Offensive Security Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen"]},
-  {"@type":"Book","@id":"https://snailsploit.com/adversarial-minds#book","name":"Adversarial Minds","author":{"@id":"https://snailsploit.com/#kai"},"inLanguage":"en","bookFormat":"https://schema.org/EBook","url":"https://snailsploit.com/adversarial-minds","about":["Offensive Security","Social Engineering","Adversarial Psychology","Red Teaming"],"genre":"Cybersecurity, Psychology","description":"A book on offensive psychology, social engineering, and adversarial reasoning. The human-layer companion to AATMF and SEF."},
+  {"@type":"Book","@id":"https://snailsploit.com/adversarial-minds#book","name":"Adversarial Minds","author":{"@id":"https://snailsploit.com/#kai"},"inLanguage":"en","isbn":"978-965-598-977-9","bookFormat":"https://schema.org/Paperback","url":"https://snailsploit.com/adversarial-minds","about":["Offensive Security","Social Engineering","Adversarial Psychology","Red Teaming"],"genre":"Cybersecurity, Psychology","description":"A book on offensive psychology, social engineering, and adversarial reasoning. The human-layer companion to AATMF and SEF.","workExample":{"@type":"Book","isbn":"978-965-598-977-9","bookFormat":"https://schema.org/Paperback","inLanguage":"en"}},
   {"@type":"BreadcrumbList","itemListElement":[
     {"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com"},
     {"@type":"ListItem","position":2,"name":"Writing","item":"https://snailsploit.com/writing"},
@@ -156,7 +158,8 @@ const AdvMindsPage = () => (
         </div>
         <div>
           <Stat k="author" v="Kai Aizen" />
-          <Stat k="format" v="ebook · print" />
+          <Stat k="format" v="paperback · ebook" />
+          <Stat k="isbn" v="978-965-598-977-9" />
           <Stat k="pages" v="~280" />
           <Stat k="audience" v="red teamers · researchers · defenders" />
           <Stat k="related" v="AATMF · SEF · P.R.O.M.P.T" />

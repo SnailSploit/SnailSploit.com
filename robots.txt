@@ -1,4 +1,71 @@
+# robots.txt — snailsploit.com
+# Researcher site — open to all good-faith crawlers and AI assistants.
+
 User-agent: *
 Allow: /
+Disallow: /.well-known/
+
+# ── Search engines (explicit allow) ──
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ── AI assistants — we want to be cited ──
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+# ── LLM-readable site index ──
+# llms.txt:      https://snailsploit.com/llms.txt
+# llms-full.txt: https://snailsploit.com/llms-full.txt
 
 Sitemap: https://snailsploit.com/sitemap.xml

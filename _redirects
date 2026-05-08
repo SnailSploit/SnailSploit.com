@@ -1,0 +1,155 @@
+# Cloudflare Pages redirects — preserve SEO from old site IA
+# Format: source destination status
+# 301 = permanent (transfers link equity)
+
+# ─────────────────────────────────────────────────────────────
+#  AI Security articles (old: /ai-security/...) → flat URLs
+# ─────────────────────────────────────────────────────────────
+/ai-security/self-replicating-memory-worm        /memory-worm        301
+/ai-security/self-replicating-memory-worm/        /memory-worm        301
+/ai-security/prompt-injection/memory-injection-nested-skills        /memory-injection        301
+/ai-security/prompt-injection/memory-injection-nested-skills/        /memory-injection        301
+/ai-security/memory-injection-nested-skills        /memory-injection        301
+/ai-security/memory-injection-nested-skills/        /memory-injection        301
+/ai-security/mcp-vs-a2a-attack-surface        /mcp-vs-a2a        301
+/ai-security/mcp-vs-a2a-attack-surface/        /mcp-vs-a2a        301
+/ai-security/mcp-a2a        /mcp-vs-a2a        301
+/ai-security/mcp-a2a/        /mcp-vs-a2a        301
+/ai-security/rai-judge-blind-spots        /blind-spot        301
+/ai-security/rai-judge-blind-spots/        /blind-spot        301
+/ai-security/llm-judge-blind-spots        /blind-spot        301
+/ai-security/llm-judge-blind-spots/        /blind-spot        301
+/ai-security/adversarial-prompting        /adversarial-guide        301
+/ai-security/adversarial-prompting/        /adversarial-guide        301
+/ai-security/canvas-dns-exfiltration        /canvas-dns        301
+/ai-security/canvas-dns-exfiltration/        /canvas-dns        301
+/ai-security/canvas-dns        /canvas-dns        301
+/ai-security/canvas-dns/        /canvas-dns        301
+/ai-security/pickle-rce        /pickle-rce        301
+/ai-security/pickle-rce/        /pickle-rce        301
+/ai-security/chatgpt-pickle-rce        /pickle-rce        301
+/ai-security/chatgpt-pickle-rce/        /pickle-rce        301
+
+# AI Security category landing pages → wiki / research
+/ai-security/jailbreaking        /wiki#jailbreaking        301
+/ai-security/jailbreaking/        /wiki#jailbreaking        301
+/ai-security/prompt-injection        /wiki#prompt-injection        301
+/ai-security/prompt-injection/        /wiki#prompt-injection        301
+/ai-security/wiki        /wiki        301
+/ai-security/wiki/        /wiki        301
+/ai-security        /research        301
+/ai-security/        /research        301
+/ai-security/*        /research        301
+
+# ─────────────────────────────────────────────────────────────
+#  Frameworks (old: /frameworks/...)
+# ─────────────────────────────────────────────────────────────
+/frameworks/aatmf        /aatmf        301
+/frameworks/aatmf/        /aatmf        301
+/frameworks/aatmf/core-tactics        /aatmf        301
+/frameworks/aatmf/core-tactics/        /aatmf        301
+/frameworks/aatmf/*        /aatmf        301
+/frameworks/sef        /sef        301
+/frameworks/sef/        /sef        301
+/frameworks/sef/*        /sef        301
+/frameworks/p-r-o-m-p-t        /prompt        301
+/frameworks/p-r-o-m-p-t/        /prompt        301
+/frameworks/prompt        /prompt        301
+/frameworks/prompt/        /prompt        301
+/frameworks/p.r.o.m.p.t        /prompt        301
+/frameworks/p.r.o.m.p.t/        /prompt        301
+/frameworks/claude-red        /claude-red        301
+/frameworks/claude-red/        /claude-red        301
+/frameworks/aatmf-toolkit        /toolkit        301
+/frameworks/aatmf-toolkit/        /toolkit        301
+/frameworks/toolkit        /toolkit        301
+/frameworks/toolkit/        /toolkit        301
+/frameworks/playbook        /playbook        301
+/frameworks/playbook/        /playbook        301
+/frameworks/llm-red-teamers-playbook        /playbook        301
+/frameworks/llm-red-teamers-playbook/        /playbook        301
+
+# ─────────────────────────────────────────────────────────────
+#  Security Research (old: /security-research/...)
+# ─────────────────────────────────────────────────────────────
+/security-research/cves        /cves        301
+/security-research/cves/        /cves        301
+/security-research/cves/*        /cves        301
+/security-research/general/io-uring-zcrx-race-condition        /kernel        301
+/security-research/general/io-uring-zcrx-race-condition/        /kernel        301
+/security-research/general/*        /research        301
+/security-research/infrastructure        /research        301
+/security-research/infrastructure/        /research        301
+/security-research/infrastructure/*        /research        301
+/security-research/appsec        /research        301
+/security-research/appsec/        /research        301
+/security-research        /research        301
+/security-research/        /research        301
+
+# ─────────────────────────────────────────────────────────────
+#  Tools (old per-tool URLs)
+# ─────────────────────────────────────────────────────────────
+/tools/burp-mcp        /tools        301
+/tools/burp-mcp-toolkit        /tools        301
+/tools/snailhunter        /tools        301
+/tools/kuberoast        /tools        301
+/tools/xposure        /tools        301
+/tools/snailsploit-recon        /tools        301
+/tools/snailpath        /tools        301
+/tools/zenflood        /tools        301
+/tools/snailobfuscator        /tools        301
+/tools/awesome-snail-osint        /tools        301
+/tools/justdastit        /tools        301
+/tools/jailbreak-engine        /tools        301
+/tools/*        /tools        301
+
+# ─────────────────────────────────────────────────────────────
+#  Book / About / misc
+# ─────────────────────────────────────────────────────────────
+/book        /adversarial-minds        301
+/book/        /adversarial-minds        301
+/the-book        /adversarial-minds        301
+/the-book/        /adversarial-minds        301
+/adversarial-minds/        /adversarial-minds        301
+/about/adversarial-minds        /adversarial-minds        301
+/about/adversarial-minds/        /adversarial-minds        301
+
+# Trailing slash normalization (CF Pages does this for top-level, explicit for nested)
+/about/        /about        301
+/services/        /services        301
+/contact/        /contact        301
+/frameworks/        /frameworks        301
+/research/        /research        301
+/tools/        /tools        301
+/cves/        /cves        301
+/advisories/        /advisories        301
+/kernel/        /kernel        301
+/writing/        /writing        301
+/wiki/        /wiki        301
+/aatmf/        /aatmf        301
+/sef/        /sef        301
+/prompt/        /prompt        301
+/claude-red/        /claude-red        301
+/toolkit/        /toolkit        301
+/playbook/        /playbook        301
+/brand/        /brand        301
+/memory-worm/        /memory-worm        301
+/memory-injection/        /memory-injection        301
+/canvas-dns/        /canvas-dns        301
+/pickle-rce/        /pickle-rce        301
+/mcp-vs-a2a/        /mcp-vs-a2a        301
+/blind-spot/        /blind-spot        301
+/adversarial-guide/        /adversarial-guide        301
+
+# ─────────────────────────────────────────────────────────────
+#  Deprecated content — soft-redirect to closest match
+# ─────────────────────────────────────────────────────────────
+/threat-feed        /research        301
+/threat-feed/        /research        301
+/feed        /research        301
+/feed/        /research        301
+
+# Catch-all for old structures that don't match anything else (last)
+/ai-security/*        /research        301
+/frameworks/*        /frameworks        301
+/security-research/*        /research        301
