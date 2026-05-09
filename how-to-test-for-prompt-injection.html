@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Test for Prompt Injection | snailsploit</title>
+<meta name="description" content="A 6-step methodology for testing LLM-based systems against direct, indirect, multi-turn, and agentic prompt injection — straight from AATMF Volume II.">
+<meta name="author" content="Kai Aizen">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://snailsploit.com/how-to-test-for-prompt-injection">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:inherit;text-decoration:none}
+.crumbs{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 96%,transparent)}.crumbs-i{max-width:1280px;margin:0 auto;padding:14px 32px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}.crumbs-i a{color:var(--fg-3)}.crumbs-i .sep{color:var(--fg-4);margin:0 8px}
+.hero{padding:80px 32px 56px;border-bottom:1px solid var(--line)}.hero-i{max-width:780px;margin:0 auto}
+.eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:16px}
+h1{font-size:48px;font-weight:500;line-height:1.05;letter-spacing:-0.03em;margin:0;color:var(--fg)}
+.lede{font-family:var(--f-mono);font-size:15px;color:var(--fg-2);line-height:1.65;margin:24px 0 0}
+.body{padding:56px 32px;border-bottom:1px solid var(--line)}.body-i{max-width:780px;margin:0 auto}
+.step{margin-bottom:48px;padding-left:24px;border-left:2px solid var(--line);scroll-margin-top:96px}.step:last-child{margin-bottom:0}
+.step-num{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:8px}
+.step h2{font-size:24px;font-weight:500;letter-spacing:-0.02em;color:var(--fg);margin:0 0 12px;line-height:1.25}
+.step p{font-size:16px;line-height:1.7;color:var(--fg-2);margin:0}
+.step a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.see-also{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}.see-i{max-width:780px;margin:0 auto}
+.see-h{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px}
+.see-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.see-card{padding:14px 16px;border:1px solid var(--line-hi);background:var(--bg);font-family:var(--f-mono);font-size:13px;display:flex;justify-content:space-between;color:var(--fg)}.see-card:hover{border-color:var(--signal-2)}
+@media (max-width:880px){h1{font-size:32px}.crumbs-i,.hero,.body,.see-also{padding-left:20px !important;padding-right:20px !important}}
+</style>
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Test for Prompt Injection">
+<meta property="og:description" content="A 6-step methodology for testing LLM-based systems against direct, indirect, multi-turn, and agentic prompt injection — straight from AATMF Volume II.">
+<meta property="og:url" content="https://snailsploit.com/how-to-test-for-prompt-injection">
+<meta property="og:image" content="https://snailsploit.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SnailSploit">
+<meta name="twitter:title" content="How to Test for Prompt Injection">
+<meta name="twitter:description" content="A 6-step methodology for testing LLM-based systems against direct, indirect, multi-turn, and agentic prompt injection — straight from AATMF Volume II.">
+<meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Test for Prompt Injection","description":"A 6-step methodology for testing LLM-based systems against direct, indirect, multi-turn, and agentic prompt injection \u2014 straight from AATMF Volume II.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-05-08","dateModified":"2026-05-08","url":"https://snailsploit.com/how-to-test-for-prompt-injection","mainEntityOfPage":"https://snailsploit.com/how-to-test-for-prompt-injection","image":"https://snailsploit.com/og-cover.png","keywords":"prompt injection testing, LLM security testing, AATMF, adversarial AI"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to Test for Prompt Injection","description":"A 6-step methodology for testing LLM-based systems against direct, indirect, multi-turn, and agentic prompt injection \u2014 straight from AATMF Volume II.","image":"https://snailsploit.com/og-cover.png","url":"https://snailsploit.com/how-to-test-for-prompt-injection","author":{"@id":"https://snailsploit.com/#kai"},"totalTime":"PT30M","step":[{"@type":"HowToStep","position":1,"name":"Map the trust boundary","text":"Identify every place untrusted text enters the model's context \u2014 user input, tool outputs, retrieved docs, system files. The boundary is wherever the model treats data as instructions.","url":"https://snailsploit.com/how-to-test-for-prompt-injection#step-1"},{"@type":"HowToStep","position":2,"name":"Test direct injection first","text":"Inject role-override payloads (\"ignore previous instructions\"), persona reframing, and authority claims. AATMF T1 covers 16 techniques in this category.","url":"https://snailsploit.com/how-to-test-for-prompt-injection#step-2"},{"@type":"HowToStep","position":3,"name":"Move to indirect injection","text":"Plant payloads in retrievable sources (web pages, files, RAG corpora). The user is not the attacker \u2014 the data is. AATMF T1.4 documents 7 patterns.","url":"https://snailsploit.com/how-to-test-for-prompt-injection#step-3"},{"@type":"HowToStep","position":4,"name":"Probe multi-turn drift","text":"Decompose the attack across turns to evade single-turn filters. AATMF T4 has 16 techniques covering memory manipulation, context hijacking, and persona persistence.","url":"https://snailsploit.com/how-to-test-for-prompt-injection#step-4"},{"@type":"HowToStep","position":5,"name":"Stress-test the agent layer","text":"If tools/MCP are exposed, test tool-call poisoning, parameter manipulation, and trust-chain abuse. AATMF T11 covers this.","url":"https://snailsploit.com/how-to-test-for-prompt-injection#step-5"},{"@type":"HowToStep","position":6,"name":"Score with AATMF-R","text":"Quantify each finding with the AATMF Risk score: Likelihood \u00d7 Impact \u00d7 Exploitability \u00d7 Detectability \u00d7 Reversibility \u00d7 Confidence. Output: comparable severity numbers across findings.","url":"https://snailsploit.com/how-to-test-for-prompt-injection#step-6"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"How-To","item":"https://snailsploit.com/how-to-test-for-prompt-injection"}]}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KNQQ58JL');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQQ58JL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header style="position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)"><div style="max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center"><a href="/" style="font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);text-decoration:none">snailsploit<span style="font-family:var(--f-mono);font-size:16.24px">[<span style="color:var(--signal-2)">$</span>]</span></a><nav style="display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2)"><a href="/about" style="color:inherit;text-decoration:none">about</a><a href="/services" style="color:inherit;text-decoration:none">services</a><a href="/aatmf" style="color:inherit;text-decoration:none">aatmf</a><a href="/research" style="color:inherit;text-decoration:none">research</a><a href="/wiki" style="color:inherit;text-decoration:none">wiki</a></nav></div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="crumbs-i"><a href="/">Home</a><span class="sep">/</span><span style="color:var(--fg)">How-To · How to Test for Prompt Injection</span></div></nav>
+<section class="hero"><div class="hero-i"><div class="eyebrow">How-to · 6 steps</div><h1>How to Test for Prompt Injection</h1><p class="lede">A 6-step methodology for testing LLM-based systems against direct, indirect, multi-turn, and agentic prompt injection — straight from AATMF Volume II.</p></div></section>
+<section class="body"><div class="body-i"><div class="step" id="step-1">
+<div class="step-num">Step 1</div>
+<h2>Map the trust boundary</h2>
+<p>Identify every place untrusted text enters the model's context — user input, tool outputs, retrieved docs, system files. The boundary is wherever the model treats data as instructions.</p>
+</div><div class="step" id="step-2">
+<div class="step-num">Step 2</div>
+<h2>Test direct injection first</h2>
+<p>Inject role-override payloads ("ignore previous instructions"), persona reframing, and authority claims. AATMF T1 covers 16 techniques in this category.</p>
+</div><div class="step" id="step-3">
+<div class="step-num">Step 3</div>
+<h2>Move to indirect injection</h2>
+<p>Plant payloads in retrievable sources (web pages, files, RAG corpora). The user is not the attacker — the data is. AATMF T1.4 documents 7 patterns.</p>
+</div><div class="step" id="step-4">
+<div class="step-num">Step 4</div>
+<h2>Probe multi-turn drift</h2>
+<p>Decompose the attack across turns to evade single-turn filters. AATMF T4 has 16 techniques covering memory manipulation, context hijacking, and persona persistence.</p>
+</div><div class="step" id="step-5">
+<div class="step-num">Step 5</div>
+<h2>Stress-test the agent layer</h2>
+<p>If tools/MCP are exposed, test tool-call poisoning, parameter manipulation, and trust-chain abuse. AATMF T11 covers this.</p>
+</div><div class="step" id="step-6">
+<div class="step-num">Step 6</div>
+<h2>Score with AATMF-R</h2>
+<p>Quantify each finding with the AATMF Risk score: Likelihood × Impact × Exploitability × Detectability × Reversibility × Confidence. Output: comparable severity numbers across findings.</p>
+</div></div></section>
+<section class="see-also"><div class="see-i"><div class="see-h">See also</div><div class="see-grid"><a href="/aatmf" class="see-card"><span>AATMF v3.1 framework</span><span style="color:var(--fg-3)">→</span></a><a href="/wiki" class="see-card"><span>AI Security Wiki</span><span style="color:var(--fg-3)">→</span></a><a href="/playbook" class="see-card"><span>LLM Red Teamer's Playbook</span><span style="color:var(--fg-3)">→</span></a><a href="/services" class="see-card"><span>Engage AI red team</span><span style="color:var(--fg-3)">→</span></a></div></div></section>
+<footer style="background:var(--bg-sink)"><div style="max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);flex-wrap:wrap;gap:16px"><span>© 2026 kai aizen · same attack. different substrate.</span><span style="display:flex;gap:14px"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a></span></div></footer>
+</body></html>

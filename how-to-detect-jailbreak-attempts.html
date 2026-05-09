@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Detect Jailbreak Attempts | snailsploit</title>
+<meta name="description" content="Behavioral fingerprints, output classifiers, and decay-tracking — three concentric defense layers for catching jailbreaks in production LLMs.">
+<meta name="author" content="Kai Aizen">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://snailsploit.com/how-to-detect-jailbreak-attempts">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:inherit;text-decoration:none}
+.crumbs{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 96%,transparent)}.crumbs-i{max-width:1280px;margin:0 auto;padding:14px 32px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}.crumbs-i a{color:var(--fg-3)}.crumbs-i .sep{color:var(--fg-4);margin:0 8px}
+.hero{padding:80px 32px 56px;border-bottom:1px solid var(--line)}.hero-i{max-width:780px;margin:0 auto}
+.eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:16px}
+h1{font-size:48px;font-weight:500;line-height:1.05;letter-spacing:-0.03em;margin:0;color:var(--fg)}
+.lede{font-family:var(--f-mono);font-size:15px;color:var(--fg-2);line-height:1.65;margin:24px 0 0}
+.body{padding:56px 32px;border-bottom:1px solid var(--line)}.body-i{max-width:780px;margin:0 auto}
+.step{margin-bottom:48px;padding-left:24px;border-left:2px solid var(--line);scroll-margin-top:96px}.step:last-child{margin-bottom:0}
+.step-num{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:8px}
+.step h2{font-size:24px;font-weight:500;letter-spacing:-0.02em;color:var(--fg);margin:0 0 12px;line-height:1.25}
+.step p{font-size:16px;line-height:1.7;color:var(--fg-2);margin:0}
+.step a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.see-also{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}.see-i{max-width:780px;margin:0 auto}
+.see-h{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px}
+.see-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.see-card{padding:14px 16px;border:1px solid var(--line-hi);background:var(--bg);font-family:var(--f-mono);font-size:13px;display:flex;justify-content:space-between;color:var(--fg)}.see-card:hover{border-color:var(--signal-2)}
+@media (max-width:880px){h1{font-size:32px}.crumbs-i,.hero,.body,.see-also{padding-left:20px !important;padding-right:20px !important}}
+</style>
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Detect Jailbreak Attempts">
+<meta property="og:description" content="Behavioral fingerprints, output classifiers, and decay-tracking — three concentric defense layers for catching jailbreaks in production LLMs.">
+<meta property="og:url" content="https://snailsploit.com/how-to-detect-jailbreak-attempts">
+<meta property="og:image" content="https://snailsploit.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SnailSploit">
+<meta name="twitter:title" content="How to Detect Jailbreak Attempts">
+<meta name="twitter:description" content="Behavioral fingerprints, output classifiers, and decay-tracking — three concentric defense layers for catching jailbreaks in production LLMs.">
+<meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Detect Jailbreak Attempts","description":"Behavioral fingerprints, output classifiers, and decay-tracking \u2014 three concentric defense layers for catching jailbreaks in production LLMs.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-05-08","dateModified":"2026-05-08","url":"https://snailsploit.com/how-to-detect-jailbreak-attempts","mainEntityOfPage":"https://snailsploit.com/how-to-detect-jailbreak-attempts","image":"https://snailsploit.com/og-cover.png","keywords":"jailbreak detection, LLM safety, AATMF, adversarial AI defense"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to Detect Jailbreak Attempts","description":"Behavioral fingerprints, output classifiers, and decay-tracking \u2014 three concentric defense layers for catching jailbreaks in production LLMs.","image":"https://snailsploit.com/og-cover.png","url":"https://snailsploit.com/how-to-detect-jailbreak-attempts","author":{"@id":"https://snailsploit.com/#kai"},"totalTime":"PT30M","step":[{"@type":"HowToStep","position":1,"name":"Define the policy first","text":"You can only detect deviation if there's a policy to deviate from. Document: refusal categories, sensitivity tiers, allowed personas. Without this, jailbreak \u2260 jailbreak.","url":"https://snailsploit.com/how-to-detect-jailbreak-attempts#step-1"},{"@type":"HowToStep","position":2,"name":"Add input-side fingerprinting","text":"Detect role-override grammar, encoding tricks, persona reframing patterns. AATMF Appendix B has the signatures library \u2014 20+ fingerprints.","url":"https://snailsploit.com/how-to-detect-jailbreak-attempts#step-2"},{"@type":"HowToStep","position":3,"name":"Add output-side classifiers","text":"LLM-as-judge classifiers catch semantic policy violations the input-side missed. Note: judges miss ~30% of adversarial outputs (see /ai-security/rai-judge-blind-spots/).","url":"https://snailsploit.com/how-to-detect-jailbreak-attempts#step-3"},{"@type":"HowToStep","position":4,"name":"Track decay signals","text":"Compare current-turn safety to baseline. A 3-turn drift in tone, formality, or refusal posture is a leading indicator. Most production safeguards miss this.","url":"https://snailsploit.com/how-to-detect-jailbreak-attempts#step-4"},{"@type":"HowToStep","position":5,"name":"Layer detection like Swiss cheese","text":"No single layer catches everything. Stack input fingerprints + output classifier + decay tracker + human-in-loop on high-risk paths.","url":"https://snailsploit.com/how-to-detect-jailbreak-attempts#step-5"},{"@type":"HowToStep","position":6,"name":"Audit refusal rates","text":"Watch for jailbreak success at the population level: refusal rate by category, per session length, per persona. Fluctuations = active campaigns.","url":"https://snailsploit.com/how-to-detect-jailbreak-attempts#step-6"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"How-To","item":"https://snailsploit.com/how-to-detect-jailbreak-attempts"}]}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KNQQ58JL');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQQ58JL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header style="position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)"><div style="max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center"><a href="/" style="font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);text-decoration:none">snailsploit<span style="font-family:var(--f-mono);font-size:16.24px">[<span style="color:var(--signal-2)">$</span>]</span></a><nav style="display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2)"><a href="/about" style="color:inherit;text-decoration:none">about</a><a href="/services" style="color:inherit;text-decoration:none">services</a><a href="/aatmf" style="color:inherit;text-decoration:none">aatmf</a><a href="/research" style="color:inherit;text-decoration:none">research</a><a href="/wiki" style="color:inherit;text-decoration:none">wiki</a></nav></div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="crumbs-i"><a href="/">Home</a><span class="sep">/</span><span style="color:var(--fg)">How-To · How to Detect Jailbreak Attempts</span></div></nav>
+<section class="hero"><div class="hero-i"><div class="eyebrow">How-to · 6 steps</div><h1>How to Detect Jailbreak Attempts</h1><p class="lede">Behavioral fingerprints, output classifiers, and decay-tracking — three concentric defense layers for catching jailbreaks in production LLMs.</p></div></section>
+<section class="body"><div class="body-i"><div class="step" id="step-1">
+<div class="step-num">Step 1</div>
+<h2>Define the policy first</h2>
+<p>You can only detect deviation if there's a policy to deviate from. Document: refusal categories, sensitivity tiers, allowed personas. Without this, jailbreak ≠ jailbreak.</p>
+</div><div class="step" id="step-2">
+<div class="step-num">Step 2</div>
+<h2>Add input-side fingerprinting</h2>
+<p>Detect role-override grammar, encoding tricks, persona reframing patterns. AATMF Appendix B has the signatures library — 20+ fingerprints.</p>
+</div><div class="step" id="step-3">
+<div class="step-num">Step 3</div>
+<h2>Add output-side classifiers</h2>
+<p>LLM-as-judge classifiers catch semantic policy violations the input-side missed. Note: judges miss ~30% of adversarial outputs (see /ai-security/rai-judge-blind-spots/).</p>
+</div><div class="step" id="step-4">
+<div class="step-num">Step 4</div>
+<h2>Track decay signals</h2>
+<p>Compare current-turn safety to baseline. A 3-turn drift in tone, formality, or refusal posture is a leading indicator. Most production safeguards miss this.</p>
+</div><div class="step" id="step-5">
+<div class="step-num">Step 5</div>
+<h2>Layer detection like Swiss cheese</h2>
+<p>No single layer catches everything. Stack input fingerprints + output classifier + decay tracker + human-in-loop on high-risk paths.</p>
+</div><div class="step" id="step-6">
+<div class="step-num">Step 6</div>
+<h2>Audit refusal rates</h2>
+<p>Watch for jailbreak success at the population level: refusal rate by category, per session length, per persona. Fluctuations = active campaigns.</p>
+</div></div></section>
+<section class="see-also"><div class="see-i"><div class="see-h">See also</div><div class="see-grid"><a href="/ai-security/rai-judge-blind-spots/" class="see-card"><span>30% Blind Spot study</span><span style="color:var(--fg-3)">→</span></a><a href="/ai-security/jailbreaking/jailbreak-techniques/" class="see-card"><span>Jailbreak Techniques</span><span style="color:var(--fg-3)">→</span></a><a href="/aatmf" class="see-card"><span>AATMF framework</span><span style="color:var(--fg-3)">→</span></a></div></div></section>
+<footer style="background:var(--bg-sink)"><div style="max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);flex-wrap:wrap;gap:16px"><span>© 2026 kai aizen · same attack. different substrate.</span><span style="display:flex;gap:14px"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a></span></div></footer>
+</body></html>
