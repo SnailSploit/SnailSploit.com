@@ -272,6 +272,63 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
   <!-- citation:end -->
+
+  <!-- multi-framework-row -->
+  <section style="padding:48px 32px;border-bottom:1px solid var(--line);background:var(--bg-sink)">
+    <div style="max-width:1080px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:14px">All major AI security frameworks compared</div>
+      <h2 style="font-family:var(--f-grot);font-size:30px;font-weight:500;color:var(--fg);margin:0 0 20px;letter-spacing:-0.02em">AATMF vs ATLAS vs MAESTRO vs OWASP vs NIST</h2>
+      <p style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);line-height:1.65;margin:0 0 20px;max-width:780px">The full landscape of adversarial AI threat-modeling frameworks. Each solves a different part of the problem; pick based on whether you need a taxonomy (AATMF, ATLAS), an architectural lens (MAESTRO), a risk-prioritization list (OWASP), or a governance baseline (NIST).</p>
+      <table style="width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:12px;border:1px solid var(--line-hi);background:var(--bg)">
+        <thead><tr>
+          <th style="padding:12px 14px;border:1px solid var(--line);background:var(--bg-sink);text-align:left;color:var(--fg);text-transform:uppercase;letter-spacing:0.1em;font-size:10px">Framework</th>
+          <th style="padding:12px 14px;border:1px solid var(--line);background:var(--bg-sink);text-align:left;color:var(--fg);text-transform:uppercase;letter-spacing:0.1em;font-size:10px">Type</th>
+          <th style="padding:12px 14px;border:1px solid var(--line);background:var(--bg-sink);text-align:left;color:var(--fg);text-transform:uppercase;letter-spacing:0.1em;font-size:10px">Scope</th>
+          <th style="padding:12px 14px;border:1px solid var(--line);background:var(--bg-sink);text-align:left;color:var(--fg);text-transform:uppercase;letter-spacing:0.1em;font-size:10px">Granularity</th>
+          <th style="padding:12px 14px;border:1px solid var(--line);background:var(--bg-sink);text-align:left;color:var(--fg);text-transform:uppercase;letter-spacing:0.1em;font-size:10px">Best for</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td style="padding:12px 14px;border:1px solid var(--line);color:var(--signal-2);font-weight:500"><a href="/aatmf" style="color:inherit;border-bottom:1px solid var(--signal-2)">AATMF v3.1</a></td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Procedure-level taxonomy</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Full attack surface (model, training, agent, RAG, supply chain, human)</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">20 tactics · 240+ techniques · 2,152+ procedures · 4,980+ prompts</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Red teamers, AI safety engineers, CTI</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 14px;border:1px solid var(--line);color:var(--fg);font-weight:500"><a href="https://atlas.mitre.org/" target="_blank" rel="noopener noreferrer" style="color:inherit;border-bottom:1px solid var(--line-hi)">MITRE ATLAS</a></td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Adversarial ML knowledge base</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">ML attack lifecycle, observed-in-wild bias</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">16 tactics · 84 techniques · 56 sub-techniques · 42 case studies</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Threat intel teams, ATT&amp;CK shops</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 14px;border:1px solid var(--line);color:var(--fg);font-weight:500"><a href="/aatmf-vs-maestro" style="color:inherit;border-bottom:1px solid var(--line-hi)">MAESTRO</a></td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Architectural framework</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Multi-agent systems — design-time threat modeling</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">7 layers (Foundation Models → Agent Ecosystem)</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Security architects, agent system designers</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 14px;border:1px solid var(--line);color:var(--fg);font-weight:500">OWASP LLM Top-10 / ASI 2026</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Risk prioritization</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">LLM apps + agentic systems</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">10 categories (LLM01-LLM10) + 10 agent risks (ASI)</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Application security teams, dev compliance</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 14px;border:1px solid var(--line);color:var(--fg);font-weight:500">NIST AI RMF</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Governance framework</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">Enterprise AI risk lifecycle</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">4 functions (Govern, Map, Measure, Manage)</td>
+            <td style="padding:12px 14px;border:1px solid var(--line)">CISOs, governance, audit, compliance</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.65;margin:24px 0 0">Stack them: NIST for governance baseline → OWASP for risk prioritization → MAESTRO for architectural threat modeling → AATMF + ATLAS for tactical testing. They're complementary, not competitive.</p>
+      <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:18px"><a href="/aatmf-vs-maestro" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">→ Full AATMF vs MAESTRO comparison</a> &nbsp;·&nbsp; <a href="/aatmf" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">→ AATMF v3.1 spec</a> &nbsp;·&nbsp; <a href="/cite-aatmf" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">→ How to cite AATMF</a></p>
+    </div>
+  </section>
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher. 30 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
 <footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a></span><!-- legal-nav --></footer>
 </body>

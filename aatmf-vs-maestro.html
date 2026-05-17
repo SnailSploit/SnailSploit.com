@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AATMF vs MAESTRO — AI Threat Frameworks Compared | snailsploit</title>
+<meta name="description" content="First head-to-head comparison of AATMF v3.1 (Aizen 2023) and MAESTRO (Huang 2025): scope, granularity, agentic coverage, tooling, when-to-use. Complementary, not competitive.">
+<meta name="author" content="Kai Aizen">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://snailsploit.com/aatmf-vs-maestro">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:inherit;text-decoration:none}
+.crumbs{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 96%,transparent)}.crumbs-i{max-width:1280px;margin:0 auto;padding:14px 32px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}.crumbs-i a{color:var(--fg-3)}.crumbs-i .sep{color:var(--fg-4);margin:0 8px}
+.hero{padding:72px 32px 48px;border-bottom:1px solid var(--line)}.hero-i{max-width:1080px;margin:0 auto}
+.eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:16px}
+h1{font-size:56px;font-weight:500;line-height:1.04;letter-spacing:-0.035em;margin:0;color:var(--fg)}
+.lede{font-family:var(--f-mono);font-size:15px;color:var(--fg-2);line-height:1.65;margin:28px 0 0;max-width:780px}
+.body{padding:64px 32px;border-bottom:1px solid var(--line)}.body-i{max-width:1080px;margin:0 auto;font-size:16px;line-height:1.7;color:var(--fg-2)}
+.body-i h2{font-family:var(--f-grot);font-size:30px;font-weight:500;color:var(--fg);margin:56px 0 16px;padding-top:16px;border-top:1px solid var(--line);letter-spacing:-0.02em}
+.body-i h2:first-of-type{margin-top:0;padding-top:0;border-top:0}
+.body-i h3{font-family:var(--f-grot);font-size:20px;font-weight:500;color:var(--fg);margin:32px 0 8px;letter-spacing:-0.015em}
+.body-i p{margin:14px 0}.body-i ul,.body-i ol{margin:14px 0;padding-left:22px}.body-i li{margin:6px 0}
+.body-i strong{color:var(--fg);font-weight:600}.body-i em{color:var(--fg);font-style:italic}
+.body-i a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.body-i code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);border-radius:2px;color:var(--fg)}
+.body-i pre{background:var(--bg-sink);border:1px solid var(--line);padding:18px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:18px 0}
+.body-i pre code{background:none;border:0;padding:0;font-size:inherit}
+.body-i blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 18px;margin:18px 0;color:var(--fg);font-style:italic}
+table.compare{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px;border:1px solid var(--line-hi)}
+table.compare th,table.compare td{padding:14px 16px;border:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.5}
+table.compare thead th{background:var(--bg-sink);color:var(--fg);text-transform:uppercase;letter-spacing:0.1em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}
+table.compare tbody th{background:var(--bg-raise);color:var(--fg-3);text-transform:uppercase;letter-spacing:0.1em;font-size:10px;font-weight:500;white-space:nowrap}
+table.compare td.signal{color:var(--signal-2);font-weight:500}
+.author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}.author-inner{max-width:780px;margin:0 auto}.author-eye{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}.author-name{font-size:22px;font-weight:500;margin-top:12px}.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;margin-top:8px;max-width:600px}.author-links{font-family:var(--f-mono);font-size:12px;display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
+@media (max-width:880px){h1{font-size:36px}.crumbs-i,.hero,.body,.author-row{padding-left:20px !important;padding-right:20px !important}table.compare{display:block;overflow-x:auto;white-space:nowrap}}
+</style>
+<meta property="og:type" content="article">
+<meta property="og:title" content="AATMF vs MAESTRO — AI Threat Frameworks Compared | snailsploit">
+<meta property="og:description" content="First head-to-head comparison of AATMF v3.1 (Aizen 2023) and MAESTRO (Huang 2025): scope, granularity, agentic coverage, tooling, when-to-use. Complementary, not competitive.">
+<meta property="og:url" content="https://snailsploit.com/aatmf-vs-maestro">
+<meta property="og:site_name" content="snailsploit">
+<meta property="og:image" content="https://snailsploit.com/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SnailSploit">
+<meta name="twitter:creator" content="@SnailSploit">
+<meta name="twitter:title" content="AATMF vs MAESTRO — AI Threat Frameworks Compared | snailsploit">
+<meta name="twitter:description" content="First head-to-head comparison of AATMF v3.1 (Aizen 2023) and MAESTRO (Huang 2025): scope, granularity, agentic coverage, tooling, when-to-use. Complementary, not competitive.">
+<meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AATMF vs MAESTRO \u2014 Adversarial AI Threat Modeling, Compared","description":"First head-to-head comparison of AATMF v3.1 (Aizen 2023) and MAESTRO (Huang 2025) \u2014 two adversarial AI threat modeling frameworks. Side-by-side table, when-to-use guidance, crosswalk.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-05-17","dateModified":"2026-05-17","url":"https://snailsploit.com/aatmf-vs-maestro","mainEntityOfPage":"https://snailsploit.com/aatmf-vs-maestro","image":"https://snailsploit.com/og-cover.png","keywords":"AATMF, MAESTRO, AI threat modeling, framework comparison, adversarial AI"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"AATMF","item":"https://snailsploit.com/aatmf"},{"@type":"ListItem","position":3,"name":"AATMF vs MAESTRO","item":"https://snailsploit.com/aatmf-vs-maestro"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between AATMF and MAESTRO?","acceptedAnswer":{"@type":"Answer","text":"AATMF is a procedure-level adversarial-AI taxonomy (20 tactics, 240+ techniques, 2,152+ procedures, 4,980+ prompts). MAESTRO is a 7-layer architectural threat-modeling framework for multi-agent systems. They are complementary: MAESTRO for design-time threat enumeration, AATMF for testing-time technique catalog."}},{"@type":"Question","name":"Which framework should I use for agentic AI red teaming?","acceptedAnswer":{"@type":"Answer","text":"Use both. MAESTRO gives you the architectural threat picture per layer of your agent stack. AATMF gives you the specific procedures and prompts to test against. AATMF's Tactic 11 (Agentic & Orchestrator Exploitation) maps directly into MAESTRO's L3 Agent Frameworks layer."}},{"@type":"Question","name":"Are AATMF and MAESTRO open source?","acceptedAnswer":{"@type":"Answer","text":"Yes, both. AATMF is published under a permissive open-source license on GitHub. MAESTRO is open methodology published by Cloud Security Alliance. Both are free to use commercially."}}]}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KNQQ58JL');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQQ58JL" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header style="position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)"><div style="max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px"><a href="/" style="font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);text-decoration:none">snailsploit<span style="font-family:var(--f-mono);font-size:16.24px">[<span style="color:var(--signal-2)">$</span>]</span></a><nav style="display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2)"><a href="/about" style="color:inherit;text-decoration:none">about</a><a href="/services" style="color:inherit;text-decoration:none">services</a><a href="/aatmf" style="color:inherit;text-decoration:none">aatmf</a><a href="/research" style="color:inherit;text-decoration:none">research</a><a href="/wiki" style="color:inherit;text-decoration:none">wiki</a><a href="/cves" style="color:inherit;text-decoration:none">cves</a></nav></div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="crumbs-i"><a href="/">Home</a><span class="sep">/</span><a href="/aatmf">AATMF</a><span class="sep">/</span><span style="color:var(--fg)">AATMF vs MAESTRO</span></div></nav>
+
+<section class="hero"><div class="hero-i">
+  <div class="eyebrow">framework comparison · published may 2026</div>
+  <h1>AATMF vs MAESTRO — adversarial AI threat modeling, compared.</h1>
+  <p class="lede">AATMF (Adversarial AI Threat Modeling Framework, Aizen 2023) and MAESTRO (Multi-Agent Environment, Security, Threat, Risk, Outcome — Huang 2025) both threat-model AI systems. They solve different parts of the same problem. This is the first head-to-head comparison.</p>
+</div></section>
+
+<section class="body"><div class="body-i">
+
+<h2>TL;DR</h2>
+<p><strong>AATMF</strong> is a procedure-level taxonomy: 20 tactics × 240+ techniques × 2,152+ procedures × 4,980+ adversarial prompts. <strong>MAESTRO</strong> is a 7-layer architectural threat-modeling lens for multi-agent systems. <strong>They are complementary, not competitive.</strong> Use MAESTRO to identify <em>where</em> in your agent architecture threats live; use AATMF to identify <em>which specific techniques</em> realize those threats.</p>
+
+<h2>Side-by-side</h2>
+<table class="compare">
+  <thead><tr><th>Dimension</th><th>AATMF v3.1</th><th>MAESTRO</th></tr></thead>
+  <tbody>
+    <tr><th>Author</th><td>Kai Aizen (independent)</td><td>Ken Huang (Cloud Security Alliance, Distinguished Fellow)</td></tr>
+    <tr><th>Published</th><td>v1 2023, v3.1 2026</td><td>February 2025</td></tr>
+    <tr><th>Type</th><td>Procedure-level attack taxonomy</td><td>Architectural threat-modeling framework</td></tr>
+    <tr><th>Granularity</th><td class="signal">20 tactics · 240+ techniques · 2,152+ procedures · 4,980+ prompts</td><td>7 layers (Foundation Models, Data Operations, Agent Frameworks, Deployment, Observability, Compliance, Agent Ecosystem)</td></tr>
+    <tr><th>Risk scoring</th><td>AATMF-R: Likelihood × Impact × Detectability × Recoverability — quantitative</td><td>Layer-based qualitative risk assessment</td></tr>
+    <tr><th>Detection</th><td>YARA + Sigma signatures included</td><td>Recommends detection per layer, no signatures</td></tr>
+    <tr><th>Mapping to existing frameworks</th><td>NIST AI RMF · MITRE ATLAS · OWASP LLM Top-10 · EU AI Act</td><td>Aligned with NIST AI RMF, MITRE ATLAS, OWASP</td></tr>
+    <tr><th>Agentic AI coverage</th><td>Tactic 11 (Agentic & Orchestrator Exploitation) — 16 techniques</td><td class="signal">Native focus — entire framework built for multi-agent systems</td></tr>
+    <tr><th>RAG / supply-chain</th><td>Tactic 12 (RAG manipulation) + Tactic 13 (Supply chain)</td><td>Data Operations layer + Agent Ecosystem layer</td></tr>
+    <tr><th>Human-layer attacks</th><td class="signal">Tactic 15 (Human Workflow) + companion SEF + P.R.O.M.P.T frameworks</td><td>Implicit in Compliance + Agent Ecosystem</td></tr>
+    <tr><th>Operationalization</th><td class="signal">AATMF Toolkit (Python CLI), Claude-Red skills library, Playbook</td><td>Reference architectures + threat-modeling templates</td></tr>
+    <tr><th>License / availability</th><td>Open source, permissive license</td><td>Open methodology; documentation across CSA + arXiv</td></tr>
+    <tr><th>Suitable for</th><td>Red teamers, AI safety engineers, CTI analysts who need executable test cases</td><td>Security architects, governance teams threat-modeling multi-agent deployments</td></tr>
+  </tbody>
+</table>
+
+<h2>When to use which</h2>
+<h3>Use MAESTRO when…</h3>
+<ul>
+  <li>You're designing a multi-agent architecture and need to systematically enumerate threats per layer before implementation</li>
+  <li>Your audience is governance / security architecture / risk management — people who think in layered models</li>
+  <li>You need a threat-modeling discussion starter for cross-functional design reviews</li>
+</ul>
+
+<h3>Use AATMF when…</h3>
+<ul>
+  <li>You're red-teaming an existing AI system and need executable test cases mapped to specific techniques</li>
+  <li>You want quantitative risk scoring (AATMF-R) per finding for prioritization</li>
+  <li>You need detection signatures (YARA / Sigma) to deploy alongside the test cases</li>
+  <li>You're building an internal AI red-team program and need a taxonomy with procedure-level depth</li>
+</ul>
+
+<h3>Use both when…</h3>
+<ul>
+  <li>You're standing up an enterprise AI security program. MAESTRO gives you the architectural lens for system design + governance; AATMF gives you the testing depth for ongoing red-team operations.</li>
+</ul>
+
+<h2>The substantive differences</h2>
+
+<h3>Depth vs breadth</h3>
+<p>MAESTRO is a <em>framework</em> — a way of thinking. AATMF is a <em>catalog</em> — a body of named, indexed, scored procedures. A MAESTRO threat-modeling session lasts a meeting; an AATMF assessment is a multi-week engagement. They operate at different levels of abstraction; neither replaces the other.</p>
+
+<h3>Coverage of agentic threats</h3>
+<p>MAESTRO is purpose-built for multi-agent systems — the entire framework is structured around that surface. AATMF treats agentic exploitation as one of 20 tactics (T11). If your scope is exclusively agent-based, MAESTRO is more economical. If your scope is broader (model API, training, fine-tuning, RAG, supply chain, human workflow, plus agents), AATMF's wider net catches more.</p>
+
+<h3>Operational artifacts</h3>
+<p>This is AATMF's strongest differentiation: <strong>AATMF ships with operational tooling</strong> — the <a href="/toolkit">AATMF Toolkit</a> (Python CLI for systematic LLM safety testing), <a href="/claude-red">Claude-Red</a> (38 SKILL.md files for the Claude skills system), and the <a href="/playbook">LLM Red Teamer's Playbook</a>. MAESTRO is a methodology; AATMF is a methodology + a stack of tools you can run today.</p>
+
+<h3>Human layer</h3>
+<p>AATMF treats the human layer as a first-class concern (T15 + the companion <a href="/sef">SEF</a> and <a href="/prompt">P.R.O.M.P.T</a> frameworks). MAESTRO addresses humans inside the Compliance and Agent Ecosystem layers but doesn't have a dedicated tactic for human-workflow exploitation.</p>
+
+<h2>Crosswalk: MAESTRO layer → AATMF tactic</h2>
+<table class="compare">
+  <thead><tr><th>MAESTRO Layer</th><th>Primary AATMF Tactics</th></tr></thead>
+  <tbody>
+    <tr><th>L1 Foundation Models</th><td>T5 (Model & API Exploitation) · T6 (Training Poisoning) · T10 (Integrity Breach)</td></tr>
+    <tr><th>L2 Data Operations</th><td>T6 (Training Poisoning) · T12 (RAG Manipulation) · T13 (Supply Chain)</td></tr>
+    <tr><th>L3 Agent Frameworks</th><td>T11 (Agentic Exploitation) · T4 (Multi-Turn) · T7 (Output Manipulation)</td></tr>
+    <tr><th>L4 Deployment</th><td>T14 (Infrastructure) · T13 (Supply Chain) · T5 (Model API)</td></tr>
+    <tr><th>L5 Observability</th><td>T7 (Output Manipulation) · T10 (Integrity & Confidentiality Breach)</td></tr>
+    <tr><th>L6 Compliance</th><td>T15 (Human Workflow) · T8 (Deception)</td></tr>
+    <tr><th>L7 Agent Ecosystem</th><td>T11 (Agentic) · T13 (Supply Chain) · T15 (Human Workflow)</td></tr>
+  </tbody>
+</table>
+
+<h2>Recommendation</h2>
+<p>If you are a security architect doing system design, start with MAESTRO. If you are a red teamer doing testing, start with AATMF. If you are running a mature AI security program, use both — MAESTRO at design time, AATMF during testing and continuous validation.</p>
+
+<h2>References</h2>
+<ul>
+  <li><a href="/aatmf">AATMF v3.1 — full spec</a> (Aizen 2026, snailsploit.com)</li>
+  <li><a href="https://cloudsecurityalliance.org/blog/2025/02/06/agentic-ai-threat-modeling-framework-maestro" target="_blank" rel="noopener noreferrer">MAESTRO — Cloud Security Alliance announcement</a> (Huang 2025)</li>
+  <li><a href="https://atlas.mitre.org/" target="_blank" rel="noopener noreferrer">MITRE ATLAS</a> — sister taxonomy both frameworks crosswalk to</li>
+  <li><a href="/ai-security/aatmf-vs-mitre-atlas/">AATMF vs MITRE ATLAS — full comparison</a></li>
+  <li><a href="/wiki">AI Security Wiki</a> — definitions of the terms used here</li>
+</ul>
+
+<h2>Cite this comparison</h2>
+<pre>Aizen, K. (2026). AATMF vs MAESTRO: Adversarial AI Threat Modeling Compared.
+snailsploit.com. https://snailsploit.com/aatmf-vs-maestro</pre>
+
+</div></section>
+
+<section class="author-row"><div class="author-inner"><div class="author-eye">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher and creator of AATMF. 30 published CVEs, 5 Linux kernel mainline patches, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
+<footer style="background:var(--bg-sink)"><div style="max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);flex-wrap:wrap;gap:16px"><span>© 2026 kai aizen · same attack. different substrate.</span><span style="display:flex;gap:14px"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a></span></div></footer>
+</body>
+</html>
