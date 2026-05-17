@@ -1,5 +1,5 @@
 # snailsploit
-Independent offensive security researcher Kai Aizen. 23 CVEs, 5 Linux kernel patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
+Independent offensive security researcher Kai Aizen. 30 CVEs, 5 Linux kernel patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
 
 > Same attack. Different substrate.
 
@@ -11,7 +11,7 @@ Independent offensive security researcher Kai Aizen. 23 CVEs, 5 Linux kernel pat
 - [Press / Media Kit](/press): bio, headshots, official quotes, citation snippets
 - [Glossary](/glossary): A-Z reference of adversarial-AI terms
 ## Frameworks
-- [AATMF v3.1](/aatmf): 15 tactics, 240+ techniques, 2,150+ procedures. Mapped to NIST AI RMF and MITRE ATLAS.
+- [AATMF v3.1](/aatmf): 20 tactics, 240+ techniques, 2,152+ procedures, 4,980+ prompts. Mapped to NIST AI RMF and MITRE ATLAS.
 - [SEF](/sef): Social Engineering Framework
 - [P.R.O.M.P.T](/prompt): Compositional grammar for adversarial prompts
 - [Claude-Red](/claude-red): 38 offensive-security skills for the Claude skills system

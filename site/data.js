@@ -18,7 +18,7 @@ window.SS_DATA = {
     },
     badges: [
       { label: "Linux Kernel", value: "5 mainline patches" },
-      { label: "CVEs", value: "23 published" },
+      { label: "CVEs", value: "30 published" },
       { label: "GHSA", value: "2 advisories" },
       { label: "Hakin9", value: "Contributing author" },
       { label: "MITRE/NVD", value: "Contributor" },
@@ -26,7 +26,7 @@ window.SS_DATA = {
   },
 
   kernel: [
-    { subsystem: "io_uring/zcrx", vuln: "user_ref race → double-free → OOB write", status: "Mainline 7.0-rc1 · backports 6.18.16 + 6.19.6" },
+    { subsystem: "io_uring/zcrx", vuln: "user_ref race → double-free → OOB write", cve: "CVE-2026-43121", status: "Mainline 7.0-rc1 · backports 6.18.16 + 6.19.6" },
     { subsystem: "net/tipc", vuln: "tipc_mon_peer_up UAF vs bearer teardown", status: "Mainline" },
     { subsystem: "Bluetooth", vuln: "hci_conn UAF in create_big_sync / create_big_complete", status: "Mainline" },
     { subsystem: "RDMA/ionic", vuln: "Unbounded node_desc sysfs read via %.64s", status: "Mainline" },
@@ -44,7 +44,7 @@ window.SS_DATA = {
   ],
 
   frameworks: [
-    { name: "AATMF v3.1", desc: "Adversarial AI Threat Modeling Framework — 15 tactics, 240+ techniques, 2,150+ procedures. Mapped to NIST AI RMF and MITRE ATLAS." },
+    { name: "AATMF v3.1", desc: "Adversarial AI Threat Modeling Framework — 20 tactics, 240+ techniques, 2,152+ procedures, 4,980+ prompts. Mapped to NIST AI RMF and MITRE ATLAS." },
     { name: "AATMF Red Teaming Toolkit", desc: "Python CLI for systematic LLM safety testing — three-layer eval pipeline, defense fingerprinting, decay tracking, attack chain planning." },
     { name: "LLM Red Teamer's Playbook", desc: "Diagnostic methodology for bypassing LLM defense layers — input filters → alignment → identity → output → agentic trust." },
     { name: "Claude-Red", desc: "Curated offensive security skills library for the Claude skills system — 38 SKILL.md files spanning SQLi, shellcode, EDR evasion, exploit dev." },
@@ -60,6 +60,7 @@ window.SS_DATA = {
     { name: "ZenFlood",             desc: "Low-bandwidth stress testing — modernized Slowloris." },
     { name: "SnailObfuscator",      desc: "Structurally-aware code obfuscation engine." },
     { name: "Awesome-Snail-OSINT",  desc: "Curated OSINT resource collection for offensive recon." },
+    { name: "JystDastIt",          desc: "The Burp You Can Afford — open-source CLI DAST toolkit for web app vulnerability scanning and XSS detection." },,
   ],
 
   cves: {
@@ -76,6 +77,12 @@ window.SS_DATA = {
       { id: "CVE-2026-32809", target: "ouch-org/ouch", lang: "Rust", type: "Symlink escape — arbitrary file overwrite", severity: "high", score: "7.4" },
       { id: "CVE-2026-33693", target: "activitypub-federation-rust", lang: "Rust", type: "SSRF — 0.0.0.0 bypass in fediverse federation", severity: "med", score: "6.5" },
       { id: "CVE-2026-32885", target: "ddev/ddev", lang: "Go", type: "ZipSlip — path traversal in archive extraction", severity: "med", score: "6.5" },
+      { id: "CVE-2026-8368",  target: "Perl LWP::UserAgent / HTTP::Tiny", lang: "Perl", type: "Zero header strip on cross-host redirect", severity: "med", score: "—" },
+      { id: "CVE-2026-45363", target: "jwt/ruby-jwt", lang: "Ruby", type: "Empty-key HMAC bypass", severity: "high", score: "7.4" },
+      { id: "CVE-2026-44840", target: "Dgraph", lang: "Go", type: "DQL injection via GraphQL", severity: "high", score: "—" },
+      { id: "CVE-2026-44217", target: "sse-channel (npm)", lang: "JavaScript", type: "SSE injection — unsanitized fields", severity: "med", score: "—" },
+      { id: "CVE-2026-45620", target: "WWBN/AVideo", lang: "PHP", type: "Incomplete fix for CVE-2026-43881", severity: "med", score: "—" },
+      { id: "CVE-2026-45619", target: "WWBN/AVideo", lang: "PHP", type: "Incomplete fix for CVE-2026-43884", severity: "med", score: "—" },
     ],
     wordpress: [
       { id: "CVE-2026-3596",  target: "Riaxe Product Customizer", type: "Privilege escalation", severity: "crit", score: "9.8" },
@@ -100,10 +107,8 @@ window.SS_DATA = {
   advisories: [
     { id: "GHSA-2hch-c97c-g99x", target: "WWBN/AVideo", type: "SSRF Protection Bypass via HTTP Redirect & DNS Rebinding in isSSRFSafeURL() (CVE-2026-43884)", severity: "high", score: "7.7" },
     { id: "GHSA-j425-whc4-4jgc", target: "OpenClaw",    type: "system.run env override RCE — allowlist bypass via GIT_SSH_COMMAND, editor hooks, GIT_CONFIG_*", severity: "med", score: "6.3" },
-    { id: "GHSA-•••", target: "pending", type: "advisory 3", severity: "med", score: "—" },
-    { id: "GHSA-•••", target: "pending", type: "advisory 4", severity: "med", score: "—" },
-    { id: "GHSA-•••", target: "pending", type: "advisory 5", severity: "med", score: "—" },
-    { id: "GHSA-•••", target: "pending", type: "advisory 6", severity: "med", score: "—" },
+    { id: "GHSA-gxhx-2686-5h9g", target: "slack-go/slack", type: "Security advisory", severity: "med", score: "—" },
+    { id: "TelSender",            target: "TelSender (WP)", type: "Unauthenticated Stored XSS via Telegram Chat Title — plugin shut down by vendor", severity: "high", score: "7.2" },
   ],
 
   sourceTree: [
@@ -111,11 +116,11 @@ window.SS_DATA = {
   ],
 
   stats: {
-    cveCount: 23,
-    advisoryCount: 6,
+    cveCount: 30,
+    advisoryCount: 4,
     kernelCount: 5,
     frameworkCount: 4,
-    toolCount: 9,
+    toolCount: 10,
     aiResearchCount: 7,
   },
 };
