@@ -7,7 +7,7 @@
   <atom:link href="https://snailsploit.com/rss.xml" rel="self" type="application/rss+xml"/>
   <language>en-us</language>
   <lastBuildDate>Wed, 11 Mar 2026 00:00:00 +0000</lastBuildDate>
-  <managingEditor>research@snailsploit.com (Kai Aizen)</managingEditor>
+  <managingEditor>Kai@snailsploit.com (Kai Aizen)</managingEditor>
   <image>
     <url>https://snailsploit.com/apple-touch-icon.png</url>
     <title>snailsploit</title>
@@ -19,7 +19,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/self-replicating-memory-worm/</guid>
     <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
     <description>Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Linux Kernel io_uring/zcrx: Race Condition to Double-Free</title>
@@ -27,7 +27,7 @@
     <guid isPermaLink="true">https://snailsploit.com/security-research/general/io-uring-zcrx-race-condition/</guid>
     <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
     <description>Linux Kernel io_uring/zcrx: Race Condition to Double-Free</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Adversarial Prompting: The Complete Technical Guide</title>
@@ -35,7 +35,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/adversarial-prompting/</guid>
     <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
     <description>Adversarial Prompting: The Complete Technical Guide</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>LLM Jailbreak Techniques: A Technical Taxonomy</title>
@@ -43,7 +43,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/jailbreaking/jailbreak-techniques/</guid>
     <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
     <description>LLM Jailbreak Techniques: A Technical Taxonomy</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Memory Injection Through Nested Skills: Autonomous LLM Agent Compromise</title>
@@ -51,7 +51,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/</guid>
     <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
     <description>Memory Injection Through Nested Skills: Autonomous LLM Agent Compromise</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Prompt Injection Examples: Real Attack Patterns Explained</title>
@@ -59,7 +59,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/prompt-injection/prompt-injection-examples/</guid>
     <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
     <description>Prompt Injection Examples: Real Attack Patterns Explained</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Weaponized AI Supply Chain: How Threat Actors Turned LLMs Into Attack Infrastructure</title>
@@ -67,7 +67,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/weaponized-ai-supply-chain/</guid>
     <pubDate>Wed, 04 Mar 2026 00:00:00 +0000</pubDate>
     <description>Weaponized AI Supply Chain: How Threat Actors Turned LLMs Into Attack Infrastructure</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>MCP vs A2A Attack Surface: Every Trust Boundary Mapped</title>
@@ -75,7 +75,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/mcp-vs-a2a-attack-surface/</guid>
     <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
     <description>MCP vs A2A Attack Surface: Every Trust Boundary Mapped</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>The 30% Blind Spot: Why LLM Safety Judges Fail</title>
@@ -83,7 +83,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/rai-judge-blind-spots/</guid>
     <pubDate>Thu, 26 Feb 2026 00:00:00 +0000</pubDate>
     <description>The 30% Blind Spot: Why LLM Safety Judges Fail</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>AATMF v3.1 vs MITRE ATLAS: Which AI Security Framework Wins?</title>
@@ -91,7 +91,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/aatmf-vs-mitre-atlas/</guid>
     <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
     <description>AATMF v3.1 vs MITRE ATLAS: Which AI Security Framework Wins?</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>AI Breach Detection Gap: The Logs Are Clean. You're Not.</title>
@@ -99,7 +99,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/ai-breach-detection-gap/</guid>
     <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
     <description>AI Breach Detection Gap: The Logs Are Clean. You're Not.</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>LLM Red Teamer's Playbook: Diagnosing AI Defense Layers</title>
@@ -107,7 +107,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/llm-red-teamers-playbook/</guid>
     <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
     <description>LLM Red Teamer's Playbook: Diagnosing AI Defense Layers</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>AI Coding Agent Attack Surface: A Full Taxonomy</title>
@@ -115,7 +115,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/ai-coding-agent-attack-surface/</guid>
     <pubDate>Tue, 17 Feb 2026 00:00:00 +0000</pubDate>
     <description>AI Coding Agent Attack Surface: A Full Taxonomy</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Computational Countertransference: LLM Context Inheritance</title>
@@ -123,7 +123,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/computational-countertransference/</guid>
     <pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate>
     <description>Computational Countertransference: LLM Context Inheritance</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Agentic AI Threat Landscape: Attack Vectors & Defenses</title>
@@ -131,7 +131,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/agentic-ai-threat-landscape/</guid>
     <pubDate>Wed, 11 Feb 2026 00:00:00 +0000</pubDate>
     <description>Agentic AI Threat Landscape: Attack Vectors & Defenses</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>AI Gateway Threat Model: 8 Attack Vectors</title>
@@ -139,7 +139,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/ai-gateway-threat-model/</guid>
     <pubDate>Wed, 11 Feb 2026 00:00:00 +0000</pubDate>
     <description>AI Gateway Threat Model: 8 Attack Vectors</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Memory Manipulation: AI Context Poisoning</title>
@@ -147,7 +147,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/jailbreaking/memory-manipulation-attacks/</guid>
     <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
     <description>Memory Manipulation: AI Context Poisoning</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>RAG, Agentic AI, and the New Attack Surface</title>
@@ -155,7 +155,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/rag-agentic-attack-surface/</guid>
     <pubDate>Fri, 17 Oct 2025 00:00:00 +0000</pubDate>
     <description>RAG, Agentic AI, and the New Attack Surface</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>AI Social Engineering: Deepfake Voice Detection</title>
@@ -163,7 +163,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/ai-social-engineering-deepfake/</guid>
     <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
     <description>AI Social Engineering: Deepfake Voice Detection</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>MCP Security Hardening: Production Vulnerability Guide</title>
@@ -171,7 +171,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/prompt-injection/mcp-security-deep-dive/</guid>
     <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
     <description>MCP Security Hardening: Production Vulnerability Guide</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Zero-Trust Container Runtime Attestation</title>
@@ -179,7 +179,7 @@
     <guid isPermaLink="true">https://snailsploit.com/security-research/general/zero-trust-container-runtime/</guid>
     <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
     <description>Zero-Trust Container Runtime Attestation</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Custom Instruction Backdoor: ChatGPT Prompt Injection</title>
@@ -187,7 +187,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/prompt-injection/custom-instruction-backdoor/</guid>
     <pubDate>Sun, 18 May 2025 00:00:00 +0000</pubDate>
     <description>Custom Instruction Backdoor: ChatGPT Prompt Injection</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>MCP Threat Analysis: Attack Chains & Protocol Dissection</title>
@@ -195,7 +195,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/prompt-injection/mcp-threat-analysis/</guid>
     <pubDate>Sun, 18 May 2025 00:00:00 +0000</pubDate>
     <description>MCP Threat Analysis: Attack Chains & Protocol Dissection</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>AI-Powered Obfuscator Bypasses Detection in 2 Hours</title>
@@ -203,7 +203,7 @@
     <guid isPermaLink="true">https://snailsploit.com/writing/ai-obfuscator-detection-bypass/</guid>
     <pubDate>Wed, 23 Apr 2025 00:00:00 +0000</pubDate>
     <description>AI-Powered Obfuscator Bypasses Detection in 2 Hours</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Advanced Container Escapes: Security Deep Dive</title>
@@ -211,7 +211,7 @@
     <guid isPermaLink="true">https://snailsploit.com/security-research/general/advanced-container-escapes/</guid>
     <pubDate>Sun, 02 Mar 2025 00:00:00 +0000</pubDate>
     <description>Advanced Container Escapes: Security Deep Dive</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Inherent AI Vulnerabilities: Technical Deep Dive</title>
@@ -219,7 +219,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/jailbreaking/inherent-ai-vulnerabilities/</guid>
     <pubDate>Mon, 10 Feb 2025 00:00:00 +0000</pubDate>
     <description>Inherent AI Vulnerabilities: Technical Deep Dive</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>RCE & DNS Exfiltration in ChatGPT Canvas</title>
@@ -227,7 +227,7 @@
     <guid isPermaLink="true">https://snailsploit.com/security-research/general/chatgpt-canvas-rce-dns-exfiltration/</guid>
     <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
     <description>RCE & DNS Exfiltration in ChatGPT Canvas</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>The Structural Vulnerabilities of Large Language Models</title>
@@ -235,7 +235,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/structural-vulnerabilities-llms/</guid>
     <pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate>
     <description>The Structural Vulnerabilities of Large Language Models</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Evading Endpoint Detection and Response (EDR)</title>
@@ -243,7 +243,7 @@
     <guid isPermaLink="true">https://snailsploit.com/security-research/general/edr-evasion-techniques/</guid>
     <pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
     <description>Evading Endpoint Detection and Response (EDR)</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Context Inheritance Exploit: Persistent Jailbreaks</title>
@@ -251,7 +251,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/jailbreaking/context-inheritance-exploit/</guid>
     <pubDate>Sat, 04 Jan 2025 00:00:00 +0000</pubDate>
     <description>Context Inheritance Exploit: Persistent Jailbreaks</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Is AI Inherently Vulnerable? An Offensive Analysis</title>
@@ -259,7 +259,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/jailbreaking/ai-inherent-vulnerability/</guid>
     <pubDate>Tue, 19 Nov 2024 00:00:00 +0000</pubDate>
     <description>Is AI Inherently Vulnerable? An Offensive Analysis</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Embracing AI: Adapt or Die in Cybersecurity</title>
@@ -267,7 +267,7 @@
     <guid isPermaLink="true">https://snailsploit.com/writing/embracing-ai-adapt-or-die/</guid>
     <pubDate>Fri, 06 Sep 2024 00:00:00 +0000</pubDate>
     <description>Embracing AI: Adapt or Die in Cybersecurity</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Your Personal Data Is for Sale: New Identity Theft</title>
@@ -275,7 +275,7 @@
     <guid isPermaLink="true">https://snailsploit.com/writing/personal-data-identity-theft/</guid>
     <pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate>
     <description>Your Personal Data Is for Sale: New Identity Theft</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Exploiting Cloud Vulnerabilities: Tools and Techniques</title>
@@ -283,7 +283,7 @@
     <guid isPermaLink="true">https://snailsploit.com/security-research/general/cloud-vulnerability-exploitation/</guid>
     <pubDate>Wed, 10 Jul 2024 00:00:00 +0000</pubDate>
     <description>Exploiting Cloud Vulnerabilities: Tools and Techniques</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>Hidden Risks of AI: An Offensive Security Perspective</title>
@@ -291,7 +291,7 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/hidden-risks-offensive-perspective/</guid>
     <pubDate>Sat, 08 Jun 2024 00:00:00 +0000</pubDate>
     <description>Hidden Risks of AI: An Offensive Security Perspective</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
     <title>ChatGPT Jailbreak via Context Manipulation</title>
@@ -299,6 +299,6 @@
     <guid isPermaLink="true">https://snailsploit.com/ai-security/jailbreaking/chatgpt-context-jailbreak/</guid>
     <pubDate>Mon, 27 May 2024 00:00:00 +0000</pubDate>
     <description>ChatGPT Jailbreak via Context Manipulation</description>
-    <author>research@snailsploit.com (Kai Aizen)</author>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
 </channel></rss>

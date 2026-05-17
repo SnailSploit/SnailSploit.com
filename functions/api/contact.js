@@ -5,7 +5,7 @@
  *
  * Required env vars on Cloudflare Pages → Settings → Environment variables:
  *   RESEND_API_KEY     (from resend.com/api-keys)
- *   CONTACT_TO_EMAIL   (where messages get delivered; default: research@snailsploit.com)
+ *   CONTACT_TO_EMAIL   (where messages get delivered; default: Kai@snailsploit.com)
  *
  * Optional:
  *   CONTACT_FROM_EMAIL (must be on a verified domain in Resend; default: forms@snailsploit.com)
@@ -37,7 +37,7 @@ export async function onRequestPost({ request, env }) {
     }
   }
 
-  const to = env.CONTACT_TO_EMAIL || 'research@snailsploit.com';
+  const to = env.CONTACT_TO_EMAIL || 'Kai@snailsploit.com';
   const from = env.CONTACT_FROM_EMAIL || 'forms@snailsploit.com';
 
   const subject = `[snailsploit] ${data.topic || 'contact'} — ${data.name}`;
