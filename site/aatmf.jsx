@@ -140,7 +140,7 @@ const AATMF = {
  author = {Aizen, Kai},
  year = {2026},
  url = {https://github.com/snailsploit/aatmf},
- note = {15 tactics, 240 techniques, 2,152+ procedures}
+ note = {20 tactics, 240 techniques, 2,152+ procedures}
 }`,
 };
 
@@ -331,7 +331,7 @@ const Why = () => (
 );
 
 /* ============================================================
- The 15 tactics
+ The 20 tactics
  ============================================================ */
 const TacticGroupHeader = ({ k, label }) => (
  <div style={{ display:"grid", gridTemplateColumns:"60px 1fr 80px 80px", gap:20, padding:"32px 0 12px", borderBottom:"1px solid var(--line-hi)" }}>
@@ -373,7 +373,7 @@ const Tactics = () => {
  const sumTech = AATMF.tactics.reduce((s,t) => s + t[3], 0);
  const sumProc = AATMF.tactics.reduce((s,t) => s + t[4], 0);
  return (
- <Section id="tactics" sink label="02 · the 15 tactics"
+ <Section id="tactics" sink label="02 · the 20 tactics"
  hint="Three groupings: core model-level attacks, advanced attack surface (multimodal, agentic, RAG), and the systems-and-people layer around the model."
  title="15 ai attack tactics.">
 
@@ -388,7 +388,7 @@ const Tactics = () => {
 
  <div style={{ marginTop:32, display:"grid", gridTemplateColumns:"60px 1fr 80px 80px", gap:20, padding:"18px 0", borderTop:"1px solid var(--line-hi)" }}>
  <Mono color="var(--fg-3)" size={11}>total</Mono>
- <Mono color="var(--fg)" >15 tactics</Mono>
+ <Mono color="var(--fg)" >20 tactics</Mono>
  <Mono color="var(--signal-2)">{sumTech}</Mono>
  <Mono color="var(--signal-2)">{sumProc.toLocaleString()}</Mono>
  </div>

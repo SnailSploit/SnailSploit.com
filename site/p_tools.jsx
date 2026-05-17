@@ -1,4 +1,4 @@
-/* Tools index — 9 tools, no individual detail pages per scope */
+/* Tools index — 10 tools, no individual detail pages per scope */
 const SS_T = window.SS_DATA;
 
 const TOOL_META = {
@@ -57,7 +57,7 @@ const ToolsPage = () => (
 
     <Section id="index" label="01 · the index"
       hint="Sorted by use in the offensive lifecycle: recon → discovery → analysis → post-exploit → research."
-      title="9 tools.">
+      title="10 tools.">
       <div>
         {SS_T.tools.map((t, i) => <ToolRow key={t.name} t={t} i={i} />)}
       </div>

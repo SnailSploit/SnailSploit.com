@@ -84,7 +84,7 @@ Independent offensive security researcher Kai Aizen. 30 CVEs, 5 Linux kernel pat
 - [Rate Limiting | AI Security Wiki](/ai-security/wiki/defenses/rate-limiting/)
 
 ## Vulnerability Disclosures
-- [CVE Ledger](/cves): 23 published CVEs
+- [CVE Ledger](/cves): 30 published CVEs
 - [Linux Kernel Contributions](/kernel): 5 mainline patches
 - [Security Advisories](/advisories)
 

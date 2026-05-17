@@ -19,7 +19,7 @@ window.SS_DATA = {
     badges: [
       { label: "Linux Kernel", value: "5 mainline patches" },
       { label: "CVEs", value: "30 published" },
-      { label: "GHSA", value: "2 advisories" },
+      { label: "GHSA", value: "4 advisories" },
       { label: "Hakin9", value: "Contributing author" },
       { label: "MITRE/NVD", value: "Contributor" },
     ],

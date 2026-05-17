@@ -3,7 +3,7 @@ const SS_FW = window.SS_DATA;
 
 const FRAMEWORK_INDEX = [
  { key: "AATMF", name: "AATMF v3", sub: "Adversarial AI Threat Modeling Framework", href: "/aatmf",
- desc: "15 tactics. 240 techniques. 2,150+ procedures. The structured catalog for AI red teaming — mapped to MITRE ATLAS, NIST AI RMF, and the EU AI Act.",
+ desc: "20 tactics. 240 techniques. 2,152+ procedures. The structured catalog for AI red teaming — mapped to MITRE ATLAS, NIST AI RMF, and the EU AI Act.",
  stats: [["tactics","15"],["techniques","240"],["procedures","2,152+"],["license","CC BY-SA 4.0"]],
  tier: "flagship" },
  { key: "SEF", name: "SEF v2", sub: "Social Engineering Framework", href: "/sef",
@@ -92,7 +92,7 @@ const FrameworksPage = () => {
  title="how the pieces fit.">
  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
  {[
- ["You're scoping an AI red team engagement", "Start with AATMF. Use the 15 tactics as a coverage checklist. Score everything with AATMF-R. Map the report to whatever standard the customer cares about."],
+ ["You're scoping an AI red team engagement", "Start with AATMF. Use the 20 tactics as a coverage checklist. Score everything with AATMF-R. Map the report to whatever standard the customer cares about."],
  ["You're attacking the humans, not the model", "SEF. AATMF will tell you the attack surface; SEF will tell you which lever to pull. They're designed to be used together."],
  ["You need a prompt that actually works", "P.R.O.M.P.T. Compose, don't list. Six stages: premise, role, output, modulation, persona, tactics. The grammar of every prompt that beats alignment."],
  ["You want to automate the whole loop", "AATMF Toolkit. Python CLI. Drop in your endpoint, pick procedures, get an AATMF-R-scored report."],
