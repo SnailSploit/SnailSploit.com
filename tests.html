@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>ui.js test harness | snailsploit</title>
+<style>
+:root { --bg:#0E0E0F; --bg-sink:#08090B; --bg-raise:#15161A; --line:#23252B; --line-hi:#2E3138; --fg:#E9E7E1; --fg-2:#B6B4AC; --fg-3:#76746C; --fg-4:#4A4842; --signal-2:#E07A4A; --f-mono:"JetBrains Mono",ui-monospace,monospace; --f-grot:"Inter Tight",system-ui,sans-serif; }
+body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--f-grot); padding:48px 32px; }
+h1 { font-size:48px; letter-spacing:-0.04em; margin:0 0 24px; }
+.row { padding:8px 16px; border-bottom:1px solid var(--line); font-family:var(--f-mono); font-size:13px; display:grid; grid-template-columns:80px 1fr; gap:16px; align-items:start; }
+.row.pass { color:var(--fg); }
+.row.pass .status { color:#7DC97B; }
+.row.fail { color:#F26B3D; background:rgba(242,107,61,0.05); }
+.row.fail .status { color:#F26B3D; font-weight:500; }
+.status { text-transform:uppercase; letter-spacing:0.14em; font-size:11px; }
+.summary { margin-top:24px; padding:24px 0; border-top:1px solid var(--line-hi); font-family:var(--f-mono); font-size:14px; }
+.summary.all-pass { color:#7DC97B; }
+.summary.has-fail { color:#F26B3D; }
+.fixture { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+</style>
+<link rel="stylesheet" href="/ui.css">
+</head>
+<body>
+<h1>ui.js test harness</h1>
+<p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-3);max-width:560px;line-height:1.6">Open in a browser. Each row is an assertion against window.ss._test. Page self-reports all results on load.</p>
+
+<article class="fixture">
+  <h2 id="seed-1">Seed heading one</h2>
+  <p>Body</p>
+  <h3>Seed sub three</h3>
+  <p>Body</p>
+  <h2 id="seed-2">Seed heading two</h2>
+  <p>Body</p>
+  <pre>console.log("hello");</pre>
+</article>
+
+<span class="fixture" data-severity="critical" id="sev-crit"></span>
+<span class="fixture" data-severity="high"     id="sev-high"></span>
+<span class="fixture" data-severity="medium"   id="sev-med"></span>
+<span class="fixture" data-severity="low"      id="sev-low"></span>
+<span class="fixture" data-severity="pending"  id="sev-pen"></span>
+<span class="fixture" data-severity="bogus"    id="sev-bogus"></span>
+
+<div id="results"></div>
+<div id="summary" class="summary"></div>
+
+<script src="/ui.js"></script>
+<script>
+window.addEventListener('load', function () {
+  function runTests() {
+    if (!window.ss || !window.ss._test) { return setTimeout(runTests, 30); }
+    var t = window.ss._test;
+    var R = [];
+    function A(name, cond, got) { R.push({ name: name, pass: !!cond, got: arguments.length > 2 ? got : undefined }); }
+
+    A("fuzzy: exact substring scores high", t.fuzzyScore("kubernetes","Kubernetes ingress") > 900, t.fuzzyScore("kubernetes","Kubernetes ingress"));
+    A("fuzzy: subsequence scores positive", t.fuzzyScore("kbnts","Kubernetes") > 0, t.fuzzyScore("kbnts","Kubernetes"));
+    A("fuzzy: no match returns 0",          t.fuzzyScore("xyz","abcdef") === 0, t.fuzzyScore("xyz","abcdef"));
+    A("fuzzy: empty query returns 0",       t.fuzzyScore("","anything") === 0, t.fuzzyScore("","anything"));
+    A("fuzzy: case insensitive",            t.fuzzyScore("AIRFLOW","Apache airflow") > 900, t.fuzzyScore("AIRFLOW","Apache airflow"));
+    A("fuzzy: earlier pos beats later",     t.fuzzyScore("foo","foo bar") > t.fuzzyScore("foo","bar baz foo"));
+
+    var sample = [
+      { title:"AATMF v3.1", url:"/aatmf", tags:["aatmf"] },
+      { title:"CVE-2026-3288 ingress-nginx", url:"/security-research/cves/cve-2026-3288/", tags:["k8s","ingress"] },
+      { title:"Random page", url:"/random", tags:[] }
+    ];
+    A("rank: relevant first", t.rank("ingress",sample)[0] && t.rank("ingress",sample)[0].url.indexOf("3288") !== -1);
+    A("rank: caps at 12", t.rank("a", Array.from({length:30},function(_,i){return{title:"alpha "+i,url:"/a"+i,tags:[]};})).length === 12);
+    A("rank: empty -> empty", t.rank("",sample).length === 0);
+    A("rank: tag match",  t.rank("k8s",sample).length === 1);
+
+    A("progress: 0 at top",       t.progressCompute(0,2000,800) === 0);
+    A("progress: 1 at bottom",    t.progressCompute(1200,2000,800) === 1);
+    A("progress: ~0.5 mid",       Math.abs(t.progressCompute(600,2000,800) - 0.5) < 0.01);
+    A("progress: clamps >1",      t.progressCompute(99999,2000,800) === 1);
+    A("progress: clamps <0",      t.progressCompute(-500,2000,800) === 0);
+    A("progress: safe small doc", t.progressCompute(0,100,800) === 0);
+
+    var cls = function(id){return document.getElementById(id).className;};
+    A("severity: critical",         cls("sev-crit").indexOf("ss-severity--critical") !== -1, cls("sev-crit"));
+    A("severity: high",             cls("sev-high").indexOf("ss-severity--high") !== -1, cls("sev-high"));
+    A("severity: medium",           cls("sev-med").indexOf("ss-severity--medium") !== -1, cls("sev-med"));
+    A("severity: low",              cls("sev-low").indexOf("ss-severity--low") !== -1, cls("sev-low"));
+    A("severity: pending",          cls("sev-pen").indexOf("ss-severity--pending") !== -1, cls("sev-pen"));
+    A("severity: bogus left alone", cls("sev-bogus").indexOf("ss-severity") === -1, cls("sev-bogus"));
+
+    A("escape: angle brackets", t.escapeHtml("<b>x</b>") === "&lt;b&gt;x&lt;/b&gt;");
+    A("escape: quotes",         t.escapeHtml('"x"') === "&quot;x&quot;");
+    A("escape: ampersand",      t.escapeHtml("a&b") === "a&amp;b");
+
+    A("copy: pre wrapped",     document.querySelectorAll('.ss-pre-wrap').length >= 1, document.querySelectorAll('.ss-pre-wrap').length);
+    A("copy: button injected", document.querySelectorAll('.ss-copy-btn').length >= 1, document.querySelectorAll('.ss-copy-btn').length);
+
+    var H = t.collectHeadings();
+    A("toc: ≥2 headings collected", H.length >= 2, H.length);
+    A("toc: respects existing id",  H.some(function(h){return h.id==="seed-1";}), H.map(function(h){return h.id;}));
+
+    window.ss.open();
+    var bd = document.querySelector('.ss-palette-backdrop');
+    A("palette: opens", bd && bd.classList.contains('is-open'));
+    window.ss.close();
+    A("palette: closes", !document.querySelector('.ss-palette-backdrop.is-open'));
+
+    var html = "", pass = 0, fail = 0;
+    R.forEach(function (r) {
+      html += '<div class="row ' + (r.pass ? 'pass' : 'fail') + '"><span class="status">' + (r.pass ? 'pass' : 'fail') + '</span><div>' + r.name + (r.pass ? '' : ' — got: ' + JSON.stringify(r.got)) + '</div></div>';
+      if (r.pass) pass++; else fail++;
+    });
+    document.getElementById("results").innerHTML = html;
+    var s = document.getElementById("summary");
+    s.textContent = pass + " / " + (pass + fail) + " passing" + (fail ? " — " + fail + " FAILING" : "");
+    s.className = "summary " + (fail ? "has-fail" : "all-pass");
+    document.title = (fail ? "✗ FAIL " : "✓ ") + pass + "/" + (pass + fail) + " — tests";
+    window.__SS_TEST_RESULT__ = { pass: pass, fail: fail, total: pass + fail, failures: R.filter(function(r){return !r.pass;}) };
+  }
+  setTimeout(runTests, 80);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+/* snailsploit — UI component layer (palette, TOC, progress, severity, copy, print)
+   Operator-graphite brand only. No new tokens. */
+
+/* ── Severity chips ─────────────────────────────────────────────── */
+.ss-severity {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--fg-2);
+  white-space: nowrap;
+}
+.ss-severity::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--fg-3);
+}
+.ss-severity--critical { color: #F26B3D; border-color: rgba(242,107,61,0.45); }
+.ss-severity--critical::before { background: #F26B3D; box-shadow: 0 0 8px rgba(242,107,61,0.6); }
+.ss-severity--high { color: var(--signal-2); border-color: rgba(224,122,74,0.4); }
+.ss-severity--high::before { background: var(--signal-2); }
+.ss-severity--medium { color: #C9985C; border-color: rgba(201,152,92,0.35); }
+.ss-severity--medium::before { background: #C9985C; }
+.ss-severity--low { color: var(--fg-3); }
+.ss-severity--low::before { background: var(--fg-3); }
+.ss-severity--pending { color: var(--fg-3); border-color: var(--line); }
+.ss-severity--pending::before { background: var(--fg-4); }
+
+/* ── Reading progress ───────────────────────────────────────────── */
+.ss-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--signal-2);
+  z-index: 100;
+  transition: width 60ms linear;
+  pointer-events: none;
+}
+
+/* ── Command palette ────────────────────────────────────────────── */
+.ss-palette-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--fg-3);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color 120ms, border-color 120ms;
+}
+.ss-palette-trigger:hover { color: var(--fg-2); border-color: var(--line-hi); }
+.ss-palette-trigger kbd {
+  font-family: inherit;
+  font-size: inherit;
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 0;
+}
+
+.ss-palette-backdrop {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--bg-sink) 70%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10vh 20px 20px;
+}
+.ss-palette-backdrop.is-open { display: flex; }
+.ss-palette {
+  width: 100%;
+  max-width: 640px;
+  background: var(--bg);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+}
+.ss-palette-input {
+  width: 100%;
+  padding: 18px 20px;
+  font-family: var(--f-mono);
+  font-size: 15px;
+  background: transparent;
+  color: var(--fg);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  outline: none;
+}
+.ss-palette-input::placeholder { color: var(--fg-3); }
+.ss-palette-results {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+.ss-palette-result {
+  display: block;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: var(--fg);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  transition: background 80ms, border-color 80ms;
+}
+.ss-palette-result:hover,
+.ss-palette-result.is-active {
+  background: var(--bg-raise);
+  border-left-color: var(--signal-2);
+}
+.ss-palette-result-type {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--fg-3);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.ss-palette-empty {
+  padding: 24px 20px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--fg-3);
+  text-align: center;
+}
+.ss-palette-footer {
+  padding: 10px 20px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--fg-3);
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.ss-palette-footer kbd {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  margin: 0 2px;
+}
+
+/* ── In-page TOC ────────────────────────────────────────────────── */
+.ss-toc {
+  position: fixed;
+  right: 32px;
+  top: 120px;
+  width: 220px;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+  padding: 16px 0;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  z-index: 40;
+  display: none;
+}
+.ss-toc-label {
+  font-size: 10px;
+  color: var(--fg-3);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 0 12px 12px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+.ss-toc-list { list-style: none; margin: 0; padding: 0; }
+.ss-toc-item a {
+  display: block;
+  padding: 6px 12px;
+  color: var(--fg-3);
+  text-decoration: none;
+  line-height: 1.4;
+  border-left: 2px solid transparent;
+  transition: color 120ms, border-color 120ms;
+}
+.ss-toc-item a:hover { color: var(--fg); }
+.ss-toc-item--h3 a { padding-left: 24px; font-size: 11px; }
+.ss-toc-item.is-active a {
+  color: var(--signal-2);
+  border-left-color: var(--signal-2);
+}
+
+@media (min-width: 1280px) {
+  .ss-toc.is-visible { display: block; }
+}
+
+/* ── Copy-to-clipboard buttons ──────────────────────────────────── */
+.ss-pre-wrap { position: relative; }
+.ss-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--fg-3);
+  background: var(--bg-sink);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 120ms, color 120ms, border-color 120ms;
+}
+.ss-pre-wrap:hover .ss-copy-btn { opacity: 1; }
+.ss-copy-btn:hover { color: var(--fg-2); border-color: var(--line-hi); }
+.ss-copy-btn.is-copied { color: var(--signal-2); border-color: rgba(224,122,74,0.4); opacity: 1; }
+
+/* ── Print stylesheet ───────────────────────────────────────────── */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  header, footer, nav, .ss-palette-backdrop, .ss-progress, .ss-toc, .ss-copy-btn,
+  .ss-palette-trigger, .footer, [class*="hero-links"], .related, .tabs {
+    display: none !important;
+  }
+  body { font-family: ui-monospace, "JetBrains Mono", monospace !important; font-size: 11pt !important; line-height: 1.5 !important; }
+  h1, h2, h3, h4, h5, h6 { font-family: inherit !important; page-break-after: avoid; }
+  pre, blockquote { page-break-inside: avoid; border: 1px solid #ccc !important; padding: 8px !important; }
+  a { text-decoration: underline; color: black !important; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; color: #555 !important; }
+  img, svg, table { max-width: 100% !important; page-break-inside: avoid; }
+  section { page-break-inside: avoid; }
+  details { display: block !important; }
+  details summary { font-weight: bold; margin-top: 1em; }
+}
