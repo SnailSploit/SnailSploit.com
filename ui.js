@@ -4,6 +4,14 @@
 (function () {
   'use strict';
 
+  // ── Analytics event tracker (dataLayer for GTM/GA4; no-op if absent) ─
+  function track(event, payload) {
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({ event: 'ss_' + event }, payload || {}));
+    } catch (e) {}
+  }
+
   // ── Fuzzy match (subsequence + position weighting) ──────────────────
   function fuzzyScore(query, text) {
     if (!query) return 0;
@@ -46,17 +54,25 @@
   var paletteEl = null, paletteInput = null, paletteResults = null;
   var paletteIndex = [], paletteActive = 0, paletteVisible = [];
 
+  var paletteReturnFocus = null;
   function paletteOpen() {
     if (!paletteEl) buildPalette();
+    paletteReturnFocus = document.activeElement;
     paletteEl.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
     paletteInput.value = '';
     paletteActive = 0;
     renderResults('');
     setTimeout(function () { paletteInput.focus(); }, 0);
+    track('palette_open', {});
   }
 
   function paletteClose() {
     if (paletteEl) paletteEl.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (paletteReturnFocus && typeof paletteReturnFocus.focus === 'function') {
+      try { paletteReturnFocus.focus(); } catch (e) {}
+    }
   }
 
   function renderResults(q) {
@@ -107,11 +123,19 @@
 
     paletteInput.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { paletteClose(); }
+      else if (e.key === 'Tab') {
+        // Focus trap — only one focusable element inside, so trap on it
+        e.preventDefault();
+        paletteInput.focus();
+      }
       else if (e.key === 'ArrowDown') { e.preventDefault(); paletteActive = Math.min(paletteVisible.length - 1, paletteActive + 1); renderResults(paletteInput.value.trim()); }
       else if (e.key === 'ArrowUp') { e.preventDefault(); paletteActive = Math.max(0, paletteActive - 1); renderResults(paletteInput.value.trim()); }
       else if (e.key === 'Enter') {
         e.preventDefault();
-        if (paletteVisible[paletteActive]) window.location.href = paletteVisible[paletteActive].url;
+        if (paletteVisible[paletteActive]) {
+          track('palette_open_result', { url: paletteVisible[paletteActive].url, query: paletteInput.value });
+          window.location.href = paletteVisible[paletteActive].url;
+        }
       }
     });
   }
@@ -221,6 +245,7 @@
       btn.textContent = 'cp';
       btn.addEventListener('click', function () {
         var text = pre.innerText;
+        track('copy_code', { length: text.length });
         var done = function () {
           btn.classList.add('is-copied');
           btn.textContent = '✓ copied';
@@ -278,6 +303,98 @@
       .catch(function () { paletteIndex = []; return paletteIndex; });
   }
 
+  // ── TOC click tracking ──────────────────────────────────────────────
+  function bindTocTracking() {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('.ss-toc-item a');
+      if (a) track('toc_click', { hash: a.getAttribute('href') });
+    });
+  }
+
+  // ── Outbound link tracking ──────────────────────────────────────────
+  function bindOutboundTracking() {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="http"]');
+      if (!a) return;
+      try {
+        var u = new URL(a.href);
+        if (u.hostname && u.hostname !== window.location.hostname) {
+          track('outbound', { host: u.hostname, href: a.href });
+        }
+      } catch (e) {}
+    });
+  }
+
+  // ── Skip-to-content link (a11y) ────────────────────────────────────
+  function initSkipLink() {
+    if (document.querySelector('.ss-skip-link')) return;
+    var skip = document.createElement('a');
+    skip.className = 'ss-skip-link';
+    skip.href = '#main';
+    skip.textContent = 'Skip to content';
+    document.body.insertBefore(skip, document.body.firstChild);
+    // Ensure a #main target exists — the first <main>, <article>, or first <section>
+    if (!document.getElementById('main')) {
+      var target = document.querySelector('main, article, [role="main"]')
+                 || document.querySelector('header + section')
+                 || document.querySelector('section');
+      if (target && !target.id) target.id = 'main';
+    }
+  }
+
+  // ── Mobile nav drawer ──────────────────────────────────────────────
+  var drawerEl = null;
+  function initMobileDrawer() {
+    var header = document.querySelector('header');
+    if (!header) return;
+    var nav = header.querySelector('nav');
+    if (!nav) return;
+    // Inject trigger button — only visible on mobile via CSS
+    var trigger = header.querySelector('.ss-drawer-trigger');
+    if (!trigger) {
+      trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'ss-drawer-trigger';
+      trigger.setAttribute('aria-label', 'Open menu');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.textContent = 'menu';
+      // Insert into the header's outer container
+      var insertTarget = header.querySelector('.ss-palette-trigger');
+      if (insertTarget && insertTarget.parentNode) insertTarget.parentNode.insertBefore(trigger, insertTarget);
+      else header.appendChild(trigger);
+    }
+    trigger.addEventListener('click', function () {
+      drawerOpen(nav);
+    });
+  }
+  function drawerOpen(srcNav) {
+    if (drawerEl) drawerClose();
+    drawerEl = document.createElement('div');
+    drawerEl.className = 'ss-drawer-backdrop is-open';
+    drawerEl.innerHTML =
+      '<div class="ss-drawer" role="dialog" aria-modal="true" aria-label="Navigation">' +
+        '<div class="ss-drawer-head"><span class="ss-drawer-label">menu</span>' +
+        '<button class="ss-drawer-close" type="button" aria-label="Close menu">close ×</button></div>' +
+        '<nav class="ss-drawer-nav">' + srcNav.innerHTML + '</nav>' +
+      '</div>';
+    document.body.appendChild(drawerEl);
+    document.body.style.overflow = 'hidden';
+    drawerEl.addEventListener('click', function (e) {
+      if (e.target === drawerEl || e.target.classList.contains('ss-drawer-close')) drawerClose();
+    });
+    document.addEventListener('keydown', drawerKeyHandler);
+    track('drawer_open', {});
+  }
+  function drawerClose() {
+    if (drawerEl) drawerEl.remove();
+    drawerEl = null;
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', drawerKeyHandler);
+  }
+  function drawerKeyHandler(e) {
+    if (e.key === 'Escape') drawerClose();
+  }
+
   // ── Bootstrap ───────────────────────────────────────────────────────
   function bootstrap() {
     loadIndex().then(function () {
@@ -286,6 +403,10 @@
       initToc();
       initCopyButtons();
       initSeverity();
+      bindTocTracking();
+      bindOutboundTracking();
+      initSkipLink();
+      initMobileDrawer();
     });
   }
 
@@ -299,6 +420,9 @@
   window.ss = {
     open: paletteOpen,
     close: paletteClose,
+    drawerOpen: function () { var n = document.querySelector('header nav'); if (n) drawerOpen(n); },
+    drawerClose: drawerClose,
+    track: track,
     _test: {
       fuzzyScore: fuzzyScore,
       rank: rank,

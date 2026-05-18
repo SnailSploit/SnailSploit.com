@@ -19,7 +19,7 @@
 <meta content="Engage Kai Aizen for AI red teaming, penetration testing, or research collaboration." property="og:description"/>
 <meta content="https://snailsploit.com/contact" property="og:url"/>
 <meta content="snailsploit" property="og:site_name"/>
-<meta content="https://snailsploit.com/og-cover.png" property="og:image"/>
+<meta property="og:image" content="https://snailsploit.com/og-images/contact.png">
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
 <meta content="en_US" property="og:locale"/>
@@ -28,7 +28,7 @@
 <meta content="@SnailSploit" name="twitter:creator"/>
 <meta content="Contact — Get in Touch | snailsploit" name="twitter:title"/>
 <meta content="Engage Kai Aizen for AI red teaming, penetration testing, or research collaboration." name="twitter:description"/>
-<meta content="https://snailsploit.com/og-cover.png" name="twitter:image"/>
+<meta name="twitter:image" content="https://snailsploit.com/og-images/contact.png">
 <!-- seo:end -->
 <!-- assets:start -->
 <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
@@ -194,6 +194,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <textarea id="cf-msg" name="message" required placeholder="What's on your mind? If this is a vulnerability report, please use PGP (key on /about)." rows="6" style="width:100%;padding:14px 0;background:transparent;border:none;border-bottom:1px solid var(--line-hi);font-family:var(--f-mono);font-size:15px;color:var(--fg);outline:none;resize:vertical"></textarea>
   </div>
   <input type="hidden" name="_site" value="snailsploit.com">
+  <!-- Cloudflare Turnstile widget — set data-sitekey to your real site key from
+       dash.cloudflare.com → Turnstile, AND set TURNSTILE_SECRET_KEY env var on the
+       Pages project. Until both are set, the widget is hidden and the server-side
+       check no-ops (the form still works, just unprotected). -->
+  <div id="cf-turnstile-mount" data-sitekey="" style="margin:18px 0"></div>
   <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
   <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:8px">
     <button type="submit" style="padding:14px 28px;border:1px solid var(--signal-2);background:var(--signal-2);color:var(--bg);font-family:var(--f-mono);font-size:13px;letter-spacing:0.04em;cursor:pointer;border-radius:0">Send →</button>
@@ -206,16 +211,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var form = document.getElementById('contact-form');
   var status = document.getElementById('cf-status');
   if (!form) return;
+
+  // Optionally load Cloudflare Turnstile if a site key is configured on the mount.
+  var tsMount = document.getElementById('cf-turnstile-mount');
+  var tsKey = tsMount && tsMount.getAttribute('data-sitekey');
+  var tsWidgetId = null;
+  if (tsKey) {
+    var s = document.createElement('script');
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=__ssTurnstileReady';
+    s.async = true; s.defer = true;
+    window.__ssTurnstileReady = function () {
+      tsWidgetId = window.turnstile.render(tsMount, {
+        sitekey: tsKey,
+        theme: 'dark',
+        size: 'normal'
+      });
+    };
+    document.head.appendChild(s);
+  } else if (tsMount) {
+    tsMount.style.display = 'none';
+  }
+
   form.addEventListener('submit', async function(ev){
     // Honeypot
     if (form._gotcha && form._gotcha.value) { ev.preventDefault(); return; }
-    // Try POST to /api/contact (Cloudflare Pages Function). If it fails or 404s,
-    // fall through to the mailto: action.
     try {
       ev.preventDefault();
       status.textContent = 'sending…';
       status.style.color = 'var(--fg-2)';
       var data = new FormData(form);
+      // Attach Turnstile token if available
+      if (tsKey && window.turnstile && tsWidgetId) {
+        try { data.append('cf-turnstile-response', window.turnstile.getResponse(tsWidgetId) || ''); } catch (e) {}
+      }
       var res = await fetch('/api/contact', { method: 'POST', body: data });
       if (res.ok) {
         status.textContent = '✓ Sent. I’ll respond within 48 hours.';

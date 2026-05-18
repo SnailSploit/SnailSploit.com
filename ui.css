@@ -231,6 +231,121 @@
 .ss-copy-btn:hover { color: var(--fg-2); border-color: var(--line-hi); }
 .ss-copy-btn.is-copied { color: var(--signal-2); border-color: rgba(224,122,74,0.4); opacity: 1; }
 
+/* ── Skip-to-content link (a11y) ────────────────────────────────── */
+.ss-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  padding: 10px 16px;
+  background: var(--signal-2);
+  color: var(--bg);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border: 0;
+}
+.ss-skip-link:focus {
+  left: 12px;
+  top: 12px;
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+/* ── Mobile nav drawer ──────────────────────────────────────────── */
+.ss-drawer-trigger {
+  display: none;
+  padding: 6px 10px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--fg-2);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 120ms, border-color 120ms;
+}
+.ss-drawer-trigger:hover { color: var(--fg); border-color: var(--line-hi); }
+
+@media (max-width: 880px) {
+  .ss-drawer-trigger { display: inline-flex !important; align-items: center; }
+  /* hide the in-header inline nav on mobile when a drawer trigger is available */
+  header nav { display: none !important; }
+}
+
+.ss-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--bg-sink) 70%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  justify-content: flex-end;
+}
+.ss-drawer {
+  width: min(86vw, 360px);
+  height: 100%;
+  background: var(--bg);
+  border-left: 1px solid var(--line-hi);
+  display: flex;
+  flex-direction: column;
+  animation: ss-slide-in 180ms ease-out;
+}
+@keyframes ss-slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.ss-drawer-head {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ss-drawer-label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--fg-3);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.ss-drawer-close {
+  padding: 6px 10px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--fg-2);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+.ss-drawer-close:hover { color: var(--fg); border-color: var(--line-hi); }
+.ss-drawer-nav {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--f-mono);
+  font-size: 14px;
+  overflow-y: auto;
+}
+.ss-drawer-nav a {
+  display: block;
+  padding: 12px 0;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: color 120ms;
+}
+.ss-drawer-nav a:hover { color: var(--signal-2); }
+
 /* ── Print stylesheet ───────────────────────────────────────────── */
 @media print {
   *,
@@ -242,7 +357,8 @@
     text-shadow: none !important;
   }
   header, footer, nav, .ss-palette-backdrop, .ss-progress, .ss-toc, .ss-copy-btn,
-  .ss-palette-trigger, .footer, [class*="hero-links"], .related, .tabs {
+  .ss-palette-trigger, .ss-drawer-trigger, .ss-drawer-backdrop, .ss-skip-link,
+  .footer, [class*="hero-links"], .related, .tabs {
     display: none !important;
   }
   body { font-family: ui-monospace, "JetBrains Mono", monospace !important; font-size: 11pt !important; line-height: 1.5 !important; }
