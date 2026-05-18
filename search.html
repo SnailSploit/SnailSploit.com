@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search | snailsploit</title>
+<meta name="description" content="Search snailsploit research: CVEs, AATMF tactics + techniques, AI security articles, kernel patches, glossary terms.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://snailsploit.com/search">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
+<link rel="stylesheet" href="/mobile.css">
+<link rel="stylesheet" href="/ui.css">
+<style>
+:root { --bg:#0E0E0F; --bg-sink:#08090B; --line:#23252B; --line-hi:#2E3138; --fg:#E9E7E1; --fg-2:#B6B4AC; --fg-3:#76746C; --signal-2:#E07A4A; --f-grot:"Inter Tight",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace; }
+body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--f-grot); }
+.row { display:block; padding:18px 0; border-top:1px solid var(--line); text-decoration:none; color:inherit; }
+.row:hover .row-title { color:var(--signal-2); }
+.row-title { font-size:17px; font-weight:500; letter-spacing:-0.015em; color:var(--fg); transition:color 0.15s; }
+.row-meta { margin-top:6px; font-family:var(--f-mono); font-size:11px; color:var(--fg-3); text-transform:uppercase; letter-spacing:0.14em; }
+.row-desc { margin-top:6px; font-size:13px; color:var(--fg-3); line-height:1.5; }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Search snailsploit","url":"https://snailsploit.com/search","isPartOf":{"@id":"https://snailsploit.com/#website"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Search","item":"https://snailsploit.com/search"}]}</script>
+</head>
+<body>
+<header style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)"><div style="max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center"><a href="/" style="font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);text-decoration:none;line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline">snailsploit<span style="font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)">[<span style="color:var(--signal-2)">$</span>]</span></a><nav style="display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2)"><a href="/about" style="color:inherit;text-decoration:none">about</a><a href="/services" style="color:inherit;text-decoration:none">services</a><a href="/aatmf" style="color:inherit;text-decoration:none">frameworks</a><a href="/research" style="color:inherit;text-decoration:none">research</a><a href="/cves" style="color:inherit;text-decoration:none">cves</a><a href="/writing" style="color:inherit;text-decoration:none">writing</a><a href="/contact" style="color:inherit;text-decoration:none">contact</a></nav></div></header>
+<main id="main" style="max-width:760px;margin:0 auto;padding:96px 32px 80px">
+<div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:18px">search</div>
+<h1 style="margin:0 0 16px;font-size:64px;font-weight:500;line-height:0.96;letter-spacing:-0.04em">search snailsploit.</h1>
+<p style="margin:0 0 32px;font-size:16px;color:var(--fg-2);line-height:1.6">CVEs · AATMF tactics · AI security articles · wiki entries · glossary terms. Press <kbd style="font-family:var(--f-mono);padding:2px 6px;border:1px solid var(--line);border-radius:2px;font-size:12px">⌘K</kbd> anywhere on the site for the same palette.</p>
+<input id="q" type="search" autocomplete="off" placeholder="type a CVE id, tactic, product…" style="width:100%;padding:16px 18px;font-family:var(--f-mono);font-size:16px;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:2px;outline:none">
+<div id="results" style="margin-top:24px"></div>
+<div id="empty" style="display:none;font-family:var(--f-mono);font-size:13px;color:var(--fg-3);padding:24px 0">no matches.</div>
+</main>
+<footer style="background:var(--bg-sink);border-top:1px solid var(--line)"><div style="max-width:1280px;margin:0 auto;padding:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)"><span>© 2026 kai aizen · same attack. different substrate. human or machine.</span><span style="display:flex;gap:14px"><a href="/contact" style="color:var(--fg-3);text-decoration:none">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none">Cookies</a></span></div></footer>
+<script>
+(function(){
+  var idx=[],q=document.getElementById('q'),out=document.getElementById('results'),empty=document.getElementById('empty');
+  function fz(query,text){ if(!query)return 0; var t=text.toLowerCase(),k=query.toLowerCase(); if(t.indexOf(k)!==-1)return 1000-t.indexOf(k); var qi=0,ti=0,s=0,p=-2; while(qi<k.length&&ti<t.length){ if(k[qi]===t[ti]){s+=(ti-p===1)?5:1;p=ti;qi++;} ti++;} return qi===k.length?s:0; }
+  function rank(query){ var arr=[]; for(var i=0;i<idx.length;i++){ var it=idx[i],s=Math.max(fz(query,it.title)*2,fz(query,it.url),it.tags?fz(query,it.tags.join(' ')):0); if(s>0)arr.push({i:it,s:s}); } arr.sort(function(a,b){return b.s-a.s;}); return arr.slice(0,30).map(function(x){return x.i;}); }
+  function render(items){ if(!items.length){ out.innerHTML=''; empty.style.display=q.value?'block':'none'; return; } empty.style.display='none'; out.innerHTML=items.map(function(it){ return '<a href="'+it.url+'" class="row"><div class="row-title">'+escape(it.title)+'</div><div class="row-meta">'+escape(it.type||'page')+' · '+escape(it.url)+'</div>'+(it.desc?'<div class="row-desc">'+escape(it.desc)+'</div>':'')+'</a>'; }).join(''); }
+  function escape(s){ return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  fetch('/search-index.json').then(function(r){return r.json();}).then(function(d){
+    idx=d||[];
+    var params=new URLSearchParams(location.search), pre=params.get('q')||'';
+    q.value=pre; render(pre?rank(pre):idx.slice(0,30));
+    q.focus();
+  });
+  q.addEventListener('input',function(){ var v=q.value.trim(); var nu=new URL(location.href); v?nu.searchParams.set('q',v):nu.searchParams.delete('q'); history.replaceState(null,'',nu.toString()); render(v?rank(v):idx.slice(0,30)); });
+})();
+</script>
+<script defer src="/ui.js"></script>
+</body>
+</html>

@@ -101,8 +101,21 @@ window.addEventListener('load', function () {
     window.ss.open();
     var bd = document.querySelector('.ss-palette-backdrop');
     A("palette: opens", bd && bd.classList.contains('is-open'));
+    A("palette: body scroll locked when open", document.body.style.overflow === 'hidden');
     window.ss.close();
     A("palette: closes", !document.querySelector('.ss-palette-backdrop.is-open'));
+    A("palette: body scroll restored after close", document.body.style.overflow === '');
+
+    A("skip-link: present on body", !!document.querySelector('.ss-skip-link'));
+    A("skip-link: #main target exists",  !!document.getElementById('main'));
+    A("ss.drawerOpen exposed",     typeof window.ss.drawerOpen === 'function');
+    A("ss.drawerClose exposed",    typeof window.ss.drawerClose === 'function');
+    A("ss.track exposed",          typeof window.ss.track === 'function');
+    // track() should populate dataLayer
+    window.dataLayer = window.dataLayer || [];
+    var lenBefore = window.dataLayer.length;
+    window.ss.track('test_event', { foo: 'bar' });
+    A("track pushes to dataLayer", window.dataLayer.length === lenBefore + 1 && window.dataLayer[lenBefore].event === 'ss_test_event');
 
     var html = "", pass = 0, fail = 0;
     R.forEach(function (r) {

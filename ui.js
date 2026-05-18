@@ -333,12 +333,25 @@
     skip.href = '#main';
     skip.textContent = 'Skip to content';
     document.body.insertBefore(skip, document.body.firstChild);
-    // Ensure a #main target exists — the first <main>, <article>, or first <section>
+    // Ensure a #main anchor exists no matter how the page is structured.
     if (!document.getElementById('main')) {
-      var target = document.querySelector('main, article, [role="main"]')
-                 || document.querySelector('header + section')
-                 || document.querySelector('section');
-      if (target && !target.id) target.id = 'main';
+      var existing = document.querySelector('main, article, [role="main"]');
+      if (existing) {
+        if (!existing.id) existing.id = 'main';
+      } else {
+        // Inject a focusable anchor immediately after the first <header>,
+        // or at the top of <body> if there is no header.
+        var anchor = document.createElement('div');
+        anchor.id = 'main';
+        anchor.setAttribute('tabindex', '-1');
+        anchor.style.cssText = 'position:relative;outline:none';
+        var header = document.querySelector('body > header, body > [role="banner"]');
+        if (header && header.parentNode) {
+          header.parentNode.insertBefore(anchor, header.nextSibling);
+        } else {
+          document.body.insertBefore(anchor, skip.nextSibling);
+        }
+      }
     }
   }
 
