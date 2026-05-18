@@ -165,3 +165,8 @@
 /mcp-vs-a2a.html        /ai-security/mcp-vs-a2a-attack-surface/        301
 /blind-spot.html        /ai-security/rai-judge-blind-spots/        301
 /adversarial-guide.html        /ai-security/adversarial-prompting/        301
+/frameworks/aatmf/catalog/      /frameworks/aatmf/core-tactics/                                 301
+/frameworks/aatmf/defense/      /frameworks/aatmf/operations/                                   301
+/frameworks/aatmf/incident-response/  /frameworks/aatmf/operations/                             301
+/frameworks/aatmf/signatures/   /frameworks/aatmf/prompt-bank/                                  301
+/frameworks/adversarial-prompting-framework/  /prompt                                           301

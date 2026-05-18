@@ -1,15 +1,39 @@
 {
   "name": "snailsploit",
   "short_name": "snailsploit",
-  "description": "Independent offensive security researcher Kai Aizen — AI red teaming, frameworks, CVEs, original research.",
+  "description": "Independent offensive security researcher Kai Aizen \u2014 AI red teaming, frameworks, CVEs, original research.",
   "start_url": "/",
   "display": "minimal-ui",
   "background_color": "#0E0E0F",
   "theme_color": "#0E0E0F",
   "lang": "en",
   "icons": [
-    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
-    { "src": "/apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ],
-  "categories": ["security", "research", "education"]
+  "categories": [
+    "security",
+    "research",
+    "education"
+  ]
 }
