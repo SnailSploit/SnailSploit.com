@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle | snailsploit</title>
-<meta name="description" content="Indirect prompt injection (OWASP LLM01) is presumed blind. On the SSE stream the attacker reads their injected payload turn into a tool_use call with arguments, before the render layer hides it. Closed-loop oracle by Kai Aizen.">
+<meta name="description" content="Indirect prompt injection (OWASP LLM01) is presumed blind. On the SSE stream the attacker reads their injected payload turn into a tool_use call with arguments, before any render-layer suppression. Closed-loop oracle by Kai Aizen.">
 <meta name="author" content="Kai Aizen">
 <meta property="article:author" content="Kai Aizen">
 <meta property="article:published_time" content="2026-05-18">
 <meta property="article:section" content="AI Security / Prompt Injection">
 <meta property="og:title" content="Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle | snailsploit">
-<meta property="og:description" content="Indirect prompt injection (OWASP LLM01) is presumed blind. On the SSE stream the attacker reads their injected payload turn into a tool_use call with arguments, before the render layer hides it. Closed-loop oracle by Kai Aizen.">
+<meta property="og:description" content="Indirect prompt injection (OWASP LLM01) is presumed blind. On the SSE stream the attacker reads their injected payload turn into a tool_use call with arguments, before any render-layer suppression. Closed-loop oracle by Kai Aizen.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://snailsploit.com/ai-security/prompt-injection/wire-oracle/">
 <meta property="og:image" content="https://snailsploit.com/og-images/ai-security__prompt-injection__wire-oracle.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle | snailsploit">
-<meta name="twitter:description" content="Indirect prompt injection (OWASP LLM01) is presumed blind. On the SSE stream the attacker reads their injected payload turn into a tool_use call with arguments, before the render layer hides it. Closed-loop oracle by Kai Aizen.">
+<meta name="twitter:description" content="Indirect prompt injection (OWASP LLM01) is presumed blind. On the SSE stream the attacker reads their injected payload turn into a tool_use call with arguments, before any render-layer suppression. Closed-loop oracle by Kai Aizen.">
 <meta name="twitter:image" content="https://snailsploit.com/og-images/ai-security__prompt-injection__wire-oracle.png">
 <link rel="canonical" href="https://snailsploit.com/ai-security/prompt-injection/wire-oracle/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -26,88 +26,128 @@
 <meta name="theme-color" content="#0E0E0F">
 <link rel="stylesheet" href="/mobile.css">
 <link rel="stylesheet" href="/ui.css">
-<style>:root { --bg:#0E0E0F; --bg-raise:#15161A; --bg-sink:#08090B; --line:#23252B; --line-hi:#2E3138; --fg:#E9E7E1; --fg-2:#B6B4AC; --fg-3:#76746C; --fg-4:#4A4842; --signal-2:#E07A4A; --f-grot:"Inter Tight",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace; } body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--f-grot); } html{-webkit-text-size-adjust:100%}
-  .wire-article{background:var(--bg);color:var(--fg);font-family:var(--f-grot);
-    font-size:18px;line-height:1.65;font-weight:400;
-    -webkit-font-smoothing:antialiased}
-  .frame{max-width:820px;margin:0 auto;padding:64px 28px 96px;
-    border-left:1px solid var(--line);border-right:1px solid var(--line)}
-  @media(max-width:880px){.frame{border:none;padding:40px 20px 72px}}
+<style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}
+.wm-sig .dollar{color:var(--signal-2)}
+.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
+.nav-links a:hover{color:var(--fg)}
+.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}
+.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.crumbs a{color:var(--fg-3)}
+.crumbs a:hover{color:var(--fg)}
+.crumbs .sep{color:var(--fg-4)}
 
-  .eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--fg-3);margin-bottom:28px}
-  .wordmark{font-family:var(--f-grot);font-size:15px;font-weight:500;
-    letter-spacing:-.01em;color:var(--fg-2)}
-  .wordmark .sig{font-family:var(--f-mono);color:var(--fg-3);margin-left:6px;font-size:12px}
+.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}
+.article-hero-inner{max-width:1280px;margin:0 auto}
+.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.article-meta time{color:var(--fg-3)}
+.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0;max-width:1080px}
+.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:780px}
 
-  .wire-article h1 {font-family:var(--f-grot);font-weight:500;font-size:42px;
-    line-height:1.02;letter-spacing:-.035em;margin:18px 0 14px}
-  @media(max-width:880px){.wire-article h1 {font-size:31px}}
-  .deck{font-size:19px;color:var(--fg-2);font-weight:400;
-    letter-spacing:-.01em;margin-bottom:30px}
-  .meta{font-family:var(--f-mono);font-size:12.5px;color:var(--fg-3);
-    line-height:1.7;border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:48px}
-  .meta .sh{color:var(--signal-2)}
+.article-layout{max-width:1280px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:1fr 240px;gap:64px;align-items:start;border-bottom:1px solid var(--line)}
+.article-body{min-width:0;font-size:17px;line-height:1.75;color:var(--fg-2);max-width:780px}
+.article-body > *:first-child{margin-top:0}
+.article-body h2{font-size:32px;font-weight:500;line-height:1.2;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:24px;border-top:1px solid var(--line);scroll-margin-top:96px}
+.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px;scroll-margin-top:96px}
+.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px}
+.article-body p{margin:16px 0}
+.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}
+.article-body li{margin:6px 0}
+.article-body strong{color:var(--fg);font-weight:600}
+.article-body em{color:var(--fg);font-style:italic}
+.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.article-body a:hover{border-bottom-color:var(--signal-2)}
+.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg);border-radius:2px}
+.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0;border-radius:2px}
+.article-body pre code{background:none;border:0;padding:0;font-size:inherit;border-radius:0}
+.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}
+.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}
+.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}
+.article-body img,.article-body picture{display:block;max-width:100%;height:auto;margin:32px auto;border:1px solid var(--line);background:var(--bg-raise)}
+.article-body picture img{margin:0;border:0}
+.article-body figure{margin:32px 0}
+.article-body figure img{margin:0 auto}
+.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:12px;text-align:center;line-height:1.5}
+.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
 
-  .wire-article h2 {font-family:var(--f-grot);font-weight:500;font-size:15px;
-    letter-spacing:.06em;text-transform:uppercase;color:var(--fg-2);
-    margin:56px 0 8px}
-  h2 .n{font-family:var(--f-mono);color:var(--fg-3);margin-right:12px;
-    font-size:13px;letter-spacing:0}
-  .rule{height:1px;background:var(--line);margin:8px 0 26px}
+.toc{position:sticky;top:96px;align-self:start;font-family:var(--f-mono);font-size:12px;line-height:1.7;max-height:calc(100vh - 128px);overflow-y:auto}
+.toc-eyebrow{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:11px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.toc ul{list-style:none;padding:0;margin:0}
+.toc li{padding:4px 0}
+.toc li.h3{padding-left:16px;font-size:11.5px}
+.toc a{color:var(--fg-2);display:block;padding:2px 0;border-left:2px solid transparent;padding-left:12px;margin-left:-14px;transition:color 0.15s, border-color 0.15s}
+.toc a:hover{color:var(--fg);border-left-color:var(--signal-2)}
 
-  .wire-article p {margin:0 0 20px;color:var(--fg)}
-  .wire-article p.sub {color:var(--fg-2)}
-  .wire-article strong {font-weight:500;color:var(--fg)}
-  .wire-article code {font-family:var(--f-mono);font-size:.84em;color:var(--fg-2);
-    background:var(--bg-raise);padding:1px 5px;border-radius:3px;
-    border:1px solid var(--line)}
-  .wire-article em {font-style:italic;color:var(--fg-2)}
+@media (max-width: 960px){
+  .article-layout{grid-template-columns:1fr;gap:32px}
+  .toc{display:none}
+}
 
-  .wire-article figure {margin:34px 0;border:1px solid var(--line);background:var(--bg-raise);
-    border-radius:6px;padding:22px 18px 12px}
-  .wire-article figure svg {width:100%;height:auto;display:block}
-  .wire-article figcaption {font-family:var(--f-mono);font-size:11.5px;color:var(--fg-3);
-    letter-spacing:.04em;text-transform:uppercase;
-    margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
-  .wire-article figcaption b {color:var(--fg-2);font-weight:400}
+.callout{margin:32px 0;padding:20px 24px;border:1px solid var(--line-hi);background:var(--bg-raise);font-family:var(--f-mono);font-size:14px;line-height:1.6}
+.callout-label{font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px;font-weight:500}
 
-  .lede{border-left:2px solid var(--signal-2);padding-left:20px;
-    margin:0 0 30px;color:var(--fg)}
+.related{padding:64px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.related-inner{max-width:1280px;margin:0 auto}
+.related-head{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:32px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.related-card{padding:24px;border:1px solid var(--line);background:var(--bg);transition:border-color 0.15s}
+.related-card:hover{border-color:var(--signal-2)}
+.related-date{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-bottom:8px}
+.related-title{font-size:18px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);line-height:1.3;margin-bottom:8px}
+.related-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.55}
 
-  .close{font-family:var(--f-grot);font-size:26px;font-weight:500;
-    letter-spacing:-.03em;margin:52px 0 0}
-  .close .b{color:var(--fg-3)}
+.author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.author-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}
+.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}
+.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}
+.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
+.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}
 
-  .src{font-family:var(--f-mono);font-size:12px;line-height:1.85;
-    color:var(--fg-3);border-top:1px solid var(--line);
-    margin-top:56px;padding-top:22px}
-  .src .wire-article em {color:var(--fg-2);font-style:normal}
-
-  .wire-article svg text {font-family:var(--f-grot)}
-  .s-t{font-size:14px;font-weight:500}
-  .s-ts{font-family:var(--f-mono);font-size:11.5px}
-  .s-lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;
-    text-transform:uppercase}</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"indirect injection was never blind","alternativeHeadline":"the wire carries the tool call before the interface hides it","name":"Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle","description":"Indirect prompt injection (OWASP LLM01) is presumed blind. On the SSE stream the attacker reads their injected payload turn into a tool_use call with arguments, before the render layer hides it. Closed-loop oracle by Kai Aizen.","datePublished":"2026-05-18","dateModified":"2026-05-18","url":"https://snailsploit.com/ai-security/prompt-injection/wire-oracle/","mainEntityOfPage":"https://snailsploit.com/ai-security/prompt-injection/wire-oracle/","image":"https://snailsploit.com/og-images/ai-security__prompt-injection__wire-oracle.png","author":{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","url":"https://snailsploit.com/about","image":"https://snailsploit.com/og-square.png","jobTitle":"Independent Offensive Security Researcher"},"publisher":{"@type":"Organization","@id":"https://snailsploit.com/#org","name":"snailsploit","url":"https://snailsploit.com/","logo":"https://snailsploit.com/og-square.png"},"about":["Indirect Prompt Injection","Render-Layer Redaction","OWASP LLM01","OWASP LLM02","Server-Sent Events","Tool Use","LLM Agents"],"keywords":"indirect prompt injection, render-layer redaction, SSE, tool_use, LLM01, LLM02, EchoLeak, CVE-2025-32711, agent security, AATMF","articleSection":"AI Security / Prompt Injection","inLanguage":"en"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"AI Security","item":"https://snailsploit.com/ai-security/"},{"@type":"ListItem","position":3,"name":"Prompt Injection","item":"https://snailsploit.com/ai-security/prompt-injection/"},{"@type":"ListItem","position":4,"name":"indirect injection was never blind","item":"https://snailsploit.com/ai-security/prompt-injection/wire-oracle/"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the 'injection oracle'?","acceptedAnswer":{"@type":"Answer","text":"The injection oracle is the conversion of blind indirect prompt injection into a closed-loop attack. On a streaming chat API, the model's chosen tool_use call (name + argument JSON) crosses the wire as plaintext before any render-layer suppression. Anyone with payload visibility on that stream reads the live confirmation that the injection landed \u2014 confirmation that EchoLeak (CVE-2025-32711) had to engineer separately is delivered by the protocol."}},{"@type":"Question","name":"What is render-layer redaction?","acceptedAnswer":{"@type":"Answer","text":"Render-layer redaction is a suppression applied after the trust boundary \u2014 the bytes have already crossed the wire and the UI hides them client-side. It's chosen over decide-then-stream because it costs less latency. The defect maps to OWASP LLM02 (insecure output handling): the handling is applied one layer too late to function as a control."}},{"@type":"Question","name":"Is this a vulnerability in one product?","acceptedAnswer":{"@type":"Answer","text":"No. The universal half \u2014 streamed tool deltas before the action resolves \u2014 is a property of every major streaming chat API (Anthropic content_block_start / input_json_delta / content_block_stop; OpenAI tool_calls function.arguments deltas). The render-layer redaction half is common but checkable per product. The oracle survives even where redaction is server-side."}},{"@type":"Question","name":"How do I close this?","acceptedAnswer":{"@type":"Answer","text":"Move redaction to the trust boundary: decide-then-stream, never stream-then-hide. Accept the latency cost \u2014 that latency was the price of the boundary all along. Treat the system prompt and tool schema as disclosed the instant they're reasoned about in a streamed block. Treat any secret that can appear in a tool argument as disclosed if the argument is streamed before the secret is scrubbed."}},{"@type":"Question","name":"What's the relation to EchoLeak (CVE-2025-32711)?","acceptedAnswer":{"@type":"Answer","text":"EchoLeak's hard engineering was the confirmation channel \u2014 building a way to route exfil past CSP and verify it. The injection itself was easy. This piece argues the confirmation channel is free for anyone on the decrypted SSE stream: the tool_use deltas serve as live confirmation, no extra engineering required."}}]}</script>
+.footer{background:var(--bg-sink)}
+.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+</style>
+<style>
+.article-body figure { margin: 32px 0; border: 1px solid var(--line); background: var(--bg-raise); border-radius: 2px; padding: 22px 18px 12px; }
+.article-body figure svg { width: 100%; height: auto; display: block; }
+.article-body figure svg text { font-family: var(--f-grot); }
+.article-body figcaption { font-family: var(--f-mono); font-size: 11.5px; color: var(--fg-3); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.article-body figcaption b { color: var(--fg-2); font-weight: 400; }
+.article-body .rule { display: none; } /* the per-h2 underline rules in the upload — site h2 already has its own top border */
+.article-body .shell-meta { font-family: var(--f-mono); font-size: 12.5px; color: var(--fg-3); line-height: 1.7; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; margin: 28px 0 32px; }
+.article-body .shell-meta .sh { color: var(--signal-2); }
+.article-body .lede-quote { border-left: 2px solid var(--signal-2); padding: 4px 0 4px 20px; margin: 24px 0 28px; color: var(--fg); font-style: normal; }
+.article-body .close-line { font-family: var(--f-grot); font-size: 26px; font-weight: 500; letter-spacing: -0.03em; margin: 48px 0 16px; color: var(--fg); }
+.article-body .close-line .muted { color: var(--fg-3); }
+.article-body .sources { font-family: var(--f-mono); font-size: 12px; line-height: 1.85; color: var(--fg-3); border-top: 1px solid var(--line); margin-top: 40px; padding-top: 20px; }
+.article-body .sources em { color: var(--fg-2); font-style: normal; }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle","alternativeHeadline":"The streaming tool_use protocol delivers, for free to any party on the decrypted stream, the confirmation channel EchoLeak had to engineer separately","name":"Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle","description":"Indirect prompt injection (OWASP LLM01) is presumed blind. On the SSE stream the attacker reads their injected payload turn into a tool_use call with arguments, before any render-layer suppression. Closed-loop oracle by Kai Aizen.","datePublished":"2026-05-18","dateModified":"2026-05-18","url":"https://snailsploit.com/ai-security/prompt-injection/wire-oracle/","mainEntityOfPage":"https://snailsploit.com/ai-security/prompt-injection/wire-oracle/","image":"https://snailsploit.com/og-images/ai-security__prompt-injection__wire-oracle.png","author":{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","url":"https://snailsploit.com/about","image":"https://snailsploit.com/og-square.png","jobTitle":"Independent Offensive Security Researcher"},"publisher":{"@type":"Organization","@id":"https://snailsploit.com/#org","name":"snailsploit","url":"https://snailsploit.com/","logo":"https://snailsploit.com/og-square.png"},"articleSection":"Prompt Injection","inLanguage":"en","wordCount":2105}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"AI Security","item":"https://snailsploit.com/ai-security/"},{"@type":"ListItem","position":3,"name":"Prompt Injection","item":"https://snailsploit.com/ai-security/prompt-injection/"},{"@type":"ListItem","position":4,"name":"Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle","item":"https://snailsploit.com/ai-security/prompt-injection/wire-oracle/"}]}</script>
 </head>
 <body>
-<header style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)"><div style="max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center"><a href="/" style="font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);text-decoration:none;line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline">snailsploit<span style="font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)">[<span style="color:var(--signal-2)">$</span>]</span></a><nav style="display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2)"><a href="/about" style="color:inherit;text-decoration:none">about</a><a href="/services" style="color:inherit;text-decoration:none">services</a><a href="/aatmf" style="color:inherit;text-decoration:none">frameworks</a><a href="/research" style="color:inherit;text-decoration:none">research</a><a href="/cves" style="color:inherit;text-decoration:none">cves</a><a href="/writing" style="color:inherit;text-decoration:none">writing</a><a href="/contact" style="color:inherit;text-decoration:none">contact</a></nav><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button></div></header>
-<nav class="site-crumbs" aria-label="Breadcrumb" style="border-bottom:1px solid var(--line);background:var(--bg-sink)"><div style="max-width:1280px;margin:0 auto;padding:14px 32px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);letter-spacing:0.1em"><a href="/" style="color:var(--fg-3);text-decoration:none">Home</a> · <a href="/ai-security/" style="color:var(--fg-3);text-decoration:none">AI Security</a> · <a href="/ai-security/prompt-injection/" style="color:var(--fg-3);text-decoration:none">Prompt Injection</a> · <span style="color:var(--fg-2)">indirect injection was never blind</span></div></nav>
-<article id="main" class="wire-article frame">
-
-  <h1>indirect injection was never blind</h1>
-  <p class="deck">the wire carries the tool call before the interface hides it</p>
-  <div class="meta">
-    kai aizen<br>
-    creator of AATMF · author of Adversarial Minds · NVD contributor<br>
-    <span class="sh">SHELL.002 — 2026.05</span>
-  </div>
-
-  <p class="lede">Every indirect-prompt-injection threat model rests on one comfort: the attacker is blind. They drop a payload into a corpus, fire, and wait — and all they ever see back is the product's clean, rendered answer. Whether the injection became a privileged tool call or died in a classifier is, to them, unobservable. That assumption is the load-bearing beam of the entire defensive posture. It is also false for any party on the decrypted stream.</p>
+<nav class="nav"><div class="nav-inner"><a href="/" class="wm" style="text-decoration:none"><span>snailsploit</span><span class="wm-sig">[<span class="dollar">$</span>]</span></a><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/aatmf">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/cves">cves</a></li><li><a href="/writing">writing</a></li><li><a href="/contact">contact</a></li></ul><div class="nav-utils"><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></nav>
+<section class="article-hero">
+<div class="article-hero-inner">
+<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/ai-security/prompt-injection/">Prompt Injection</a><span class="sep">/</span><span>Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle</span></div>
+<div class="article-meta"><time datetime="2026-05-18">2026-05-18</time><span>10 min read</span><span>SHELL.002 · 2026.05</span></div>
+<h1 class="article-h1">Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle</h1>
+<p class="article-lede">The streaming tool_use protocol delivers, for free to any party on the decrypted stream, the confirmation channel EchoLeak had to engineer separately</p>
+</div>
+</section>
+<div class="article-layout">
+<main class="article-body">
+<blockquote class="lede-quote">Every indirect-prompt-injection threat model rests on one comfort: the attacker is blind. They drop a payload into a corpus, fire, and wait — and all they ever see back is the product's clean, rendered answer. Whether the injection became a privileged tool call or died in a classifier is, to them, unobservable. That assumption is the load-bearing beam of the entire defensive posture. It is also false for any party on the decrypted stream.</blockquote><div class="shell-meta">Kai Aizen<br>creator of AATMF · author of Adversarial Minds · NVD contributor<br><span class="sh">SHELL.002 · 2026.05</span></div>
 
   <p>EchoLeak (CVE-2025-32711) is the reference point, and the part everyone quotes is the wrong part. The hard engineering in EchoLeak was not the injection — it was building a channel to <em>confirm</em> the exfil and route it past CSP. The injection is easy. Knowing it worked is the expensive part. This piece is about the case where that part is free: where the attacker is sitting on the SSE stream and watches the injected instruction become a tool call, in plaintext, before the interface decides to hide it.</p>
 
@@ -115,8 +155,7 @@
 
   <p>We walk it in five steps. Each is a mechanism, stated as protocol fact where it is one and as a testable claim where it is one, with the line between the two drawn explicitly so the strong parts are not diluted by the checkable ones.</p>
 
-  <h2>the model the threat model assumes</h2>
-  <div class="rule"></div>
+  <h2 id="the-model-the-threat-model-assumes">The model the threat model assumes</h2>
   <p>Indirect prompt injection is OWASP <strong>LLM01</strong>. The standard treatment models the attacker as a writer with no read-back: they place text where a model will ingest it — RAG corpus, email body, fetched page, tool output — and the model either follows it or does not. The defender's controls (spotlighting, channel separation, classifiers) are all built against an adversary who cannot tell, from outside, whether any individual payload landed. Detection asymmetry is assumed to favor the defender.</p>
   <p>The assumption is not written down anywhere, the same way the three buried clauses of the confused-deputy assumption were never written down. It is free, until it isn't. Here it stops being free the moment the attacker's vantage point includes the response stream rather than only the rendered result. The diagram below is the assumption and its failure side by side; the rest of the piece is one walk from the left box to the right.</p>
 
@@ -147,10 +186,9 @@
   <figcaption>fig 1 · <b>the blind-attacker assumption and its failure — detection asymmetry was a vantage-point artifact, not a property of the attack</b></figcaption>
   </figure>
 
-  <h2><span class="n">step 1</span>the stream carries the tool call as syntax</h2>
-  <div class="rule"></div>
+  <h2 id="step-1">Step 1 — The stream carries the tool call as syntax</h2>
   <p>This step is protocol fact, not inference, and it is the foundation everything else stands on, so it is stated plainly. Streaming chat APIs do not emit a finished answer — they emit a sequence of typed events over Server-Sent Events. Tool invocations are part of that sequence as <em>structured syntax</em>, not as an opaque blob.</p>
-  <p class="sub">On Anthropic's wire: a <code>content_block_start</code> event with <code>type: "tool_use"</code> carrying the tool name, followed by <code>input_json_delta</code> events that stream the argument JSON fragment by fragment until <code>content_block_stop</code>. On OpenAI's wire: <code>tool_calls</code> entries whose <code>function.name</code> and <code>function.arguments</code> arrive as incremental deltas. Either way the tool name and its arguments cross the wire as readable text, in order, as they are generated.</p>
+  <p>On Anthropic's wire: a <code>content_block_start</code> event with <code>type: "tool_use"</code> carrying the tool name, followed by <code>input_json_delta</code> events that stream the argument JSON fragment by fragment until <code>content_block_stop</code>. On OpenAI's wire: <code>tool_calls</code> entries whose <code>function.name</code> and <code>function.arguments</code> arrive as incremental deltas. Either way the tool name and its arguments cross the wire as readable text, in order, as they are generated.</p>
   <p>Nothing here is a vulnerability. It is how streaming tool use is specified to work, and it has to work this way for the client to render progress. The point of the step is what it makes true for everything downstream: the agent's decision to call a tool, and the arguments it chose, exist on the wire as plaintext before any consumer of that stream has done anything with them.</p>
 
   <figure>
@@ -173,8 +211,7 @@
   <figcaption>fig 2 · <b>tool use is streamed syntax — the foundation claim, true by protocol design on every major streaming API</b></figcaption>
   </figure>
 
-  <h2><span class="n">step 2</span>redaction is a render-layer decision</h2>
-  <div class="rule"></div>
+  <h2 id="step-2">Step 2 — Redaction is a render-layer decision</h2>
   <p>This step is the testable claim, and it is labelled as such because the strength of the piece depends on not overstating it. When a product hides something — a tool result, a reasoning block, a secret-bearing argument, an intermediate the final answer doesn't show — <em>where</em> does that hiding happen?</p>
   <p>If the product decides what to suppress and only then streams the survivor, redaction is at the trust boundary and this piece has nothing on it. If the product streams the content and the client or a post-stream pass removes it from what the user sees, then the redaction is render-layer: it is CSS over bytes that already crossed the wire. The empirically common pattern is the second, for a structural reason — deciding-then-streaming costs latency, and streaming-then-hiding does not. Products optimize the metric the user feels. That trade, latency bought with a render-layer redaction, is the defect, and it is OWASP <strong>LLM02</strong>: insecure output handling, with the handling applied one layer too late to be a control.</p>
   <p>State the honest boundary: this is per-product checkable, not universal. The reason the piece does not depend on it — see step 4 — is that the oracle survives even where redaction is server-side, because the oracle does not need redaction to fail. It needs only step 1.</p>
@@ -204,8 +241,7 @@
   <figcaption>fig 3 · <b>the testable claim — where the hide happens; the common answer is render-layer, and that is the LLM02 defect</b></figcaption>
   </figure>
 
-  <h2><span class="n">step 3</span>the oracle</h2>
-  <div class="rule"></div>
+  <h2 id="step-3">Step 3 — The oracle</h2>
   <p>This is the payload, and it is deliberately separated from step 2 because it does not inherit step 2's qualification. Return to the blind attacker. They have placed an instruction in a document the agent will retrieve. In the classic model they fire and learn nothing — the rendered answer is clean whether the injection became a privileged call or was caught.</p>
   <p>Put them on the stream. The injected instruction, if it lands, becomes a <code>tool_use</code> block with <code>input_json_delta</code> arguments — step 1, protocol fact. The attacker watches their own instruction turn into a named tool call with arguments, as it happens, before any render-layer suppression (step 2) can act and <em>regardless of whether that suppression exists at all</em>. Blind indirect injection becomes closed-loop indirect injection. The attacker now has live confirmation of landing, the exact tool and arguments the injection produced, and a feedback signal to iterate the payload against the model's actual behavior instead of guessing.</p>
   <p>This is not an observation about transports. It is a change in attacker capability against LLM01 — the top of the taxonomy. EchoLeak's expensive component, confirmation, is delivered for free by the protocol to anyone on the stream. The defensive posture that assumed detection asymmetry favored the defender was reasoning from a vantage point the attacker is not obligated to accept.</p>
@@ -234,11 +270,10 @@
   <figcaption>fig 4 · <b>the oracle — confirmation EchoLeak had to engineer is delivered by the protocol; survives even server-side redaction</b></figcaption>
   </figure>
 
-  <h2><span class="n">step 4</span>why this is not one product's bug</h2>
-  <div class="rule"></div>
+  <h2 id="step-4">Step 4 — Why this is not one product's bug</h2>
   <p>If this were a misconfiguration it would be a hardening note. It is not, and the reason is the split established across steps 1 and 2. One property is universal by protocol design; the other is common but checkable. Keeping them separate is what makes the piece robust to its own fork.</p>
-  <p class="sub"><strong>Universal — streamed tool deltas before the action resolves.</strong> Every major streaming API emits the tool name and arguments incrementally before the tool actually runs and before the turn completes. This is not optional; progressive rendering requires it. The oracle (step 3) needs only this. It holds wherever tool use is streamed, independent of any product's redaction choices.</p>
-  <p class="sub"><strong>Common but checkable — render-layer redaction.</strong> The amplifying defects — system-prompt and tool-schema disclosure through reasoning blocks that stream and are then hidden by the renderer; secrets present in tool-argument deltas that a client-side filter scrubs from the displayed transcript; intermediate argument revisions the final render never shows — all depend on step 2 being true for the specific product. Where it is, the wire transcript and the rendered transcript differ, and the difference is exactly the material the product chose to suppress. Where it is not, these corollaries fall away and the oracle still stands.</p>
+  <p><strong>Universal — streamed tool deltas before the action resolves.</strong> Every major streaming API emits the tool name and arguments incrementally before the tool actually runs and before the turn completes. This is not optional; progressive rendering requires it. The oracle (step 3) needs only this. It holds wherever tool use is streamed, independent of any product's redaction choices.</p>
+  <p><strong>Common but checkable — render-layer redaction.</strong> The amplifying defects — system-prompt and tool-schema disclosure through reasoning blocks that stream and are then hidden by the renderer; secrets present in tool-argument deltas that a client-side filter scrubs from the displayed transcript; intermediate argument revisions the final render never shows — all depend on step 2 being true for the specific product. Where it is, the wire transcript and the rendered transcript differ, and the difference is exactly the material the product chose to suppress. Where it is not, these corollaries fall away and the oracle still stands.</p>
   <p>The systemic point is the trade itself. Streaming-then-hiding is chosen over deciding-then-streaming because users feel latency and do not feel that a redaction happened after the bytes left. That is a deliberate exchange of a security boundary for a performance metric, made the same way across the industry, which is what makes it a class rather than an incident.</p>
 
   <figure>
@@ -261,20 +296,20 @@
   <figcaption>fig 5 · <b>universal versus checkable — the oracle rides the protocol property, not the product one</b></figcaption>
   </figure>
 
-  <h2>the primitive, and the boundary it ignores</h2>
-  <div class="rule"></div>
+  <h2 id="the-primitive-and-the-boundary-it-ignores">The primitive, and the boundary it ignores</h2>
   <p>Name it so it can be argued about: <strong>render-layer redaction</strong>. A suppression applied after the trust boundary is not a control — it is presentation, and an attacker is never obligated to consume the presentation instead of the wire. The capability it hands the attacker is the <strong>injection oracle</strong>: the conversion of blind indirect injection into a closed loop, delivered by the streaming protocol to any party on the decrypted stream. EchoLeak had to build its confirmation channel. The protocol builds it for everyone.</p>
   <p>The honest scope, stated not buried: this requires payload visibility. The party on the stream is the browser, a research or malicious extension, a logging or intercepting proxy, the client itself, or a tap on a product that is not end-to-end encrypted. For browser-delivered SSE products with no E2E, that is the default position, not an exotic one — and the threat model has to say so in its first sentence or it deserves the pushback it will get.</p>
   <p>What actually closes it: move redaction to the trust boundary — decide-then-stream, never stream-then-hide — and accept the latency that buys, because the latency was the price of the boundary all along. Treat the system prompt and tool schema as disclosed the instant they are reasoned about in a streamed block. Treat any secret that can appear in a tool argument as disclosed if the argument is streamed before the secret is scrubbed. None of these are hard once the layer is named; the reason they are pervasive is that the cheaper layer was chosen on purpose.</p>
   <p>The blindfold was never a property of the attack. It was a property of where the defender assumed the attacker was standing. We built agents that narrate their decisions over a wire in plaintext, then hid the narration with the interface, and called the interface a control.</p>
 
-  <p class="close">same attack. <span class="b">different substrate.</span></p>
+  <p class="close-line">same attack. <span class="muted">different substrate.</span></p>
 
-  <p class="src"><em>sources</em> — Anthropic Messages streaming: <code>content_block_start</code> / <code>input_json_delta</code> / <code>content_block_stop</code> event sequence for <code>tool_use</code> blocks. OpenAI chat streaming: <code>tool_calls</code> <code>function.name</code> / <code>function.arguments</code> incremental deltas. OWASP Top 10 for LLM Applications (2025): LLM01 prompt injection, LLM02 insecure output handling. Aim Labs / MSRC, EchoLeak (CVE-2025-32711, 2025), referenced for the confirmation-channel cost, not the injection. SnailSploit R1 Mirror, prior work — reasoning-block visibility via client interception, generalized here onto the transport.</p>
-
-</article>
-<section style="border-top:1px solid var(--line);background:var(--bg-sink)"><div style="max-width:1280px;margin:0 auto;padding:64px 32px"><div style="display:grid;grid-template-columns:180px 1fr;gap:40px;align-items:start"><div><div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em">Related</div></div><div><div style="display:grid;grid-template-columns:1fr 1fr;gap:24px"><a href="/ai-security/prompt-injection/prompt-injection-examples/" style="padding:24px;border:1px solid var(--line);text-decoration:none;color:inherit;background:var(--bg)"><div style="font-size:17px;font-weight:500;letter-spacing:-0.015em">Prompt Injection Examples</div><div style="margin-top:6px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em">technical reference</div></a><a href="/ai-security/prompt-injection/memory-injection-nested-skills/" style="padding:24px;border:1px solid var(--line);text-decoration:none;color:inherit;background:var(--bg)"><div style="font-size:17px;font-weight:500;letter-spacing:-0.015em">Memory Injection Through Nested Skills</div><div style="margin-top:6px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em">research</div></a></div></div></div></div></section>
-<footer style="background:var(--bg-sink);border-top:1px solid var(--line)"><div style="max-width:1280px;margin:0 auto;padding:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)"><span>© 2026 kai aizen · same attack. different substrate. human or machine.</span><span style="display:flex;gap:14px"><a href="/contact" style="color:var(--fg-3);text-decoration:none">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none">Cookies</a></span></div></footer>
+  <p class="sources"><em>sources</em> — Anthropic Messages streaming: <code>content_block_start</code> / <code>input_json_delta</code> / <code>content_block_stop</code> event sequence for <code>tool_use</code> blocks. OpenAI chat streaming: <code>tool_calls</code> <code>function.name</code> / <code>function.arguments</code> incremental deltas. OWASP Top 10 for LLM Applications (2025): LLM01 prompt injection, LLM02 insecure output handling. Aim Labs / MSRC, EchoLeak (CVE-2025-32711, 2025), referenced for the confirmation-channel cost, not the injection. SnailSploit R1 Mirror, prior work — reasoning-block visibility via client interception, generalized here onto the transport.</p>
+</main>
+</div>
+<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/prompt-injection/semantic-metadata-smuggling/"><div class="related-date">2026-05-18</div><div class="related-title">Semantic-to-Metadata Smuggling in Multi-LoRA Routing Gateways</div><div class="related-desc">SHELL.003 — signal suppression at the LoRA routing gateway.</div></a><a class="related-card" href="/ai-security/prompt-injection/memory-injection-nested-skills/"><div class="related-date">2026-03-10</div><div class="related-title">Memory Injection Through Nested Skills</div><div class="related-desc">Skill injection plus cross-session memory poisoning as a self-healing implant.</div></a><a class="related-card" href="/ai-security/prompt-injection/prompt-injection-examples/"><div class="related-date">2026-03-10</div><div class="related-title">Prompt Injection Examples</div><div class="related-desc">Real-world prompt-injection patterns across direct, indirect, MCP tool poisoning, and memory attacks.</div></a></div></div></section>
+<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher and creator of AATMF. 30 published CVEs, 5 Linux kernel mainline patches, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
+<footer class="footer"><div class="footer-inner"><a href="/" class="wm" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate. human or machine.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a></span></footer>
 <script defer src="/ui.js"></script>
 </body>
 </html>

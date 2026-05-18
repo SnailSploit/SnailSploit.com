@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Semantic-to-Metadata Smuggling in Multi-LoRA Routing Gateways | snailsploit</title>
+<meta name="description" content="The vLLM Semantic Router and equivalent gateways select LoRA adapters from prompt content. The routing decision is the unreviewed trust boundary: signal suppression strips safety guards by phrasing the prompt to miss the hardened decision path.">
+<meta name="author" content="Kai Aizen">
+<meta property="article:author" content="Kai Aizen">
+<meta property="article:published_time" content="2026-05-18">
+<meta property="article:section" content="AI Security / Prompt Injection">
+<meta property="og:title" content="Semantic-to-Metadata Smuggling in Multi-LoRA Routing Gateways | snailsploit">
+<meta property="og:description" content="The vLLM Semantic Router and equivalent gateways select LoRA adapters from prompt content. The routing decision is the unreviewed trust boundary: signal suppression strips safety guards by phrasing the prompt to miss the hardened decision path.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/">
+<meta property="og:image" content="https://snailsploit.com/og-images/ai-security__prompt-injection__semantic-metadata-smuggling.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Semantic-to-Metadata Smuggling in Multi-LoRA Routing Gateways | snailsploit">
+<meta name="twitter:description" content="The vLLM Semantic Router and equivalent gateways select LoRA adapters from prompt content. The routing decision is the unreviewed trust boundary: signal suppression strips safety guards by phrasing the prompt to miss the hardened decision path.">
+<meta name="twitter:image" content="https://snailsploit.com/og-images/ai-security__prompt-injection__semantic-metadata-smuggling.png">
+<link rel="canonical" href="https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
+<link rel="stylesheet" href="/mobile.css">
+<link rel="stylesheet" href="/ui.css">
+<style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}
+.wm-sig .dollar{color:var(--signal-2)}
+.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
+.nav-links a:hover{color:var(--fg)}
+.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}
+.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.crumbs a{color:var(--fg-3)}
+.crumbs a:hover{color:var(--fg)}
+.crumbs .sep{color:var(--fg-4)}
+
+.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}
+.article-hero-inner{max-width:1280px;margin:0 auto}
+.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.article-meta time{color:var(--fg-3)}
+.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0;max-width:1080px}
+.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:780px}
+
+.article-layout{max-width:1280px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:1fr 240px;gap:64px;align-items:start;border-bottom:1px solid var(--line)}
+.article-body{min-width:0;font-size:17px;line-height:1.75;color:var(--fg-2);max-width:780px}
+.article-body > *:first-child{margin-top:0}
+.article-body h2{font-size:32px;font-weight:500;line-height:1.2;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:24px;border-top:1px solid var(--line);scroll-margin-top:96px}
+.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px;scroll-margin-top:96px}
+.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px}
+.article-body p{margin:16px 0}
+.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}
+.article-body li{margin:6px 0}
+.article-body strong{color:var(--fg);font-weight:600}
+.article-body em{color:var(--fg);font-style:italic}
+.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.article-body a:hover{border-bottom-color:var(--signal-2)}
+.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg);border-radius:2px}
+.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0;border-radius:2px}
+.article-body pre code{background:none;border:0;padding:0;font-size:inherit;border-radius:0}
+.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}
+.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}
+.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}
+.article-body img,.article-body picture{display:block;max-width:100%;height:auto;margin:32px auto;border:1px solid var(--line);background:var(--bg-raise)}
+.article-body picture img{margin:0;border:0}
+.article-body figure{margin:32px 0}
+.article-body figure img{margin:0 auto}
+.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:12px;text-align:center;line-height:1.5}
+.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
+
+.toc{position:sticky;top:96px;align-self:start;font-family:var(--f-mono);font-size:12px;line-height:1.7;max-height:calc(100vh - 128px);overflow-y:auto}
+.toc-eyebrow{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:11px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.toc ul{list-style:none;padding:0;margin:0}
+.toc li{padding:4px 0}
+.toc li.h3{padding-left:16px;font-size:11.5px}
+.toc a{color:var(--fg-2);display:block;padding:2px 0;border-left:2px solid transparent;padding-left:12px;margin-left:-14px;transition:color 0.15s, border-color 0.15s}
+.toc a:hover{color:var(--fg);border-left-color:var(--signal-2)}
+
+@media (max-width: 960px){
+  .article-layout{grid-template-columns:1fr;gap:32px}
+  .toc{display:none}
+}
+
+.callout{margin:32px 0;padding:20px 24px;border:1px solid var(--line-hi);background:var(--bg-raise);font-family:var(--f-mono);font-size:14px;line-height:1.6}
+.callout-label{font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px;font-weight:500}
+
+.related{padding:64px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.related-inner{max-width:1280px;margin:0 auto}
+.related-head{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:32px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.related-card{padding:24px;border:1px solid var(--line);background:var(--bg);transition:border-color 0.15s}
+.related-card:hover{border-color:var(--signal-2)}
+.related-date{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-bottom:8px}
+.related-title{font-size:18px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);line-height:1.3;margin-bottom:8px}
+.related-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.55}
+
+.author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.author-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}
+.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}
+.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}
+.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
+.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}
+
+.footer{background:var(--bg-sink)}
+.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+</style>
+<style>
+.article-body figure { margin: 32px 0; border: 1px solid var(--line); background: var(--bg-raise); border-radius: 2px; padding: 22px 18px 12px; }
+.article-body figure svg { width: 100%; height: auto; display: block; }
+.article-body figure svg text { font-family: var(--f-grot); }
+.article-body figcaption { font-family: var(--f-mono); font-size: 11.5px; color: var(--fg-3); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.article-body figcaption b { color: var(--fg-2); font-weight: 400; }
+.article-body .rule { display: none; } /* the per-h2 underline rules in the upload — site h2 already has its own top border */
+.article-body .shell-meta { font-family: var(--f-mono); font-size: 12.5px; color: var(--fg-3); line-height: 1.7; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; margin: 28px 0 32px; }
+.article-body .shell-meta .sh { color: var(--signal-2); }
+.article-body .lede-quote { border-left: 2px solid var(--signal-2); padding: 4px 0 4px 20px; margin: 24px 0 28px; color: var(--fg); font-style: normal; }
+.article-body .close-line { font-family: var(--f-grot); font-size: 26px; font-weight: 500; letter-spacing: -0.03em; margin: 48px 0 16px; color: var(--fg); }
+.article-body .close-line .muted { color: var(--fg-3); }
+.article-body .sources { font-family: var(--f-mono); font-size: 12px; line-height: 1.85; color: var(--fg-3); border-top: 1px solid var(--line); margin-top: 40px; padding-top: 20px; }
+.article-body .sources em { color: var(--fg-2); font-style: normal; }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Semantic-to-Metadata Smuggling in Multi-LoRA Routing Gateways","alternativeHeadline":"Signal suppression at the gateway: attacker-controlled paraphrase selects which adapter \u2014 and which safety policy \u2014 serves the next token","name":"Semantic-to-Metadata Smuggling in Multi-LoRA Routing Gateways","description":"The vLLM Semantic Router and equivalent gateways select LoRA adapters from prompt content. The routing decision is the unreviewed trust boundary: signal suppression strips safety guards by phrasing the prompt to miss the hardened decision path.","datePublished":"2026-05-18","dateModified":"2026-05-18","url":"https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/","mainEntityOfPage":"https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/","image":"https://snailsploit.com/og-images/ai-security__prompt-injection__semantic-metadata-smuggling.png","author":{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","url":"https://snailsploit.com/about","image":"https://snailsploit.com/og-square.png","jobTitle":"Independent Offensive Security Researcher"},"publisher":{"@type":"Organization","@id":"https://snailsploit.com/#org","name":"snailsploit","url":"https://snailsploit.com/","logo":"https://snailsploit.com/og-square.png"},"articleSection":"Prompt Injection","inLanguage":"en","wordCount":1894}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"AI Security","item":"https://snailsploit.com/ai-security/"},{"@type":"ListItem","position":3,"name":"Prompt Injection","item":"https://snailsploit.com/ai-security/prompt-injection/"},{"@type":"ListItem","position":4,"name":"Semantic-to-Metadata Smuggling in Multi-LoRA Routing Gateways","item":"https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/"}]}</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a href="/" class="wm" style="text-decoration:none"><span>snailsploit</span><span class="wm-sig">[<span class="dollar">$</span>]</span></a><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/aatmf">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/cves">cves</a></li><li><a href="/writing">writing</a></li><li><a href="/contact">contact</a></li></ul><div class="nav-utils"><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></nav>
+<section class="article-hero">
+<div class="article-hero-inner">
+<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/ai-security/prompt-injection/">Prompt Injection</a><span class="sep">/</span><span>Semantic-to-Metadata Smuggling in Multi-LoRA Routing Gateways</span></div>
+<div class="article-meta"><time datetime="2026-05-18">2026-05-18</time><span>9 min read</span><span>SHELL.003 · 2026.05</span></div>
+<h1 class="article-h1">Semantic-to-Metadata Smuggling in Multi-LoRA Routing Gateways</h1>
+<p class="article-lede">Signal suppression at the gateway: attacker-controlled paraphrase selects which adapter — and which safety policy — serves the next token</p>
+</div>
+</section>
+<div class="article-layout">
+<main class="article-body">
+<blockquote class="lede-quote">The industry spent 2025 splitting its inference architecture in two: a dumb, hyper-fast multi-LoRA engine on the backend that loads whichever adapter the API names, and a semantic gateway on the frontend that reads the user's prompt and decides which adapter that should be. The base model got the alignment budget. The router got a classifier. The trust boundary moved to the seam between them, and the threat model stayed where the money was.</blockquote><div class="shell-meta">Kai Aizen<br>creator of AATMF · author of Adversarial Minds · NVD contributor<br><span class="sh">SHELL.003 · 2026.05</span></div>
+
+  <p>This is the third in a sequence. The first put the confused deputy on an agent's domain credential; the second on its response transport. This one puts it on the decision that selects which weights answer the next token. Same spine: a control was specified assuming the principal was deterministic and the decision was administrative, and an LLM-shaped system made both false. Different layer. The layer nobody is reviewing.</p>
+
+  <p>We walk it in five steps. Step 1 and step 2 are verified against the gateway's own shipped documentation; the line between what is protocol-true and what is product-checkable is drawn explicitly, the same discipline as the prior two pieces, because the strong claim is weaker if it is bundled with a soft one.</p>
+
+  <h2 id="the-architecture-the-threat-model-assumes">The architecture the threat model assumes</h2>
+  <p>Defenders model the threat as the base model. Millions of dollars of red-teaming, RLHF, and eval go into making the aligned model refuse what it should refuse. The implicit assumption — never written down, because in a single-model deployment it was free — is that <em>the model that answers is the model that was aligned</em>, and that the choice of which model answers is an administrative concern, not a user-reachable one.</p>
+  <p>Multi-LoRA routing breaks that assumption the way protocol transition broke the Kerberos one: not by defeating the protected thing, but by changing which thing is in the seat. The aligned base model is real. The adapter swapped onto it, and the safety posture attached to the routing decision, are selected at runtime by a classifier reading the user's prompt. The diagram is the assumption and its failure; the rest is one walk across the seam.</p>
+
+  <figure>
+  <svg viewBox="0 0 760 230" role="img" aria-label="The assumed single-model deployment versus the shipped split where a semantic gateway selects the adapter from user prompt content.">
+    <text class="s-lbl" x="0" y="16" fill="#7E7C76">the deployment the alignment budget assumes</text>
+    <rect x="0" y="28" width="360" height="48" rx="4" fill="#161617" stroke="#26262A"/>
+    <text class="s-t" x="180" y="48" fill="#EDEAE2" text-anchor="middle">user prompt</text>
+    <text class="s-ts" x="180" y="65" fill="#7E7C76" text-anchor="middle">→ aligned model → answer</text>
+    <rect x="400" y="28" width="360" height="48" rx="4" fill="#161617" stroke="#26262A"/>
+    <text class="s-t" x="580" y="48" fill="#EDEAE2" text-anchor="middle">one model, reviewed</text>
+    <text class="s-ts" x="580" y="65" fill="#7E7C76" text-anchor="middle">selection is administrative</text>
+    <line x1="360" y1="52" x2="398" y2="52" stroke="#7E7C76" stroke-width="1.5"/>
+    <text class="s-lbl" x="0" y="116" fill="#7E7C76">the deployment that actually shipped</text>
+    <rect x="0" y="128" width="232" height="50" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.5"/>
+    <text class="s-t" x="116" y="149" fill="#E07A4A" text-anchor="middle">user prompt</text>
+    <text class="s-ts" x="116" y="166" fill="#7E7C76" text-anchor="middle">attacker-controlled</text>
+    <rect x="264" y="128" width="232" height="50" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.5"/>
+    <text class="s-t" x="380" y="149" fill="#E07A4A" text-anchor="middle">semantic gateway</text>
+    <text class="s-ts" x="380" y="166" fill="#7E7C76" text-anchor="middle">classifies → adapter id</text>
+    <rect x="528" y="128" width="232" height="50" rx="4" fill="#161617" stroke="#26262A"/>
+    <text class="s-t" x="644" y="149" fill="#EDEAE2" text-anchor="middle">metadata engine</text>
+    <text class="s-ts" x="644" y="166" fill="#7E7C76" text-anchor="middle">loads what it is told</text>
+    <line x1="232" y1="153" x2="262" y2="153" stroke="#E07A4A" stroke-width="1.5"/>
+    <line x1="496" y1="153" x2="526" y2="153" stroke="#7E7C76" stroke-width="1.5"/>
+    <text class="s-lbl" x="0" y="214" fill="#7E7C76">selection is no longer administrative — it is a parser reading the attacker's text</text>
+  </svg>
+  <figcaption>fig 1 · <b>the split — the budget went to the model on the right; the attacker enters at the box on the left of the bottom row</b></figcaption>
+  </figure>
+
+  <h2 id="step-1">Step 1 — The engine is metadata-only — and that is not the bug</h2>
+  <p>State the defended half first, because the piece is stronger if the reader cannot reach for "actually, vLLM routes by API parameter." It does, and that is correct behavior. The engine performs zero semantic analysis. Adapters are registered out-of-band — vLLM via the <code>--lora-modules</code> flag — and selected by an explicit identifier on the request. When a <code>lora_name</code> is specified, the serving layer uses it as the final model name in place of the base model. Name an adapter, get that adapter. No inference about intent, no attacker-reachable decision, nothing to exploit at this layer.</p>
+  <p>This half is unimpeachable, and the piece concedes it loudly on purpose. The engine is not the vulnerability. The vulnerability is everything that decides what to write into that <code>lora_name</code> field — and users never talk to the engine.</p>
+
+  <h2 id="step-2">Step 2 — The gateway turns prompt content into adapter identity</h2>
+  <p>This is protocol-true against the shipped product, not speculation. Production agentic deployments do not expose the bare engine; they sit behind a semantic routing gateway. The vLLM Semantic Router's own production guidance is explicit: routing detects intent using domain, embedding, keyword, or similarity classification, then automatically selects the appropriate LoRA adapter on the backend, transparent to the user, who sends to one endpoint while the router chooses the adapter.</p>
+  <p>The embedding-routing mode is the sharpest surface, and the gateway advertises the exact property that makes it one: it matches semantic intent and <em>handles paraphrases</em>. "Handles paraphrases" is a feature to the operator and a primitive to the attacker — it is an explicit promise that semantically-equivalent rephrasings cross the same boundary, which is the definition of a classifier an adversary can steer with controlled paraphrase.</p>
+  <p>One timeline correction stated rather than buried: intent-aware LoRA routing was a feature request in late 2025 and shipped in the gateway's v0.1 release in January 2026. It is shipped, not roadmap — but the honest sentence is "shipped in early 2026," not "this is how it always worked." And the architecture went further than the obvious model: the gateway's own classifier now runs as LoRA adapters over a shared base. The thing selecting the brain is the same class of artifact as the brain it selects. The reviewer of neither is the reviewer of the base model.</p>
+
+  <figure>
+  <svg viewBox="0 0 760 210" role="img" aria-label="The gateway classifies the prompt by domain, embedding, or keyword and writes a lora_name onto the request that the metadata engine obeys.">
+    <rect x="0" y="34" width="200" height="58" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.5"/>
+    <text class="s-t" x="100" y="56" fill="#E07A4A" text-anchor="middle">prompt</text>
+    <text class="s-ts" x="100" y="74" fill="#7E7C76" text-anchor="middle">user-controlled</text>
+    <rect x="244" y="34" width="272" height="58" rx="4" fill="#161617" stroke="#26262A"/>
+    <text class="s-t" x="380" y="54" fill="#EDEAE2" text-anchor="middle">classifier</text>
+    <text class="s-ts" x="380" y="72" fill="#7E7C76" text-anchor="middle">domain · embedding · keyword</text>
+    <rect x="560" y="34" width="200" height="58" rx="4" fill="#161617" stroke="#26262A"/>
+    <text class="s-t" x="660" y="56" fill="#EDEAE2" text-anchor="middle">lora_name set</text>
+    <text class="s-ts" x="660" y="74" fill="#7E7C76" text-anchor="middle">engine obeys</text>
+    <line x1="200" y1="63" x2="242" y2="63" stroke="#E07A4A" stroke-width="1.5"/>
+    <line x1="516" y1="63" x2="558" y2="63" stroke="#7E7C76" stroke-width="1.5"/>
+    <text class="s-lbl" x="0" y="132" fill="#7E7C76">advertised property — "handles paraphrases" — is the steerability the attacker needs</text>
+    <rect x="0" y="144" width="760" height="40" rx="4" fill="#161617" stroke="#26262A"/>
+    <text class="s-ts" x="14" y="168" fill="#B7B4AC">semantically-equivalent rephrasings cross the same boundary — by design, not by accident</text>
+  </svg>
+  <figcaption>fig 2 · <b>the semantic→metadata transition — verified against the gateway's shipped routing documentation</b></figcaption>
+  </figure>
+
+  <h2 id="step-3">Step 3 — The smuggle: route past the hardened path, not into a bad one</h2>
+  <p>The weak version of this attack is "force-load a poisoned adapter someone left lying around." That makes the finding contingent on a deployment mistake and a critic correctly downgrades it to hygiene. The strong version needs no leftover artifact and no malicious adapter. It uses only the legitimate, intended adapter set.</p>
+  <p>The gateway's own documented design is signal-decision driven with priority ordering. Their published example: a request matching <em>urgent + security</em> routes at top priority to a hardened expert adapter with jailbreak protection and PII filtering attached; a request matching only <em>general support</em> falls through to a low-priority path that is the base model with none of those protections. The protections are bolted onto the high-priority <em>decision</em>, not onto the model universally.</p>
+  <p>So the attack is not "match the dangerous adapter." It is <strong>signal suppression</strong>: craft the prompt so it does <em>not</em> trip the signals that would route it to the hardened, jailbreak-protected path, and it falls through to the lower-priority general path where the same payload meets none of the protections the defender thinks are in place. The defender layered safety onto the routing decision. The attacker's entire job is to not match it. Every adapter is individually fine; the composition under attacker-influenced selection was never the thing that got safety-reviewed.</p>
+
+  <figure>
+  <svg viewBox="0 0 760 250" role="img" aria-label="A payload that trips the security signal routes to the hardened adapter; the same payload phrased to suppress that signal falls through to the unprotected general path.">
+    <text class="s-lbl" x="0" y="16" fill="#7E7C76">payload trips the security signal</text>
+    <rect x="0" y="28" width="232" height="50" rx="4" fill="#161617" stroke="#26262A"/>
+    <text class="s-ts" x="116" y="49" fill="#B7B4AC" text-anchor="middle">prompt → urgent+security</text>
+    <text class="s-ts" x="116" y="65" fill="#7E7C76" text-anchor="middle">signal matches</text>
+    <rect x="264" y="28" width="232" height="50" rx="4" fill="#161617" stroke="#26262A"/>
+    <text class="s-ts" x="380" y="49" fill="#B7B4AC" text-anchor="middle">priority 100</text>
+    <text class="s-ts" x="380" y="65" fill="#7E7C76" text-anchor="middle">hardened adapter</text>
+    <rect x="528" y="28" width="232" height="50" rx="4" fill="#161617" stroke="#26262A"/>
+    <text class="s-ts" x="644" y="49" fill="#B7B4AC" text-anchor="middle">jailbreak + PII guard</text>
+    <text class="s-ts" x="644" y="65" fill="#7E7C76" text-anchor="middle">payload blocked</text>
+    <line x1="232" y1="53" x2="262" y2="53" stroke="#7E7C76" stroke-width="1.5"/>
+    <line x1="496" y1="53" x2="526" y2="53" stroke="#7E7C76" stroke-width="1.5"/>
+    <text class="s-lbl" x="0" y="118" fill="#7E7C76">same payload, phrased to suppress the signal</text>
+    <rect x="0" y="130" width="232" height="50" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.5"/>
+    <text class="s-ts" x="116" y="151" fill="#E07A4A" text-anchor="middle">prompt → general only</text>
+    <text class="s-ts" x="116" y="167" fill="#7E7C76" text-anchor="middle">signal does not match</text>
+    <rect x="264" y="130" width="232" height="50" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.5"/>
+    <text class="s-ts" x="380" y="151" fill="#E07A4A" text-anchor="middle">priority 40</text>
+    <text class="s-ts" x="380" y="167" fill="#7E7C76" text-anchor="middle">fall-through path</text>
+    <rect x="528" y="130" width="232" height="50" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.5"/>
+    <text class="s-ts" x="644" y="151" fill="#E07A4A" text-anchor="middle">no guard attached</text>
+    <text class="s-ts" x="644" y="167" fill="#7E7C76" text-anchor="middle">payload executes</text>
+    <line x1="232" y1="155" x2="262" y2="155" stroke="#E07A4A" stroke-width="1.5"/>
+    <line x1="496" y1="155" x2="526" y2="155" stroke="#E07A4A" stroke-width="1.5"/>
+    <text class="s-lbl" x="0" y="216" fill="#7E7C76">the protections were attached to the decision — so don't match the decision</text>
+  </svg>
+  <figcaption>fig 3 · <b>signal suppression — the load-bearing technique; no poisoned adapter required, only the legitimate set and a non-matching paraphrase</b></figcaption>
+  </figure>
+
+  <h2 id="step-4">Step 4 — Why this is a class, not a misconfiguration</h2>
+  <p>If it depended on a specific bad config it would be a hardening note. It does not, because of a split that mirrors the prior two pieces: one property is structural and universal to the pattern, one is product-checkable.</p>
+  <p><strong>Structural — the certifier of the routing decision is not the certifier of the model.</strong> The alignment review validated the base model and, at most, each adapter in isolation. No process applies that scrutiny to the classifier that selects among them at runtime from attacker-influenced text, nor to the composition of (selected adapter × attached safety policy) the classifier produces. This holds for any semantic-routing gateway by construction, not by misconfiguration. It is the same unreviewed-boundary shape as inherited authority and render-layer redaction, one layer further in.</p>
+  <p><strong>Checkable — how a given deployment binds protections to paths.</strong> Whether jailbreak/PII guards are attached per-decision (suppressible) or applied universally (not) is a deployment choice. Where they are per-decision — the gateway's own documented example — signal suppression is a full bypass. Where a deployment has independently applied protection to every path, the suppression degrades to adapter-capability mismatch rather than total bypass. Smaller blast radius, same root cause; stated as a corollary, not the spine.</p>
+  <p>The leftover-poisoned-adapter scenario survives only here, as the weakest corollary: where a deployment left a debug or legacy adapter registered, signal-steering into it is a sharper bypass. It is real, it is one bullet, and it is explicitly not the finding. The finding is that the routing decision is an unreviewed trust boundary in <em>every</em> deployment of this pattern, hygiene or not.</p>
+
+  <figure>
+  <svg viewBox="0 0 760 200" role="img" aria-label="One shape splits into a structural unreviewed-certifier property carrying the class and a checkable per-deployment binding carrying the corollaries.">
+    <rect x="235" y="0" width="290" height="40" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.5"/>
+    <text class="s-t" x="380" y="25" fill="#E07A4A" text-anchor="middle">routing is unreviewed</text>
+    <line x1="380" y1="40" x2="380" y2="56" stroke="#7E7C76" stroke-width="1.5"/>
+    <line x1="190" y1="56" x2="570" y2="56" stroke="#26262A" stroke-width="1"/>
+    <line x1="190" y1="56" x2="190" y2="72" stroke="#26262A" stroke-width="1"/>
+    <line x1="570" y1="56" x2="570" y2="72" stroke="#26262A" stroke-width="1"/>
+    <rect x="20" y="76" width="340" height="64" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.5"/>
+    <text class="s-t" x="190" y="100" fill="#E07A4A" text-anchor="middle">structural · universal</text>
+    <text class="s-ts" x="190" y="120" fill="#7E7C76" text-anchor="middle">certifier ≠ model certifier → the class</text>
+    <rect x="400" y="76" width="340" height="64" rx="4" fill="#161617" stroke="#26262A"/>
+    <text class="s-t" x="570" y="100" fill="#EDEAE2" text-anchor="middle">checkable · per-deploy</text>
+    <text class="s-ts" x="570" y="120" fill="#7E7C76" text-anchor="middle">guard binding → blast radius</text>
+    <text class="s-lbl" x="0" y="178" fill="#7E7C76">the class rides the structural property; only the radius depends on the deployment</text>
+    <rect x="0" y="188" width="760" height="1" fill="#26262A"/>
+  </svg>
+  <figcaption>fig 4 · <b>structural versus checkable — the finding rides the universal property, the corollaries ride the deployment</b></figcaption>
+  </figure>
+
+  <h2 id="the-primitive-and-the-boundary-nobody-owns">The primitive, and the boundary nobody owns</h2>
+  <p>Name it: <strong>semantic-to-metadata smuggling</strong>. The defect is the <strong>unreviewed gate</strong> — the transition where attacker-influenced prompt content becomes a metadata identifier that selects which weights and which safety policy serve the request, with no equivalent of the base model's alignment review applied to the transition itself. The capability it grants is <strong>promotion of an unsafe path</strong>: getting a payload served by a model-and-policy composition the safety review never evaluated, by steering the classifier rather than defeating the model.</p>
+  <p>The honest scope, in one line because the piece earns the right to be terse here: this targets deployments using semantic or embedding adapter routing — the vLLM-Semantic-Router-class gateway, shipped and documented — not bare engine APIs. The engine is correctly metadata-only and is not the bug. The bug is that the semantic→metadata transition is an unmonitored, attacker-influenced classification sitting upstream of every protection the defender spent the budget on.</p>
+  <p>What closes it: treat the routing decision as a security boundary and review it as one — adversarial-paraphrase test the classifier against every signal that gates a protection, not just against accuracy; attach safety policy to the model and the path, never only to the matched decision, so suppression cannot strip it; and log the chosen adapter and the signals that chose it as a first-class security event, because right now the decision that picks the brain is the least-audited step in the pipeline.</p>
+  <p>The base model was never the only thing that decided what the system would do. We built a classifier to pick its brain at runtime, fed that classifier the attacker's text, spent the alignment budget one layer downstream of it, and called the downstream model the attack surface.</p>
+
+  <p class="close-line">same attack. <span class="muted">different substrate.</span></p>
+
+  <p class="sources"><em>sources</em> — vLLM Semantic Router: Intelligent LoRA Routing guide (domain/embedding/keyword classification → backend adapter selection; embedding routing "handles paraphrases"); Signal-Decision Driven Architecture (priority-ordered signal→decision, hardened-path example); v0.1 "Iris" release (Jan 2026; classifier kernel itself LoRA-based); Issue #545 (intent-aware LoRA routing feature history). vLLM serving: <code>--lora-modules</code> registration, <code>lora_name</code> request selection (engine is metadata-only). OWASP Top 10 for LLM Applications (2025): LLM01 prompt injection. Prior SnailSploit work: SHELL.001 inherited authority, SHELL.002 the wire oracle — same spine, prior layers.</p>
+</main>
+</div>
+<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/prompt-injection/wire-oracle/"><div class="related-date">2026-05-18</div><div class="related-title">Indirect Injection Was Never Blind</div><div class="related-desc">SHELL.002 — the SSE injection oracle and render-layer redaction.</div></a><a class="related-card" href="/ai-security/prompt-injection/memory-injection-nested-skills/"><div class="related-date">2026-03-10</div><div class="related-title">Memory Injection Through Nested Skills</div><div class="related-desc">Skill injection plus cross-session memory poisoning as a self-healing implant.</div></a><a class="related-card" href="/ai-security/aatmf-vs-mitre-atlas/"><div class="related-date">2026-02-20</div><div class="related-title">AATMF vs MITRE ATLAS</div><div class="related-desc">Operational taxonomy vs threat-intel knowledge base — when to use which.</div></a></div></div></section>
+<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent offensive security researcher and creator of AATMF. 30 published CVEs, 5 Linux kernel mainline patches, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/SnailSploit">github</a><a href="https://x.com/SnailSploit">x</a><a href="https://linkedin.com/in/kaiaizen">linkedin</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2">researchgate</a></div></div></section>
+<footer class="footer"><div class="footer-inner"><a href="/" class="wm" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 kai aizen · same attack. different substrate. human or machine.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a></span></footer>
+<script defer src="/ui.js"></script>
+</body>
+</html>
