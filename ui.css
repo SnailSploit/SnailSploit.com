@@ -1,6 +1,40 @@
 /* snailsploit — UI component layer (palette, TOC, progress, severity, copy, print)
    Operator-graphite brand only. No new tokens. */
 
+/* ── Brand mark (.wm) — match the SnailSploit[$] / ADVERSARIAL · RESEARCH mark ─ */
+.wm {
+  font-weight: 600 !important;
+  font-size: 30px !important;
+  letter-spacing: -0.04em !important;
+  flex-wrap: wrap !important;
+}
+.wm::after {
+  content: "Adversarial · Research";
+  flex-basis: 100%;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin-top: 3px;
+  line-height: 1;
+}
+.wm-sig {
+  font-family: var(--f-mono);
+  font-size: 22px !important;
+  font-weight: 500 !important;
+  margin-left: 8px !important;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+.wm-sig .dollar { color: var(--signal-2); }
+@media (max-width: 880px) {
+  .wm { font-size: 24px !important; }
+  .wm-sig { font-size: 18px !important; margin-left: 6px !important; }
+  .wm::after { font-size: 8px; letter-spacing: 0.18em; margin-top: 2px; }
+}
+
 /* ── Severity chips ─────────────────────────────────────────────── */
 .ss-severity {
   display: inline-flex;
