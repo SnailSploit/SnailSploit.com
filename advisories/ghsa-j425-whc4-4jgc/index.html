@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GHSA-j425-whc4-4jgc: OpenClaw Allowlist Bypass to RCE | SnailSploit</title>
-<meta name="description" content="GHSA-j425-whc4-4jgc — OpenClaw&#x27;s system.run allowlist is bypassable via GIT_SSH_COMMAND, editor hooks, and GIT_CONFIG_* environment overrides, yielding remote code execution. CVSS 6.3 Medium. Disclosure by Kai Aizen.">
+<meta name="description" content="GHSA-j425-whc4-4jgc — OpenClaw system.run allowlist bypass via GIT_SSH_COMMAND, editor hooks, and GIT_CONFIG_* env overrides. Pre-auth RCE.">
 <meta name="author" content="Kai Aizen">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://snailsploit.com/advisories/ghsa-j425-whc4-4jgc/">
@@ -66,7 +66,7 @@ h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.035em;margi
 </style>
 <meta property="og:type" content="article">
 <meta property="og:title" content="GHSA-j425-whc4-4jgc: OpenClaw system.run env Override Allowlist Bypass to RCE | SnailSploit">
-<meta property="og:description" content="GHSA-j425-whc4-4jgc — OpenClaw&#x27;s system.run allowlist is bypassable via GIT_SSH_COMMAND, editor hooks, and GIT_CONFIG_* environment overrides, yielding remote code execution. CVSS 6.3 Medium. Disclosure by Kai Aizen.">
+<meta property="og:description" content="GHSA-j425-whc4-4jgc — OpenClaw system.run allowlist bypass via GIT_SSH_COMMAND, editor hooks, and GIT_CONFIG_* env overrides. Pre-auth RCE.">
 <meta property="og:url" content="https://snailsploit.com/advisories/ghsa-j425-whc4-4jgc/">
 <meta property="og:site_name" content="SnailSploit">
 <meta property="og:image" content="https://snailsploit.com/og-images/advisories__ghsa-j425-whc4-4jgc.png">
@@ -76,7 +76,7 @@ h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.035em;margi
 <meta name="twitter:site" content="@SnailSploit">
 <meta name="twitter:creator" content="@SnailSploit">
 <meta name="twitter:title" content="GHSA-j425-whc4-4jgc: OpenClaw system.run env Override Allowlist Bypass to RCE | SnailSploit">
-<meta name="twitter:description" content="GHSA-j425-whc4-4jgc — OpenClaw&#x27;s system.run allowlist is bypassable via GIT_SSH_COMMAND, editor hooks, and GIT_CONFIG_* environment overrides, yielding remote code execution. CVSS 6.3 Medium. Disclosure by Kai Aizen.">
+<meta name="twitter:description" content="GHSA-j425-whc4-4jgc — OpenClaw system.run allowlist bypass via GIT_SSH_COMMAND, editor hooks, and GIT_CONFIG_* env overrides. Pre-auth RCE.">
 <meta name="twitter:image" content="https://snailsploit.com/og-images/advisories__ghsa-j425-whc4-4jgc.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"GHSA-j425-whc4-4jgc: OpenClaw","description":"system.run env override RCE \u2014 allowlist bypass via GIT_SSH_COMMAND, editor hooks, GIT_CONFIG_*","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"url":"https://snailsploit.com/advisories/ghsa-j425-whc4-4jgc/","mainEntityOfPage":"https://snailsploit.com/advisories/ghsa-j425-whc4-4jgc/","image":"https://snailsploit.com/og-cover.png","keywords":"GHSA-j425-whc4-4jgc, OpenClaw, GHSA, advisory"}</script>
