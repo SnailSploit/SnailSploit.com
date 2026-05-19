@@ -150,14 +150,14 @@
     <summary type="text">Computational Countertransference: LLM Context Inheritance</summary>
   </entry>
   <entry>
-    <title>Agentic AI Threat Landscape: Attack Vectors & Defenses</title>
+    <title>Agentic AI Threat Landscape: Attack Vectors &amp; Defenses</title>
     <link href="https://snailsploit.com/ai-security/agentic-ai-threat-landscape/" rel="alternate" type="text/html"/>
     <id>https://snailsploit.com/ai-security/agentic-ai-threat-landscape/</id>
     <updated>2026-02-11T00:00:00+00:00</updated>
     <published>2026-02-11T00:00:00+00:00</published>
     <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
     <category term="ai-security"/>
-    <summary type="text">Agentic AI Threat Landscape: Attack Vectors & Defenses</summary>
+    <summary type="text">Agentic AI Threat Landscape: Attack Vectors &amp; Defenses</summary>
   </entry>
   <entry>
     <title>AI Gateway Threat Model: 8 Attack Vectors</title>
@@ -230,14 +230,14 @@
     <summary type="text">Custom Instruction Backdoor: ChatGPT Prompt Injection</summary>
   </entry>
   <entry>
-    <title>MCP Threat Analysis: Attack Chains & Protocol Dissection</title>
+    <title>MCP Threat Analysis: Attack Chains &amp; Protocol Dissection</title>
     <link href="https://snailsploit.com/ai-security/prompt-injection/mcp-threat-analysis/" rel="alternate" type="text/html"/>
     <id>https://snailsploit.com/ai-security/prompt-injection/mcp-threat-analysis/</id>
     <updated>2025-05-18T00:00:00+00:00</updated>
     <published>2025-05-18T00:00:00+00:00</published>
     <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
     <category term="ai-security"/>
-    <summary type="text">MCP Threat Analysis: Attack Chains & Protocol Dissection</summary>
+    <summary type="text">MCP Threat Analysis: Attack Chains &amp; Protocol Dissection</summary>
   </entry>
   <entry>
     <title>AI-Powered Obfuscator Bypasses Detection in 2 Hours</title>
@@ -270,14 +270,14 @@
     <summary type="text">Inherent AI Vulnerabilities: Technical Deep Dive</summary>
   </entry>
   <entry>
-    <title>RCE & DNS Exfiltration in ChatGPT Canvas</title>
+    <title>RCE &amp; DNS Exfiltration in ChatGPT Canvas</title>
     <link href="https://snailsploit.com/security-research/general/chatgpt-canvas-rce-dns-exfiltration/" rel="alternate" type="text/html"/>
     <id>https://snailsploit.com/security-research/general/chatgpt-canvas-rce-dns-exfiltration/</id>
     <updated>2025-02-01T00:00:00+00:00</updated>
     <published>2025-02-01T00:00:00+00:00</published>
     <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
     <category term="ai-security"/>
-    <summary type="text">RCE & DNS Exfiltration in ChatGPT Canvas</summary>
+    <summary type="text">RCE &amp; DNS Exfiltration in ChatGPT Canvas</summary>
   </entry>
   <entry>
     <title>The Structural Vulnerabilities of Large Language Models</title>
