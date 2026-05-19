@@ -199,6 +199,9 @@
   }
 
   function initToc() {
+    return;  // disabled — Kai does not want the auto-injected "On this page" TOC
+  }
+  function _initTocDead_unused() {
     if (document.querySelector('aside.toc, aside.ss-toc, #article-toc')) return;
     var headings = collectHeadings();
     if (headings.length < 3) return;

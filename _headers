@@ -17,12 +17,21 @@
 /
   Cache-Control: public, max-age=300, s-maxage=3600, must-revalidate
 
-# Static assets — long cache
+# Static assets — long cache for fonts/images, shorter for code that changes
+# JS/CSS deploy without versioned filenames, so we cannot mark them immutable
+# without trapping browsers on stale builds for a year.
 /*.css
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600, must-revalidate
 
 /*.js
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Site-wide UI script: never cache (small file, must reflect latest deploy)
+/ui.js
+  Cache-Control: public, max-age=60, must-revalidate
+
+/ui.css
+  Cache-Control: public, max-age=60, must-revalidate
 
 /*.jsx
   Cache-Control: public, max-age=31536000, immutable
