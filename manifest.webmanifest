@@ -1,7 +1,7 @@
 {
   "name": "snailsploit",
   "short_name": "snailsploit",
-  "description": "Independent offensive security researcher Kai Aizen \u2014 AI red teaming, frameworks, CVEs, original research.",
+  "description": "SnailSploit — independent adversarial security research group. AATMF, CVEs, LLM red teaming, original research.",
   "start_url": "/",
   "display": "minimal-ui",
   "background_color": "#0E0E0F",

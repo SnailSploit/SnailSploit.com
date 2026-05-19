@@ -3,17 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GHSA-78r8-wwqv-r299 — PraisonAI | SnailSploit</title>
-<meta name="description" content="GHSA-78r8-wwqv-r299: `AgentsGenerator.load_tools_from_module*` reaches unguarded `exec_module` sinks. Coordinated security advisory tracked by SnailSploit.">
-<meta property="og:title" content="GHSA-78r8-wwqv-r299 — PraisonAI | SnailSploit">
-<meta property="og:description" content="GHSA-78r8-wwqv-r299: `AgentsGenerator.load_tools_from_module*` reaches unguarded `exec_module` sinks. Coordinated security advisory tracked by SnailSploit.">
+<title>GHSA-78r8-wwqv-r299 — PraisonAI | snailsploit</title>
+<meta name="description" content="GHSA-78r8-wwqv-r299: PraisonAI AgentsGenerator reaches unguarded exec_module sinks. Coordinated security advisory by SnailSploit.">
+<meta name="author" content="SnailSploit">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GHSA-78r8-wwqv-r299 — PraisonAI | snailsploit">
+<meta property="og:description" content="GHSA-78r8-wwqv-r299: PraisonAI AgentsGenerator reaches unguarded exec_module sinks. Coordinated security advisory by SnailSploit.">
 <meta property="og:url" content="https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/">
 <meta property="og:image" content="https://snailsploit.com/og-cover.png">
+<meta property="og:image:alt" content="SnailSploit coordinated security advisory">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="GHSA-78r8-wwqv-r299 — PraisonAI | SnailSploit">
-<meta name="twitter:description" content="GHSA-78r8-wwqv-r299: `AgentsGenerator.load_tools_from_module*` reaches unguarded `exec_module` sinks. Coordinated security advisory tracked by SnailSploit.">
+<meta name="twitter:title" content="GHSA-78r8-wwqv-r299 — PraisonAI | snailsploit">
+<meta name="twitter:description" content="GHSA-78r8-wwqv-r299: PraisonAI AgentsGenerator reaches unguarded exec_module sinks. Coordinated security advisory by SnailSploit.">
 <meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
 <link rel="canonical" href="https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/">
+<link rel="alternate" hreflang="en" href="https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/">
+<link rel="alternate" hreflang="x-default" href="https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
@@ -25,24 +32,40 @@
 :root { --bg:#0E0E0F; --bg-raise:#15161A; --bg-sink:#08090B; --line:#23252B; --line-hi:#2E3138; --fg:#E9E7E1; --fg-2:#B6B4AC; --fg-3:#76746C; --fg-4:#4A4842; --signal-2:#E07A4A; --f-grot:"Inter Tight",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace; }
 body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--f-grot); }
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"GHSA-78r8-wwqv-r299","name":"GHSA-78r8-wwqv-r299 \u2014 PraisonAI | snailsploit","description":"GHSA-78r8-wwqv-r299: `AgentsGenerator.load_tools_from_module*` reaches unguarded `exec_module` sinks. Coordinated security advisory tracked by SnailSploit.","url":"https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/","mainEntityOfPage":"https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/","datePublished":"2026-05-19","dateModified":"2026-05-19","author":{"@type":"Organization","@id":"https://snailsploit.com/#org"},"publisher":{"@type":"Organization","@id":"https://snailsploit.com/#org"},"image":"https://snailsploit.com/og-cover.png"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Advisories","item":"https://snailsploit.com/advisories"},{"@type":"ListItem","position":3,"name":"GHSA-78r8-wwqv-r299","item":"https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"GHSA-78r8-wwqv-r299","name":"GHSA-78r8-wwqv-r299 \u2014 PraisonAI | snailsploit","description":"GHSA-78r8-wwqv-r299: PraisonAI AgentsGenerator reaches unguarded exec_module sinks. Coordinated security advisory by SnailSploit.","url":"https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/","mainEntityOfPage":"https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/","datePublished":"2026-05-19","dateModified":"2026-05-19","author":[{"@id":"https://snailsploit.com/#kai"},{"@id":"https://snailsploit.com/#avi"}],"publisher":{"@id":"https://snailsploit.com/#org"},"image":"https://snailsploit.com/og-cover.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":3,"name":"Advisories","item":"https://snailsploit.com/advisories"},{"@type":"ListItem","position":4,"name":"GHSA-78r8-wwqv-r299","item":"https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/"}]}</script>
 </head>
 <body>
-<header style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)"><div style="max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center"><a href="/" style="font-family:var(--f-grot);font-weight:600;font-size:30px;letter-spacing:-0.04em;color:var(--fg);text-decoration:none;line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline">snailsploit<span style="font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)">[<span style="color:var(--signal-2)">$</span>]</span></a><nav style="display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2)"><a href="/about" style="color:inherit;text-decoration:none">About</a><a href="/services" style="color:inherit;text-decoration:none">Services</a><a href="/aatmf" style="color:inherit;text-decoration:none">Frameworks</a><a href="/research" style="color:inherit;text-decoration:none">Research</a><a href="/cves" style="color:inherit;text-decoration:none">CVEs</a><a href="/advisories" style="color:inherit;text-decoration:none">Advisories</a><a href="/contact" style="color:inherit;text-decoration:none">Contact</a></nav><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button></div></header>
-<nav class="site-crumbs" aria-label="Breadcrumb" style="border-bottom:1px solid var(--line);background:var(--bg-sink)"><div style="max-width:1280px;margin:0 auto;padding:14px 32px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);letter-spacing:0.1em"><a href="/" style="color:var(--fg-3);text-decoration:none">Home</a> · <a href="/advisories" style="color:var(--fg-3);text-decoration:none">Advisories</a> · <span style="color:var(--fg-2)">GHSA-78r8-wwqv-r299</span></div></nav>
+<header style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)"><div style="max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center"><a href="/" style="font-family:var(--f-grot);font-weight:600;font-size:30px;letter-spacing:-0.04em;color:var(--fg);text-decoration:none;line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline">snailsploit<span style="font-family:var(--f-mono);font-size:22px;font-weight:500;margin-left:8px;color:var(--fg);letter-spacing:-0.01em">[<span style="color:var(--signal-2)">$</span>]</span></a><nav style="display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2)"><a href="/about" style="color:inherit;text-decoration:none">About</a><a href="/services" style="color:inherit;text-decoration:none">Services</a><a href="/aatmf" style="color:inherit;text-decoration:none">Frameworks</a><a href="/research" style="color:inherit;text-decoration:none">Research</a><a href="/cves" style="color:inherit;text-decoration:none">CVEs</a><a href="/advisories" style="color:inherit;text-decoration:none">Advisories</a><a href="/contact" style="color:inherit;text-decoration:none">Contact</a></nav><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button></div></header>
+<nav class="site-crumbs" aria-label="Breadcrumb" style="border-bottom:1px solid var(--line);background:var(--bg-sink)"><div style="max-width:1280px;margin:0 auto;padding:14px 32px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);letter-spacing:0.1em"><a href="/" style="color:var(--fg-3);text-decoration:none">Home</a> · <a href="/research" style="color:var(--fg-3);text-decoration:none">Research</a> · <a href="/advisories" style="color:var(--fg-3);text-decoration:none">Advisories</a> · <span style="color:var(--fg-2)">GHSA-78r8-wwqv-r299</span></div></nav>
 <main id="main" style="max-width:880px;margin:0 auto;padding:80px 32px">
-<div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em">GitHub Security Advisory</div>
-<h1 style="margin:14px 0 8px;font-family:var(--f-mono);font-size:36px;font-weight:500;letter-spacing:-0.02em;color:var(--fg)">GHSA-78r8-wwqv-r299</h1>
-<div style="font-family:var(--f-mono);font-size:14px;color:var(--fg-3);margin-bottom:32px">PraisonAI · PyPI</div>
-<p style="margin:32px 0 0;font-size:18px;line-height:1.65;color:var(--fg);max-width:720px">`AgentsGenerator.load_tools_from_module*` reaches unguarded `exec_module` sinks.</p>
+<div style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--signal-2);color:var(--signal-2);font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:0.14em;border-radius:2px"><span style="width:6px;height:6px;background:var(--signal-2);border-radius:999px"></span>GHSA Advisory · Coordinated Disclosure</div>
+<h1 style="margin:18px 0 6px;font-family:var(--f-mono);font-size:36px;font-weight:500;letter-spacing:-0.02em;color:var(--fg)">GHSA-78r8-wwqv-r299</h1>
+<div style="font-family:var(--f-mono);font-size:14px;color:var(--fg-3);margin-bottom:14px">PraisonAI · PyPI</div>
+<div style="font-size:24px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);line-height:1.3;margin-bottom:36px">Unguarded exec_module sinks in AgentsGenerator</div>
 
-<div style="margin-top:48px;padding-top:24px;border-top:1px solid var(--line)">
-<div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:10px">References</div>
-<div style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);line-height:1.7"><a href="https://github.com/advisories/GHSA-78r8-wwqv-r299" rel="noopener" style="color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)">GitHub Advisory ↗</a></div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:12px">
+<div><div style="color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:10px;margin-bottom:6px">Type</div><div style="color:var(--fg)">GHSA</div></div>
+<div><div style="color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:10px;margin-bottom:6px">Severity</div><div style="color:var(--signal-2)">High</div></div>
+<div><div style="color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:10px;margin-bottom:6px">CVSS</div><div style="color:var(--fg-3)">—</div></div>
+<div><div style="color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:10px;margin-bottom:6px">Ecosystem</div><div style="color:var(--fg)">PyPI</div></div>
 </div>
+
+<h2 style="margin:32px 0 12px;font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg)">Summary</h2>
+<p style="margin:0;font-size:16px;line-height:1.65;color:var(--fg-2)">GHSA-78r8-wwqv-r299: PraisonAI `AgentsGenerator.load_tools_from_module*` reaches unguarded `exec_module` sinks. Coordinated through the GitHub Security Advisory database.</p>
+
+<h2 style="margin:32px 0 12px;font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg)">References</h2>
+<ul style="margin:0;padding-left:20px;font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.85">
+<li><a href="https://github.com/advisories/GHSA-78r8-wwqv-r299" rel="noopener" style="color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)">GitHub Advisory Database — GHSA-78r8-wwqv-r299</a></li>
+<li><a href="https://github.com/SnailSploit" rel="noopener" style="color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)">SnailSploit on GitHub</a></li>
+</ul>
+
+<h2 style="margin:32px 0 12px;font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg)">Context</h2>
+<p style="margin:0;font-size:15px;line-height:1.7;color:var(--fg-2)">Part of SnailSploit's coordinated-disclosure work. 56 published CVEs and 7 GHSA advisories across the OSS ecosystem.</p>
+
+<div style="margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--f-mono);font-size:13px;color:var(--fg-2)">Credit: <a href="/team/kai-aizen" style="color:var(--fg);border-bottom:1px solid var(--line-hi);text-decoration:none">Kai Aizen</a> &amp; <a href="/team/avraham-shemesh" style="color:var(--fg);border-bottom:1px solid var(--line-hi);text-decoration:none">Avraham Shemesh</a></div>
 </main>
-<footer style="background:var(--bg-sink);border-top:1px solid var(--line);margin-top:80px"><div style="max-width:1280px;margin:0 auto;padding:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)"><span>© 2026 SnailSploit Ltd. · Same attack. Different substrate. Human or machine.</span><span style="display:flex;gap:14px"><a href="/contact" style="color:var(--fg-3);text-decoration:none">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none">Cookies</a></span></div></footer>
+<footer style="background:var(--bg-sink);border-top:1px solid var(--line);margin-top:80px"><div style="max-width:1280px;margin:0 auto;padding:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)"><span>© 2026 SnailSploit Ltd. · Same attack. Different substrate. Human or machine.</span><span style="display:flex;gap:14px"><a href="/team" style="color:var(--fg-3);text-decoration:none">Team</a><a href="/contact" style="color:var(--fg-3);text-decoration:none">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none">Cookies</a></span></div></footer>
 <script defer src="/ui.js"></script>
 </body>
 </html>
