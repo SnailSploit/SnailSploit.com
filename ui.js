@@ -433,7 +433,7 @@
     loadIndex().then(function () {
       bindPaletteShortcut();
       initProgress();
-      initToc();
+      // initToc();  // disabled — Kai does not want the auto-injected "On this page" TOC
       initCopyButtons();
       initSeverity();
       bindTocTracking();
