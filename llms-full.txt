@@ -96,7 +96,8 @@ Independent offensive security researcher Kai Aizen. 30 CVEs, 5 Linux kernel pat
 
 ## About the author
 Kai Aizen is an independent offensive security researcher. Hakin9 contributing author, MITRE/NVD contributor, Linux kernel mainline contributor.
-- GitHub: https://github.com/SnailSploit
+- GitHub: https://github.com/snailsploit
 - X: https://x.com/SnailSploit
 - LinkedIn: https://linkedin.com/in/kaiaizen
+linkedin.com/company/snailsploit
 - ResearchGate: https://www.researchgate.net/profile/Kai-Aizen-2
