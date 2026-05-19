@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Atomicity as a Security Control — The All-or-Nothing Rule | SnailSploit</title>
+<meta content="Atomicity is a security control, not just a database feature. How partial transactions become exploitable inconsistencies — and where in the SSDLC to catch them. By Avraham Shemesh." name="description"/>
+<meta content="Avraham Shemesh" name="author"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1" name="robots"/>
+<link href="https://snailsploit.com/writing/atomicity-as-security-control/" rel="canonical"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; }
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}
+.wm-sig .dollar{color:var(--signal-2)}
+.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
+.nav-links a:hover{color:var(--fg)}
+.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}
+.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.crumbs a{color:var(--fg-3)}
+.crumbs a:hover{color:var(--fg)}
+.crumbs .sep{color:var(--fg-4)}
+
+.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}
+.article-hero-inner{max-width:1280px;margin:0 auto}
+.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.article-meta time{color:var(--fg-3)}
+.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0;max-width:1080px}
+.article-h1 .sub{display:block;color:var(--fg-3);font-size:0.58em;margin-top:14px;letter-spacing:-0.025em;font-weight:500}
+.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:780px}
+
+.article-layout{max-width:1280px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:1fr 240px;gap:64px;align-items:start;border-bottom:1px solid var(--line)}
+.article-body{min-width:0;font-size:17px;line-height:1.75;color:var(--fg-2);max-width:780px}
+.article-body > *:first-child{margin-top:0}
+.article-body .sec-num{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:0.14em;color:var(--signal-2);text-transform:uppercase;margin:64px 0 4px;font-weight:500;padding-top:24px;border-top:1px solid var(--line)}
+.article-body h2{font-size:32px;font-weight:500;line-height:1.2;letter-spacing:-0.025em;color:var(--fg);margin:0 0 16px;scroll-margin-top:96px}
+.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px;scroll-margin-top:96px}
+.article-body p{margin:16px 0}
+.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}
+.article-body li{margin:6px 0}
+.article-body strong{color:var(--fg);font-weight:600}
+.article-body em{color:var(--fg);font-style:italic}
+.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.article-body a:hover{border-bottom-color:var(--signal-2)}
+.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg);border-radius:2px}
+.article-body pre{background:var(--bg-sink);border:1px solid var(--line);border-left:2px solid var(--signal-2);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0;border-radius:2px}
+.article-body pre code{background:none;border:0;padding:0;font-size:inherit;border-radius:0}
+.article-body pre .c{color:var(--fg-4)}
+.article-body pre .k{color:var(--signal-2)}
+.article-body pre .s{color:#6FA88B}
+.article-body figure{margin:32px 0}
+.article-body figure svg{width:100%;height:auto;display:block;background:var(--bg-raise);border:1px solid var(--line)}
+.article-body figcaption{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);margin-top:12px;line-height:1.5;letter-spacing:0.02em}
+.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
+
+.callout{margin:32px 0;padding:20px 24px;border:1px solid var(--line-hi);background:var(--bg-raise);border-left:2px solid var(--signal-2)}
+.callout-label{font-family:var(--f-mono);font-size:11px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:10px;font-weight:500}
+.callout p{margin:8px 0;font-size:15.5px;color:var(--fg-2)}
+.callout p:first-of-type{margin-top:0}
+
+.toc{position:sticky;top:96px;align-self:start;font-family:var(--f-mono);font-size:12px;line-height:1.7;max-height:calc(100vh - 128px);overflow-y:auto}
+.toc-eyebrow{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:11px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.toc ul{list-style:none;padding:0;margin:0}
+.toc li{padding:4px 0}
+.toc li.h3{padding-left:16px;font-size:11.5px}
+.toc a{color:var(--fg-2);display:block;padding:2px 0;border-left:2px solid transparent;padding-left:12px;margin-left:-14px;transition:color 0.15s, border-color 0.15s}
+.toc a:hover{color:var(--fg);border-left-color:var(--signal-2)}
+
+@media (max-width: 960px){
+  .article-layout{grid-template-columns:1fr;gap:32px}
+  .toc{display:none}
+}
+
+.related{border-bottom:1px solid var(--line)}
+.related-inner{max-width:1280px;margin:0 auto;padding:64px 32px}
+.related-head{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.related-card{display:block;padding:24px;border:1px solid var(--line);background:var(--bg-raise);transition:border-color 0.15s}
+.related-card:hover{border-color:var(--line-hi)}
+.related-date{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-bottom:8px}
+.related-title{font-size:18px;font-weight:500;letter-spacing:-0.01em;color:var(--fg);margin-bottom:8px}
+.related-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.55}
+@media(max-width:720px){.related-grid{grid-template-columns:1fr}}
+
+.author-row{background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.author-inner{max-width:1280px;margin:0 auto;padding:48px 32px}
+.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:8px}
+.author-name{font-size:24px;font-weight:500;letter-spacing:-0.02em;color:var(--fg);margin-bottom:6px}
+.author-bio{font-family:var(--f-mono);font-size:13px;line-height:1.65;color:var(--fg-2);max-width:720px;margin-bottom:16px}
+.author-links{display:flex;gap:14px;align-items:center;font-family:var(--f-mono);font-size:12px;flex-wrap:wrap}
+.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
+.author-links a:hover{color:var(--fg)}
+
+.footer{background:var(--bg-sink)}
+.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+</style>
+<meta content="article" property="og:type"/>
+<meta content="Atomicity as a Security Control — The All-or-Nothing Rule" property="og:title"/>
+<meta content="Atomicity is a security control, not just a database feature. How partial transactions become exploitable inconsistencies — and where in the SSDLC to catch them. By Avraham Shemesh." property="og:description"/>
+<meta content="https://snailsploit.com/writing/atomicity-as-security-control/" property="og:url"/>
+<meta content="SnailSploit" property="og:site_name"/>
+<meta property="og:image" content="https://snailsploit.com/og-cover.png">
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="Avraham Shemesh" property="article:author"/>
+<meta content="2026-05-19" property="article:published_time"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@SnailSploit" name="twitter:site"/>
+<meta content="@SnailSploit" name="twitter:creator"/>
+<meta content="Atomicity as a Security Control — The All-or-Nothing Rule" name="twitter:title"/>
+<meta content="Atomicity is a security control, not just a database feature. How partial transactions become exploitable inconsistencies — and where in the SSDLC to catch them. By Avraham Shemesh." name="twitter:description"/>
+<meta name="twitter:image" content="https://snailsploit.com/og-cover.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#avi","name":"Avraham Shemesh","jobTitle":"Principal Researcher","worksFor":{"@id":"https://snailsploit.com/#org"},"url":"https://snailsploit.com/team/avraham-shemesh","sameAs":["https://linkedin.com/in/abeshemesh","https://github.com/0xShemesh","https://www.wordfence.com/threat-intel/vulnerabilities/researchers/avraham-shemesh"],"knowsAbout":["Web Application Security","SSDLC","Vulnerability Research","WordPress Security","Application Security"]},{"@type":["Organization","ProfessionalService"],"@id":"https://snailsploit.com/#org","name":"SnailSploit","url":"https://snailsploit.com","logo":"https://snailsploit.com/apple-touch-icon.png"},{"@type":"TechArticle","headline":"Atomicity as a Security Control — The All-or-Nothing Rule","description":"Atomicity is a security control, not just a database feature. How partial transactions become exploitable inconsistencies — and where in the SSDLC to catch them.","author":{"@id":"https://snailsploit.com/#avi"},"publisher":{"@id":"https://snailsploit.com/#org"},"datePublished":"2026-05-19","dateModified":"2026-05-19","url":"https://snailsploit.com/writing/atomicity-as-security-control/","mainEntityOfPage":"https://snailsploit.com/writing/atomicity-as-security-control/","image":"https://snailsploit.com/og-cover.png","wordCount":1880,"keywords":"SSDLC, atomicity, ACID, database security, transaction integrity, data integrity, web application security, code review"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://snailsploit.com/writing"},{"@type":"ListItem","position":3,"name":"Atomicity as a Security Control","item":"https://snailsploit.com/writing/atomicity-as-security-control/"}]}]}</script>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="/apple-touch-icon.png" rel="alternate icon" type="image/png"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="/manifest.webmanifest" rel="manifest"/>
+<meta content="#0E0E0F" name="theme-color"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="telephone=no" name="format-detection"/>
+<meta content="dark" name="color-scheme"/>
+<link href="/rss.xml" rel="alternate" title="snailsploit research" type="application/rss+xml"/>
+<link href="/feed.xml" rel="alternate" title="snailsploit research" type="application/atom+xml"/>
+<script data-cf-beacon='{"token": "REPLACE_WITH_CF_WEB_ANALYTICS_TOKEN"}' defer="" src="https://static.cloudflareinsights.com/beacon.min.js"></script>
+<link rel="stylesheet" href="/mobile.css">
+<link rel="stylesheet" href="/ui.css">
+</head>
+<body>
+<header class="nav"><div class="nav-inner"><a class="wm" href="/">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li></ul></nav><div class="nav-utils"><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header>
+
+<section class="article-hero">
+<div class="article-hero-inner">
+<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/writing">Writing</a><span class="sep">/</span><span>Atomicity as a Security Control</span></div>
+<div class="article-meta">
+<time datetime="2026-05-19">2026-05-19</time>
+<span>9 min read</span>
+<span>SSDLC · Data Integrity</span>
+<span>By Avraham Shemesh</span>
+</div>
+<h1 class="article-h1">Atomicity as a Security Control<span class="sub">The all-or-nothing rule that keeps your data safe from chaos.</span></h1>
+<p class="article-lede">As security professionals, we spend most of our attention on the perimeter: firewalls, encryption, threat detection. But one of the most overlooked risks isn't at the network's edge — it's inside it, in how critical database operations are written in code.</p>
+</div>
+</section>
+
+<div class="article-layout">
+<main class="article-body">
+
+<p>Logs look fine. No alarms fire. And yet a subtle oversight can quietly grow into a security problem: exploitable inconsistencies, tampered records, and damaged trust that no IDS will ever flag for you.</p>
+
+<p>Inside the SSDLC — the Secure Software Development Life Cycle — the handling of these operations frequently goes unchecked, especially when security teams don't enforce the coding practices that prevent them. So here is the question that matters: what happens when something fails mid-operation? When one step completes successfully but the next one fails, and the system is left exposed and inconsistent?</p>
+
+<p>The culprit is almost always the same. A lack of <strong>atomicity</strong>.</p>
+
+<span class="sec-num">01 · The principle</span>
+<h2 id="the-principle">So, what's this atomicity thing anyway?</h2>
+
+<p>Before we zoom in on atomicity, let's meet its family: <strong>ACID</strong>. Atomicity, Consistency, Isolation, Durability — four properties that let a database handle data safely and predictably, even when things go wrong.</p>
+
+<p>Think of ACID as the rescue crew standing behind every transaction:</p>
+
+<ul>
+<li><strong>Atomicity</strong> makes a transaction all-or-nothing.</li>
+<li><strong>Consistency</strong> guarantees the database is in a valid state before and after the transaction.</li>
+<li><strong>Isolation</strong> stops concurrent transactions from interfering with each other.</li>
+<li><strong>Durability</strong> guarantees a committed transaction survives — even if the system loses power one millisecond later.</li>
+</ul>
+
+<figure>
+<svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" font-family="Berkeley Mono, JetBrains Mono, monospace">
+<rect width="760" height="230" fill="#15161A"/>
+<text x="32" y="40" fill="#76746C" font-size="11" letter-spacing="2">ACID — THE FOUR PROPERTIES</text>
+<rect x="32"  y="64" width="160" height="130" fill="#0E0E0F" stroke="#E07A4A" stroke-width="1"/>
+<rect x="208" y="64" width="160" height="130" fill="#0E0E0F" stroke="#23252B"/>
+<rect x="384" y="64" width="160" height="130" fill="#0E0E0F" stroke="#23252B"/>
+<rect x="560" y="64" width="168" height="130" fill="#0E0E0F" stroke="#23252B"/>
+<text x="48"  y="96"  fill="#E07A4A" font-size="15">Atomicity</text>
+<text x="224" y="96"  fill="#E9E7E1" font-size="15">Consistency</text>
+<text x="400" y="96"  fill="#E9E7E1" font-size="15">Isolation</text>
+<text x="576" y="96"  fill="#E9E7E1" font-size="15">Durability</text>
+<text x="48"  y="124" fill="#B6B4AC" font-size="11">all steps,</text>
+<text x="48"  y="142" fill="#B6B4AC" font-size="11">or none.</text>
+<text x="224" y="124" fill="#76746C" font-size="11">valid state</text>
+<text x="224" y="142" fill="#76746C" font-size="11">in / out.</text>
+<text x="400" y="124" fill="#76746C" font-size="11">no cross</text>
+<text x="400" y="142" fill="#76746C" font-size="11">interference.</text>
+<text x="576" y="124" fill="#76746C" font-size="11">committed</text>
+<text x="576" y="142" fill="#76746C" font-size="11">= permanent.</text>
+<text x="48"  y="174" fill="#4A4842" font-size="10">← the one this article is about</text>
+</svg>
+<figcaption>ACID — the rescue crew behind every transaction. Atomicity is the one that holds the line.</figcaption>
+</figure>
+
+<h3 id="whats-a-transaction">What's a transaction?</h3>
+
+<p>A transaction is just a precise name for <em>a single unit of work</em> — multiple database operations grouped so they either all take effect or none do. Placing an order and decrementing inventory. Debiting one account and crediting another. The grouping is the contract: if any step inside the unit fails, the database reverts to the exact state it was in before the unit began.</p>
+
+<p>In plain terms: either every operation succeeds, or none of them happened at all. There is no in-between. No "half the job is done." It is the Undo button you always wished real life had.</p>
+
+<span class="sec-num">02 · Why it's a security control</span>
+<h2 id="acid-is-great-but-atomicity-is-the-one-we-audit-for">ACID is great, but atomicity is the one we audit for</h2>
+
+<p>All four ACID properties matter. But atomicity — the all-or-nothing safeguard — is the one that maps most directly onto SSDLC review, because the failure mode it prevents is an <em>attacker-reachable state</em>, not just a bug.</p>
+
+<p>When a multi-step operation isn't wrapped in a transaction, a failure between steps doesn't just corrupt data — it creates a window. An inconsistent database is a database in a state the developer never designed, never tested, and never threat-modeled. That is the definition of attack surface.</p>
+
+<p>This is the lens that matters for review: the missing transaction isn't the root cause. The root cause is treating a single unit of work as a sequence of independent statements, each of which can succeed or fail on its own. The vulnerability exists the moment that assumption is made — long before any crash proves it.</p>
+
+<span class="sec-num">03 · The failure</span>
+<h2 id="why-ignoring-atomicity-is-a-bad-idea">Why ignoring atomicity is a bad idea</h2>
+
+<p>Transfer $100 from Account A to Account B. The database must:</p>
+
+<ol>
+<li>Deduct $100 from Account A.</li>
+<li>Add $100 to Account B.</li>
+</ol>
+
+<p>Simple. But what happens if the process dies right after step one?</p>
+
+<ul>
+<li>Account A loses $100.</li>
+<li>Account B never receives it.</li>
+</ul>
+
+<p>The data is now inconsistent — and from a security standpoint that is not a technical hiccup, it is a vulnerability. States like this get exploited for fraud, for log tampering, for timing attacks. Atomicity removes the entire class by rolling the whole transaction back: no partial update, no exploitable gap.</p>
+
+<figure>
+<svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" font-family="Berkeley Mono, JetBrains Mono, monospace">
+<rect width="760" height="300" fill="#15161A"/>
+<text x="32" y="36" fill="#76746C" font-size="11" letter-spacing="2">TRANSFER $100 · A → B · CRASH AFTER STEP 1</text>
+<text x="32" y="74" fill="#76746C" font-size="11">WITHOUT TRANSACTION</text>
+<line x1="32" y1="84" x2="360" y2="84" stroke="#23252B"/>
+<rect x="32" y="100" width="150" height="44" fill="#0E0E0F" stroke="#23252B"/>
+<text x="44" y="120" fill="#B6B4AC" font-size="11">A: 500 → 400</text>
+<text x="44" y="136" fill="#6FA88B" font-size="10">committed ✓</text>
+<text x="196" y="127" fill="#4A4842" font-size="16">→</text>
+<rect x="218" y="100" width="150" height="44" fill="#0E0E0F" stroke="#E07A4A" stroke-dasharray="3 3"/>
+<text x="230" y="120" fill="#E07A4A" font-size="11">B: + 100</text>
+<text x="230" y="136" fill="#E07A4A" font-size="10">✕ never ran</text>
+<text x="32" y="178" fill="#E07A4A" font-size="12">result: $100 vanished. inconsistent. exploitable.</text>
+
+<text x="420" y="74" fill="#76746C" font-size="11">WITH TRANSACTION</text>
+<line x1="420" y1="84" x2="728" y2="84" stroke="#23252B"/>
+<rect x="420" y="100" width="150" height="44" fill="#0E0E0F" stroke="#23252B"/>
+<text x="432" y="120" fill="#B6B4AC" font-size="11">A: 500 → 400</text>
+<text x="432" y="136" fill="#76746C" font-size="10">uncommitted</text>
+<text x="584" y="127" fill="#4A4842" font-size="16">→</text>
+<rect x="606" y="100" width="122" height="44" fill="#0E0E0F" stroke="#E07A4A" stroke-dasharray="3 3"/>
+<text x="618" y="120" fill="#E07A4A" font-size="11">B: + 100 ✕</text>
+<text x="618" y="136" fill="#E07A4A" font-size="10">fails</text>
+<path d="M495 156 L495 176 L645 176 L645 156" fill="none" stroke="#6FA88B" stroke-width="1"/>
+<text x="470" y="198" fill="#6FA88B" font-size="12">rollback: A restored to 500. nothing happened.</text>
+
+<text x="32" y="250" fill="#76746C" font-size="11">attacker's view</text>
+<line x1="32" y1="260" x2="728" y2="260" stroke="#23252B"/>
+<text x="32" y="284" fill="#B6B4AC" font-size="11.5">left: a crash is a primitive. right: a crash is a no-op. the difference is one keyword.</text>
+</svg>
+<figcaption>The same crash, two designs. Without the transaction the failure is a weapon; with it, the failure is nothing.</figcaption>
+</figure>
+
+<h3 id="a-quick-detour-through-a-coffee-shop">A quick detour through a coffee shop</h3>
+
+<p>You're at a café with a strange payment system. You order a latte and the cashier debits $5 from your account, then goes to mark the latte "paid." Mid-action, the system crashes. You're out $5 and you have no coffee.</p>
+
+<p>Now run that at the scale of a payment processor — and add an attacker who has noticed that a well-timed crash leaves money in a state the system can't reconcile. Atomicity is the cashier who refuses to let you leave with an unpaid cup <em>or</em> a charged card and no cup. You pay and get the latte, or neither happens.</p>
+
+<span class="sec-num">04 · The difference in code</span>
+<h2 id="the-all-or-nothing-difference">The all-or-nothing difference</h2>
+
+<p>Here is the transfer with every statement executed on its own — the way it looks when nobody decided these two writes were one unit of work:</p>
+
+<pre><code><span class="c">-- no transaction: two independent writes</span>
+<span class="k">UPDATE</span> accounts <span class="k">SET</span> balance = balance - <span class="s">100</span> <span class="k">WHERE</span> account_id = <span class="s">'A'</span>;
+<span class="c">-- ── crash here ──────────────────────────</span>
+<span class="k">UPDATE</span> accounts <span class="k">SET</span> balance = balance + <span class="s">100</span> <span class="k">WHERE</span> account_id = <span class="s">'B'</span>;</code></pre>
+
+<p>If the process dies on that comment line, you've minted phantom money — it left A and never reached B. Banks are not fond of this. And it gets worse than the money:</p>
+
+<ul>
+<li>Logs show only the partial operation, which complicates every forensic investigation that follows.</li>
+<li>An attacker who can <em>induce</em> the failure — resource exhaustion, a timed connection drop, a crafted input that throws between writes — gets a repeatable way to leave the system mid-transaction.</li>
+<li>Audit trails stop being trustworthy, and an untrustworthy audit trail fails the compliance regime it exists to satisfy.</li>
+</ul>
+
+<p>The same logic, declared as one unit of work:</p>
+
+<pre><code><span class="k">BEGIN TRANSACTION</span>;
+
+<span class="k">UPDATE</span> accounts <span class="k">SET</span> balance = balance - <span class="s">100</span> <span class="k">WHERE</span> account_id = <span class="s">'A'</span>;
+<span class="k">UPDATE</span> accounts <span class="k">SET</span> balance = balance + <span class="s">100</span> <span class="k">WHERE</span> account_id = <span class="s">'B'</span>;
+
+<span class="k">COMMIT</span>;</code></pre>
+
+<p>Now a failure anywhere between <code>BEGIN</code> and <code>COMMIT</code> rolls everything back. The data is untouched. There is no partial state for an attacker to stand on, and the log reflects either a completed transfer or none — never a half.</p>
+
+<div class="callout">
+<div class="callout-label">The principle, in one sentence</div>
+<p>A multi-step operation that can be observed or interrupted between steps is not a unit of work — it is a sequence of independent failures waiting for someone to time one.</p>
+</div>
+
+<span class="sec-num">05 · Under the hood</span>
+<h2 id="what-is-actually-keeping-the-promise">What's actually keeping the promise?</h2>
+
+<p>It's worth knowing <em>how</em> the database delivers all-or-nothing, because the mechanisms are the same ones an attacker reasons about when they look for the gap.</p>
+
+<figure>
+<svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" font-family="Berkeley Mono, JetBrains Mono, monospace">
+<rect width="760" height="250" fill="#15161A"/>
+<text x="32" y="36" fill="#76746C" font-size="11" letter-spacing="2">THE GUARANTEE, MECHANICALLY</text>
+<rect x="32"  y="60" width="168" height="150" fill="#0E0E0F" stroke="#23252B"/>
+<rect x="214" y="60" width="168" height="150" fill="#0E0E0F" stroke="#23252B"/>
+<rect x="396" y="60" width="168" height="150" fill="#0E0E0F" stroke="#23252B"/>
+<rect x="578" y="60" width="150" height="150" fill="#0E0E0F" stroke="#E07A4A"/>
+<text x="48"  y="88"  fill="#E07A4A" font-size="13">1 · WAL</text>
+<text x="230" y="88"  fill="#E07A4A" font-size="13">2 · Locks</text>
+<text x="412" y="88"  fill="#E07A4A" font-size="13">3 · Rollback</text>
+<text x="594" y="88"  fill="#E9E7E1" font-size="13">4 · Commit</text>
+<text x="48"  y="116" fill="#B6B4AC" font-size="10.5">write intent</text>
+<text x="48"  y="132" fill="#B6B4AC" font-size="10.5">to a durable</text>
+<text x="48"  y="148" fill="#B6B4AC" font-size="10.5">log first.</text>
+<text x="48"  y="178" fill="#76746C" font-size="10">replay / reverse</text>
+<text x="48"  y="192" fill="#76746C" font-size="10">on restart</text>
+<text x="230" y="116" fill="#B6B4AC" font-size="10.5">hold rows so</text>
+<text x="230" y="132" fill="#B6B4AC" font-size="10.5">no one reads</text>
+<text x="230" y="148" fill="#B6B4AC" font-size="10.5">the half-state.</text>
+<text x="230" y="178" fill="#76746C" font-size="10">kills race</text>
+<text x="230" y="192" fill="#76746C" font-size="10">conditions</text>
+<text x="412" y="116" fill="#B6B4AC" font-size="10.5">any failure →</text>
+<text x="412" y="132" fill="#B6B4AC" font-size="10.5">undo all of</text>
+<text x="412" y="148" fill="#B6B4AC" font-size="10.5">it, atomically.</text>
+<text x="412" y="178" fill="#76746C" font-size="10">the undo</text>
+<text x="412" y="192" fill="#76746C" font-size="10">button</text>
+<text x="594" y="116" fill="#B6B4AC" font-size="10.5">point of no</text>
+<text x="594" y="132" fill="#B6B4AC" font-size="10.5">return. now</text>
+<text x="594" y="148" fill="#B6B4AC" font-size="10.5">it's real and</text>
+<text x="594" y="164" fill="#B6B4AC" font-size="10.5">visible.</text>
+<text x="200" y="234" fill="#4A4842" font-size="10">before commit, the transaction does not exist to anyone but itself.</text>
+</svg>
+<figcaption>WAL, locks, rollback, commit. Four mechanisms; one promise. The attack always targets the seam between them.</figcaption>
+</figure>
+
+<h3 id="wal-write-ahead-logging">1 · Write-Ahead Logging — the insurance policy</h3>
+<p>Before changing anything, the database writes every intended operation to a durable log. That log is the recovery contract: if the system dies, the log is replayed or reversed on restart until the database is back to a consistent state. The change to data files only happens after the intent is safely on disk.</p>
+
+<h3 id="locks-keeping-order">2 · Locks — keeping order</h3>
+<p>The database locks the rows or tables the transaction touches. Nothing else can read or modify them until the transaction resolves. This is precisely what closes the door on race conditions — the half-written state is never visible to a concurrent reader, so it can never be acted upon.</p>
+
+<h3 id="rollback-the-undo-button">3 · Rollback — the undo button</h3>
+<p>Crash, error, timeout, thrown exception — any of them triggers a rollback that reverses every change the transaction made. The state the attacker wanted to catch you in is erased before anyone, including the attacker, can observe it.</p>
+
+<h3 id="commit-the-point-of-no-return">4 · Commit — the point of no return</h3>
+<p>Only when every operation has succeeded does <code>COMMIT</code> make the changes permanent and visible. Until that instant, the transaction effectively does not exist to the rest of the system. There is no partial truth to exploit because there is no truth at all yet.</p>
+
+<span class="sec-num">06 · Where the SSDLC should catch this</span>
+<h2 id="making-atomicity-work-for-you">Making atomicity work for you</h2>
+
+<p>This is the part that turns a database property into a security practice. Each of these maps to a specific stage of the lifecycle — the point where the gap is cheapest to close.</p>
+
+<h3 id="wrap-multi-step-operations">Always wrap multi-step operations in transactions</h3>
+<p><strong>SSDLC stage: design + code review.</strong> Any operation composed of more than one write that must be consistent together belongs inside <code>BEGIN</code>/<code>COMMIT</code>. The review question is not "is there a bug here" — it is "is this one unit of work being treated as one unit of work." If two writes must both be true or both be false, and they aren't transactional, that is the finding. Flag it at design, before it is written.</p>
+
+<h3 id="test-the-failure-scenarios">Test the failure scenarios, not just the happy path</h3>
+<p><strong>SSDLC stage: testing.</strong> Simulate the crash. Kill the connection between writes. Throw between steps. A rollback path that is never exercised is a rollback path you are trusting on faith. Partial-failure tests are the only thing that proves the all-or-nothing contract actually holds under the conditions an attacker will create deliberately.</p>
+
+<h3 id="monitor-transaction-logs">Monitor transaction logs for partial and failed transactions</h3>
+<p><strong>SSDLC stage: operations.</strong> A pattern of partial or failed transactions is rarely just noise — it points at a locking problem, a logic bug, or someone probing for the seam. Treat anomalies in the transaction log as a signal worth investigating, not a metric worth averaging away.</p>
+
+<h3 id="educate-the-team">Educate the team on why, not just what</h3>
+<p><strong>SSDLC stage: continuous.</strong> A developer who understands that a missing transaction is an attacker-reachable state writes different code than one who has memorized "use transactions." The principle has to travel, not the rule. The rule gets followed until it's inconvenient; the principle gets defended.</p>
+
+<hr>
+
+<span class="sec-num">07 · Close</span>
+<h2 id="atomicity-is-security">Atomicity is security</h2>
+
+<p>Atomicity is one of those fundamental properties that flies under the radar precisely because, when it's working, nothing happens. It is a quiet control: it maintains data integrity, it removes a class of exploitable states, and it keeps the audit trail honest enough to be worth having.</p>
+
+<p>When you audit code as part of the SSDLC, the responsibility is to make sure developers enforce atomicity where it matters. Weak transaction handling doesn't just produce technical glitches — it opens the door to fraud, tampering, and compliance failure, and it does so silently.</p>
+
+<p>So as you review a database operation, ask the two questions that actually surface the finding:</p>
+
+<ul>
+<li>Are the transactional safeguards in place for every operation that must be consistent as a whole?</li>
+<li>Is this code written so that critical operations execute all-or-nothing — and has the failure path actually been tested?</li>
+</ul>
+
+<p>Atomicity isn't just a principle. It's a line of defense — and like most good defenses, it works by making sure the interesting failure never becomes observable.</p>
+
+</main>
+
+<aside class="toc"><div class="toc-eyebrow">In this article</div><ul>
+<li><a href="#the-principle">01 · So, what's this atomicity thing?</a></li>
+<li class="h3"><a href="#whats-a-transaction">What's a transaction?</a></li>
+<li><a href="#acid-is-great-but-atomicity-is-the-one-we-audit-for">02 · Why it's a security control</a></li>
+<li><a href="#why-ignoring-atomicity-is-a-bad-idea">03 · Why ignoring atomicity is a bad idea</a></li>
+<li class="h3"><a href="#a-quick-detour-through-a-coffee-shop">A quick detour through a coffee shop</a></li>
+<li><a href="#the-all-or-nothing-difference">04 · The all-or-nothing difference</a></li>
+<li><a href="#what-is-actually-keeping-the-promise">05 · What's keeping the promise?</a></li>
+<li class="h3"><a href="#wal-write-ahead-logging">1 · WAL — insurance policy</a></li>
+<li class="h3"><a href="#locks-keeping-order">2 · Locks — keeping order</a></li>
+<li class="h3"><a href="#rollback-the-undo-button">3 · Rollback — the undo button</a></li>
+<li class="h3"><a href="#commit-the-point-of-no-return">4 · Commit — point of no return</a></li>
+<li><a href="#making-atomicity-work-for-you">06 · Making atomicity work for you</a></li>
+<li><a href="#atomicity-is-security">07 · Atomicity is security</a></li>
+</ul></aside>
+</div>
+
+<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid">
+<a class="related-card" href="/writing/ai-obfuscator-detection-bypass/"><div class="related-date">2025-04-23</div><div class="related-title">AI-Powered Obfuscator Bypasses Detection in 2 Hours</div><div class="related-desc">Building a cloud-based AI-powered obfuscator that bypasses security detection in 2 hours. Explore the dual-use nature of AI in offensive security.</div></a>
+<a class="related-card" href="/services"><div class="related-date">snailsploit</div><div class="related-title">SSDLC Consulting &amp; Code Review</div><div class="related-desc">Adversarial review embedded in your SDLC: design, code, testing, operations. Catch the attacker-reachable state before it ships.</div></a>
+</div></div></section>
+
+<section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+<div style="max-width:780px;margin:0 auto">
+<div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">Cite this work</div>
+<details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+<summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+<pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{shemesh2026atomicity,
+  author = {Shemesh, Avraham},
+  title  = {Atomicity as a Security Control — The All-or-Nothing Rule},
+  year   = {2026},
+  url    = {https://snailsploit.com/writing/atomicity-as-security-control/},
+  note   = {SnailSploit}
+}</pre>
+</details>
+<details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+<summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+<p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Shemesh, A. (2026). <i>Atomicity as a Security Control — The All-or-Nothing Rule</i>. SnailSploit. https://snailsploit.com/writing/atomicity-as-security-control/</p>
+</details>
+<details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+<summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+<p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Shemesh, Avraham. "Atomicity as a Security Control — The All-or-Nothing Rule." <i>SnailSploit</i>, 2026, https://snailsploit.com/writing/atomicity-as-security-control/.</p>
+</details>
+<details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+<summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+<p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Shemesh, Avraham. "Atomicity as a Security Control — The All-or-Nothing Rule." SnailSploit (blog). 2026. https://snailsploit.com/writing/atomicity-as-security-control/.</p>
+</details>
+<div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/writing/atomicity-as-security-control/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/writing/atomicity-as-security-control/</a></div>
+</div>
+</section>
+
+<section class="author-row"><div class="author-inner">
+<div class="author-eyebrow">Author</div>
+<div class="author-name">Avraham Shemesh</div>
+<div class="author-bio">Principal Researcher at SnailSploit. Web application security, SSDLC, principle-based vulnerability research. 26 CVEs through Wordfence. SSDLC-native — knows where in the development lifecycle the bug should have been caught.</div>
+<div class="author-links">
+<a href="/team/avraham-shemesh">profile</a>
+<a href="https://linkedin.com/in/abeshemesh" rel="noopener">linkedin</a>
+<a href="https://github.com/0xShemesh" rel="noopener">github</a>
+<a href="https://www.wordfence.com/threat-intel/vulnerabilities/researchers/avraham-shemesh" rel="noopener">wordfence</a>
+</div>
+</div></section>
+
+<footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 SnailSploit Ltd. · Same attack. Different substrate. Human or machine.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a></span></footer>
+<script defer src="/ui.js"></script>
+</body>
+</html>

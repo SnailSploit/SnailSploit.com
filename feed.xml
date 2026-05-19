@@ -10,6 +10,28 @@
   <icon>https://snailsploit.com/favicon.svg</icon>
   <logo>https://snailsploit.com/apple-touch-icon.png</logo>
   <entry>
+
+    <title>Atomicity as a Security Control — The All-or-Nothing Rule</title>
+
+    <link href="https://snailsploit.com/writing/atomicity-as-security-control/" rel="alternate" type="text/html"/>
+
+    <id>https://snailsploit.com/writing/atomicity-as-security-control/</id>
+
+    <updated>2026-05-19T00:00:00+00:00</updated>
+
+    <published>2026-05-19T00:00:00+00:00</published>
+
+    <author><name>Avraham Shemesh</name></author>
+
+    <category term="ssdlc"/>
+
+    <category term="data-integrity"/>
+
+    <summary type="text">Atomicity is a security control, not just a database feature. How partial transactions become exploitable inconsistencies — and where in the SSDLC to catch them.</summary>
+
+  </entry>
+
+  <entry>
     <title>Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation</title>
     <link href="https://snailsploit.com/ai-security/self-replicating-memory-worm/" rel="alternate" type="text/html"/>
     <id>https://snailsploit.com/ai-security/self-replicating-memory-worm/</id>
