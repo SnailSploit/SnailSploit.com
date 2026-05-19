@@ -199,6 +199,7 @@
   }
 
   function initToc() {
+    if (document.querySelector('aside.toc, aside.ss-toc, #article-toc')) return;
     var headings = collectHeadings();
     if (headings.length < 3) return;
     if (window.innerWidth < 1280) return;
