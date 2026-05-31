@@ -901,5 +901,7 @@
 <url><loc>https://snailsploit.com/security-research/cves/cve-2026-48022/</loc><lastmod>2026-05-20</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
 <url><loc>https://snailsploit.com/security-research/cves/cve-2026-48782/</loc><lastmod>2026-05-20</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
 <url><loc>https://snailsploit.com/security-research/cves/cve-2026-46132/</loc><lastmod>2026-05-31</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/security-research/cves/cve-2026-49353/</loc><lastmod>2026-05-31</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/security-research/cves/cve-2026-48814/</loc><lastmod>2026-05-31</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
 <url><loc>https://snailsploit.com/writing/attacking-the-parser-serialization-as-subversion/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
