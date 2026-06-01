@@ -1,10 +1,15 @@
 # snailsploit
-Independent offensive security researcher Kai Aizen. 30 CVEs, 5 Linux kernel patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
+SnailSploit is an independent adversarial-security research group — Kai Aizen (founder), Avraham Shemesh (principal researcher), and Sahar Shlichove (offensive security engineer). 67 CVEs, 5 Linux kernel mainline patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
 
 > Same attack. Different substrate.
 
 ## Identity
-- [About](/about): Kai Aizen, Independent Offensive Security Researcher
+- [About](/about): SnailSploit — independent Adversarial · Research group
+- [Team](/team): three researchers, one method
+## Team
+- [Kai Aizen](/team/kai-aizen): Founder & adversarial-AI researcher. Creator of AATMF; author of Adversarial Minds; 5 Linux kernel mainline patches.
+- [Avraham Shemesh](/team/avraham-shemesh): Principal researcher. Web & application security, SSDLC; 26 WordPress CVEs via Wordfence.
+- [Sahar Shlichove](/team/sahar-shlichove): Offensive security engineer at JFrog (aka MixBanana). Supply-chain, cloud-native, and adversarial-AI research. Acknowledged by Apple, IBM, Palo Alto Networks, Red Hat, Broadcom, Apache, and INCD.
 - [Services](/services): AI Red Teaming, Advanced Penetration Testing, Social Engineering
 - [Contact](/contact)
 - [Adversarial Minds (book)](/adversarial-minds)
@@ -84,7 +89,7 @@ Independent offensive security researcher Kai Aizen. 30 CVEs, 5 Linux kernel pat
 - [Rate Limiting | AI Security Wiki](/ai-security/wiki/defenses/rate-limiting/)
 
 ## Vulnerability Disclosures
-- [CVE Ledger](/cves): 30 published CVEs
+- [CVE Ledger](/cves): 67 published CVEs
 - [Linux Kernel Contributions](/kernel): 5 mainline patches
 - [Security Advisories](/advisories)
 
@@ -94,8 +99,8 @@ Independent offensive security researcher Kai Aizen. 30 CVEs, 5 Linux kernel pat
 ## Writing
 - [Writing index](/writing)
 
-## About the author
-Kai Aizen is an independent offensive security researcher. Hakin9 contributing author, MITRE/NVD contributor, Linux kernel mainline contributor.
+## About
+SnailSploit is an independent adversarial-security research group (Kai Aizen, Avraham Shemesh, Sahar Shlichove). Hakin9 contributing authors, MITRE/NVD contributors, Linux kernel mainline contributors.
 - GitHub: https://github.com/snailsploit
 - X: https://x.com/SnailSploit
 - LinkedIn: https://linkedin.com/in/kaiaizen
