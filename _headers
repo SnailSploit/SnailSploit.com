@@ -12,10 +12,10 @@
 
 # HTML — short cache so updates propagate, but allow CF edge caching
 /*.html
-  Cache-Control: public, max-age=300, s-maxage=3600, must-revalidate
+  Cache-Control: public, max-age=60, s-maxage=60, must-revalidate
 
 /
-  Cache-Control: public, max-age=300, s-maxage=3600, must-revalidate
+  Cache-Control: public, max-age=60, s-maxage=60, must-revalidate
 
 # Static assets — long cache for fonts/images, shorter for code that changes
 # JS/CSS deploy without versioned filenames, so we cannot mark them immutable
