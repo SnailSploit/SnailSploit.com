@@ -1,5 +1,5 @@
 # snailsploit
-SnailSploit is an independent adversarial-security research group — Kai Aizen (founder), Avraham Shemesh (principal researcher), and Sahar Shlichove (offensive security engineer). 66 CVEs, 5 Linux kernel mainline patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
+SnailSploit is an independent adversarial-security research group — Kai Aizen (founder), Avraham Shemesh (co-founder), and Sahar Shlichove (co-founder). 66 CVEs, 5 Linux kernel mainline patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
 
 > Same attack. Different substrate.
 
@@ -8,7 +8,7 @@ SnailSploit is an independent adversarial-security research group — Kai Aizen 
 - [Team](/team): three researchers, one method
 ## Team
 - [Kai Aizen](/team/kai-aizen): Founder & adversarial-AI researcher. Creator of AATMF; author of Adversarial Minds; 5 Linux kernel mainline patches.
-- [Avraham Shemesh](/team/avraham-shemesh): Principal researcher. Web & application security, SSDLC; 26 WordPress CVEs via Wordfence.
+- [Avraham Shemesh](/team/avraham-shemesh): Co-founder. Web & application security, SSDLC; 26 WordPress CVEs via Wordfence.
 - [Sahar Shlichove](/team/sahar-shlichove): Co-founder, offensive security researcher & red team architect (aka MixBanana). Supply-chain, cloud-native, and adversarial-AI research. Acknowledged by Apple, IBM, Palo Alto Networks, Red Hat, Broadcom, Apache, and INCD.
 - [Services](/services): AI Red Teaming, Advanced Penetration Testing, Social Engineering
 - [Contact](/contact)
