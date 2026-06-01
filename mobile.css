@@ -60,13 +60,14 @@
   [style*="font-size: 32px"], [style*="font-size:32px"] { font-size: 20px !important; }
   [style*="font-size: 28px"], [style*="font-size:28px"] { font-size: 18px !important; }
 
+  header > div { flex-wrap: wrap !important; padding: 14px 20px !important; gap: 10px 12px !important; }
   header nav {
-    overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;
-    flex-wrap: nowrap !important; max-width: calc(100vw - 140px) !important; scrollbar-width: none !important;
+    order: 9 !important; flex-basis: 100% !important; width: 100% !important; max-width: 100% !important;
+    flex-wrap: wrap !important; overflow: visible !important;
+    gap: 9px 16px !important; margin-top: 10px !important; padding-top: 12px !important;
+    justify-content: flex-start !important; border-top: 1px solid var(--line, #23252B) !important;
   }
-  header nav::-webkit-scrollbar { display: none !important; }
-  header nav a { white-space: nowrap !important; flex: 0 0 auto !important; }
-  header > div { padding: 14px 20px !important; gap: 12px !important; }
+  header nav a { white-space: nowrap !important; flex: 0 0 auto !important; font-size: 12px !important; }
 
   table {
     display: block !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;
