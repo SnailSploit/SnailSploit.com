@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://snailsploit.com/services</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://snailsploit.com/frameworks</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -38,13 +38,13 @@
   </url>
   <url>
     <loc>https://snailsploit.com/sef</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/prompt</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://snailsploit.com/playbook</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://snailsploit.com/wiki</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -104,7 +104,7 @@
   </url>
   <url>
     <loc>https://snailsploit.com/writing</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -122,661 +122,661 @@
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/aatmf-vs-mitre-atlas/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/adversarial-prompting/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/agentic-ai-threat-landscape/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/ai-breach-detection-gap/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/ai-coding-agent-attack-surface/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/ai-gateway-threat-model/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/ai-social-engineering-deepfake/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/computational-countertransference/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/hidden-risks-offensive-perspective/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/jailbreaking/ai-inherent-vulnerability/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/jailbreaking/chatgpt-context-jailbreak/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/jailbreaking/context-inheritance-exploit/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/jailbreaking/jailbreak-techniques/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/jailbreaking/memory-manipulation-attacks/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/llm-red-teamers-playbook/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/mcp-vs-a2a-attack-surface/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/prompt-injection/custom-instruction-backdoor/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/prompt-injection/mcp-security-deep-dive/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/prompt-injection/mcp-threat-analysis/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/prompt-injection/prompt-injection-examples/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/rag-agentic-attack-surface/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/rai-judge-blind-spots/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/self-replicating-memory-worm/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/structural-vulnerabilities-llms/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/weaponized-ai-supply-chain/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/adversarial-examples/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/agent-hijacking/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/backdoor-attacks/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/data-poisoning/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/guardrail-bypass/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/indirect-prompt-injection/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/jailbreaking/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/membership-inference/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/model-extraction/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/supply-chain-attacks/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/system-prompt-extraction/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/attacks/training-data-extraction/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/concepts/adversarial-ai/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/concepts/ai-agents/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/concepts/ai-alignment/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/concepts/ai-red-teaming/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/concepts/hallucination/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/concepts/large-language-models/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/concepts/prompt-injection/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/concepts/rag/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/defenses/guardrails/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/defenses/human-in-the-loop/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/defenses/input-validation/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/defenses/output-filtering/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/frameworks/aatmf/advanced-tactics/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/frameworks/aatmf/appendices/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/frameworks/aatmf/core-tactics/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/frameworks/aatmf/foundations/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/frameworks/aatmf/governance/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/frameworks/aatmf/infrastructure/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/frameworks/aatmf/operations/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/frameworks/aatmf/prompt-bank/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2025-11171/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2025-11174/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2025-12030/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2025-12163/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2025-9776/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-1208/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-32809/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-3288/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-32885/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-33693/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/general/advanced-container-escapes/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/general/chatgpt-canvas-rce-dns-exfiltration/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/general/cloud-vulnerability-exploitation/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/general/edr-evasion-techniques/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/general/io-uring-zcrx-race-condition/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/general/zero-trust-container-runtime/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/tools/jailbreak-engine/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/writing/ai-obfuscator-detection-bypass/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/writing/embracing-ai-adapt-or-die/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/writing/personal-data-identity-theft/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/press</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/glossary</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-30911/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-32794/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-43884/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-31899/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-3596/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-1313/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-3599/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-2717/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-0811/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-1314/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-3594/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-3595/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-0814/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/tools/burp-mcp-toolkit/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/tools/snailhunter/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/tools/kuberoast/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/tools/xposure/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/tools/snailsploit-recon/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/tools/snailpath/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/tools/zenflood/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/tools/snailobfuscator/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/tools/awesome-snail-osint/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/kernel/io_uring-zcrx/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/kernel/net-tipc/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/kernel/bluetooth/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/kernel/rdma-ionic/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/kernel/net-rtnetlink/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/advisories/ghsa-2hch-c97c-g99x/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/advisories/ghsa-j425-whc4-4jgc/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -788,7 +788,7 @@
   </url>
   <url>
     <loc>https://snailsploit.com/cookies</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -830,79 +830,79 @@
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-43121/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-8368/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-45363/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-44840/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-44217/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-45620/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/security-research/cves/cve-2026-45619/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/aatmf-vs-maestro</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://snailsploit.com/cite-aatmf</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
 <url><loc>https://snailsploit.com/team/kai-aizen</loc><lastmod>2026-06-01</lastmod></url>
 <url><loc>https://snailsploit.com/team/avraham-shemesh</loc><lastmod>2026-06-01</lastmod></url>
 <url><loc>https://snailsploit.com/team/sahar-shlichove</loc><lastmod>2026-06-01</lastmod></url>
-<url><loc>https://snailsploit.com/advisories/ghsa-rcgr-27rh-g56w/</loc><lastmod>2026-05-19</lastmod></url>
-<url><loc>https://snailsploit.com/advisories/ghsa-8444-4fhq-fxpq/</loc><lastmod>2026-05-19</lastmod></url>
-<url><loc>https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/</loc><lastmod>2026-05-19</lastmod></url>
+<url><loc>https://snailsploit.com/advisories/ghsa-rcgr-27rh-g56w/</loc><lastmod>2026-06-01</lastmod></url>
+<url><loc>https://snailsploit.com/advisories/ghsa-8444-4fhq-fxpq/</loc><lastmod>2026-06-01</lastmod></url>
+<url><loc>https://snailsploit.com/advisories/ghsa-78r8-wwqv-r299/</loc><lastmod>2026-06-01</lastmod></url>
 <url><loc>https://snailsploit.com/search</loc><lastmod>2026-05-19</lastmod></url>
-<url><loc>https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/</loc><lastmod>2026-05-19</lastmod></url>
-<url><loc>https://snailsploit.com/ai-security/prompt-injection/wire-oracle/</loc><lastmod>2026-05-19</lastmod></url>
+<url><loc>https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/</loc><lastmod>2026-06-01</lastmod></url>
+<url><loc>https://snailsploit.com/ai-security/prompt-injection/wire-oracle/</loc><lastmod>2026-06-01</lastmod></url>
 <url><loc>https://snailsploit.com/team</loc><lastmod>2026-06-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://snailsploit.com/ai-security/prompt-injection/</loc><lastmod>2026-05-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-<url><loc>https://snailsploit.com/ai-security/jailbreaking/</loc><lastmod>2026-05-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-<url><loc>https://snailsploit.com/ai-security/jailbreaking/inherent-ai-vulnerabilities</loc><lastmod>2026-05-19</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
-<url><loc>https://snailsploit.com/writing/atomicity-as-security-control/</loc><lastmod>2026-05-19</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://snailsploit.com/security-research/cves/cve-2026-47393/</loc><lastmod>2026-05-19</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://snailsploit.com/security-research/cves/cve-2026-47398/</loc><lastmod>2026-05-19</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://snailsploit.com/security-research/cves/cve-2026-46627/</loc><lastmod>2026-05-19</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://snailsploit.com/security-research/cves/cve-2026-48022/</loc><lastmod>2026-05-20</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://snailsploit.com/security-research/cves/cve-2026-48782/</loc><lastmod>2026-05-20</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/ai-security/prompt-injection/</loc><lastmod>2026-06-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/ai-security/jailbreaking/</loc><lastmod>2026-06-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/ai-security/jailbreaking/inherent-ai-vulnerabilities</loc><lastmod>2026-06-01</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+<url><loc>https://snailsploit.com/writing/atomicity-as-security-control/</loc><lastmod>2026-06-01</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/security-research/cves/cve-2026-47393/</loc><lastmod>2026-06-01</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/security-research/cves/cve-2026-47398/</loc><lastmod>2026-06-01</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/security-research/cves/cve-2026-46627/</loc><lastmod>2026-06-01</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/security-research/cves/cve-2026-48022/</loc><lastmod>2026-06-01</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/security-research/cves/cve-2026-48782/</loc><lastmod>2026-06-01</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
 <url><loc>https://snailsploit.com/security-research/cves/cve-2026-46132/</loc><lastmod>2026-06-01</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
 <url><loc>https://snailsploit.com/security-research/cves/cve-2026-49353/</loc><lastmod>2026-06-01</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
 <url><loc>https://snailsploit.com/security-research/cves/cve-2026-48814/</loc><lastmod>2026-06-01</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
-<url><loc>https://snailsploit.com/writing/attacking-the-parser-serialization-as-subversion/</loc><lastmod>2026-05-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://snailsploit.com/writing/attacking-the-parser-serialization-as-subversion/</loc><lastmod>2026-06-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
