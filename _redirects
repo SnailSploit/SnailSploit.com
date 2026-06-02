@@ -4,6 +4,24 @@
 # 301 = permanent (transfers link equity)
 # Order matters: first match wins.
 
+# ── GSC 404 fixes (2026-06-02): bare directories, old slugs, no-slash dir, sitemaps ──
+/security-research/general/                                 /research                                              301
+/frameworks/aatmf/                                          /aatmf                                                 301
+/ai-security/wiki/attacks/                                  /wiki                                                  301
+/ai-security/wiki/defenses/                                 /wiki                                                  301
+/ai-security/wiki/concepts/                                 /wiki                                                  301
+/ai-security/wiki/attacks/index.html                        /wiki                                                  301
+/ai-security/prompt-injection                               /ai-security/prompt-injection/                         301
+/research-start-here/                                       /research                                              301
+/signup/                                                    /contact                                               301
+/tag/research/                                              /research                                              301
+/inherent-vulnerabilities-in-ai-systems-d0b39dde21b8        /ai-security/jailbreaking/ai-inherent-vulnerability/   301
+/evading-endpoint-detection-and-response-edr-f18cf2da38ed   /security-research/general/edr-evasion-techniques/     301
+/search/                                                    /search                                                301
+/sitemap-index.xml                                          /sitemap.xml                                           301
+/sitemap-0.xml                                              /sitemap.xml                                           301
+/sitemap/sitemap.xml                                        /sitemap.xml                                           301
+
 # ─────────────────────────────────────────────────────────────
 #  Flat slugs (old shipped URLs) → canonical hierarchical paths
 # ─────────────────────────────────────────────────────────────
