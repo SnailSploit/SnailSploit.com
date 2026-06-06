@@ -3,6 +3,7 @@
 # Format: source destination status
 # 301 = permanent (transfers link equity)
 # Order matters: first match wins.
+/advisories/ghsa-rcgr-27rh-g56w/   /advisories   301
 
 # ── GSC 404 fixes (2026-06-02): bare directories, old slugs, no-slash dir, sitemaps ──
 /security-research/general/                                 /research                                              301
