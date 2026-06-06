@@ -16,7 +16,7 @@ SnailSploit is an independent adversarial-security research group — Kai Aizen 
 - [Press / Media Kit](/press): bio, headshots, official quotes, citation snippets
 - [Glossary](/glossary): A-Z reference of adversarial-AI terms
 ## Frameworks
-- [AATMF v3.1](/aatmf): 20 tactics, 240+ techniques, 2,152+ procedures, 4,980+ prompts. Mapped to NIST AI RMF and MITRE ATLAS.
+- [AATMF v3.1](/aatmf): 15 tactics, 240+ techniques, 2,152+ procedures, 4,980+ prompts. Mapped to NIST AI RMF and MITRE ATLAS.
 - [SEF](/sef): Social Engineering Framework
 - [P.R.O.M.P.T](/prompt): Compositional grammar for adversarial prompts
 - [Claude-Red](/claude-red): 38 offensive-security skills for the Claude skills system
