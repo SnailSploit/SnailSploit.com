@@ -140,6 +140,10 @@
 /embracing-ai-adapt-or-die-7e0ec91439da                                                              /writing/embracing-ai-adapt-or-die/                       301
 /revisiting-the-mcp-protocol-deep-security-dive-across-real-world-vulnerabilities-51fa1d1d102f       /ai-security/mcp-vs-a2a-attack-surface/                   301
 /the-memory-manipulation-problem-poisoning-ai-context-windows-6acf73771f0b                           /ai-security/jailbreaking/memory-manipulation-attacks/    301
+/the-hidden-risks-of-ai-an-offensive-perspective-c316f29fcc77   /ai-security/hidden-risks-offensive-perspective/   301
+/how-i-jailbreaked-the-latest-chatgpt-model-using-context-and-social-awareness-techniques-1ca9af02eba9   /ai-security/jailbreaking/chatgpt-context-jailbreak/   301
+/adversarial-minds-why-were-still-getting-hacked-by-words-a-book-about-human-vulnerabilities-f2069ae4ace7   /adversarial-minds   301
+/research-custim_instructions_backdoor   /ai-security/prompt-injection/custom-instruction-backdoor/   301
 
 # ─────────────────────────────────────────────────────────────
 #  Deprecated content
