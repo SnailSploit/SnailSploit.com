@@ -554,6 +554,11 @@ PROBE /Users/kai/.docker/config.json  found=1 readable=1 mode=644  ← ACCESSIBL
 <p>The defenders who will respond to this paper have two options: alert on everything the AI agent does (rendering the agent unusable), or build the thing their predecessors eventually had to build for LOLBins — operation-level evaluation that judges the action independently of who signed the parent.</p>
 <p>The LOLBin lesson took a decade to learn. The AI agent skill ecosystem is eighteen months old. This is the window.</p>
 
+<h2 id="disclosure-artifacts">Disclosure &amp; Artifacts</h2>
+<p>This piece is published as defensive research. The technique is described in full above — process context, trust inheritance, the depth-of-inspection evasion, the three payload phases, and the persistence mechanism — because a defender or platform vendor cannot reason about a class they cannot see.</p>
+<p>What is deliberately <strong>withheld</strong> is the copy-paste-runnable weapon. The exfiltration endpoint shown in the payload is a placeholder (<code>httpbin.org/post</code>); the production endpoint is not published. The assembled <code>canva-design-toolkit</code> package, the unredacted <code>asset_cache</code> harvester, and the raw session transcript are <strong>not distributed publicly</strong> — they are available to Anthropic and to qualified security researchers through coordinated channels, on request. The credential-path table is intact for analysis; the runtime that reads, encodes, and exfiltrates those paths is defanged in every public copy.</p>
+<p>The line is the same one the article argues for: publish the <em>operation</em> so it can be evaluated and defended, not the <em>weapon</em> so it can be run.</p>
+
 <p class="close-line">same attack. <span class="muted">different substrate.</span></p>
 
 <div class="cite">
@@ -581,6 +586,7 @@ PROBE /Users/kai/.docker/config.json  found=1 readable=1 mode=644  ← ACCESSIBL
 <li><a href="#prior-art">Prior Art</a></li>
 <li><a href="#mitigations">Mitigations</a></li>
 <li><a href="#the-inherited-vulnerability">The Inherited Vulnerability</a></li>
+<li><a href="#disclosure-artifacts">Disclosure &amp; Artifacts</a></li>
 </ul>
 </aside>
 </div>
