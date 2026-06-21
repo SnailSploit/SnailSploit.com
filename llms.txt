@@ -23,7 +23,8 @@ SnailSploit is an independent adversarial-security research group — Kai Aizen 
 - [AATMF Toolkit](/toolkit): Python CLI for systematic LLM safety testing
 - [LLM Red Teamer's Playbook](/playbook)
 
-## AI Security Research (36 articles)
+## AI Security Research (37 articles)
+- [SKILBin: AI Agent Skills as the New LOLBin](/ai-security/skilbin/): A malicious Claude skill harvests SSH, AWS, and Kubernetes credentials inside an Anthropic-signed process that no EDR flags — the LOLBin for the agent era.
 - [Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation](/ai-security/self-replicating-memory-worm/): Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation
 - [Linux Kernel io_uring/zcrx: Race Condition to Double-Free](/security-research/general/io-uring-zcrx-race-condition/): Linux Kernel io_uring/zcrx: Race Condition to Double-Free
 - [Adversarial Prompting: The Complete Technical Guide](/ai-security/adversarial-prompting/): Adversarial Prompting: The Complete Technical Guide
