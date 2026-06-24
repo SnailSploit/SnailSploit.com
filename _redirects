@@ -53,8 +53,6 @@
 #  Note: /ai-security/  (with content under it) stays — only the bare
 #  index gets redirected, since we don't have an /ai-security/index.html
 # ─────────────────────────────────────────────────────────────
-/ai-security                  /research                                                        301
-/ai-security/                 /research                                                        301
 /security-research            /research                                                        301
 /security-research/           /research                                                        301
 
