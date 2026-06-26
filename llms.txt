@@ -1,5 +1,5 @@
 # snailsploit
-SnailSploit is an independent adversarial-security research group — Kai Aizen (founder), Avraham Shemesh (co-founder), and Sahar Shlichove (co-founder). 79 CVEs, 5 Linux kernel mainline patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
+SnailSploit is an independent adversarial-security research group — Kai Aizen (founder), Avraham Shemesh (co-founder), and Sahar Shlichove (co-founder). 84 CVEs, 5 Linux kernel mainline patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
 
 > Same attack. Different substrate.
 
@@ -90,7 +90,7 @@ SnailSploit is an independent adversarial-security research group — Kai Aizen 
 - [Rate Limiting | AI Security Wiki](/ai-security/wiki/defenses/rate-limiting/)
 
 ## Vulnerability Disclosures
-- [CVE Ledger](/cves): 79 published CVEs
+- [CVE Ledger](/cves): 84 published CVEs
 - [Linux Kernel Contributions](/kernel): 5 mainline patches
 - [Security Advisories](/advisories)
 
