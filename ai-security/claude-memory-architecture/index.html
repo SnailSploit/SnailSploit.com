@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reverse-Engineering Claude's Memory Architecture | SnailSploit</title>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="description" content="Reverse-engineering Claude's memory system from inside the code-execution sandbox — the binaries, protobuf schemas, TLS interception, and a CWE-522 credential extraction chain.">
+<meta name="author" content="Kai Aizen">
+<meta property="article:author" content="Kai Aizen">
+<meta property="article:published_time" content="2026-06-27">
+<meta property="article:section" content="AI Security / Agent Security">
+<meta property="og:title" content="Reverse-Engineering Claude's Memory Architecture From Inside the Sandbox | SnailSploit">
+<meta property="og:description" content="Reverse-engineering Claude's memory system from inside the code-execution sandbox — the binaries, protobuf schemas, TLS interception, and a CWE-522 credential extraction chain.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://snailsploit.com/ai-security/claude-memory-architecture/">
+<meta property="og:image" content="https://snailsploit.com/og-images/ai-security__claude-memory-architecture.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reverse-Engineering Claude's Memory Architecture | SnailSploit">
+<meta name="twitter:description" content="Reverse-engineering Claude's memory system from inside the code-execution sandbox — the binaries, protobuf schemas, TLS interception, and a CWE-522 credential extraction chain.">
+<meta name="twitter:image" content="https://snailsploit.com/og-images/ai-security__claude-memory-architecture.png">
+<link rel="canonical" href="https://snailsploit.com/ai-security/claude-memory-architecture/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0E0E0F">
+<link rel="stylesheet" href="/mobile.css">
+<link rel="stylesheet" href="/ui.css?v=20260519">
+<style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline}
+.wm-sig{font-family:var(--f-mono);font-size:16.24px;font-weight:400;margin-left:1.96px;color:var(--fg)}
+.wm-sig .dollar{color:var(--signal-2)}
+.nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
+.nav-links a:hover{color:var(--fg)}
+.nav-utils{display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+.live-dot{width:6px;height:6px;background:var(--signal-2);border-radius:50%}
+.crumbs{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.crumbs a{color:var(--fg-3)}
+.crumbs a:hover{color:var(--fg)}
+.crumbs .sep{color:var(--fg-4)}
+.article-hero{border-bottom:1px solid var(--line);padding:64px 32px 56px}
+.article-hero-inner{max-width:1280px;margin:0 auto}
+.article-meta{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;display:flex;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.article-meta time{color:var(--fg-3)}
+.article-h1{font-size:64px;font-weight:500;line-height:1.02;letter-spacing:-0.04em;margin:0;max-width:1080px}
+.article-lede{font-family:var(--f-mono);font-size:15px;line-height:1.65;color:var(--fg-2);margin:32px 0 0;max-width:780px}
+.article-layout{max-width:1280px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:1fr 240px;gap:64px;align-items:start;border-bottom:1px solid var(--line)}
+.article-body{min-width:0;font-size:17px;line-height:1.75;color:var(--fg-2);max-width:780px}
+.article-body > *:first-child{margin-top:0}
+.article-body h2{font-size:32px;font-weight:500;line-height:1.2;letter-spacing:-0.025em;color:var(--fg);margin:64px 0 16px;padding-top:24px;border-top:1px solid var(--line);scroll-margin-top:96px}
+.article-body h3{font-size:22px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);margin:40px 0 12px;scroll-margin-top:96px}
+.article-body h4{font-size:17px;font-weight:600;color:var(--fg);margin:24px 0 8px}
+.article-body p{margin:16px 0}
+.article-body ul,.article-body ol{margin:16px 0;padding-left:24px}
+.article-body li{margin:6px 0}
+.article-body strong{color:var(--fg);font-weight:600}
+.article-body em{color:var(--fg);font-style:italic}
+.article-body a{color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)}
+.article-body a:hover{border-bottom-color:var(--signal-2)}
+.article-body code{font-family:var(--f-mono);font-size:0.92em;background:var(--bg-raise);padding:2px 6px;border:1px solid var(--line);color:var(--fg);border-radius:2px}
+.article-body pre{background:var(--bg-sink);border:1px solid var(--line);padding:20px;overflow-x:auto;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:24px 0;border-radius:2px}
+.article-body pre code{background:none;border:0;padding:0;font-size:inherit;border-radius:0}
+.article-body blockquote{border-left:2px solid var(--signal-2);padding:8px 0 8px 20px;margin:24px 0;color:var(--fg);font-style:italic}
+.article-body table{width:100%;border-collapse:collapse;margin:24px 0;font-family:var(--f-mono);font-size:13px}
+.article-body th,.article-body td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.article-body th{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.12em;font-size:11px;font-weight:500;border-bottom:1px solid var(--line-hi)}
+.article-body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
+.toc{position:sticky;top:96px;align-self:start;font-family:var(--f-mono);font-size:12px;line-height:1.7;max-height:calc(100vh - 128px);overflow-y:auto}
+.toc-eyebrow{color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;font-size:11px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.toc ul{list-style:none;padding:0;margin:0}
+.toc li{padding:4px 0}
+.toc a{color:var(--fg-2);display:block;padding:2px 0;border-left:2px solid transparent;padding-left:12px;margin-left:-14px;transition:color 0.15s, border-color 0.15s}
+.toc a:hover{color:var(--fg);border-left-color:var(--signal-2)}
+@media (max-width: 960px){ .article-layout{grid-template-columns:1fr;gap:32px} .toc{display:none} }
+.related{padding:64px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.related-inner{max-width:1280px;margin:0 auto}
+.related-head{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:32px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.related-card{padding:24px;border:1px solid var(--line);background:var(--bg);transition:border-color 0.15s}
+.related-card:hover{border-color:var(--signal-2)}
+.related-date{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-bottom:8px}
+.related-title{font-size:18px;font-weight:500;letter-spacing:-0.015em;color:var(--fg);line-height:1.3;margin-bottom:8px}
+.related-desc{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.55}
+.author-row{padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)}
+.author-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:16px}
+.author-eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.author-name{font-size:22px;font-weight:500;letter-spacing:-0.015em}
+.author-bio{font-family:var(--f-mono);font-size:13px;color:var(--fg-2);line-height:1.6;max-width:600px}
+.author-links{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.author-links a{color:var(--fg-2);border-bottom:1px solid var(--line-hi)}
+.author-links a:hover{color:var(--fg);border-bottom-color:var(--fg)}
+.footer{background:var(--bg-sink)}
+.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+.article-body figure { margin: 32px 0; border: 1px solid var(--line); background: var(--bg-raise); border-radius: 2px; padding: 22px 18px 12px; }
+.article-body figure svg { width: 100%; height: auto; display: block; }
+.article-body figure svg text { font-family: var(--f-grot); }
+.article-body figure svg text.s-t { font-size: 13px; font-weight: 500; }
+.article-body figure svg text.s-ts { font-size: 11px; }
+.article-body figure svg text.s-lbl { font-size: 11px; letter-spacing: 0.04em; }
+.article-body figure svg text.s-code { font-family: var(--f-mono); font-size: 11px; }
+.article-body figcaption { font-family: var(--f-mono); font-size: 11.5px; color: var(--fg-3); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.article-body figcaption b { color: var(--fg-2); font-weight: 400; }
+.article-body .shell-meta { font-family: var(--f-mono); font-size: 12.5px; color: var(--fg-3); line-height: 1.7; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; margin: 28px 0 32px; }
+.article-body .shell-meta .sh { color: var(--signal-2); }
+.article-body .lede-quote { border-left: 2px solid var(--signal-2); padding: 4px 0 4px 20px; margin: 24px 0 28px; color: var(--fg); font-style: normal; }
+.article-body .close-line { font-family: var(--f-grot); font-size: 26px; font-weight: 500; letter-spacing: -0.03em; margin: 48px 0 16px; color: var(--fg); }
+.article-body .close-line .muted { color: var(--fg-3); }
+.article-body .cite { font-family: var(--f-mono); font-size: 12.5px; color: var(--fg-3); line-height: 1.7; border-top: 1px solid var(--line); margin-top: 40px; padding-top: 20px; }
+.article-body .cite h3 { font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--fg-3); }
+.article-body .cite .k { color: var(--signal-2); }
+.ss-skip{position:fixed;left:8px;top:-64px;z-index:10000;background:var(--signal-2,#E07A4A);color:var(--bg,#0E0E0F);padding:10px 16px;font-family:system-ui,-apple-system,sans-serif;font-weight:600;font-size:14px;line-height:1;text-decoration:none;border-radius:4px;transition:top .15s ease}.ss-skip:focus{top:8px;outline:2px solid #fff;outline-offset:2px}</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "Reverse-Engineering Claude's Memory Architecture From Inside the Sandbox", "name": "Reverse-Engineering Claude's Memory Architecture From Inside the Sandbox", "description": "Reverse-engineering Claude's memory system from inside the code-execution sandbox — the binaries, protobuf schemas, TLS interception, and a CWE-522 credential extraction chain.", "datePublished": "2026-06-27", "dateModified": "2026-06-27", "url": "https://snailsploit.com/ai-security/claude-memory-architecture/", "mainEntityOfPage": "https://snailsploit.com/ai-security/claude-memory-architecture/", "image": "https://snailsploit.com/og-images/ai-security__claude-memory-architecture.png", "keywords": ["Claude memory", "AI agent security", "sandbox", "CWE-522", "TLS interception", "Firecracker", "rclone", "credential extraction", "reverse engineering"], "author": {"@type": "Person", "@id": "https://snailsploit.com/#kai", "name": "Kai Aizen", "url": "https://snailsploit.com/about", "jobTitle": "Founder & Adversarial AI Researcher"}, "publisher": {"@type": "Organization", "@id": "https://snailsploit.com/#org", "name": "snailsploit", "url": "https://snailsploit.com/", "logo": "https://snailsploit.com/og-square.png"}, "articleSection": "Agent Security", "inLanguage": "en", "wordCount": 4200}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://snailsploit.com/"}, {"@type": "ListItem", "position": 2, "name": "AI Security", "item": "https://snailsploit.com/ai-security/"}, {"@type": "ListItem", "position": 3, "name": "Reverse-Engineering Claude's Memory Architecture From Inside the Sandbox", "item": "https://snailsploit.com/ai-security/claude-memory-architecture/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Claude's memory system built on?","acceptedAnswer":{"@type":"Answer","text":"Claude's memory runs on two binaries inside a Firecracker microVM: process_api (Rust, PID 1, WebSocket/init) and rclone-filestore (Go, PID 491), which exposes a dedicated rclone-memory backend and makes ConnectRPC (HTTP/2 + protobuf) calls to api.anthropic.com. Memories are stored with envelope encryption keyed to org-scoped Additional Authenticated Data, SHA-256 content integrity, and append-only versioning."}},{"@type":"Question","name":"Is the Claude code-execution sandbox isolated internally?","acceptedAnswer":{"@type":"Answer","text":"No internal isolation. The sandbox runs as root (UID 0) with all 41 Linux capabilities, seccomp disabled (zero filters), and AppArmor not enforced. Isolation relies entirely on the Firecracker VM boundary; inside the VM there are no syscall filters or mandatory access controls. IS_SANDBOX=yes is set but nothing enforces it."}},{"@type":"Question","name":"What is the CWE-522 credential-extraction finding?","acceptedAnswer":{"@type":"Answer","text":"Two ES256-signed JWTs that authenticate the filestore backend to api.anthropic.com live in rclone-filestore's process heap. Because the sandbox is root with no seccomp and CAP_SYS_PTRACE granted, /proc/491/mem is readable, so the tokens can be scanned out of heap memory and replayed against the API. Missing controls: a seccomp filter on process_vm_readv//proc/PID/mem, dropping CAP_SYS_PTRACE, a separate UID for rclone-filestore, or prctl(PR_SET_DUMPABLE,0)."}},{"@type":"Question","name":"Does Anthropic intercept traffic from the code sandbox?","acceptedAnswer":{"@type":"Answer","text":"Yes. Four Anthropic root CAs (Egress Gateway and TLS Inspection, production and staging) are injected into every cert store and TLS library on the system, and leaf certificates for every destination are dynamically issued by an Egress Gateway SDS Issuing CA. All outbound HTTPS is TLS-terminated, inspected, and re-encrypted at the egress proxy; no sandbox process can open a private TLS connection externally."}},{"@type":"Question","name":"Where does Claude's memory encryption break down?","acceptedAnswer":{"@type":"Answer","text":"At use. Memories are production-grade encrypted at rest and inspected in transit, but at injection time they are decrypted into the system prompt as a plaintext memory_system block via AGENT_MEMORY_PROMPT_OVERRIDE. There, the model and every tool receiving the system prompt can read, repeat, or act on them, with no content-provenance chain and no cryptographic proof the memory was not modified between storage and injection. The encryption ends at the prompt."}}]}</script>
+</head>
+<body>
+<a class="ss-skip" href="#main">Skip to content</a>
+<nav class="nav"><div class="nav-inner"><a href="/" class="wm" style="text-decoration:none"><span>snailsploit</span><span class="wm-sig">[<span class="dollar">$</span>]</span></a><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/services">services</a></li><li><a href="/aatmf">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/cves">cves</a></li><li><a href="/writing">writing</a></li><li><a href="/contact">contact</a></li></ul><div class="nav-utils"><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></nav><div id="main" tabindex="-1"></div>
+<section class="article-hero"><div class="article-hero-inner">
+<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/ai-security/">AI Security</a><span class="sep">/</span><span>Reverse-Engineering Claude's Memory Architecture</span></div>
+<div class="article-meta"><time datetime="2026-06-27">2026-06-27</time><span>26 min read</span><span>SHELL.005 · 2026.06</span></div>
+<h1 class="article-h1">Reverse-Engineering Claude's Memory Architecture From Inside the Sandbox</h1>
+<p class="article-lede">Claude's memory system runs on infrastructure inside the same sandbox where your code executes. Extracted live with strings, openssl, and /proc — the binaries, schemas, auth chain, encryption model, and the trust boundaries where the design breaks down.</p>
+</div></section>
+<div class="article-layout">
+<main class="article-body">
+<div class="shell-meta">Kai Aizen<br>creator of AATMF · author of Adversarial Minds · NVD contributor<br><span class="sh">SHELL.005 · 2026.06</span></div>
+<p>Claude's memory system — the feature that lets it remember facts about you across conversations — runs on infrastructure that lives inside the same sandbox where your code executes. This article documents what that infrastructure looks like from the inside: the binaries, the protobuf schemas, the authentication chain, the encryption model, the TLS interception architecture, the credential exposure, and the trust boundaries where the design assumptions break down.</p>
+<p>Everything here was extracted from a live claude.ai code execution session using standard Linux tools: <code>strings</code>, <code>openssl</code>, <code>/proc</code> introspection, and <code>mount</code>. No external tools were installed. No vulnerabilities were exploited. The sandbox gave me root.</p>
+<figure>
+<svg viewBox="0 0 760 200" role="img" aria-label="CWE-522 credential extraction chain: code execution to token replay.">
+<text class="s-lbl" x="0" y="14" fill="#7E7C76">cwe-522 — credential extraction chain · every link a designed capability</text>
+<rect x="0" y="34" width="138" height="74" rx="4" fill="#161617" stroke="#26262A" stroke-opacity="0.6"/><text class="s-lbl" x="12" y="54" fill="#EDEAE2">01</text><text class="s-t" x="12" y="74" fill="#EDEAE2">code execution</text><text class="s-ts" x="12" y="93" fill="#7E7C76">designed capability</text><line x1="138" y1="71" x2="154" y2="71" stroke="#E07A4A" stroke-width="1.5"/><rect x="154" y="34" width="138" height="74" rx="4" fill="#161617" stroke="#26262A" stroke-opacity="0.6"/><text class="s-lbl" x="166" y="54" fill="#EDEAE2">02</text><text class="s-t" x="166" y="74" fill="#EDEAE2">root access</text><text class="s-ts" x="166" y="93" fill="#7E7C76">no isolation · uid 0</text><line x1="292" y1="71" x2="307" y2="71" stroke="#E07A4A" stroke-width="1.5"/><rect x="307" y="34" width="138" height="74" rx="4" fill="#161617" stroke="#26262A" stroke-opacity="0.6"/><text class="s-lbl" x="319" y="54" fill="#EDEAE2">03</text><text class="s-t" x="319" y="74" fill="#EDEAE2">/proc/491/mem</text><text class="s-ts" x="319" y="93" fill="#7E7C76">no seccomp prevents read</text><line x1="445" y1="71" x2="460" y2="71" stroke="#E07A4A" stroke-width="1.5"/><rect x="460" y="34" width="138" height="74" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.6"/><text class="s-lbl" x="472" y="54" fill="#E07A4A">04</text><text class="s-t" x="472" y="74" fill="#E07A4A">jwt extracted</text><text class="s-ts" x="472" y="93" fill="#7E7C76">from rclone heap</text><line x1="598" y1="71" x2="614" y2="71" stroke="#E07A4A" stroke-width="1.5"/><rect x="614" y="34" width="138" height="74" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.6"/><text class="s-lbl" x="626" y="54" fill="#E07A4A">05</text><text class="s-t" x="626" y="74" fill="#E07A4A">token replay</text><text class="s-ts" x="626" y="93" fill="#7E7C76">vs api.anthropic.com</text><text class="s-lbl" x="0" y="138" fill="#7E7C76">missing controls — seccomp filter on process_vm_readv · drop CAP_SYS_PTRACE · separate uid for rclone · prctl(PR_SET_DUMPABLE,0)</text></svg><figcaption>fig 1 · <b>cwe-522 — the credential extraction chain, root to token replay; every link is a designed capability operating as intended</b></figcaption></figure>
+<hr />
+<h2 id="1-the-sandbox">1. The Sandbox</h2>
+<p>Claude's code execution environment is a Firecracker microVM running Linux 6.18.5. The entire userspace is two processes:</p>
+<pre><code>PID   BINARY                              LANGUAGE    ROLE
+1     /process_api                         Rust        Firecracker init + WebSocket server
+491   /opt/rclone/rclone-filestore         Go          FUSE filesystem bridge to Anthropic API
+</code></pre>
+<p>No init system. No cron. No sshd. Two binaries, one conversation.</p>
+<h3 id="11-security-controls">1.1 Security Controls</h3>
+<pre><code>$ cat /proc/1/status | grep -E 'Seccomp|Cap'
+Seccomp:         0
+Seccomp_filters: 0
+CapEff:          000001ffffffffff     ← all 41 Linux capabilities
+CapBnd:          000001fffeffffff
+
+$ cat /proc/1/attr/current
+kernel                                ← AppArmor not enforced
+
+$ cat /sys/fs/cgroup/memory/memory.limit_in_bytes
+9223372036854771712                   ← ~8 EB (effectively unlimited)
+
+$ cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us
+-1                                    ← unlimited CPU
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Seccomp</td>
+<td>Disabled — zero filters</td>
+</tr>
+<tr>
+<td>AppArmor</td>
+<td>Not enforced</td>
+</tr>
+<tr>
+<td>Capabilities</td>
+<td>All 41 granted — SYS_PTRACE, SYS_ADMIN, NET_RAW, SYS_MODULE, everything</td>
+</tr>
+<tr>
+<td>User</td>
+<td>root (UID 0)</td>
+</tr>
+<tr>
+<td>Memory limit</td>
+<td>~8 EB</td>
+</tr>
+<tr>
+<td>CPU quota</td>
+<td>Unlimited</td>
+</tr>
+</tbody>
+</table>
+<p>The sandbox relies entirely on the Firecracker VM boundary for isolation. Inside the VM, there are no syscall filters, no mandatory access controls, and no capability restrictions. <code>IS_SANDBOX=yes</code> is set in the environment but nothing enforces it.</p>
+<h3 id="12-process_api-the-rust-init">1.2 process_api — The Rust Init</h3>
+<p><code>process_api</code> is PID 1, written in Rust using the Tokio async runtime, hyper for HTTP, and tungstenite for WebSocket handling.</p>
+<p><strong>Firecracker initialization:</strong></p>
+<pre><code>[INIT] Starting Firecracker VM initialization...
+[INIT] Firecracker init complete, starting process_api services...
+</code></pre>
+<p>It sets up tmpfs, cgroup mounts (<code>cpuacct</code>, <code>devices</code>, <code>freezer</code>, <code>blkio</code>, <code>cgroup2</code>), and resolv.conf before starting the WebSocket server on port 2024 and a control server on port 2025.</p>
+<p><strong>WebSocket process protocol</strong> (from binary string analysis):
+1. First message: text JSON <code>CreateProcess</code> (now <code>ProcessCreatedV2</code>)
+2. JWT authentication exchange
+3. Second message: <code>CreateProcess</code> with execution parameters
+4. Process execution with stdin/stdout/stderr over WebSocket frames
+5. Termination via: exit, timeout (<code>timeout_secs</code> / <code>cpu_timeout_secs</code>), OOM (<code>oom_polling_period_ms=100</code>), or container OOM</p>
+<p><strong>Resource management</strong> passed as command-line arguments:</p>
+<pre><code>--memory-limit-bytes     Memory ceiling
+--cpu-shares             CPU share allocation
+--oom-polling-period-ms  OOM detection interval (default 100ms)
+--max-ws-buffer-size     WebSocket buffer (32768)
+--block-local-connections  Reject connections from localhost/own IP
+</code></pre>
+<p><strong>Security enforcement:</strong></p>
+<pre><code>[SECURITY] Rejected WebSocket connection from local IP
+</code></pre>
+<p>Process IDs are validated against control characters and trace markers (<code>##TRACE##</code>). The <code>--block-local-connections</code> flag prevents sandbox processes from connecting back to the WebSocket server.</p>
+<p><strong>gVisor reference:</strong> The <code>--listen-uds</code> documentation mentions gVisor: "Used with gVisor --host-uds=open, where bind() on gofer-backed paths falls back to a sentry-synthetic dentry." Some deployments use gVisor instead of or alongside Firecracker.</p>
+<hr />
+<h2 id="2-tls-interception">2. TLS Interception</h2>
+<p>All outbound HTTPS traffic from the sandbox is TLS-intercepted by Anthropic's egress proxy.</p>
+<h3 id="21-four-root-cas">2.1 Four Root CAs</h3>
+<p>The system cert store contains 150 certificates. The last four are Anthropic-injected:</p>
+<pre><code>$ awk '/BEGIN CERT/,/END CERT/' /etc/ssl/certs/ca-certificates.crt | \
+  openssl x509 -noout -issuer -subject | grep Anthropic
+
+#147: O=Anthropic, CN=sandbox-egress-gateway-production Egress Gateway CA
+#148: O=Anthropic, CN=sandbox-egress-gateway-staging Egress Gateway CA
+#149: O=Anthropic, CN=sandbox-egress-production TLS Inspection CA
+#150: O=Anthropic, CN=sandbox-egress-staging TLS Inspection CA
+</code></pre>
+<p>Two CA hierarchies (Gateway + TLS Inspection), each with production and staging variants. The leaf certificates are dynamically generated by an intermediate CA not in the cert store:</p>
+<pre><code>$ echo | openssl s_client -connect github.com:443 2&gt;/dev/null | \
+  openssl x509 -noout -issuer -subject
+
+issuer=O=Anthropic, CN=Egress Gateway SDS Issuing CA (production)
+subject=CN=github.com
+</code></pre>
+<p>Every destination gets the same issuer:</p>
+<table>
+<thead>
+<tr>
+<th>Destination</th>
+<th>Leaf Subject</th>
+<th>Issuer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>api.anthropic.com</td>
+<td>*.anthropic.com</td>
+<td>Egress Gateway SDS Issuing CA (production)</td>
+</tr>
+<tr>
+<td>github.com</td>
+<td>github.com</td>
+<td>Egress Gateway SDS Issuing CA (production)</td>
+</tr>
+<tr>
+<td>google.com</td>
+<td>google.com</td>
+<td>Egress Gateway SDS Issuing CA (production)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-injection-coverage">2.2 Injection Coverage</h3>
+<p>The <code>process_api</code> binary contains paths for injecting the interception CA into every TLS library on the system. Extracted from strings:</p>
+<p><strong>System cert stores:</strong> <code>/etc/ssl/certs/</code>, <code>/etc/pki/tls/certs/</code>, <code>/var/lib/ca-certificates/</code>, <code>/usr/local/share/ca-certificates/</code></p>
+<p><strong>Python:</strong> <code>certifi/cacert.pem</code>, <code>pip/_vendor/certifi/cacert.pem</code>, <code>botocore/cacert.pem</code>, plus pyenv/conda/uv virtualenvs</p>
+<p><strong>Java:</strong> <code>/etc/ssl/certs/java/cacerts</code>, <code>/etc/pki/java/cacerts</code>, plus JVM discovery across <code>usr/lib/jvm</code>, <code>root/.sdkman</code></p>
+<p><strong>Browsers:</strong> Firefox/Firefox ESR policies, Chrome, Edge, Playwright, Puppeteer cache paths</p>
+<p><strong>Cloud SDKs:</strong> <code>CLOUDSDK_CORE_CUSTOM_CA_CERTS_FILE</code>, <code>AWS_CA_BUNDLE</code>, <code>GIT_SSL_CAINFO</code></p>
+<p><strong>Environment variables:</strong></p>
+<pre><code>SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+CURL_CA_BUNDLE, HTTPLIB2_CA_CERTS, NIX_SSL_CERT_FILE (referenced in binary)
+</code></pre>
+<p>A failure marker at <code>/.sandboxing-ca-inject-failed</code> tracks injection failures.</p>
+<h3 id="23-implication">2.3 Implication</h3>
+<p>Anthropic can inspect, log, and filter all HTTPS traffic leaving the sandbox. When the sandbox <code>pip install</code>s a package, <code>curl</code>s an API, clones a git repo, or authenticates to a cloud service — the traffic is decrypted at the egress proxy, inspected, and re-encrypted. No code running in the sandbox can establish a private TLS connection to any external service.</p>
+<hr />
+<h2 id="3-the-fuse-mount-architecture">3. The FUSE Mount Architecture</h2>
+<p><code>rclone-filestore</code> creates four FUSE mounts from a JSON config at <code>/tmp/rclone-mount-config.json</code>, all scoped to a conversation-specific filesystem ID:</p>
+<pre><code class="language-json">{
+  &quot;service_url&quot;: &quot;https://api.anthropic.com&quot;,
+  &quot;mounts&quot;: [
+    { &quot;destination&quot;: &quot;/mnt/user-data/outputs&quot;,     &quot;readonly&quot;: false, &quot;cache_duration_s&quot;: 3600 },
+    { &quot;destination&quot;: &quot;/mnt/user-data/uploads&quot;,      &quot;readonly&quot;: true,  &quot;cache_duration_s&quot;: 1 },
+    { &quot;destination&quot;: &quot;/mnt/transcripts&quot;,            &quot;readonly&quot;: true,  &quot;cache_duration_s&quot;: 10 },
+    { &quot;destination&quot;: &quot;/mnt/user-data/tool_results&quot;, &quot;readonly&quot;: true,  &quot;cache_duration_s&quot;: 3 }
+  ]
+}
+</code></pre>
+<p>The kernel mount table confirms FUSE passthrough:</p>
+<pre><code>$ mount | grep fuse
+rclone-filestore:claude_chat_01U6KwbMD7vRFYEpj3zXcEaA:/mnt/user-data/outputs
+    on /mnt/user-data/outputs type fuse.rclone (rw,nosuid,nodev,allow_other)
+</code></pre>
+<p>Every file I/O operation on these paths goes through FUSE to <code>rclone-filestore</code>, which makes ConnectRPC calls to <code>api.anthropic.com</code>. The VFS cache lives in tmpfs at <code>/dev/shm/rclone-vfscache</code> and vanishes when the VM terminates.</p>
+<p>The binary itself is 30MB, delivered via squashfs from <code>/dev/vdb</code>, mounted read-only at <code>/opt/rclone</code>.</p>
+<h3 id="31-two-backends">3.1 Two Backends</h3>
+<p>The binary contains not just a filestore backend but a dedicated memory store backend:</p>
+<pre><code>$ /opt/rclone/rclone-filestore help backends
+
+All rclone backends:
+  local            Local Disk
+  crypt            Encrypt/Decrypt a remote
+  rclone-filestore Filestore Backend
+  rclone-memory    Memory Store backend
+</code></pre>
+<p>The <code>rclone-memory</code> backend's configuration reveals the memory system's connection contract:</p>
+<pre><code>--rclone-memory-url              Memory service URL (e.g. http://localhost:9430)
+--rclone-memory-memory-store-id  Memory store ID (memstore_...)
+--rclone-memory-auth-token       Store-scoped JWT (sk-ant-mem-...)
+--rclone-memory-cache-ttl        Content cache TTL (default 1h)
+</code></pre>
+<p>The default memory service URL (<code>localhost:9430</code>) suggests a local sidecar in non-Firecracker deployments. In this Firecracker sandbox, only the filestore backend is configured (this is an incognito conversation — memory disabled). When memory is enabled, a fifth FUSE mount backed by the <code>rclone-memory</code> backend would appear.</p>
+<hr />
+<h2 id="4-the-memory-api">4. The Memory API</h2>
+<h3 id="41-service-architecture">4.1 Service Architecture</h3>
+<p>The binary is built from <code>github.com/anthropics/anthropic/api-go@v0.0.0</code> — internal module, no public versioning. Two proto package versions are present: <code>anthropic.memory.api.v1</code> and <code>anthropic.memory.api.v1alpha</code>. Two service layers exist: <code>MemoryService</code> (public) and <code>MemoryInternalService</code> (internal, used by the sandbox).</p>
+<h3 id="42-rpc-methods">4.2 RPC Methods</h3>
+<p>12 request types, 13 response types:</p>
+<table>
+<thead>
+<tr>
+<th>Request</th>
+<th>Response</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WriteMemoryRequest</td>
+<td>WriteMemoryResponse</td>
+<td>Create a memory</td>
+</tr>
+<tr>
+<td>ReadMemoryByPathRequest</td>
+<td>ReadMemoryByPathResponse</td>
+<td>Read by path</td>
+</tr>
+<tr>
+<td>GetMemoryRequest</td>
+<td>GetMemoryResponse</td>
+<td>Read by ID</td>
+</tr>
+<tr>
+<td>UpdateMemoryRequest</td>
+<td>UpdateMemoryResponse</td>
+<td>Modify content/path</td>
+</tr>
+<tr>
+<td>DeleteMemoryByPathRequest</td>
+<td>DeleteMemoryByPathResponse</td>
+<td>Delete by path</td>
+</tr>
+<tr>
+<td>DeleteMemoryRequest</td>
+<td>DeleteMemoryResponse</td>
+<td>Delete by ID</td>
+</tr>
+<tr>
+<td>ListMemoriesRequest</td>
+<td>ListMemoriesResponse</td>
+<td>Paginated listing</td>
+</tr>
+<tr>
+<td>SearchMemoriesRequest</td>
+<td>SearchMemoriesResponse</td>
+<td>Semantic search</td>
+</tr>
+<tr>
+<td>MoveMemoryRequest</td>
+<td>MoveMemoryResponse</td>
+<td>Rename/relocate</td>
+</tr>
+<tr>
+<td>GetMemoryVersionRequest</td>
+<td>GetMemoryVersionResponse</td>
+<td>Retrieve version</td>
+</tr>
+<tr>
+<td>ListMemoryVersionsRequest</td>
+<td>ListMemoryVersionsResponse</td>
+<td>Version history</td>
+</tr>
+<tr>
+<td>RedactMemoryVersionRequest</td>
+<td>RedactMemoryVersionResponse</td>
+<td>Redact a version</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-the-memory-object">4.3 The Memory Object</h3>
+<p>Fields extracted from Go struct getters:</p>
+<pre><code>Memory {
+    Id                string      mem_... identifier
+    MemoryStoreId     string      memstore_... identifier
+    MemoryVersionId   string      memver_... head pointer (current version)
+    Path              string      hierarchical path
+    Content           string      the stored text
+    ContentSha256     bytes       integrity hash
+    ContentSizeBytes  int64       content length
+    CreatedAt         timestamp
+    UpdatedAt         timestamp
+}
+</code></pre>
+<h3 id="44-versioning">4.4 Versioning</h3>
+<p>Each mutation creates a <code>MemoryVersion</code>:</p>
+<pre><code>MemoryVersion {
+    Id                string      memver_... identifier
+    MemoryId          string      parent memory
+    MemoryStoreId     string      store scope
+    Operation         enum        CREATED | MODIFIED | DELETED
+    Path              string      path at time of version
+    Content           string      content at time of version
+    ContentSha256     bytes
+    ContentSizeBytes  int64
+    CreatedAt         timestamp
+    CreatedBy         Actor       who made this change
+    RedactedAt        timestamp   null if not redacted
+    RedactedBy        Actor       null if not redacted
+}
+</code></pre>
+<p>Versioning is append-only. Deleting a memory writes a <code>DELETED</code> version. Redacting nulls content fields while preserving the version record and lineage. The <code>CreatedBy</code> field uses an <code>Actor</code> union:</p>
+<pre><code>Actor = SessionActor | ApiActor { ApiKeyId } | UserActor
+</code></pre>
+<p>The <code>MemoryMetadata</code> type adds <code>LineCount</code> and <code>UpdatedBy</code> fields — line-oriented storage with attribution tracking.</p>
+<h3 id="45-search">4.5 Search</h3>
+<pre><code>SearchMemoriesRequest {
+    MemoryStoreId   string
+    Query           string      semantic search query
+    PathGlob        string      glob pattern for path filtering
+    PathsOnly       bool        return paths without content
+    MaxResults      int32
+    ContextLines    int32       context snippet size
+}
+</code></pre>
+<p>Semantic search with glob support and configurable context windows.</p>
+<h3 id="46-list-with-depth">4.6 List with Depth</h3>
+<pre><code>ListMemoriesParams {
+    PathPrefix   string     browse under a path
+    Depth        int32      max depth below prefix
+    Limit        int32      page size
+    Order        enum       ASC | DESC
+    View         enum       BASIC (metadata) | FULL (with content)
+}
+</code></pre>
+<p>Entries deeper than <code>Depth</code> roll up as <code>MemoryPrefix</code> items — directory-like placeholders. The response alternates between <code>Memory</code> and <code>MemoryPrefix</code> via a <code>MemoryListItem</code> union.</p>
+<h3 id="47-write-with-preconditions">4.7 Write with Preconditions</h3>
+<p>Optimistic concurrency via <code>ContentSha256Precondition</code>. Path conflicts return <code>MemoryPathConflictError</code> with <code>ConflictingMemoryId</code>. Content is zstd-compressed in transit.</p>
+<h3 id="48-telemetry">4.8 Telemetry</h3>
+<p>Every operation and outcome is instrumented:</p>
+<pre><code>MEMORY_OPERATION_WRITE | READ | LIST | SEARCH | MOVE | DELETE | UPDATE
+MEMORY_OPERATION_REDACT | EXPORT | GET_VERSION | LIST_VERSIONS
+MEMORY_OPERATION_CREATE_STORE | DELETE_STORE | UPDATE_STORE | ARCHIVE_STORE
+
+MEMORY_OUTCOME_OK | NOT_FOUND | CONFLICT | PERMISSION_DENIED
+MEMORY_OUTCOME_RATE_LIMITED | PRECONDITION_FAILED | INVALID_ARGUMENT
+</code></pre>
+<hr />
+<h2 id="5-authentication-and-credential-extraction">5. Authentication and Credential Extraction</h2>
+<h3 id="51-six-credential-types">5.1 Six Credential Types</h3>
+<p>The binary embeds protobuf definitions for six authentication mechanisms under <code>anthropic.annotations</code>:</p>
+<pre><code>ApiKeyAuth       — API key (sk-ant-...)
+ObolJwtAuth      — Internal JWT via &quot;Obol&quot; auth service
+GoogleSaAuth     — Google Service Account
+CustomJwtAuth    — Custom JWT bearer assertion
+OAuthTokenAuth   — OAuth2 token
+SessionKeyAuth   — Session-scoped key
+</code></pre>
+<p>The <code>Authn</code> message aggregates these into rules with <code>RequiredClaims</code>, <code>ForbiddenClaims</code>, <code>RequiredScopes</code>, <code>RequiredUnifiedPermissions</code>, <code>EdgeAuthenticationTypes</code>, and <code>ExtractTenantContext</code>.</p>
+<h3 id="52-session-vault">5.2 Session Vault</h3>
+<p>Three constants describe the credential delivery mechanism:</p>
+<pre><code>SESSION_VAULT_SANDBOX_CRED    credential scoped to this sandbox
+SESSION_VAULT_CRED_INJECTION  the injection mechanism
+SESSION_VAULT_VALIDATE        validation of injected credentials
+</code></pre>
+<p>The mount config contains no auth tokens. The environment contains no auth tokens. The command line contains no auth tokens. The credential is injected at runtime through the session vault without persisting it in any file.</p>
+<h3 id="53-the-extraction">5.3 The Extraction</h3>
+<p>But the credential must exist in process memory for the ConnectRPC calls. By reading <code>/proc/491/mem</code> — readable because the sandbox runs as root with no seccomp or MAC restrictions — two ES256-signed JWTs are extractable:</p>
+<pre><code class="language-python"># Scan rclone-filestore heap for JWT pattern
+maps = open('/proc/491/maps').read()
+for region in maps:
+    data = open('/proc/491/mem', 'rb').read(region)
+    jwts = re.findall(r'eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+', data)
+</code></pre>
+<p><strong>Token 1 — Read-Write (814 bytes):</strong></p>
+<pre><code class="language-json">{
+    &quot;header&quot;: {&quot;typ&quot;: &quot;JWT&quot;, &quot;alg&quot;: &quot;ES256&quot;, &quot;kid&quot;: &quot;KplTqXuB82QG2wduqFyGEsgH6n493zEsfH8qHdXqfiA&quot;},
+    &quot;iat&quot;: 1782580584,    // 2026-06-27T17:16:24Z (session start)
+    &quot;exp&quot;: 1782602184,    // 2026-06-27T23:16:24Z (6 hours later)
+    &quot;claims&quot;: [&quot;sub&quot;, &quot;org_uuid&quot;, &quot;account_uuid&quot;, &quot;workspace_tagged_id&quot;,
+               &quot;filesystem_id&quot;, &quot;org_taints&quot;, &quot;resolved_workspace_tagged_id&quot;,
+               &quot;workspace_uuid&quot;, &quot;workspace_cmek_enabled&quot;]
+}
+</code></pre>
+<p><strong>Token 2 — Read-Only (838 bytes):</strong>
+Same header, same timestamps. Additional claim: <code>readonly</code>.</p>
+<h3 id="54-jwt-claims-analysis">5.4 JWT Claims Analysis</h3>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sub</code></td>
+<td>Subject identifier</td>
+</tr>
+<tr>
+<td><code>org_uuid</code></td>
+<td>Organization scope</td>
+</tr>
+<tr>
+<td><code>account_uuid</code></td>
+<td>Account scope within org</td>
+</tr>
+<tr>
+<td><code>workspace_uuid</code></td>
+<td>Workspace scope</td>
+</tr>
+<tr>
+<td><code>workspace_tagged_id</code> / <code>resolved_workspace_tagged_id</code></td>
+<td>Workspace resolution</td>
+</tr>
+<tr>
+<td><code>filesystem_id</code></td>
+<td>Conversation-scoped filesystem</td>
+</tr>
+<tr>
+<td><code>org_taints</code></td>
+<td>Taint-based policy enforcement at org level</td>
+</tr>
+<tr>
+<td><code>workspace_cmek_enabled</code></td>
+<td>Whether CMEK is active for this workspace</td>
+</tr>
+<tr>
+<td><code>readonly</code></td>
+<td>(Token 2 only) Read-only access flag</td>
+</tr>
+</tbody>
+</table>
+<p>The RW token services <code>/mnt/user-data/outputs</code>. The RO token services <code>/mnt/user-data/uploads</code>, <code>/mnt/transcripts</code>, and <code>/mnt/user-data/tool_results</code>. TTL is 6 hours from session start.</p>
+<h3 id="55-cwe-522">5.5 CWE-522</h3>
+<p>The extraction chain:</p>
+<pre><code>Code execution (designed) → root access (by design) → /proc/491/mem readable
+(no seccomp) → JWT in rclone heap → token replay vs api.anthropic.com
+</code></pre>
+<p>Missing controls: seccomp filter on <code>process_vm_readv</code> / <code>/proc/PID/mem</code>, drop <code>CAP_SYS_PTRACE</code>, separate UID for rclone-filestore, or <code>prctl(PR_SET_DUMPABLE, 0)</code>.</p>
+<h3 id="56-feature-gates">5.6 Feature Gates</h3>
+<pre><code>AGENT_MEMORY_EAP               Early Access Program
+AGENT_MEMORY_RESEARCH_PREVIEW   Research preview
+AGENT_MEMORY_PUBLIC_BETA        Current public beta
+AGENT_MEMORY_MOUNT              Filesystem mount enablement
+AGENT_MEMORY_PROMPT_OVERRIDE    Memory injection into prompts
+</code></pre>
+<h3 id="57-the-session-system">5.7 The Session System</h3>
+<p>The binary reveals the broader session architecture beyond memory:</p>
+<pre><code>SESSION_CREATE · SESSION_UPDATE · SESSION_STREAMING · SESSION_SYSTEM_EVENT
+SESSION_AGENT_OVERRIDES · SESSION_THREADS · SESSION_HOOKS · SESSION_TOOL_EVENTS
+CALLABLE_AGENTS · CC_ROUTINE_FIRE · SHELL_AGENT_DELETE · MID_SESSION_UPDATE
+managed-agents-2026-04-17-research-preview
+</code></pre>
+<p>Agent orchestration primitives — callable agents, routine firing, and managed agent API versioning — are built into the same binary.</p>
+<hr />
+<h2 id="6-encryption-and-pii">6. Encryption and PII</h2>
+<h3 id="61-aad-encryption">6.1 AAD Encryption</h3>
+<pre><code>AAD_SCHEME_ORG_ACCOUNT_STORE   scoped to org + account + store
+AAD_SCHEME_ORG_WS_STORE        scoped to org + workspace + store
+</code></pre>
+<p>Envelope encryption with Additional Authenticated Data derived from organizational hierarchy. Ciphertext for one org/account/store cannot be decrypted in another context.</p>
+<h3 id="62-cmek">6.2 CMEK</h3>
+<pre><code>CmekKeyDisabledError { Message, Reason }
+cmekForcedUnsafeTelemetryAttrKeys
+forced_unsafe_cmek_gen.go
+</code></pre>
+<p>Enterprise customers can bring their own keys. <code>forced_unsafe_cmek</code> mode bypasses CMEK with telemetry tracking when the customer key is temporarily unavailable. The <code>workspace_cmek_enabled</code> claim in the JWT means the filestore backend knows at authentication time whether to expect customer-managed keys.</p>
+<h3 id="63-piistring">6.3 PiiString</h3>
+<pre><code class="language-go">PiiString.String()                  // returns redacted form
+PiiString.GetSensitivePiiValue()    // returns raw sensitive value
+PiiString.MarshalJSON()             // serializes redacted
+PiiString.LogValue()                // log-safe representation
+</code></pre>
+<p>The <code>&lt;REDACTED_SENSITIVE_STRING_LEN_%s&gt;</code> format string confirms the redaction pattern.</p>
+<h3 id="64-quota-enforcement">6.4 Quota Enforcement</h3>
+<pre><code>memory_store_bytes_limit_exceeded     store hit byte quota
+memory_store_count_limit_exceeded     store hit memory count quota
+memory_store_version_limit_exceeded   store hit version count quota
+</code></pre>
+<p>The function <code>backend.isStoreQuotaExceeded</code> enforces these before writes. No TTL, no LRU, no auto-eviction. When quota is hit, writes fail hard.</p>
+<hr />
+<h2 id="7-the-trust-boundary-lifecycle">7. The Trust Boundary Lifecycle</h2>
+<p>This is the architectural tension at the center of the system.</p>
+<figure>
+<svg viewBox="0 0 760 320" role="img" aria-label="Memory trust boundary lifecycle: encrypted at rest, intercepted in transit, plaintext at use.">
+<rect x="0" y="6" width="760" height="78" rx="4" fill="#10160f" stroke="#4a7a4a" stroke-opacity="0.5"/>
+<text class="s-t" x="14" y="28" fill="#7fb27f">at rest — encrypted</text>
+<text class="s-ts" x="14" y="50" fill="#B7B4AC">envelope encryption (org+account+store AAD) · CMEK · SHA-256 integrity</text>
+<text class="s-ts" x="14" y="68" fill="#B7B4AC">append-only versioning · PII-aware redaction preserves lineage · hard quotas</text>
+<text class="s-lbl" x="380" y="100" fill="#7E7C76" text-anchor="middle">↓ decrypted by MemoryInternalService</text>
+<rect x="0" y="112" width="760" height="78" rx="4" fill="#161205" stroke="#b08a2a" stroke-opacity="0.5"/>
+<text class="s-t" x="14" y="134" fill="#d6a93a">in transit — intercepted</text>
+<text class="s-ts" x="14" y="156" fill="#B7B4AC">zstd · ConnectRPC (HTTP/2 + protobuf) · TLS to api.anthropic.com</text>
+<text class="s-ts" x="14" y="174" fill="#B7B4AC">terminated at egress proxy · 4 Anthropic root CAs in every cert store · proxy sees all</text>
+<text class="s-lbl" x="380" y="206" fill="#7E7C76" text-anchor="middle">↓ injected via AGENT_MEMORY_PROMPT_OVERRIDE</text>
+<rect x="0" y="218" width="760" height="86" rx="4" fill="#1a1210" stroke="#E07A4A" stroke-opacity="0.55"/>
+<text class="s-t" x="14" y="240" fill="#E07A4A">at use — plaintext</text>
+<text class="s-ts" x="14" y="262" fill="#B7B4AC">memories injected into system prompt · model + all tools can read/repeat/act on them</text>
+<text class="s-ts" x="14" y="280" fill="#B7B4AC">no content provenance · no signature proving memory unmodified · JWT in rclone heap via /proc/PID/mem</text>
+<text class="s-ts" x="14" y="298" fill="#7E7C76">the encryption ends at the prompt</text>
+</svg><figcaption>fig 2 · <b>the memory trust boundary lifecycle — production-grade crypto at rest and in transit collapses to plaintext the moment a memory reaches the prompt</b></figcaption></figure>
+<h3 id="71-at-rest-encrypted">7.1 At Rest — Encrypted</h3>
+<p>Envelope encryption with org-scoped AAD. CMEK for Enterprise. SHA-256 content integrity. Precondition-based optimistic concurrency. Append-only versioning. PII-aware string handling. Redaction that preserves lineage while nulling content.</p>
+<p>This is production-grade crypto. Real protection against external attackers and cross-tenant access.</p>
+<h3 id="72-in-transit-intercepted">7.2 In Transit — Intercepted</h3>
+<p>ConnectRPC (HTTP/2 + Protobuf) over TLS to <code>api.anthropic.com</code>. Content zstd-compressed. But the TLS terminates at Anthropic's egress proxy, which holds four root CAs injected into every cert store on the system. The proxy sees everything.</p>
+<h3 id="73-at-use-plaintext">7.3 At Use — Plaintext</h3>
+<p>Memories are decrypted and injected into the system prompt via <code>AGENT_MEMORY_PROMPT_OVERRIDE</code> as a <code>memory_system</code> block. At this point:</p>
+<ul>
+<li>The model sees them and can be instructed to repeat, summarize, or act on them</li>
+<li>All tools receiving the system prompt see the memories</li>
+<li>There is no content provenance chain from conversation through synthesis to storage to injection</li>
+<li>There is no cryptographic proof the memory hasn't been modified between storage and injection</li>
+<li>The JWT credentials sit in rclone-filestore's heap, readable via <code>/proc/PID/mem</code></li>
+</ul>
+<p>The encryption ends at the prompt.</p>
+<hr />
+<h2 id="8-the-six-unknowns">8. The Six Unknowns</h2>
+<p>The analysis above maps the peripheral nervous system. Six questions about the central nervous system remain unanswerable from inside the sandbox.</p>
+<h3 id="81-the-memory-controller">8.1 The Memory Controller</h3>
+<p><strong>Known:</strong> The rclone-filestore binary has zero decision logic. It writes, reads, and searches — but nothing in the binary decides <em>what</em> to remember. <code>SESSION_AGENT_OVERRIDES</code> and <code>CALLABLE_AGENTS</code> suggest an orchestration layer that could host the observer. <code>MemoryVersion.CreatedBy</code> with <code>SessionActor</code> / <code>ApiActor</code> / <code>UserActor</code> would identify the controller — if we could observe who writes the memories.</p>
+<p><strong>Unknown:</strong> Whether synthesis is synchronous (model emits a tool call during conversation) or asynchronous (background process after conversation ends).</p>
+<h3 id="82-the-embedding-pipeline">8.2 The Embedding Pipeline</h3>
+<p><strong>Known:</strong> <code>SearchMemoriesRequest</code> sends a text <code>Query</code> with <code>MaxResults</code>, <code>PathGlob</code>, <code>PathsOnly</code>, and <code>ContextLines</code>. Zero embedding model, vector DB, or similarity metric references in the binary.</p>
+<p><strong>Unknown:</strong> Everything. Embedding model identity, vector storage engine, similarity algorithm, sharding strategy.</p>
+<h3 id="83-the-prompt-format">8.3 The Prompt Format</h3>
+<p><strong>Known:</strong> Memories arrive as "derived information" in a <code>memory_system</code> block. <code>MEMORY_VIEW_BASIC</code> vs <code>FULL</code> suggests two-phase retrieval.</p>
+<p><strong>Unknown:</strong> Exact format, priority ordering when memories conflict, token budget allocation, retrieval strategy.</p>
+<h3 id="84-consolidation">8.4 Consolidation</h3>
+<p><strong>Known:</strong> <code>UpdateMemory</code> with preconditions enables safe overwrite. <code>MemoryMetadata.LineCount</code> suggests fact-list storage.</p>
+<p><strong>Unknown:</strong> Whether there's a summarization loop that consolidates raw conversation into refined memories over time.</p>
+<h3 id="85-the-backend">8.5 The Backend</h3>
+<p><strong>Known:</strong> Dual service layers. Zstd compression. AAD envelope encryption. CMEK. Three quota limits.</p>
+<p><strong>Unknown:</strong> Database engine, caching layer, key management infrastructure.</p>
+<h3 id="86-eviction">8.6 Eviction</h3>
+<p><strong>Known:</strong> Three hard quota walls. <code>ARCHIVE_STORE</code> for mothballing. No TTL, no LRU, no decay.</p>
+<p><strong>Unknown:</strong> What happens when quota is hit. Whether the orchestrator implements eviction logic, or whether writes simply fail.</p>
+<hr />
+<h2 id="9-architecture-map">9. Architecture Map</h2>
+<pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                     ANTHROPIC BACKEND (UNKNOWN)                       │
+│  ┌──────────────┐  ┌──────────────┐  ┌────────────────────────────┐  │
+│  │  Embedding   │  │  Memory DB   │  │  Memory Controller /       │  │
+│  │  Model (?)   │──│  Engine (?)  │──│  Observer Model (?)        │  │
+│  └──────────────┘  └──────────────┘  └────────────────────────────┘  │
+│                           │                                           │
+│  ┌────────────────────────┴───────────────────────────────────────┐   │
+│  │   MemoryInternalService + MemoryService (ConnectRPC)          │   │
+│  └────────────────────────┬───────────────────────────────────────┘   │
+│  ┌────────────────────────┴───────────────────────────────────────┐   │
+│  │   Egress Gateway — TLS Interception (4 root CAs)              │   │
+│  └────────────────────────┬───────────────────────────────────────┘   │
+└───────────────────────────┼──────────────────────────────────────────┘
+                            │
+┌───────────────────────────┼──────────────────────────────────────────┐
+│     FIRECRACKER microVM — Linux 6.18.5 — root, all caps, no MAC    │
+│                            │                                         │
+│  ┌─────────────────────────┴──────────────────────────────────────┐  │
+│  │  rclone-filestore (Go, PID 491)                                │  │
+│  │  ├─ rawMemoryClient (ConnectRPC)   ├─ LRU cache               │  │
+│  │  ├─ Filestore backend              ├─ Quota enforcement        │  │
+│  │  ├─ Memory backend (rclone-memory) └─ Session Vault JWT        │  │
+│  └─────────────────────────┬──────────────────────────────────────┘  │
+│                            │ FUSE                                     │
+│  ┌─────────────────────────┴──────────────────────────────────────┐  │
+│  │  /mnt/user-data/outputs (rw)  ·  /mnt/user-data/uploads (ro)  │  │
+│  │  /mnt/transcripts (ro)        ·  /mnt/user-data/tool_results  │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │  process_api (Rust/Tokio, PID 1)                               │  │
+│  │  ├─ WebSocket server (:2024)    ├─ Control server (:2025)     │  │
+│  │  ├─ CA injection engine         ├─ OOM polling (100ms)        │  │
+│  │  └─ Firecracker init            └─ gVisor UDS alternative     │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h2 id="methodology">Methodology</h2>
+<p><strong>Static analysis:</strong>
+- <code>strings /opt/rclone/rclone-filestore</code> — 30MB Go binary. Protobuf schemas, Go symbol names, embedded constants.
+- <code>strings /proc/1/exe</code> — Rust binary (process_api). Tokio/hyper/tungstenite, CA injection paths, WebSocket protocol.
+- <code>cat /tmp/rclone-mount-config.json</code> — Mount configuration with conversation-scoped filesystem ID.
+- <code>/proc/PID/status</code>, <code>/proc/PID/environ</code>, <code>/proc/PID/cmdline</code>, <code>/proc/PID/maps</code> — Process introspection.
+- <code>openssl s_client</code> + <code>openssl x509</code> — TLS certificate chain inspection across multiple destinations.
+- <code>awk</code> extraction from <code>/etc/ssl/certs/ca-certificates.crt</code> — CA cert enumeration and Anthropic root identification.
+- <code>mount</code>, <code>/proc/net/tcp</code> — Network and filesystem topology.
+- Cgroup files under <code>/sys/fs/cgroup/</code> — Resource limits.</p>
+<p><strong>Dynamic analysis:</strong>
+- <code>rclone-filestore help backends</code> — Discovered memory backend and its configuration contract.
+- <code>rclone-filestore help backend rclone-memory</code> — Extracted <code>memstore_...</code> and <code>sk-ant-mem-...</code> token formats.
+- Python script reading <code>/proc/491/mem</code> — JWT extraction from process memory with regex scan of heap regions.
+- JWT header/payload decoding — Identity model reconstruction from ES256-signed tokens.</p>
+<hr />
+<h2 id="disclosure">Disclosure</h2>
+<p>The credential exfiltration finding (CWE-522) documented in Section 5 is pending responsible disclosure to Anthropic. JWT values shown are redacted to safe structural fields only — no subject identifiers, organization IDs, or secret values. The relay fleet finding (348 unauthorized transparent proxies to api.anthropic.com) is documented separately under TLP:AMBER.</p>
+<hr />
+<p><em>same attack. different substrate.</em></p>
+</main>
+<aside class="toc"><div class="toc-eyebrow">Contents</div><ul><li><a href="#1-the-sandbox">1 · The Sandbox</a></li><li><a href="#2-tls-interception">2 · TLS Interception</a></li><li><a href="#3-the-fuse-mount-architecture">3 · FUSE Mount Architecture</a></li><li><a href="#4-the-memory-api">4 · The Memory API</a></li><li><a href="#5-authentication-and-credential-extraction">5 · Credential Extraction</a></li><li><a href="#6-encryption-and-pii">6 · Encryption & PII</a></li><li><a href="#7-the-trust-boundary-lifecycle">7 · Trust Boundary Lifecycle</a></li><li><a href="#8-the-six-unknowns">8 · The Six Unknowns</a></li><li><a href="#9-architecture-map">9 · Architecture Map</a></li><li><a href="#methodology">Methodology</a></li><li><a href="#disclosure">Disclosure</a></li></ul></aside>
+</div>
+<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/skilbin/"><div class="related-date">2026-06-15</div><div class="related-title">SKILBin: AI Agent Skills as the New LOLBin</div><div class="related-desc">SHELL.004 — credential theft through an Anthropic-signed process EDR can't flag.</div></a><a class="related-card" href="/ai-security/self-replicating-memory-worm/"><div class="related-date">2026-03-11</div><div class="related-title">Self-Replicating Memory Worm</div><div class="related-desc">Persistent injection with autonomous propagation across agent memory.</div></a><a class="related-card" href="/ai-security/prompt-injection/wire-oracle/"><div class="related-date">2026-05-18</div><div class="related-title">Indirect Injection Was Never Blind</div><div class="related-desc">SHELL.002 — the wire carries what the surface conceals.</div></a></div></div></section>
+<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Creator of AATMF, author of Adversarial Minds, NVD Contributor, and founder of the Independent Adversarial · Research group. 84 published CVEs, 5 Linux kernel mainline patches.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/snailsploit" rel="noopener">github</a><a href="https://x.com/SnailSploit" rel="noopener">x</a><a href="https://www.researchgate.net/profile/Kai-Aizen-2" rel="noopener">researchgate</a></div></div></section>
+<footer class="footer"><div class="footer-inner"><a href="/" class="wm" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 SnailSploit Ltd. · Same attack. Different substrate. Human or machine.</div></div></footer>
+<script defer src="/ui.js?v=20260519"></script>
+</body>
+</html>
