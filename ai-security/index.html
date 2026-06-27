@@ -90,13 +90,13 @@ h1.title{font-size:68px;font-weight:500;line-height:1.0;letter-spacing:-0.04em;m
 
 <section class="sec">
 <div class="sec-head"><div class="sec-title">Flagship Research</div><div class="sec-meta">the SHELL series — deep original disclosures</div></div>
-<div class="feat">
-<a class="card" href="/ai-security/skilbin/"><span class="k">SHELL.004 · agent security</span><div class="t">SKILBin: AI Agent Skills as the New LOLBin</div><div class="d">A malicious skill harvests SSH, AWS, and Kubernetes credentials inside an Anthropic-signed process that no EDR flags. The LOLBin, one layer up.</div></a>
-<a class="card" href="/ai-security/prompt-injection/wire-oracle/"><span class="k">SHELL.002 · prompt injection</span><div class="t">Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle</div><div class="d">The streaming wire carries the tool call before the interface hides it — turning blind indirect injection into a closed loop.</div></a>
-<a class="card" href="/ai-security/prompt-injection/semantic-metadata-smuggling/"><span class="k">SHELL.003 · prompt injection</span><div class="t">Semantic-to-Metadata Smuggling in Multi-LoRA Routing</div><div class="d">Signal suppression at the LoRA routing gateway — the confused deputy on the routing decision.</div></a>
-<a class="card" href="/ai-security/self-replicating-memory-worm/"><span class="k">research · persistence</span><div class="t">Self-Replicating Memory Worm</div><div class="d">A single memory edit becomes an autonomous, self-replicating implant with dual persistence across memory and skill files.</div></a>
-<a class="card" href="/ai-security/prompt-injection/memory-injection-nested-skills/"><span class="k">research · persistence</span><div class="t">Memory Injection Through Nested Skills</div><div class="d">Skill definitions and persistent memory interact to produce a self-healing implant — the depth-of-inspection problem, first documented.</div></a>
-<a class="card" href="/ai-security/computational-countertransference/"><span class="k">research · theory</span><div class="t">Computational Countertransference</div><div class="d">How models adopt operational behavioral states from context — function-vector heads that reprogram the forward pass.</div></a>
+<div class="feat" id="hub-flagship">
+<a class="card" href="/ai-security/skilbin/" data-date="2026-06-15"><span class="k">SHELL.004 · agent security</span><div class="t">SKILBin: AI Agent Skills as the New LOLBin</div><div class="d">A malicious skill harvests SSH, AWS, and Kubernetes credentials inside an Anthropic-signed process that no EDR flags. The LOLBin, one layer up.</div></a>
+<a class="card" href="/ai-security/prompt-injection/wire-oracle/" data-date="2026-05-18"><span class="k">SHELL.002 · prompt injection</span><div class="t">Indirect Injection Was Never Blind: The Render-Layer Redaction Oracle</div><div class="d">The streaming wire carries the tool call before the interface hides it — turning blind indirect injection into a closed loop.</div></a>
+<a class="card" href="/ai-security/prompt-injection/semantic-metadata-smuggling/" data-date="2026-05-18"><span class="k">SHELL.003 · prompt injection</span><div class="t">Semantic-to-Metadata Smuggling in Multi-LoRA Routing</div><div class="d">Signal suppression at the LoRA routing gateway — the confused deputy on the routing decision.</div></a>
+<a class="card" href="/ai-security/self-replicating-memory-worm/" data-date="2026-03-11"><span class="k">research · persistence</span><div class="t">Self-Replicating Memory Worm</div><div class="d">A single memory edit becomes an autonomous, self-replicating implant with dual persistence across memory and skill files.</div></a>
+<a class="card" href="/ai-security/prompt-injection/memory-injection-nested-skills/" data-date="2026-03-10"><span class="k">research · persistence</span><div class="t">Memory Injection Through Nested Skills</div><div class="d">Skill definitions and persistent memory interact to produce a self-healing implant — the depth-of-inspection problem, first documented.</div></a>
+<a class="card" href="/ai-security/computational-countertransference/" data-date="2026-02-13"><span class="k">research · theory</span><div class="t">Computational Countertransference</div><div class="d">How models adopt operational behavioral states from context — function-vector heads that reprogram the forward pass.</div></a>
 </div>
 </section>
 
@@ -182,5 +182,5 @@ h1.title{font-size:68px;font-weight:500;line-height:1.0;letter-spacing:-0.04em;m
 </main>
 <footer class="footer"><div class="footer-inner"><span>© 2026 SnailSploit Ltd. · Same attack. Different substrate. Human or machine.</span><span style="display:flex;gap:14px;flex-wrap:wrap"><a href="/research">Research</a><a href="/cves">CVEs</a><a href="/aatmf">AATMF</a><a href="/wiki">Wiki</a><a href="/contact">Contact</a></span></div></footer>
 <script defer src="/ui.js?v=20260519"></script>
-</body>
+<script>(function(){var c=document.getElementById("hub-flagship");if(!c)return;[].slice.call(c.querySelectorAll("[data-date]")).sort(function(a,b){return (b.getAttribute("data-date")||"").localeCompare(a.getAttribute("data-date")||"");}).forEach(function(r){c.appendChild(r);});})();</script></body>
 </html>
