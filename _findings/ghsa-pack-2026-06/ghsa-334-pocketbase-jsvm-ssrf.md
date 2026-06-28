@@ -2,20 +2,18 @@
 
 **Package**: github.com/pocketbase/pocketbase
 **Ecosystem**: Go
-**Affected versions**: tested on latest **v0.39.4**
+**Affected versions**: tested on **v0.39.4** (commit `507ecb264b6155ad3677d661115ff277a48a5cdd`)
 **Patched versions**: none
 **Severity**: Medium
 **CVSS 3.1**: `AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:N/A:N` — **6.8**
 **CWE**: CWE-918 (Server-Side Request Forgery)
 
-> **Provenance — reconstructed report.** This finding was *reproduced by execution*
-> in the verification run (PocketBase v0.39.4: a JSVM hook calling `$http.send`
-> reached a loopback listener and exfiltrated a secret). This markdown was rewritten
-> from the verification transcript; the **symbol-level** anchors below are accurate,
-> but the exact **line numbers** should be re-confirmed against the v0.39.4 source
-> before formal submission. The substance (the `$http.send` binding has no SSRF
-> egress filter, while `safeHTTPClient` exists but is wired only to OAuth2 avatar
-> fetching) was confirmed live.
+> **Provenance.** Reproduced by execution in the verification run (a JSVM hook
+> calling `$http.send` reached a loopback listener and returned the secret body).
+> Source anchors below were **re-confirmed against the v0.39.4 tree**
+> (commit `507ecb26`): `$http.send` executes via Go's `http.DefaultClient` with no
+> egress filtering, while the SSRF-hardened `safeHTTPClient` exists but is wired
+> exclusively into the OAuth2 avatar-fetch path.
 
 ## Summary
 
@@ -32,16 +30,42 @@ logic for exfiltration.
 
 ## Root cause
 
-- The `$http` object (including `$http.send`) is registered in the JSVM bindings
-  (`plugins/jsvm/binds.go`). The handler builds and executes the request with a
-  standard client and **no destination inspection**.
-- `safeHTTPClient` (the internal client that rejects private/internal destinations)
-  is constructed and used in the OAuth2 flow only. The general `$http.send` path does
-  not route through it.
+The `$http` object is registered in the JSVM bindings at
+`plugins/jsvm/binds.go:890` (`vm.Set("$http", obj)`, inside `BindHTTP` at
+`binds.go:888`); `send` is registered at `binds.go:924`. The URL comes straight from
+the caller-controlled `params["url"]` (`binds.go:945-947`) and the request is executed
+with **Go's stdlib default client** — no destination inspection:
+
+```go
+// plugins/jsvm/binds.go:987-1002
+req, err := http.NewRequestWithContext(ctx, strings.ToUpper(config.Method), config.Url, reqBody)
+// ... headers ...
+res, err := http.DefaultClient.Do(req)   // binds.go:1002 — default transport, no Control dialer, no IP checks
+```
+
+The SSRF-hardened client exists — `safeHTTPClient()` at
+`apis/record_auth_with_oauth2.go:437` uses a `net.Dialer.Control` hook that rejects
+loopback, unspecified, RFC-1918 private, link-local (`169.254.0.0/16` via
+`IsLinkLocalUnicast`), and multicast IPs *after* connect (also defeating DNS
+rebinding):
+
+```go
+// apis/record_auth_with_oauth2.go:452-459
+if ip == nil || ip.IsLoopback() || ip.IsUnspecified() || ip.IsPrivate() ||
+    ip.IsLinkLocalUnicast() || ip.IsLinkLocalMulticast() || ip.IsMulticast() {
+    return fmt.Errorf("address %q is invalid or resolve to disallowed IP", address)
+}
+```
+
+But it is wired in **only** at the OAuth2 avatar path: `safeHTTPClient()` is called
+solely from `safeFileFromURL` (`record_auth_with_oauth2.go:484/490`), which is invoked
+only at `record_auth_with_oauth2.go:306` (`safeFileFromURL(ctx, e.OAuth2User.AvatarURL)`).
+A tree-wide grep finds **no** `safeHTTPClient`/`safeFileFromURL` usage anywhere under
+`plugins/jsvm/`. `$http.send` is therefore unprotected.
 
 > A prior pass mistakenly marked this "Clean" on the assumption that `safeHTTPClient`
 > covered `$http.send`. That assumption is wrong — the safe client is scoped to OAuth2
-> avatars; `$http.send` is unprotected.
+> avatars; `$http.send` uses `http.DefaultClient`.
 
 ## Threat model / precondition (read this — it sets PR:H)
 

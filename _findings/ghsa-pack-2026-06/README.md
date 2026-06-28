@@ -36,22 +36,42 @@ This directory is committed to git but excluded from the published site via
 
 | Finding | File | Severity | CVSS | Why borderline |
 |---|---|---|---|---|
-| #337 mattermost SearchPostsInTeam membership bypass † | [ghsa-337-mattermost-search-membership-bypass.md](./ghsa-337-mattermost-search-membership-bypass.md) | High base / Tier-3 | 7.7 | anchors exact, but proof is query-builder reproduction — no live-DB runtime retrieval |
 | go-task `if`/`status`/`precondition` shell injection | [ghsa-gotask-if-shell-injection.md](./ghsa-gotask-if-shell-injection.md) | Medium | 5.5 | only a vuln when an untrusted *variable source* feeds a trusted Taskfile |
 
-† **Reconstructed reports** — reproduced by execution in the verification run, but the
-markdown was rewritten here from the transcript. pocketbase #334 has symbol-level
-anchors that need a final line-number pass against v0.39.4 before formal submission;
-mattermost #337's anchors are exact but its runtime proof is incomplete (see file).
+† **Reconstructed report** — pocketbase #334 was reproduced by execution in the
+verification run and its markdown was rewritten from the transcript; the source
+anchors have since been **re-confirmed against the v0.39.4 tree** (commit `507ecb26`),
+so it is now fully anchored.
 
 ### Dead — do NOT submit
 
-See [`DEAD-LEADS.md`](./DEAD-LEADS.md): **#339 FFmpeg** (static-trace, withdrawn),
-**#336 Grafana** (working-as-intended), **#335 unidoc** (no reachable sink).
+See [`DEAD-LEADS.md`](./DEAD-LEADS.md): **#337 mattermost** (working-as-intended —
+withdrawn after locking v11.8.2 anchors; the unscoped search is intentional and
+plugin-only), **#339 FFmpeg** (static-trace, withdrawn), **#336 Grafana**
+(working-as-intended), **#335 unidoc** (no reachable sink).
+
+## Submission routing (verified against each project's SECURITY.md)
+
+| Finding | Vendor channel | Where to send |
+|---|---|---|
+| #340 gitea | **EMAIL** | security@gitea.io |
+| #342 jellyfin | **EMAIL** | security@jellyfin.org (subject `[Jellyfin Security]`) |
+| #334 pocketbase | **EMAIL** | support@pocketbase.io |
+| #341 pandoc | **EMAIL** | jgm@berkeley.edu |
+| #343 nuxt | EMAIL-alt (GHSA preferred) | security@nuxtjs.org · GHSA: https://github.com/nuxt/nuxt/security/advisories/new |
+| go-task ×3 | EMAIL-alt (GHSA equal) | task@taskfile.dev · GHSA: https://github.com/go-task/task/security/advisories/new |
+| picklescan | **GHSA** | https://github.com/mmaitre314/picklescan/security/advisories/new |
+| #338 ImageMagick | **GHSA** | https://github.com/ImageMagick/ImageMagick/security/advisories/new |
+| typst | GHSA / maintainer (no SECURITY.md) | https://github.com/typst/typst/security/advisories/new |
+| dive | GHSA / maintainer (no SECURITY.md) | https://github.com/wagoodman/dive/security/advisories/new |
+
+Gmail drafts were prepared for the email-channel vendors (gitea, jellyfin, pocketbase,
+pandoc, nuxt, go-task-combined). The four GHSA items are submitted via each repo's
+"Report a vulnerability" form (no automated submission — done by hand on GitHub).
 
 ## Notes
 
 - #342 (jellyfin) and #343 (nuxt) were executed and shipped separately from the four
   source archives; included here for a single consolidated roster.
-- Counts: **13 submittable** (7 Tier-1 + 4 Tier-2 + 2 Tier-3), **3 dead**, **16 total**
-  findings evaluated.
+- Counts: **12 submittable** (7 Tier-1 + 4 Tier-2 + 1 Tier-3), **4 dead**, **16 total**
+  findings evaluated. (#337 mattermost moved to dead after anchor confirmation.)
