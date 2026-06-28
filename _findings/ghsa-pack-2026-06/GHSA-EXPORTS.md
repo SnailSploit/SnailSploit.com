@@ -105,6 +105,18 @@ go-task accept GHSA (preferred/equal per policy) and are included below.
 - **Description:** paste `ghsa-gotask-if-shell-injection.md`
 - **Note:** submit only with the narrowed threat model (vuln only when an untrusted variable source feeds an otherwise-trusted Taskfile).
 
+## 9. dex — transitive SSO session trust bypass
+- **Title:** Transitive SSO session trust bypass in `findSSOSession`
+- **CVE:** request later
+- **Ecosystem:** Go
+- **Package name:** `github.com/dexidp/dex`
+- **Affected versions:** all versions with the `sessions` SSO feature (`ssoSharedWith`); confirmed on `master` @ `5d04dfbf` (2026-06-24)
+- **Patched versions:** None
+- **Severity (CVSS v3.1):** `AV:N/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N` — **6.8** (Medium)
+- **Weaknesses (CWE):** CWE-863 (primary); CWE-175 (bundled Low — `redirect_uri` double-decode)
+- **Description:** paste `ghsa-dex-transitive-sso.md`
+- **Note:** primary channel is the CNCF maintainers list (Gmail draft prepared); "then GitHub Security Advisory" per the project. Ship the executed PoC `dex-transitive-sso-poc_test.go` (in this folder) with the report.
+
 ---
 
 ### Submission grouping note
