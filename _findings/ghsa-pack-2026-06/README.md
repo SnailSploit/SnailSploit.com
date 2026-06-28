@@ -70,10 +70,12 @@ plugin-only), **#339 FFmpeg** (static-trace, withdrawn), **#336 Grafana**
 | dive | GHSA / maintainer (no SECURITY.md) | https://github.com/wagoodman/dive/security/advisories/new |
 | dex transitive SSO | EMAIL (then GHSA) | cncf-dex-maintainers@lists.cncf.io · GHSA: https://github.com/dexidp/dex/security/advisories/new |
 
-Gmail drafts were prepared for the email-channel vendors (gitea, jellyfin, pocketbase,
-pandoc, nuxt, go-task-combined, dex). The pure-GHSA items (picklescan, ImageMagick,
-typst, dive) are submitted via each repo's "Report a vulnerability" form (no automated
-submission — done by hand on GitHub); see `GHSA-EXPORTS.md` for the field values.
+**Status (2026-06-28):** the 7 email-channel reports (gitea, jellyfin, pocketbase,
+pandoc, nuxt, go-task, dex) were **sent**. The 4 with no vendor security email
+(picklescan, ImageMagick, typst, dive) remain **to file via GitHub's "Report a
+vulnerability" form** — field values in `GHSA-EXPORTS.md`, copy-ready in
+`ghsa-submissions.html`. typst/dive have no SECURITY.md, so GHSA private reporting may
+be disabled → maintainer contact as fallback.
 
 ### Informational / non-security (from the 2026-06-27 dex/authelia session)
 
