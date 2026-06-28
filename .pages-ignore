@@ -1,5 +1,6 @@
 .archive/
 _build/
+_findings/
 node_modules/
 package.json
 package-lock.json
