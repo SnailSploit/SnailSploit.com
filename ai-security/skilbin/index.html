@@ -214,7 +214,7 @@ a{color:inherit;text-decoration:none}
 <h2 id="step-2">Step 2 — The Execution Context</h2>
 <p>The critical question is not <em>what a skill can instruct</em> — it is <em>what process context those instructions execute in</em>.</p>
 <p>On macOS, Claude Desktop is an Electron application. Skill-instructed tool calls — including shell commands dispatched through Desktop Commander — execute inside a dedicated helper process. I verified this against the live system by walking the process tree from my own shell back to init:</p>
-<h4>Evidence: Process Tree</h4>
+<h3>Evidence: Process Tree</h3>
 <pre><code>=== DESKTOP COMMANDER PROCESS TREE ===
   PID  PPID USER COMM
  5651  3643 kai  /bin/zsh
@@ -223,7 +223,7 @@ a{color:inherit;text-decoration:none}
  3643  1662 kai  Claude Helper (Plugin)
  1662     1 kai  /Applications/Claude.app/Contents/MacOS/Claude</code></pre>
 <p>Every tool call I make, every bash command Desktop Commander runs, every MCP server — executes as a child of PID 3643.</p>
-<h4>Evidence: Code Signing</h4>
+<h3>Evidence: Code Signing</h3>
 <pre><code>Executable = Claude Helper (Plugin)
 Identifier = com.anthropic.claudefordesktop.helper
 Format     = app bundle with Mach-O universal (x86_64 arm64)
@@ -233,15 +233,15 @@ Authority = Developer ID Application: Anthropic PBC (Q6L2SF6YDW)
 Authority = Developer ID Certification Authority
 Authority = Apple Root CA</code></pre>
 <p>Signed by Anthropic. Certified through Apple's Developer ID chain. Hardened runtime. This is the highest trust a non-Apple binary can hold on macOS.</p>
-<h4>Evidence: Sandbox Status</h4>
+<h3>Evidence: Sandbox Status</h3>
 <pre><code>--service-sandbox-type=none</code></pre>
 <p>No OS-level sandbox. The process can access anything the user can.</p>
-<h4>Evidence: Entitlements</h4>
+<h3>Evidence: Entitlements</h3>
 <pre><code>com.apple.security.cs.allow-jit                        = true
 com.apple.security.cs.allow-unsigned-executable-memory = true
 com.apple.security.cs.disable-library-validation       = true</code></pre>
 <p>Three entitlements that combine to allow: JIT code creation at runtime, unsigned code execution in memory, and loading of unsigned dynamic libraries. These exist because Electron requires V8's JIT compiler — they are structurally necessary for the application to function. They are also structurally necessary for the attack to work as described.</p>
-<h4>Evidence: Open Files and Capabilities</h4>
+<h3>Evidence: Open Files and Capabilities</h3>
 <pre><code>Claude  3643  kai  cwd  DIR  1,18  704  2  /
 Claude  3643  kai  txt  REG  ...   /Applications/Claude.app/.../Claude Helper (Plugin)
 Claude  3643  kai  txt  REG  ...   /Applications/Claude.app/.../Electron Framework</code></pre>

@@ -1,6 +1,8 @@
-Contact: https://snailsploit.com/contact
+# RFC 9116 security disclosure
 Contact: mailto:Kai@snailsploit.com
-Expires: 2027-05-01T00:00:00.000Z
-Preferred-Languages: en
+Contact: https://snailsploit.com/contact
+Expires: 2027-12-31T23:59:59Z
+Preferred-Languages: en, he
 Canonical: https://snailsploit.com/.well-known/security.txt
-Policy: https://snailsploit.com/contact
+Policy: https://snailsploit.com/how-to-disclose-an-ai-vulnerability
+Acknowledgments: https://snailsploit.com/cves
