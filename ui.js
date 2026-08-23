@@ -422,7 +422,7 @@
     row.className = 'ss-footer-social';
     row.style.cssText = 'display:flex;gap:10px;justify-content:center;padding:20px 32px 0;border-top:1px solid var(--line);margin-top:8px;flex-wrap:wrap';
     var ICON_STYLE = 'display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid var(--line);border-radius:2px;color:var(--fg-3);text-decoration:none;transition:color 120ms,border-color 120ms';
-    var hover = "this.style.color='var(--signal-2)';this.style.borderColor='rgba(224,122,74,0.45)'";
+    var hover = "this.style.color='var(--accent-cool, #5EB8A8)';this.style.borderColor='rgba(94,184,168,0.4)'";
     var out = "this.style.color='var(--fg-3)';this.style.borderColor='var(--line)'";
     row.innerHTML = ''
       + '<a href="https://linkedin.com/company/snailsploit" rel="noopener" aria-label="SnailSploit on LinkedIn" style="' + ICON_STYLE + '" onmouseover="' + hover + '" onmouseout="' + out + '"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05a3.73 3.73 0 0 1 3.36-1.85c3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.78 24h20.44c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>'
