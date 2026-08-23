@@ -43,6 +43,8 @@
   .badge, .hero-badges .badge { font-size: 10px !important; padding: 5px 8px !important; }
   /* hero links column */
   .hero-links { border-left: 0 !important; padding-left: 0 !important; padding-top: 24px !important; border-top: 1px solid var(--line); margin-top: 12px; }
+  /* related cards — no lift on mobile */
+  .related-card:hover { transform: none !important; }
   /* footer stacks */
   .footer-inner { flex-direction: column !important; gap: 24px !important; align-items: flex-start !important; }
   /* tables: horizontal scroll */
