@@ -387,6 +387,99 @@
 }
 .ss-drawer-nav a:hover { color: var(--signal-2); }
 
+/* ── Film grain overlay ────────────────────────────────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  opacity: 0.018;
+  pointer-events: none;
+  z-index: 10000;
+  mix-blend-mode: overlay;
+}
+
+/* ── Scroll-reveal animation ──────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .ss-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ss-reveal.ss-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .ss-reveal-children > * {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ss-reveal-children.ss-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .ss-reveal-children.ss-visible > *:nth-child(1) { transition-delay: 0ms; }
+  .ss-reveal-children.ss-visible > *:nth-child(2) { transition-delay: 60ms; }
+  .ss-reveal-children.ss-visible > *:nth-child(3) { transition-delay: 120ms; }
+  .ss-reveal-children.ss-visible > *:nth-child(4) { transition-delay: 180ms; }
+  .ss-reveal-children.ss-visible > *:nth-child(5) { transition-delay: 240ms; }
+  .ss-reveal-children.ss-visible > *:nth-child(6) { transition-delay: 300ms; }
+  .ss-reveal-children.ss-visible > *:nth-child(n+7) { transition-delay: 360ms; }
+}
+
+/* ── Glow text utility ────────────────────────────────────────── */
+.ss-glow { text-shadow: 0 0 24px rgba(224,122,74,0.4), 0 0 8px rgba(224,122,74,0.2); }
+.ss-glow-strong { text-shadow: 0 0 32px rgba(224,122,74,0.55), 0 0 12px rgba(224,122,74,0.35); }
+
+/* ── Animated gradient border (wrap element) ──────────────────── */
+.ss-border-glow {
+  position: relative;
+  overflow: hidden;
+}
+.ss-border-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(224,122,74,0.3), transparent 40%, transparent 60%, rgba(194,89,44,0.2));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.ss-border-glow:hover::before { opacity: 1; }
+
+/* ── Animated underline for nav ───────────────────────────────── */
+.ss-nav-link {
+  position: relative;
+  padding-bottom: 2px;
+}
+.ss-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--signal-2);
+  transition: width 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ss-nav-link:hover::after { width: 100%; }
+
+/* ── Stat number glow ─────────────────────────────────────────── */
+.ss-stat-number {
+  color: var(--signal-2);
+  text-shadow: 0 0 28px rgba(224,122,74,0.4), 0 0 8px rgba(224,122,74,0.2);
+}
+
 /* ── Print stylesheet ───────────────────────────────────────────── */
 @media print {
   *,

@@ -431,12 +431,55 @@
     footer.appendChild(row);
   }
 
+  // ── Scroll-reveal ────────────────────────────────────────────────────
+  function initScrollReveal() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    var sections = document.querySelectorAll('section, .related, .author-row');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('ss-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -60px 0px' });
+
+    sections.forEach(function (s) {
+      if (s.closest('header, footer')) return;
+      s.classList.add('ss-reveal');
+      io.observe(s);
+    });
+
+    var grids = document.querySelectorAll('.related-grid, .tools-grid');
+    grids.forEach(function (g) {
+      g.classList.add('ss-reveal-children');
+      io.observe(g);
+    });
+  }
+
+  // ── Smooth anchor scrolling ─────────────────────────────────────────
+  function initSmoothScroll() {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      var target = document.getElementById(id);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', '#' + id);
+      }
+    });
+  }
+
   // ── Bootstrap ───────────────────────────────────────────────────────
   function bootstrap() {
     loadIndex().then(function () {
       bindPaletteShortcut();
       initProgress();
-      // initToc();  // disabled — Kai does not want the auto-injected "On this page" TOC
       initCopyButtons();
       initSeverity();
       bindTocTracking();
@@ -444,6 +487,8 @@
       initSkipLink();
       initMobileDrawer();
       initFooterSocial();
+      initScrollReveal();
+      initSmoothScroll();
     });
   }
 
