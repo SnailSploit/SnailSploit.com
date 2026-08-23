@@ -23,7 +23,7 @@ SnailSploit is an independent adversarial-security research group — Kai Aizen 
 - [AATMF Toolkit](/toolkit): Python CLI for systematic LLM safety testing
 - [LLM Red Teamer's Playbook](/playbook)
 
-## AI Security Research (38 articles)
+## AI Security Research (47 articles)
 - [Reverse-Engineering Claude’s Memory Architecture From Inside the Sandbox](/ai-security/claude-memory-architecture/): The binaries, protobuf schemas, TLS interception, encryption model, and a CWE-522 credential extraction chain — extracted live from inside the Claude code sandbox.
 - [SKILBin: AI Agent Skills as the New LOLBin](/ai-security/skilbin/): A malicious Claude skill harvests SSH, AWS, and Kubernetes credentials inside an Anthropic-signed process that no EDR flags — the LOLBin for the agent era.
 - [Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation](/ai-security/self-replicating-memory-worm/): Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation
@@ -90,8 +90,52 @@ SnailSploit is an independent adversarial-security research group — Kai Aizen 
 - [Output Filtering | AI Security Wiki](/ai-security/wiki/defenses/output-filtering/)
 - [Rate Limiting | AI Security Wiki](/ai-security/wiki/defenses/rate-limiting/)
 
+## CVE Writeups (42 detailed advisories)
+- [CVE-2025-9776](/security-research/cves/cve-2025-9776/)
+- [CVE-2025-11171](/security-research/cves/cve-2025-11171/)
+- [CVE-2025-11174](/security-research/cves/cve-2025-11174/)
+- [CVE-2025-12030](/security-research/cves/cve-2025-12030/)
+- [CVE-2025-12163](/security-research/cves/cve-2025-12163/)
+- [CVE-2026-0811: Advanced CF7 DB](/security-research/cves/cve-2026-0811/)
+- [CVE-2026-0814: Advanced CF7 DB](/security-research/cves/cve-2026-0814/)
+- [CVE-2026-1208](/security-research/cves/cve-2026-1208/)
+- [CVE-2026-1313: MimeTypes Link Icons](/security-research/cves/cve-2026-1313/)
+- [CVE-2026-1314: 3D FlipBook](/security-research/cves/cve-2026-1314/)
+- [CVE-2026-2717: HTTP Headers](/security-research/cves/cve-2026-2717/)
+- [CVE-2026-3288: ingress-nginx rewrite-target Injection](/security-research/cves/cve-2026-3288/)
+- [CVE-2026-3594: Riaxe Product Customizer](/security-research/cves/cve-2026-3594/)
+- [CVE-2026-3595: Riaxe Product Customizer](/security-research/cves/cve-2026-3595/)
+- [CVE-2026-3596: Riaxe Product Customizer](/security-research/cves/cve-2026-3596/)
+- [CVE-2026-3599: Riaxe Product Customizer](/security-research/cves/cve-2026-3599/)
+- [CVE-2026-8368](/security-research/cves/cve-2026-8368/)
+- [CVE-2026-30911: Airflow REST API Auth Bypass](/security-research/cves/cve-2026-30911/)
+- [CVE-2026-31899: CairoSVG](/security-research/cves/cve-2026-31899/)
+- [CVE-2026-32794: Airflow Databricks TLS Verify Bypass](/security-research/cves/cve-2026-32794/)
+- [CVE-2026-32809](/security-research/cves/cve-2026-32809/)
+- [CVE-2026-32885](/security-research/cves/cve-2026-32885/)
+- [CVE-2026-33693](/security-research/cves/cve-2026-33693/)
+- [CVE-2026-43121: io_uring/zcrx Double-Free](/security-research/cves/cve-2026-43121/)
+- [CVE-2026-43884: WWBN/AVideo SSRF](/security-research/cves/cve-2026-43884/)
+- [CVE-2026-44217: sse-channel (npm)](/security-research/cves/cve-2026-44217/)
+- [CVE-2026-44840: Dgraph DQL Injection](/security-research/cves/cve-2026-44840/)
+- [CVE-2026-45363: jwt/ruby-jwt](/security-research/cves/cve-2026-45363/)
+- [CVE-2026-45619: WWBN/AVideo](/security-research/cves/cve-2026-45619/)
+- [CVE-2026-45620: WWBN/AVideo](/security-research/cves/cve-2026-45620/)
+- [CVE-2026-46132: Linux Kernel net/rtnetlink](/security-research/cves/cve-2026-46132/)
+- [CVE-2026-46627: Twig Sandbox Exhaustion](/security-research/cves/cve-2026-46627/)
+- [CVE-2026-47393: PraisonAI Auth Disabled](/security-research/cves/cve-2026-47393/)
+- [CVE-2026-47398: PraisonAI Code Injection](/security-research/cves/cve-2026-47398/)
+- [CVE-2026-48022: @hapi/wreck Redirect Credential Leak](/security-research/cves/cve-2026-48022/)
+- [CVE-2026-48782: pydantic-ai SSRF Blocklist Bypass](/security-research/cves/cve-2026-48782/)
+- [CVE-2026-48814: Network AI Empty Default Secret](/security-research/cves/cve-2026-48814/)
+- [CVE-2026-49353: 9router Access Gate Bypass](/security-research/cves/cve-2026-49353/)
+- [CVE-2026-49853: Tornado Cross-Origin Auth Header Leak](/security-research/cves/cve-2026-49853/)
+- [CVE-2026-55528: PraisonAI AgentServer Missing Auth](/security-research/cves/cve-2026-55528/)
+- [CVE-2026-55530: PraisonAI Arbitrary File Write](/security-research/cves/cve-2026-55530/)
+- [CVE-2026-61308: Claude Desktop MCP Skill RCE](/security-research/cves/cve-2026-61308/)
+
 ## Vulnerability Disclosures
-- [CVE Ledger](/cves): 84 published CVEs
+- [CVE Ledger](/cves): 92 published CVEs
 - [Linux Kernel Contributions](/kernel): 5 mainline patches
 - [Security Advisories](/advisories)
 
