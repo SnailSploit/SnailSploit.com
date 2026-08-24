@@ -12,6 +12,7 @@ const NAV_LINKS = [
   ["wiki",       "/wiki"],
   ["tools",      "/tools"],
   ["writing",    "/writing"],
+  ["references", "/references"],
 ];
 
 const Eyebrow = ({ children, c = "var(--fg-3)", style }) => (
