@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>External References — Third-Party Acknowledgements | SnailSploit</title>
+  <meta name="description" content="20 verified external receipts from HashiCorp, Kubernetes, Jenkins, Oracle, Apache, Symfony, and independent security databases — first-party upstream attribution, not self-reported.">
+  <meta name="author" content="SnailSploit">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://snailsploit.com/references">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }</style>
+  <style>
+    html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-grot);-webkit-font-smoothing:antialiased}
+    *{box-sizing:border-box}a{color:inherit;text-decoration:none}
+    .nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav-inner{max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+    .wm{font-family:var(--f-grot);font-weight:500;font-size:28px;letter-spacing:-0.035em;line-height:1;display:inline-flex;align-items:baseline}
+    .wm-sig{font-family:var(--f-mono);font-size:16.24px;margin-left:1.96px}.wm-sig .dollar{color:var(--signal-2)}
+    .nav-links{display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);list-style:none;margin:0;padding:0}
+    .nav-links a:hover{color:var(--fg)}
+    .hero{padding:96px 32px 64px;border-bottom:1px solid var(--line)}
+    .hero-inner{max-width:1080px;margin:0 auto}
+    .eyebrow{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px}
+    h1{font-size:88px;font-weight:500;line-height:0.96;letter-spacing:-0.04em;margin:0}
+    .lede{font-family:var(--f-mono);font-size:15px;color:var(--fg-2);line-height:1.65;margin:32px 0 0;max-width:680px}
+    section{padding:64px 32px;border-bottom:1px solid var(--line)}
+    section:nth-of-type(even){background:var(--bg-sink)}
+    .section-inner{max-width:1080px;margin:0 auto}
+    h2{font-size:32px;font-weight:500;letter-spacing:-0.025em;margin:0 0 32px;padding-bottom:12px;border-bottom:1px solid var(--line-hi)}
+    .footer{background:var(--bg-sink)}.footer-inner{max-width:1280px;margin:0 auto;padding:48px 32px;display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
+
+    .stats-row{display:flex;gap:0;margin-top:40px;flex-wrap:wrap}
+    .stat-box{flex:1;min-width:120px;padding:20px 24px;border:1px solid var(--line);border-right:none;text-align:center}
+    .stat-box:last-child{border-right:1px solid var(--line)}
+    .stat-v{font-size:36px;font-weight:500;letter-spacing:-0.02em;color:var(--fg);line-height:1.1}
+    .stat-k{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-top:6px}
+
+    .grade-key{display:grid;grid-template-columns:100px 1fr;gap:16px 24px;font-family:var(--f-mono);font-size:13px;line-height:1.6;margin-top:24px}
+    .grade-label{color:var(--signal-2);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:0.1em}
+    .grade-desc{color:var(--fg-2)}
+
+    .receipt{padding:28px 0;border-top:1px solid var(--line)}
+    .receipt:last-child{border-bottom:1px solid var(--line)}
+    .receipt-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+    .receipt-org{font-size:18px;font-weight:500;letter-spacing:-0.015em;color:var(--fg)}
+    .receipt-cve{font-family:var(--f-mono);font-size:12px;color:var(--fg-3);letter-spacing:0.02em}
+    .receipt-grade{font-family:var(--f-mono);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;padding:3px 8px;border:1px solid var(--line-hi)}
+    .receipt-grade.gold{color:var(--signal-2);border-color:var(--signal-2)}
+    .receipt-grade.ext{color:var(--fg-2)}
+    .receipt-grade.third{color:var(--fg-3)}
+    .receipt-quote{font-family:var(--f-mono);font-size:14px;color:var(--fg);line-height:1.55;padding:12px 16px;border-left:2px solid var(--signal-2);background:var(--bg-raise);margin:12px 0;font-style:italic}
+    .receipt-class{font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-top:8px}
+    .receipt-why{font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.55;margin-top:6px}
+    .receipt-src{font-family:var(--f-mono);font-size:11px;margin-top:8px}
+    .receipt-src a{color:var(--fg-3);border-bottom:1px solid var(--line-hi);transition:color 0.15s}
+    .receipt-src a:hover{color:var(--fg)}
+
+    .kernel-row{display:grid;grid-template-columns:140px 140px 1fr 130px;gap:16px;padding:18px 0;border-top:1px solid var(--line);align-items:baseline;font-family:var(--f-mono);font-size:13px}
+    .kernel-row:last-child{border-bottom:1px solid var(--line)}
+    .kr-sub{color:var(--fg);font-weight:500}
+    .kr-cve{color:var(--fg-3);font-size:12px}
+    .kr-evidence{color:var(--fg-2);font-size:12px;line-height:1.55}
+    .kr-status{color:var(--fg-3);font-size:11px;text-transform:uppercase;letter-spacing:0.1em;text-align:right}
+
+    .what-list{font-family:var(--f-mono);font-size:14px;color:var(--fg-2);line-height:1.7;padding-left:20px;margin:16px 0 0}
+    .what-list li{margin-bottom:12px}
+    .what-list strong{color:var(--fg);font-weight:500}
+
+    @media (max-width:880px){
+      h1{font-size:48px}
+      .stats-row{flex-direction:column}
+      .stat-box{border-right:1px solid var(--line);border-bottom:none}
+      .stat-box:last-child{border-bottom:1px solid var(--line)}
+      .kernel-row{grid-template-columns:1fr;gap:6px}
+      .kr-status{text-align:left}
+      .receipt-head{flex-direction:column;gap:8px}
+      .grade-key{grid-template-columns:1fr;gap:8px}
+    }
+  </style>
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="External References — Third-Party Acknowledgements">
+  <meta property="og:description" content="20 verified external receipts from HashiCorp, Kubernetes, Jenkins, Oracle, Apache, Symfony, and independent security databases — first-party upstream attribution, not self-reported.">
+  <meta property="og:url" content="https://snailsploit.com/references">
+  <meta property="og:site_name" content="SnailSploit">
+  <meta property="og:image" content="https://snailsploit.com/og-images/cves.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@SnailSploit">
+  <meta name="twitter:creator" content="@SnailSploit">
+  <meta name="twitter:title" content="External References — Third-Party Acknowledgements">
+  <meta name="twitter:description" content="20 verified external receipts from HashiCorp, Kubernetes, Jenkins, Oracle, Apache, Symfony, and independent security databases — first-party upstream attribution, not self-reported.">
+  <meta name="twitter:image" content="https://snailsploit.com/og-images/cves.png">
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+    {"@type":"WebPage","name":"External References","url":"https://snailsploit.com/references","description":"Source-verified ledger of independent public acknowledgements, researcher credits, and security-database attribution for Kai Aizen / SnailSploit.","about":{"@id":"https://snailsploit.com/#kai"}},
+    {"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"The Jailbreak Chef","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.wordfence.com/threat-intel/vulnerabilities/researchers/kai-aizen"]},
+    {"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},
+      {"@type":"ListItem","position":2,"name":"References","item":"https://snailsploit.com/references"}
+    ]}
+  ]}</script>
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#0E0E0F">
+  <link rel="alternate" hreflang="en" href="https://snailsploit.com/references">
+  <link rel="alternate" hreflang="x-default" href="https://snailsploit.com/references">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="color-scheme" content="dark">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="snailsploit research" href="/rss.xml">
+  <link rel="alternate" type="application/atom+xml" title="snailsploit research" href="/feed.xml">
+
+<style>
+.site-crumbs{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 96%,transparent)}
+.site-crumbs-inner{max-width:1280px;margin:0 auto;padding:14px 32px;display:flex;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.site-crumbs a{color:var(--fg-3);text-decoration:none;transition:color 0.15s}
+.site-crumbs a:hover{color:var(--fg)}
+.site-crumbs .sep{color:var(--fg-4)}
+.site-crumbs .here{color:var(--fg)}
+@media (max-width: 880px){.site-crumbs-inner{padding:10px 20px;font-size:10px}}
+</style>
+
+  <!-- gtm:head:start -->
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KNQQ58JL');</script>
+  <!-- End Google Tag Manager -->
+  <!-- gtm:head:end -->
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What counts as an external reference?","acceptedAnswer":{"@type":"Answer","text":"First-party vendor or upstream security advisories that explicitly credit Kai Aizen / SnailSploit as reporter, finder, or independent discoverer. Self-authored pages, GitHub repos, and LinkedIn are excluded."}},{"@type":"Question","name":"What is the difference between gold and external grade?","acceptedAnswer":{"@type":"Answer","text":"Gold (A+) means the upstream vendor or project itself published the credit. External (A) means an independent security database or corporate propagation surface preserves the attribution."}},{"@type":"Question","name":"Are kernel receipts the same as CVE credits?","acceptedAnswer":{"@type":"Answer","text":"No. Kernel receipts show upstream Linux maintainers accepting security fixes and carrying authored code through mainline and stable releases. They represent engineering contribution, not vulnerability reporting."}}]}</script>
+
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/mobile.css">
+  <link rel="stylesheet" href="/ui.css?v=20260823">
+  <style>.ss-skip{position:fixed;left:8px;top:-64px;z-index:10000;background:var(--signal-2,#E07A4A);color:var(--bg,#0E0E0F);padding:10px 16px;font-family:system-ui,-apple-system,sans-serif;font-weight:600;font-size:14px;line-height:1;text-decoration:none;border-radius:4px;transition:top .15s ease}.ss-skip:focus{top:8px;outline:2px solid #fff;outline-offset:2px}</style>
+</head>
+<body>
+<a class="ss-skip" href="#main">Skip to content</a>
+<!-- gtm:body:start -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQQ58JL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- gtm:body:end -->
+
+  <header class="nav"><div class="nav-inner"><a href="/" class="wm">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/ai-security/">ai security</a></li><li><a href="/cves">cves</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li><li><a href="/contact">contact</a></li></ul></nav></div></header><div id="main" tabindex="-1"></div>
+<nav class="site-crumbs" aria-label="Breadcrumb"><div class="site-crumbs-inner"><a href="/">Home</a><span class="sep">/</span><span class="here">External References</span></div></nav>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="hero"><div class="hero-inner">
+  <div class="eyebrow">external research receipts</div>
+  <h1>References.</h1>
+  <p class="lede">Source-verified ledger of independent public acknowledgements, researcher credits, and security-database attribution. Every entry links to an upstream or third-party source — none are self-reported.</p>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-v">20</div><div class="stat-k">verified receipts</div></div>
+    <div class="stat-box"><div class="stat-v">11</div><div class="stat-k">gold-grade</div></div>
+    <div class="stat-box"><div class="stat-v">11</div><div class="stat-k">first-party</div></div>
+    <div class="stat-box"><div class="stat-v">6</div><div class="stat-k">intel databases</div></div>
+    <div class="stat-box"><div class="stat-v">17</div><div class="stat-k">organizations</div></div>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CLASSIFICATION
+     ═══════════════════════════════════════════════════════════════ -->
+<section><div class="section-inner">
+  <h2>Classification</h2>
+  <p style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);line-height:1.65;margin:0 0 24px;max-width:680px">This is not a CVE-count report. The strongest evidence is that upstream security organizations themselves publicly identify Kai Aizen / SnailSploit as the reporter or finder.</p>
+  <div class="grade-key">
+    <span class="grade-label" style="color:var(--signal-2)">A+ &mdash; Gold</span>
+    <span class="grade-desc">First-party vendor/upstream source explicitly credits Kai Aizen / SnailSploit as reporter, finder, or independent discoverer.</span>
+    <span class="grade-label">A &mdash; External</span>
+    <span class="grade-desc">Independent security-intelligence/database source or corporate propagation that preserves attribution.</span>
+    <span class="grade-label" style="color:var(--fg-3)">B+ &mdash; Third-party</span>
+    <span class="grade-desc">Independent security research or commentary that discusses the finding and its attribution.</span>
+    <span class="grade-label" style="color:var(--fg-4)">Excluded</span>
+    <span class="grade-desc">Own site, GitHub repos, LinkedIn, self-authored CVE pages, and direct copies of own material are not counted.</span>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     GOLD-GRADE RECEIPTS (A+)
+     ═══════════════════════════════════════════════════════════════ -->
+<section><div class="section-inner">
+  <h2>First-Party Attribution <span style="font-family:var(--f-mono);font-size:14px;color:var(--fg-3);font-weight:400;margin-left:12px">A+ &middot; 11 receipts</span></h2>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">HashiCorp &mdash; Consul</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-19017</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;CVE-2026-19017 was reported to HashiCorp by Kai Aizen / SnailSploit (&lsquo;The Jailbreak Chef&rsquo;).&rdquo;</div>
+    <div class="receipt-class">vendor / upstream</div>
+    <div class="receipt-why">First-party HashiCorp security advisory. Gold-standard receipt.</div>
+    <div class="receipt-src"><a href="https://discuss.hashicorp.com/t/hcsec-2026-25-multiple-vulnerabilities-impacting-hashicorp-consul/77629" rel="noopener" target="_blank">discuss.hashicorp.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Kubernetes &mdash; ingress-nginx</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-3288</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;This vulnerability was reported by Kai Aizen.&rdquo;</div>
+    <div class="receipt-class">vendor / upstream</div>
+    <div class="receipt-why">Kubernetes Security Response Committee acknowledgement.</div>
+    <div class="receipt-src"><a href="https://groups.google.com/g/kubernetes-security-announce/c/E9bLHAD6-eg" rel="noopener" target="_blank">groups.google.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Symfony / Twig</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-46627</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;We would like to thank Kai Aizen (Snailsploit) for reporting the issue.&rdquo;</div>
+    <div class="receipt-class">vendor / upstream</div>
+    <div class="receipt-why">First-party Symfony security advisory.</div>
+    <div class="receipt-src"><a href="https://symfony.com/blog/cve-2026-46627-sandbox-does-not-protect-against-resource-exhaustion" rel="noopener" target="_blank">symfony.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Jenkins &mdash; Assembla / Contrast Plugins</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">SECURITY-3692 &middot; SECURITY-3697</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">Jenkins thanks Kai Aizen (SnailSploit) for discovering/reporting four issues.</div>
+    <div class="receipt-class">project security advisory</div>
+    <div class="receipt-why">One first-party advisory credits four separate security issues.</div>
+    <div class="receipt-src"><a href="https://www.jenkins.io/security/advisory/2026-06-24/" rel="noopener" target="_blank">jenkins.io &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Jenkins &mdash; Sauce OnDemand Plugin</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-70445</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;dyingman1 &hellip; and independently, Kai Aizen, SnailSploit&rdquo;</div>
+    <div class="receipt-class">project security advisory</div>
+    <div class="receipt-why">Especially strong: the project explicitly records an independent discovery.</div>
+    <div class="receipt-src"><a href="https://www.jenkins.io/security/advisory/2026-08-05/" rel="noopener" target="_blank">jenkins.io &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Apache Airflow &mdash; Core</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-30911</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;Credit: Kai Aizen (finder)&rdquo;</div>
+    <div class="receipt-class">upstream security mailing list</div>
+    <div class="receipt-why">Apache security disclosure carried through oss-security.</div>
+    <div class="receipt-src"><a href="https://www.openwall.com/lists/oss-security/2026/03/17/2" rel="noopener" target="_blank">openwall.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Apache Airflow &mdash; Databricks Provider</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-32794</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;Credit: Kai Aizen (reporter)&rdquo;</div>
+    <div class="receipt-class">upstream security mailing list</div>
+    <div class="receipt-why">Second distinct Apache Airflow attribution.</div>
+    <div class="receipt-src"><a href="https://www.openwall.com/lists/oss-security/2026/03/30/9" rel="noopener" target="_blank">openwall.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Oracle &mdash; Product Security</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-61308</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">Oracle&rsquo;s August 2026 Critical Security Patch Update lists &ldquo;Kai Aizen : CVE-2026-61308&rdquo; in its contributor credits.</div>
+    <div class="receipt-class">vendor cpu</div>
+    <div class="receipt-why">Enterprise-vendor security credit alongside established security research organizations.</div>
+    <div class="receipt-src"><a href="https://www.oracle.com/security-alerts/cspuaug2026.html" rel="noopener" target="_blank">oracle.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">ddev &mdash; GitHub Advisory</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-32885</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;Credit: Kai Aizen (SnailSploit) &mdash; Adversarial AI &amp; Security Research.&rdquo;</div>
+    <div class="receipt-class">upstream advisory</div>
+    <div class="receipt-why">GitHub Advisory Database entry published from the ddev project.</div>
+    <div class="receipt-src"><a href="https://github.com/advisories/GHSA-x2xq-qhjf-5mvg" rel="noopener" target="_blank">github.com/advisories &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">PraisonAI &mdash; GitHub Advisory</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-55528</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;Credit: Kai Aizen &mdash; SnailSploit (@SnailSploit).&rdquo;</div>
+    <div class="receipt-class">upstream advisory</div>
+    <div class="receipt-why">Project-owned GitHub Security Advisory.</div>
+    <div class="receipt-src"><a href="https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-7g3p-92qq-8wvh" rel="noopener" target="_blank">github.com/MervinPraison &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">vLLM &mdash; GitHub Advisory</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-54236</span><span class="receipt-grade gold">A+</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;Researcher: Kai Aizen &mdash; SnailSploit (@SnailSploit).&rdquo;</div>
+    <div class="receipt-class">upstream advisory</div>
+    <div class="receipt-why">Upstream advisory explicitly identifies the researcher.</div>
+    <div class="receipt-src"><a href="https://github.com/advisories/GHSA-hgg8-fqqc-vfmw" rel="noopener" target="_blank">github.com/advisories &rarr;</a></div>
+  </div>
+
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     EXTERNAL (A-GRADE) RECEIPTS
+     ═══════════════════════════════════════════════════════════════ -->
+<section><div class="section-inner">
+  <h2>External Attribution <span style="font-family:var(--f-mono);font-size:14px;color:var(--fg-3);font-weight:400;margin-left:12px">A &middot; 8 receipts</span></h2>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">IBM &mdash; Consul Bulletin</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-19017</span><span class="receipt-grade ext">A</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;This issue was reported to HashiCorp by Kai Aizen / SnailSploit (&lsquo;The Jailbreak Chef&rsquo;).&rdquo;</div>
+    <div class="receipt-class">corporate propagation</div>
+    <div class="receipt-why">Independent IBM support/security surface reproducing the upstream acknowledgement.</div>
+    <div class="receipt-src"><a href="https://www.ibm.com/support/pages/security-bulletin-consul-vulnerable-partial-arbitrary-file-read-vault-connect-ca-provider" rel="noopener" target="_blank">ibm.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">CloudBees &mdash; Jenkins Ecosystem</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-70445</span><span class="receipt-grade ext">A</span></span>
+    </div>
+    <div class="receipt-quote">CloudBees reproduces the Jenkins credit, including &ldquo;independently, Kai Aizen, SnailSploit.&rdquo;</div>
+    <div class="receipt-class">corporate propagation</div>
+    <div class="receipt-why">Corporate security advisory mirroring the upstream Jenkins acknowledgement.</div>
+    <div class="receipt-src"><a href="https://www.cloudbees.com/security-advisories/cloudbees-security-advisory-2026-08-05" rel="noopener" target="_blank">cloudbees.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Snyk &mdash; ArcadeDB</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-54076</span><span class="receipt-grade ext">A</span></span>
+    </div>
+    <div class="receipt-quote">Snyk lists the credit as Kai Aizen.</div>
+    <div class="receipt-class">security database</div>
+    <div class="receipt-why">Independent commercial security-intelligence database.</div>
+    <div class="receipt-src"><a href="https://security.snyk.io/vuln/SNYK-JAVA-COMARCADEDB-18021396" rel="noopener" target="_blank">security.snyk.io &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Snyk &mdash; vLLM</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-54236</span><span class="receipt-grade ext">A</span></span>
+    </div>
+    <div class="receipt-quote">Snyk lists &ldquo;credit SnailSploit | Kai Aizen.&rdquo;</div>
+    <div class="receipt-class">security database</div>
+    <div class="receipt-why">Independent commercial security-intelligence database.</div>
+    <div class="receipt-src"><a href="https://security.snyk.io/vuln/SNYK-PYTHON-VLLM-17372791" rel="noopener" target="_blank">security.snyk.io &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Wordfence &mdash; Researcher Profile</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">Researcher profile</span><span class="receipt-grade ext">A</span></span>
+    </div>
+    <div class="receipt-quote">Wordfence maintains a dedicated Kai Aizen researcher profile containing multiple credited vulnerabilities.</div>
+    <div class="receipt-class">researcher database</div>
+    <div class="receipt-why">Strong external footprint from independent security platform.</div>
+    <div class="receipt-src"><a href="https://www.wordfence.com/threat-intel/vulnerabilities/researchers/kai-aizen" rel="noopener" target="_blank">wordfence.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Positive Technologies &mdash; dbugs</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-3594</span><span class="receipt-grade ext">A</span></span>
+    </div>
+    <div class="receipt-quote">Positive Technologies&rsquo; dbugs researcher record identifies Kai Aizen for the vulnerability.</div>
+    <div class="receipt-class">security database</div>
+    <div class="receipt-why">Independent security company/database surface.</div>
+    <div class="receipt-src"><a href="https://dbugs.ptsecurity.com/vulnerability/PT-2026-31096" rel="noopener" target="_blank">dbugs.ptsecurity.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Kodem Security &mdash; ArcadeDB</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-54076</span><span class="receipt-grade ext">A</span></span>
+    </div>
+    <div class="receipt-quote">&ldquo;Reported by Kai Aizen (SnailSploit).&rdquo;</div>
+    <div class="receipt-class">security intelligence</div>
+    <div class="receipt-why">Independent security-intelligence company explicitly carries the reporter attribution.</div>
+    <div class="receipt-src"><a href="https://www.kodemsecurity.com/cve-archive/cve-2026-54076" rel="noopener" target="_blank">kodemsecurity.com &rarr;</a></div>
+  </div>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">Miggo Security &mdash; vLLM / ArcadeDB</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-54236 &middot; CVE-2026-54076</span><span class="receipt-grade ext">A</span></span>
+    </div>
+    <div class="receipt-quote">Miggo records Kai Aizen / SnailSploit as researcher or reporter for these findings.</div>
+    <div class="receipt-class">security intelligence</div>
+    <div class="receipt-why">Independent security-intelligence surface; multiple findings found.</div>
+    <div class="receipt-src"><a href="https://www.miggo.io/vulnerability-database/cve/CVE-2026-54236" rel="noopener" target="_blank">miggo.io &rarr;</a></div>
+  </div>
+
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     THIRD-PARTY (B+)
+     ═══════════════════════════════════════════════════════════════ -->
+<section><div class="section-inner">
+  <h2>Third-Party Research <span style="font-family:var(--f-mono);font-size:14px;color:var(--fg-3);font-weight:400;margin-left:12px">B+ &middot; 1 receipt</span></h2>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="receipt-org">CELVEX Group &mdash; ingress-nginx</span>
+      <span style="display:flex;gap:10px;align-items:baseline"><span class="receipt-cve">CVE-2026-3288</span><span class="receipt-grade third">B+</span></span>
+    </div>
+    <div class="receipt-quote">Third-party attack research explicitly notes the Kubernetes advisory&rsquo;s credit to reporter Kai Aizen.</div>
+    <div class="receipt-class">third-party research</div>
+    <div class="receipt-why">Not a vendor acknowledgement; valuable because an unrelated researcher discusses the finding and attribution.</div>
+    <div class="receipt-src"><a href="https://celvexgroup.com/attack-research/2026-07-01-ingress-nginx-config-injection-rce" rel="noopener" target="_blank">celvexgroup.com &rarr;</a></div>
+  </div>
+
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     LINUX KERNEL UPSTREAM RECEIPTS
+     ═══════════════════════════════════════════════════════════════ -->
+<section><div class="section-inner">
+  <h2>Linux Kernel &mdash; Upstream Receipts</h2>
+  <p style="font-family:var(--f-mono);font-size:14px;color:var(--fg-2);line-height:1.65;margin:0 0 8px;max-width:680px">Security-research receipts show vendors crediting you for finding vulnerabilities. Kernel receipts show upstream maintainers accepting security fixes and carrying authored code through mainline and stable Linux releases. Different credibility axis.</p>
+
+  <div class="stats-row" style="margin-bottom:32px">
+    <div class="stat-box"><div class="stat-v">9</div><div class="stat-k">kernel receipts</div></div>
+    <div class="stat-box"><div class="stat-v">3</div><div class="stat-k">CVE-linked</div></div>
+    <div class="stat-box"><div class="stat-v">2+</div><div class="stat-k">stable/mainline</div></div>
+    <div class="stat-box"><div class="stat-v">&infin;</div><div class="stat-k">LKML interactions</div></div>
+  </div>
+
+  <div class="kernel-row" style="font-weight:500;color:var(--fg-3);font-size:11px;text-transform:uppercase;letter-spacing:0.14em;border-top:1px solid var(--line-hi);padding-bottom:10px">
+    <span>Subsystem</span><span>CVE</span><span>Evidence</span><span style="text-align:right">Status</span>
+  </div>
+
+  <div class="kernel-row">
+    <span class="kr-sub">io_uring/zcrx</span>
+    <span class="kr-cve">CVE-2026-43121</span>
+    <span class="kr-evidence">Upstream io_uring pull lists Kai Aizen as the author; stable patch is explicitly &ldquo;From: Kai Aizen.&rdquo; oss-security identifies the commit, author, and notes it was already in stable. <a href="https://lore.gnuweeb.org/io-uring/2b80b81c-42dd-49d1-9f89-f2cc78e9d3fa%40kernel.dk/t/" rel="noopener" target="_blank" style="color:var(--fg-3);border-bottom:1px solid var(--line-hi)">[1]</a> <a href="https://www.openwall.com/lists/oss-security/2026/05/07/11" rel="noopener" target="_blank" style="color:var(--fg-3);border-bottom:1px solid var(--line-hi)">[2]</a></span>
+    <span class="kr-status">mainline + stable</span>
+  </div>
+
+  <div class="kernel-row">
+    <span class="kr-sub">iommufd</span>
+    <span class="kr-cve">&mdash;</span>
+    <span class="kr-evidence">Linux IOMMUFD pull request lists Kai Aizen as contributor; 7.1.4 changelog records commit and author. Greg Kroah-Hartman replied directly to the patch submission. <a href="https://lkml.iu.edu/2606.2/03589.html" rel="noopener" target="_blank" style="color:var(--fg-3);border-bottom:1px solid var(--line-hi)">[1]</a> <a href="https://www.spinics.net/lists/kernel/msg6186132.html" rel="noopener" target="_blank" style="color:var(--fg-3);border-bottom:1px solid var(--line-hi)">[2]</a></span>
+    <span class="kr-status">mainline + stable</span>
+  </div>
+
+  <div class="kernel-row">
+    <span class="kr-sub">RDMA/ionic</span>
+    <span class="kr-cve">CVE-2026-53371</span>
+    <span class="kr-evidence">Jason Gunthorpe replied, fixed the diff, added a Fixes tag, and thanked the author. <a href="https://www.spinics.net/lists/kernel/msg6147127.html" rel="noopener" target="_blank" style="color:var(--fg-3);border-bottom:1px solid var(--line-hi)">[1]</a></span>
+    <span class="kr-status">upstream + maintainer</span>
+  </div>
+
+  <div class="kernel-row">
+    <span class="kr-sub">net/rtnetlink</span>
+    <span class="kr-cve">CVE-2026-46132</span>
+    <span class="kr-evidence">Linux 7.0.7 and 6.18.30 changelogs record Kai Zen as author of the stack-infoleak fix. <a href="https://www.opennet.ru/kernel/7.0.7.html" rel="noopener" target="_blank" style="color:var(--fg-3);border-bottom:1px solid var(--line-hi)">[1]</a></span>
+    <span class="kr-status">stable kernel</span>
+  </div>
+
+  <div class="kernel-row">
+    <span class="kr-sub">net/tipc</span>
+    <span class="kr-cve">&mdash;</span>
+    <span class="kr-evidence">Stable/netdev threads show the patch authored by Kai, with detailed UAF analysis, Signed-off-by, and kernel test-robot tracking. <a href="https://www.spinics.net/lists/stable/msg939837.html" rel="noopener" target="_blank" style="color:var(--fg-3);border-bottom:1px solid var(--line-hi)">[1]</a></span>
+    <span class="kr-status">patch / review</span>
+  </div>
+
+  <div class="kernel-row">
+    <span class="kr-sub">Bluetooth/hci_conn</span>
+    <span class="kr-cve">&mdash;</span>
+    <span class="kr-evidence">Kernel Bluetooth mailing-list trail contains the security fix submission under Kai Aizen. <a href="https://www.spinics.net/lists/stable/msg920128.html" rel="noopener" target="_blank" style="color:var(--fg-3);border-bottom:1px solid var(--line-hi)">[1]</a></span>
+    <span class="kr-status">upstream submission</span>
+  </div>
+
+  <div class="kernel-row">
+    <span class="kr-sub">USB gadget/UVC</span>
+    <span class="kr-cve">&mdash;</span>
+    <span class="kr-evidence">Linux release discussions include Kai Aizen among kernel contributors for a USB gadget/UVC fix. <a href="https://lwn.net/Articles/1075574/" rel="noopener" target="_blank" style="color:var(--fg-3);border-bottom:1px solid var(--line-hi)">[1]</a></span>
+    <span class="kr-status">release evidence</span>
+  </div>
+
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     WHAT THIS ESTABLISHES
+     ═══════════════════════════════════════════════════════════════ -->
+<section><div class="section-inner">
+  <h2>What This Establishes</h2>
+  <ol class="what-list">
+    <li><strong>First-party attribution.</strong> Multiple upstream projects and vendors publish the attribution themselves. The evidence is not dependent on SnailSploit&rsquo;s own CVE pages.</li>
+    <li><strong>Cross-ecosystem footprint.</strong> Verified receipts span cloud/infrastructure (HashiCorp, Kubernetes), developer infrastructure (Jenkins), major OSS projects (Symfony, Apache), enterprise software (Oracle), AI infrastructure (vLLM, PraisonAI), and security-intelligence providers.</li>
+    <li><strong>Unusually strong receipts.</strong> Jenkins explicitly uses the word &ldquo;independently&rdquo; when crediting Kai Aizen. Kubernetes names the reporter in a Security Response Committee acknowledgement. HashiCorp says the issue was &ldquo;reported to HashiCorp by Kai Aizen / SnailSploit.&rdquo;</li>
+    <li><strong>Secondary amplification.</strong> Snyk, Wordfence, Positive Technologies, Kodem, and Miggo independently expose the researcher identity in their security-intelligence surfaces.</li>
+  </ol>
+  <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-3);line-height:1.6;margin-top:32px;max-width:680px">Research pass completed 24 August 2026. Prepared from live web sources. This is not an exhaustive census &mdash; search-engine indexing is incomplete, and some vendor portals are difficult to crawl. These are verified receipts found in this research pass.</p>
+</div></section>
+
+<footer class="footer"><div class="footer-inner"><span>&copy; 2026 SnailSploit Ltd. &middot; Same attack. Different substrate. Human or machine.</span><span>Kai@snailsploit.com</span></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a><a href="/accessibility" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Accessibility</a></span></footer>
+<script defer src="/ui.js?v=20260824"></script>
+</body>
+</html>
