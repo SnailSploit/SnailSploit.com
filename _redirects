@@ -81,18 +81,9 @@
 /frameworks/aatmf             /aatmf                                                           301
 
 # ─────────────────────────────────────────────────────────────
-#  Tools — no per-tool pages on the new site, redirect each → /tools
+#  Tools — aliases for old slugs (per-tool pages now exist)
 # ─────────────────────────────────────────────────────────────
-/tools/burp-mcp               /tools                                                           301
-/tools/burp-mcp-toolkit       /tools                                                           301
-/tools/snailhunter            /tools                                                           301
-/tools/kuberoast              /tools                                                           301
-/tools/xposure                /tools                                                           301
-/tools/snailsploit-recon      /tools                                                           301
-/tools/snailpath              /tools                                                           301
-/tools/zenflood               /tools                                                           301
-/tools/snailobfuscator        /tools                                                           301
-/tools/awesome-snail-osint    /tools                                                           301
+/tools/burp-mcp               /tools/burp-mcp-toolkit/                                         301
 /tools/justdastit             /tools                                                           301
 
 # ─────────────────────────────────────────────────────────────
