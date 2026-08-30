@@ -5,6 +5,16 @@
 # Order matters: first match wins.
 /advisories/ghsa-rcgr-27rh-g56w/   /advisories   301
 
+# ── SEO audit 404 fixes (2026-08-30): remaining GSC 404s + trailing-slash canonicals ──
+/ai-security/mcp-vs-a2a/                                    /ai-security/mcp-vs-a2a-attack-surface/                301
+/ai-security/llm-safety-judges/                             /ai-security/rai-judge-blind-spots/                    301
+/ai-security/nested-skill-injection/                        /ai-security/prompt-injection/memory-injection-nested-skills/  301
+/ai-security/cloud-obfuscator/                              /ai-security/                                          301
+/ai-security/ai-coding-agent-attack-surface/index.html      /ai-security/ai-coding-agent-attack-surface/           301
+/ai-security                                                /ai-security/                                          301
+/security-research/cves                                     /cves                                                  301
+/sitemap/                                                   /sitemap.xml                                           301
+
 # ── GSC 404 fixes (2026-06-02): bare directories, old slugs, no-slash dir, sitemaps ──
 /security-research/general/                                 /research                                              301
 /frameworks/aatmf/                                          /aatmf                                                 301
