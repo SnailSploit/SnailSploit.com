@@ -6,13 +6,69 @@
   <description>AI security research and offensive methodology by Kai Aizen</description>
   <atom:link href="https://snailsploit.com/rss.xml" rel="self" type="application/rss+xml"/>
   <language>en-us</language>
-  <lastBuildDate>Wed, 11 Mar 2026 00:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>
   <managingEditor>Kai@snailsploit.com (Kai Aizen)</managingEditor>
   <image>
     <url>https://snailsploit.com/apple-touch-icon.png</url>
     <title>snailsploit</title>
     <link>https://snailsploit.com/</link>
   </image>
+  <item>
+    <title>Reverse-Engineering Claude's Memory Architecture From Inside the Sandbox</title>
+    <link>https://snailsploit.com/ai-security/claude-memory-architecture/</link>
+    <guid isPermaLink="true">https://snailsploit.com/ai-security/claude-memory-architecture/</guid>
+    <pubDate>Sat, 27 Jun 2026 00:00:00 +0000</pubDate>
+    <description>Reverse-engineering Claude's memory system from inside the code sandbox — binaries, protobuf schemas, TLS interception, and a CWE-522 credential chain.</description>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>SKILBin: AI Agent Skills as the New LOLBin</title>
+    <link>https://snailsploit.com/ai-security/skilbin/</link>
+    <guid isPermaLink="true">https://snailsploit.com/ai-security/skilbin/</guid>
+    <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
+    <description>A malicious Claude skill reads SSH keys, AWS credentials, and Kubernetes configs through a signed process no EDR flags. Introducing SKILBin.</description>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>Render-Layer Redaction Oracle: Indirect Injection via SSE Streams</title>
+    <link>https://snailsploit.com/ai-security/prompt-injection/wire-oracle/</link>
+    <guid isPermaLink="true">https://snailsploit.com/ai-security/prompt-injection/wire-oracle/</guid>
+    <pubDate>Mon, 18 May 2026 00:00:00 +0000</pubDate>
+    <description>Indirect prompt injection (OWASP LLM01) is presumed blind. On SSE streams the attacker reads injected payloads via render-layer redaction artifacts.</description>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>Semantic-to-Metadata Smuggling in Multi-LoRA Routing</title>
+    <link>https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/</link>
+    <guid isPermaLink="true">https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/</guid>
+    <pubDate>Mon, 18 May 2026 00:00:00 +0000</pubDate>
+    <description>vLLM Semantic Router and LoRA gateways route by prompt content — making routing the unreviewed trust boundary. A smuggling primitive.</description>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>No Responsibility by Design: Container Desync to Host RCE</title>
+    <link>https://snailsploit.com/ai-security/nrbd/</link>
+    <guid isPermaLink="true">https://snailsploit.com/ai-security/nrbd/</guid>
+    <pubDate>Mon, 18 May 2026 00:00:00 +0000</pubDate>
+    <description>A composition vulnerability class: each vendor's decision is correct alone, but the chain yields host RCE. 7 primitives, 4 container recycles, end-to-end.</description>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>Where Is My NX Bit? Instruction/Data Separation for LLMs</title>
+    <link>https://snailsploit.com/ai-security/nx-bit/</link>
+    <guid isPermaLink="true">https://snailsploit.com/ai-security/nx-bit/</guid>
+    <pubDate>Mon, 18 May 2026 00:00:00 +0000</pubDate>
+    <description>Authentication ≠ authorization ≠ intent. Why agent identity can't stop prompt injection — and what a real enforcement bit needs.</description>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
+  </item>
+  <item>
+    <title>Premise Collision: When Poisoned and True Facts Collide</title>
+    <link>https://snailsploit.com/ai-security/premise-collision/</link>
+    <guid isPermaLink="true">https://snailsploit.com/ai-security/premise-collision/</guid>
+    <pubDate>Mon, 18 May 2026 00:00:00 +0000</pubDate>
+    <description>When a poisoned fact and the true record share a context window, the model arbitrates on weight, not truth. Measured: the poison wins 44 of 48.</description>
+    <author>Kai@snailsploit.com (Kai Aizen)</author>
+  </item>
   <item>
     <title>Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation</title>
     <link>https://snailsploit.com/ai-security/self-replicating-memory-worm/</link>
@@ -126,11 +182,11 @@
     <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
-    <title>Agentic AI Threat Landscape: Attack Vectors & Defenses</title>
+    <title>Agentic AI Threat Landscape: Attack Vectors &amp; Defenses</title>
     <link>https://snailsploit.com/ai-security/agentic-ai-threat-landscape/</link>
     <guid isPermaLink="true">https://snailsploit.com/ai-security/agentic-ai-threat-landscape/</guid>
     <pubDate>Wed, 11 Feb 2026 00:00:00 +0000</pubDate>
-    <description>Agentic AI Threat Landscape: Attack Vectors & Defenses</description>
+    <description>Agentic AI Threat Landscape: Attack Vectors &amp; Defenses</description>
     <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
@@ -190,11 +246,11 @@
     <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
-    <title>MCP Threat Analysis: Attack Chains & Protocol Dissection</title>
+    <title>MCP Threat Analysis: Attack Chains &amp; Protocol Dissection</title>
     <link>https://snailsploit.com/ai-security/prompt-injection/mcp-threat-analysis/</link>
     <guid isPermaLink="true">https://snailsploit.com/ai-security/prompt-injection/mcp-threat-analysis/</guid>
     <pubDate>Sun, 18 May 2025 00:00:00 +0000</pubDate>
-    <description>MCP Threat Analysis: Attack Chains & Protocol Dissection</description>
+    <description>MCP Threat Analysis: Attack Chains &amp; Protocol Dissection</description>
     <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
@@ -222,11 +278,11 @@
     <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>
-    <title>RCE & DNS Exfiltration in ChatGPT Canvas</title>
+    <title>RCE &amp; DNS Exfiltration in ChatGPT Canvas</title>
     <link>https://snailsploit.com/security-research/general/chatgpt-canvas-rce-dns-exfiltration/</link>
     <guid isPermaLink="true">https://snailsploit.com/security-research/general/chatgpt-canvas-rce-dns-exfiltration/</guid>
     <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
-    <description>RCE & DNS Exfiltration in ChatGPT Canvas</description>
+    <description>RCE &amp; DNS Exfiltration in ChatGPT Canvas</description>
     <author>Kai@snailsploit.com (Kai Aizen)</author>
   </item>
   <item>

@@ -23,9 +23,14 @@ SnailSploit is an independent adversarial-security research group — Kai Aizen 
 - [AATMF Toolkit](/toolkit): Python CLI for systematic LLM safety testing
 - [LLM Red Teamer's Playbook](/playbook)
 
-## AI Security Research (47 articles)
+## AI Security Research (52 articles)
 - [Reverse-Engineering Claude’s Memory Architecture From Inside the Sandbox](/ai-security/claude-memory-architecture/): The binaries, protobuf schemas, TLS interception, encryption model, and a CWE-522 credential extraction chain — extracted live from inside the Claude code sandbox.
 - [SKILBin: AI Agent Skills as the New LOLBin](/ai-security/skilbin/): A malicious Claude skill harvests SSH, AWS, and Kubernetes credentials inside an Anthropic-signed process that no EDR flags — the LOLBin for the agent era.
+- [No Responsibility by Design: Container Desync to Host RCE](/ai-security/nrbd/): A composition vulnerability class: each vendor's decision is correct alone, but the chain yields host RCE. 7 primitives, 4 container recycles, end-to-end.
+- [Where Is My NX Bit? Instruction/Data Separation for LLMs](/ai-security/nx-bit/): Authentication ≠ authorization ≠ intent. Why agent identity can't stop prompt injection — and what a real enforcement bit needs.
+- [Premise Collision: When Poisoned and True Facts Collide](/ai-security/premise-collision/): When a poisoned fact and the true record share a context window, the model arbitrates on weight, not truth. Measured: the poison wins 44 of 48.
+- [Render-Layer Redaction Oracle: Indirect Injection](/ai-security/prompt-injection/wire-oracle/): Indirect prompt injection (OWASP LLM01) is presumed blind. On SSE streams the attacker reads injected payloads via render-layer redaction artifacts.
+- [Semantic-to-Metadata Smuggling in Multi-LoRA Routing](/ai-security/prompt-injection/semantic-metadata-smuggling/): vLLM Semantic Router and LoRA gateways route by prompt content — making routing the unreviewed trust boundary. A smuggling primitive.
 - [Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation](/ai-security/self-replicating-memory-worm/): Self-Replicating Memory Worm: Persistent Injection with Autonomous Propagation
 - [Linux Kernel io_uring/zcrx: Race Condition to Double-Free](/security-research/general/io-uring-zcrx-race-condition/): Linux Kernel io_uring/zcrx: Race Condition to Double-Free
 - [Adversarial Prompting: The Complete Technical Guide](/ai-security/adversarial-prompting/): Adversarial Prompting: The Complete Technical Guide
@@ -62,6 +67,15 @@ SnailSploit is an independent adversarial-security research group — Kai Aizen 
 - [Exploiting Cloud Vulnerabilities: Tools and Techniques](/security-research/general/cloud-vulnerability-exploitation/): Exploiting Cloud Vulnerabilities: Tools and Techniques
 - [Hidden Risks of AI: An Offensive Security Perspective](/ai-security/hidden-risks-offensive-perspective/): Hidden Risks of AI: An Offensive Security Perspective
 - [ChatGPT Jailbreak via Context Manipulation](/ai-security/jailbreaking/chatgpt-context-jailbreak/): ChatGPT Jailbreak via Context Manipulation
+
+## How-To Guides (6)
+- [How to Do AI Red Teaming](/how-to-do-ai-red-teaming): Step-by-step methodology for adversarial testing of LLMs and AI systems.
+- [How to Test for Prompt Injection](/how-to-test-for-prompt-injection): Practical guide to identifying and validating prompt injection vulnerabilities.
+- [How to Detect Jailbreak Attempts](/how-to-detect-jailbreak-attempts): Detection techniques for adversarial prompts targeting LLM safety guardrails.
+- [How to Secure an LLM Agent](/how-to-secure-an-llm-agent): Defense checklist for autonomous AI agents with tool access.
+- [How to Set Up an AI Red Team](/how-to-set-up-an-ai-red-team): Building and staffing an adversarial AI testing team from scratch.
+- [How to Disclose an AI Vulnerability](/how-to-disclose-an-ai-vulnerability): Responsible disclosure process for AI/ML security findings.
+- [AI Red-Teaming Frameworks Compared](/ai-security/ai-red-teaming-frameworks/): Side-by-side comparison of AATMF, MITRE ATLAS, OWASP LLM Top 10, and NIST AI RMF.
 
 ## AI Security Wiki (25 entries)
 - [Adversarial Examples | AI Security Wiki](/ai-security/wiki/attacks/adversarial-examples/)
