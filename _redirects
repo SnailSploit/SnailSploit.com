@@ -202,3 +202,11 @@
 /agents.md   /llms.txt   301
 /security-research/cves/cve-2025-11174   /cves   301
 /security-research/cves/cve-2025-11174/   /cves   301
+
+# ── Bare directory 404 fixes (audit 2026-08-30) ──
+/security-research/cves/   /cves   301
+/security-research/cves    /cves   301
+/ai-security/wiki/attacks/   /wiki   301
+/ai-security/wiki/defenses/   /wiki   301
+/ai-security/wiki/concepts/   /wiki   301
+/ai-security/jailbreaking/inherent-ai-vulnerabilities/   /ai-security/jailbreaking/ai-inherent-vulnerability/   301
