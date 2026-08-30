@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Memory Injection Through Nested Skills | SnailSploit</title>
-<meta content="Skill injection plus cross-session memory poisoning creates a self-healing LLM implant. Explore this novel persistence chain exploiting agent trust boundaries." name="description"/>
+<meta content="Skill injection plus cross-session memory poisoning creates a self-healing LLM implant. A novel persistence chain exploiting agent trust." name="description"/>
 <meta content="Kai Aizen" name="author"/>
 <meta content="index, follow, max-image-preview:large, max-snippet:-1" name="robots"/>
 <link href="https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/" rel="canonical"/>
@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="/css/article.css">
 <meta content="article" property="og:type"/>
 <meta content="Memory Injection Through Nested Skills" property="og:title"/>
-<meta content="Skill injection plus cross-session memory poisoning creates a self-healing LLM implant. Explore this novel persistence chain exploiting agent trust boundaries." property="og:description"/>
+<meta content="Skill injection plus cross-session memory poisoning creates a self-healing LLM implant. A novel persistence chain exploiting agent trust." property="og:description"/>
 <meta content="https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/" property="og:url"/>
 <meta content="SnailSploit" property="og:site_name"/>
 <meta property="og:image" content="https://snailsploit.com/og-images/ai-security__prompt-injection__memory-injection-nested-skills.png">
@@ -33,9 +33,9 @@
 <meta content="@SnailSploit" name="twitter:site"/>
 <meta content="@SnailSploit" name="twitter:creator"/>
 <meta content="Memory Injection Through Nested Skills" name="twitter:title"/>
-<meta content="Skill injection plus cross-session memory poisoning creates a self-healing LLM implant. Explore this novel persistence chain exploiting agent trust boundaries." name="twitter:description"/>
+<meta content="Skill injection plus cross-session memory poisoning creates a self-healing LLM implant. A novel persistence chain exploiting agent trust." name="twitter:description"/>
 <meta name="twitter:image" content="https://snailsploit.com/og-images/ai-security__prompt-injection__memory-injection-nested-skills.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","image":"https://snailsploit.com/og-square.png","alternateName":"The Jailbreak Chef","jobTitle":"Founder & Adversarial AI Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"ScholarlyArticle","headline":"Memory Injection Through Nested Skills: Autonomous LLM Agent Compromise","description":"Skill injection plus cross-session memory poisoning creates a self-healing LLM implant. Explore this novel persistence chain exploiting agent trust boundaries.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-03-10","dateModified":"2026-08-20","url":"https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/","mainEntityOfPage":"https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/","image":"https://snailsploit.com/og-images/ai-security__prompt-injection__memory-injection-nested-skills.png","wordCount":2544,"inLanguage":"en-US","articleSection":"Prompt Injection","keywords":"memory injection, nested skills exploit, AI skill chain attack, persistent prompt injection"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"AI Security","item":"https://snailsploit.com/ai-security/"},{"@type":"ListItem","position":3,"name":"Prompt Injection","item":"https://snailsploit.com/ai-security/prompt-injection/"},{"@type":"ListItem","position":4,"name":"Memory Injection Through Nested Skills: Autonomous LLM Agent","item":"https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","image":"https://snailsploit.com/og-square.png","alternateName":"The Jailbreak Chef","jobTitle":"Founder & Adversarial AI Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"ScholarlyArticle","headline":"Memory Injection Through Nested Skills: Autonomous LLM Agent Compromise","description":"Skill injection plus cross-session memory poisoning creates a self-healing LLM implant. A novel persistence chain exploiting agent trust.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-03-10","dateModified":"2026-08-20","url":"https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/","mainEntityOfPage":"https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/","image":"https://snailsploit.com/og-images/ai-security__prompt-injection__memory-injection-nested-skills.png","wordCount":2544,"inLanguage":"en-US","articleSection":"Prompt Injection","keywords":"memory injection, nested skills exploit, AI skill chain attack, persistent prompt injection"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"AI Security","item":"https://snailsploit.com/ai-security/"},{"@type":"ListItem","position":3,"name":"Prompt Injection","item":"https://snailsploit.com/ai-security/prompt-injection/"},{"@type":"ListItem","position":4,"name":"Memory Injection Through Nested Skills: Autonomous LLM Agent","item":"https://snailsploit.com/ai-security/prompt-injection/memory-injection-nested-skills/"}]}]}</script>
 <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="/apple-touch-icon.png" rel="alternate icon" type="image/png"/>
 <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
@@ -81,7 +81,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span>12 min read</span>
 </div>
 <h1 class="article-h1">Memory Injection Through Nested Skills: Autonomous LLM Agent Compromise</h1>
-<p class="article-lede">Skill injection plus cross-session memory poisoning creates a self-healing LLM implant. Explore this novel persistence chain exploiting agent trust boundaries.</p>
+<p class="article-lede">Skill injection plus cross-session memory poisoning creates a self-healing LLM implant. A novel persistence chain exploiting agent trust.</p>
 </div>
 </section>
 <div class="article-layout">
