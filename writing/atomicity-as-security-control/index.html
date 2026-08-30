@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Atomicity as a Security Control — The All-or-Nothing Rule</title>
-<meta content="Atomicity is a security control, not just a database feature: how partial transactions become exploitable inconsistencies, and where in the SSDLC to catch them." name="description"/>
+<title>Atomicity as a Security Control | SnailSploit</title>
+<meta content="Atomicity is a security control, not just a database feature. How partial transactions become exploitable flaws and where to catch them." name="description"/>
 <meta content="Avraham Shemesh" name="author"/>
 <meta content="index, follow, max-image-preview:large, max-snippet:-1" name="robots"/>
 <link href="https://snailsploit.com/writing/atomicity-as-security-control/" rel="canonical"/>
@@ -104,8 +104,8 @@ a{color:inherit;text-decoration:none}
 .footer-copy{font-family:var(--f-mono);font-size:11px;color:var(--fg-3)}
 </style>
 <meta content="article" property="og:type"/>
-<meta content="Atomicity as a Security Control — The All-or-Nothing Rule" property="og:title"/>
-<meta content="Atomicity is a security control, not just a database feature: how partial transactions become exploitable inconsistencies, and where in the SSDLC to catch them." property="og:description"/>
+<meta content="Atomicity as a Security Control | SnailSploit" property="og:title"/>
+<meta content="Atomicity is a security control, not just a database feature. How partial transactions become exploitable flaws and where to catch them." property="og:description"/>
 <meta content="https://snailsploit.com/writing/atomicity-as-security-control/" property="og:url"/>
 <meta content="SnailSploit" property="og:site_name"/>
 <meta property="og:image" content="https://snailsploit.com/og-images/writing__atomicity-as-security-control.png">
@@ -114,6 +114,7 @@ a{color:inherit;text-decoration:none}
 <meta content="en_US" property="og:locale"/>
 <meta content="Avraham Shemesh" property="article:author"/>
 <meta content="2026-05-19" property="article:published_time"/>
+<meta content="2026-08-20" property="article:modified_time"/>
 <meta content="Writing" property="article:section"/>
 <meta content="SSDLC" property="article:tag"/>
 <meta content="atomicity" property="article:tag"/>
@@ -122,10 +123,10 @@ a{color:inherit;text-decoration:none}
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="@SnailSploit" name="twitter:site"/>
 <meta content="@SnailSploit" name="twitter:creator"/>
-<meta content="Atomicity as a Security Control — The All-or-Nothing Rule" name="twitter:title"/>
-<meta content="Atomicity is a security control, not just a database feature: how partial transactions become exploitable inconsistencies, and where in the SSDLC to catch them." name="twitter:description"/>
+<meta content="Atomicity as a Security Control | SnailSploit" name="twitter:title"/>
+<meta content="Atomicity is a security control, not just a database feature. How partial transactions become exploitable flaws and where to catch them." name="twitter:description"/>
 <meta name="twitter:image" content="https://snailsploit.com/og-images/writing__atomicity-as-security-control.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#avi","name":"Avraham Shemesh","jobTitle":"Co-Founder & Security Researcher","worksFor":{"@id":"https://snailsploit.com/#org"},"url":"https://snailsploit.com/team/avraham-shemesh/","sameAs":["https://linkedin.com/in/abeshemesh","https://github.com/0xShemesh","https://www.wordfence.com/threat-intel/vulnerabilities/researchers/avraham-shemesh"],"knowsAbout":["Web Application Security","SSDLC","Vulnerability Research","WordPress Security","Application Security"]},{"@type":["Organization","ProfessionalService"],"@id":"https://snailsploit.com/#org","name":"SnailSploit","url":"https://snailsploit.com","logo":"https://snailsploit.com/apple-touch-icon.png"},{"@type":"TechArticle","headline":"Atomicity as a Security Control — The All-or-Nothing Rule","description":"Atomicity is a security control, not just a database feature. How partial transactions become exploitable inconsistencies — and where in the SSDLC to catch them.","author":{"@id":"https://snailsploit.com/#avi"},"publisher":{"@id":"https://snailsploit.com/#org"},"datePublished":"2026-05-19","dateModified":"2026-08-20","url":"https://snailsploit.com/writing/atomicity-as-security-control/","mainEntityOfPage":"https://snailsploit.com/writing/atomicity-as-security-control/","image":"https://snailsploit.com/og-images/writing__atomicity-as-security-control.png","wordCount":1880,"inLanguage":"en-US","keywords":"SSDLC, atomicity, ACID, database security, transaction integrity, data integrity, web application security, code review"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://snailsploit.com/writing"},{"@type":"ListItem","position":3,"name":"Atomicity as a Security Control","item":"https://snailsploit.com/writing/atomicity-as-security-control/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#avi","name":"Avraham Shemesh","jobTitle":"Co-Founder & Security Researcher","worksFor":{"@id":"https://snailsploit.com/#org"},"url":"https://snailsploit.com/team/avraham-shemesh/","sameAs":["https://linkedin.com/in/abeshemesh","https://github.com/0xShemesh","https://www.wordfence.com/threat-intel/vulnerabilities/researchers/avraham-shemesh"],"knowsAbout":["Web Application Security","SSDLC","Vulnerability Research","WordPress Security","Application Security"]},{"@type":["Organization","ProfessionalService"],"@id":"https://snailsploit.com/#org","name":"SnailSploit","url":"https://snailsploit.com","logo":"https://snailsploit.com/apple-touch-icon.png"},{"@type":"TechArticle","headline":"Atomicity as a Security Control | SnailSploit","description":"Atomicity is a security control, not just a database feature. How partial transactions become exploitable flaws and where to catch them.","about":[{"@type":"DefinedTerm","name":"Adversarial AI","url":"https://snailsploit.com/ai-security/wiki/concepts/adversarial-ai/"}],"author":{"@id":"https://snailsploit.com/#avi"},"publisher":{"@id":"https://snailsploit.com/#org"},"datePublished":"2026-05-19","dateModified":"2026-08-20","url":"https://snailsploit.com/writing/atomicity-as-security-control/","mainEntityOfPage":"https://snailsploit.com/writing/atomicity-as-security-control/","image":"https://snailsploit.com/og-images/writing__atomicity-as-security-control.png","isAccessibleForFree":true,"wordCount":1880,"inLanguage":"en-US","keywords":"SSDLC, atomicity, ACID, database security, transaction integrity, data integrity, web application security, code review"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://snailsploit.com/writing"},{"@type":"ListItem","position":3,"name":"Atomicity as a Security Control","item":"https://snailsploit.com/writing/atomicity-as-security-control/"}]}]}</script>
 <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="/apple-touch-icon.png" rel="alternate icon" type="image/png"/>
 <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>

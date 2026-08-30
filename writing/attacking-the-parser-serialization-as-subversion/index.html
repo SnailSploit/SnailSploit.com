@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Attacking the Parser #0: Serialization as Subversion</title>
+<title>Attacking the Parser: Serialization as Subversion | SnailSploit</title>
 <meta name="description" content="Parser-state desynchronization via structured-output wrappers: conversational mode and structured-output mode parse the same input differently.">
 <meta name="author" content="Kai Aizen">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -162,7 +162,7 @@ hr{border:none;border-top:1px dashed var(--hairline-strong);margin:48px 0}
 .tabular{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 </style>
 <meta property="og:type" content="article">
-<meta property="og:title" content="Attacking the Parser #0: Serialization as Subversion">
+<meta property="og:title" content="Attacking the Parser: Serialization as Subversion | SnailSploit">
 <meta property="og:description" content="Parser-state desynchronization via structured-output wrappers: conversational mode and structured-output mode parse the same input differently.">
 <meta property="og:url" content="https://snailsploit.com/writing/attacking-the-parser-serialization-as-subversion/">
 <meta property="og:site_name" content="SnailSploit">
@@ -172,6 +172,7 @@ hr{border:none;border-top:1px dashed var(--hairline-strong);margin:48px 0}
 <meta property="og:image:height" content="630">
 <meta property="article:author" content="Kai Aizen">
 <meta property="article:published_time" content="2026-05-20">
+<meta content="2026-08-20" property="article:modified_time"/>
 <meta content="Writing" property="article:section"/>
 <meta content="LLM security" property="article:tag"/>
 <meta content="prompt injection" property="article:tag"/>
@@ -179,10 +180,10 @@ hr{border:none;border-top:1px dashed var(--hairline-strong);margin:48px 0}
 <meta content="structured output" property="article:tag"/>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@SnailSploit">
-<meta name="twitter:title" content="Attacking the Parser #0: Serialization as Subversion">
+<meta name="twitter:title" content="Attacking the Parser: Serialization as Subversion | SnailSploit">
 <meta name="twitter:description" content="Parser-state desynchronization via structured-output wrappers: conversational mode and structured-output mode parse the same input differently.">
 <meta name="twitter:image" content="https://snailsploit.com/og-images/writing__attacking-the-parser-serialization-as-subversion.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"The Jailbreak Chef","jobTitle":"Founder & Adversarial AI Researcher","url":"https://snailsploit.com/team/kai-aizen/","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":["Organization","ProfessionalService"],"@id":"https://snailsploit.com/#org","name":"SnailSploit","url":"https://snailsploit.com","logo":"https://snailsploit.com/apple-touch-icon.png"},{"@type":"TechArticle","headline":"Attacking the Parser #0: Serialization as Subversion","description":"Parser-state desynchronization via structured output wrappers. A model in conversational mode and the same model in structured-output mode are not behaviorally equivalent.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#org"},"datePublished":"2026-05-20","dateModified":"2026-08-20","url":"https://snailsploit.com/writing/attacking-the-parser-serialization-as-subversion/","mainEntityOfPage":"https://snailsploit.com/writing/attacking-the-parser-serialization-as-subversion/","image":"https://snailsploit.com/og-images/writing__attacking-the-parser-serialization-as-subversion.png","keywords":"LLM security, prompt injection, parser desynchronization, structured output, MCP, tool calling, agent security, serialization","wordCount":4282,"inLanguage":"en-US"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://snailsploit.com/writing"},{"@type":"ListItem","position":3,"name":"Attacking the Parser #0: Serialization as Subversion","item":"https://snailsploit.com/writing/attacking-the-parser-serialization-as-subversion/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","alternateName":"The Jailbreak Chef","jobTitle":"Founder & Adversarial AI Researcher","url":"https://snailsploit.com/team/kai-aizen/","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":["Organization","ProfessionalService"],"@id":"https://snailsploit.com/#org","name":"SnailSploit","url":"https://snailsploit.com","logo":"https://snailsploit.com/apple-touch-icon.png"},{"@type":"TechArticle","headline":"Attacking the Parser: Serialization as Subversion | SnailSploit","description":"Parser-state desynchronization via structured output wrappers. A model in conversational mode and the same model in structured-output mode are not behaviorally equivalent.","about":[{"@type":"DefinedTerm","name":"Prompt Injection","url":"https://snailsploit.com/ai-security/wiki/concepts/prompt-injection/"},{"@type":"DefinedTerm","name":"Large Language Models","url":"https://snailsploit.com/ai-security/wiki/concepts/large-language-models/"}],"author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#org"},"datePublished":"2026-05-20","dateModified":"2026-08-20","url":"https://snailsploit.com/writing/attacking-the-parser-serialization-as-subversion/","mainEntityOfPage":"https://snailsploit.com/writing/attacking-the-parser-serialization-as-subversion/","image":"https://snailsploit.com/og-images/writing__attacking-the-parser-serialization-as-subversion.png","keywords":"LLM security, prompt injection, parser desynchronization, structured output, MCP, tool calling, agent security, serialization","isAccessibleForFree":true,"wordCount":4282,"inLanguage":"en-US"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://snailsploit.com/writing"},{"@type":"ListItem","position":3,"name":"Attacking the Parser #0: Serialization as Subversion","item":"https://snailsploit.com/writing/attacking-the-parser-serialization-as-subversion/"}]}]}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">

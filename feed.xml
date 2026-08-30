@@ -5,10 +5,30 @@
   <link href="https://snailsploit.com/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://snailsploit.com/research" rel="alternate" type="text/html"/>
   <id>https://snailsploit.com/</id>
-  <updated>2026-05-08T12:48:24+00:00</updated>
+  <updated>2026-06-27T00:00:00+00:00</updated>
   <author><name>SnailSploit</name><uri>https://snailsploit.com/</uri></author>
   <icon>https://snailsploit.com/favicon.svg</icon>
   <logo>https://snailsploit.com/apple-touch-icon.png</logo>
+  <entry>
+    <title>Reverse-Engineering Claude's Memory Architecture From Inside the Sandbox</title>
+    <link href="https://snailsploit.com/ai-security/claude-memory-architecture/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/claude-memory-architecture/</id>
+    <updated>2026-06-27T00:00:00+00:00</updated>
+    <published>2026-06-27T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Reverse-engineering Claude's memory system from inside the code sandbox — binaries, protobuf schemas, TLS interception, and a CWE-522 credential chain.</summary>
+  </entry>
+  <entry>
+    <title>SKILBin: AI Agent Skills as the New LOLBin</title>
+    <link href="https://snailsploit.com/ai-security/skilbin/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/skilbin/</id>
+    <updated>2026-06-15T00:00:00+00:00</updated>
+    <published>2026-06-15T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">A malicious Claude skill reads SSH keys, AWS credentials, and Kubernetes configs through a signed process no EDR flags. Introducing SKILBin.</summary>
+  </entry>
   <entry>
 
     <title>Atomicity as a Security Control — The All-or-Nothing Rule</title>
@@ -29,6 +49,56 @@
 
     <summary type="text">Atomicity is a security control, not just a database feature. How partial transactions become exploitable inconsistencies — and where in the SSDLC to catch them.</summary>
 
+  </entry>
+  <entry>
+    <title>Render-Layer Redaction Oracle: Indirect Injection via SSE Streams</title>
+    <link href="https://snailsploit.com/ai-security/prompt-injection/wire-oracle/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/prompt-injection/wire-oracle/</id>
+    <updated>2026-05-18T00:00:00+00:00</updated>
+    <published>2026-05-18T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="prompt-injection"/>
+    <summary type="text">Indirect prompt injection (OWASP LLM01) is presumed blind. On SSE streams the attacker reads injected payloads via render-layer redaction artifacts.</summary>
+  </entry>
+  <entry>
+    <title>Semantic-to-Metadata Smuggling in Multi-LoRA Routing</title>
+    <link href="https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/prompt-injection/semantic-metadata-smuggling/</id>
+    <updated>2026-05-18T00:00:00+00:00</updated>
+    <published>2026-05-18T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="prompt-injection"/>
+    <summary type="text">vLLM Semantic Router and LoRA gateways route by prompt content — making routing the unreviewed trust boundary. A smuggling primitive.</summary>
+  </entry>
+  <entry>
+    <title>No Responsibility by Design: Container Desync to Host RCE</title>
+    <link href="https://snailsploit.com/ai-security/nrbd/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/nrbd/</id>
+    <updated>2026-05-18T00:00:00+00:00</updated>
+    <published>2026-05-18T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">A composition vulnerability class: each vendor's decision is correct alone, but the chain yields host RCE. 7 primitives, 4 container recycles, end-to-end.</summary>
+  </entry>
+  <entry>
+    <title>Where Is My NX Bit? Instruction/Data Separation for LLMs</title>
+    <link href="https://snailsploit.com/ai-security/nx-bit/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/nx-bit/</id>
+    <updated>2026-05-18T00:00:00+00:00</updated>
+    <published>2026-05-18T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">Authentication does not equal authorization does not equal intent. Why agent identity cannot stop prompt injection — and what a real enforcement bit needs.</summary>
+  </entry>
+  <entry>
+    <title>Premise Collision: When Poisoned and True Facts Collide</title>
+    <link href="https://snailsploit.com/ai-security/premise-collision/" rel="alternate" type="text/html"/>
+    <id>https://snailsploit.com/ai-security/premise-collision/</id>
+    <updated>2026-05-18T00:00:00+00:00</updated>
+    <published>2026-05-18T00:00:00+00:00</published>
+    <author><name>Kai Aizen</name><uri>https://snailsploit.com/about</uri></author>
+    <category term="ai-security"/>
+    <summary type="text">When a poisoned fact and the true record share a context window, the model arbitrates on weight, not truth. Measured: the poison wins 44 of 48.</summary>
   </entry>
 
   <entry>

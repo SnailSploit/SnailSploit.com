@@ -81,18 +81,9 @@
 /frameworks/aatmf             /aatmf                                                           301
 
 # ─────────────────────────────────────────────────────────────
-#  Tools — no per-tool pages on the new site, redirect each → /tools
+#  Tools — aliases for old slugs (per-tool pages now exist)
 # ─────────────────────────────────────────────────────────────
-/tools/burp-mcp               /tools                                                           301
-/tools/burp-mcp-toolkit       /tools                                                           301
-/tools/snailhunter            /tools                                                           301
-/tools/kuberoast              /tools                                                           301
-/tools/xposure                /tools                                                           301
-/tools/snailsploit-recon      /tools                                                           301
-/tools/snailpath              /tools                                                           301
-/tools/zenflood               /tools                                                           301
-/tools/snailobfuscator        /tools                                                           301
-/tools/awesome-snail-osint    /tools                                                           301
+/tools/burp-mcp               /tools/burp-mcp-toolkit/                                         301
 /tools/justdastit             /tools                                                           301
 
 # ─────────────────────────────────────────────────────────────
@@ -200,3 +191,13 @@
 /the-adversarial-ai-prompting-framework-understanding-and-mitigating-ai-safety-vulnerabilities   /aatmf   301
 /the-adversarial-ai-prompting-framework-understanding-and-mitigating-ai-safety-vulnerabilities/   /aatmf   301
 /agents.md   /llms.txt   301
+/security-research/cves/cve-2025-11174   /cves   301
+/security-research/cves/cve-2025-11174/   /cves   301
+
+# ── Bare directory 404 fixes (audit 2026-08-30) ──
+/security-research/cves/   /cves   301
+/security-research/cves    /cves   301
+/ai-security/wiki/attacks/   /wiki   301
+/ai-security/wiki/defenses/   /wiki   301
+/ai-security/wiki/concepts/   /wiki   301
+/ai-security/jailbreaking/inherent-ai-vulnerabilities/   /ai-security/jailbreaking/ai-inherent-vulnerability/   301

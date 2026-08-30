@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Advanced Container Escapes: Security Deep Dive | SnailSploit</title>
-<meta content="Deep technical analysis of container escape techniques — namespace breakouts, capability abuse, kernel exploits, and principle-based prevention strategies." name="description"/>
+<meta content="Deep analysis of container escape techniques: namespace breakouts, capability abuse, kernel exploits, and principle-based prevention." name="description"/>
 <meta content="Kai Aizen" name="author"/>
 <meta content="index, follow, max-image-preview:large, max-snippet:-1" name="robots"/>
 <link href="https://snailsploit.com/security-research/general/advanced-container-escapes/" rel="canonical"/>
@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="/css/article.css">
 <meta content="article" property="og:type"/>
 <meta content="Advanced Container Escapes: Security Deep Dive" property="og:title"/>
-<meta content="Deep technical analysis of container escape techniques — namespace breakouts, capability abuse, kernel exploits, and principle-based prevention strategies." property="og:description"/>
+<meta content="Deep analysis of container escape techniques: namespace breakouts, capability abuse, kernel exploits, and principle-based prevention." property="og:description"/>
 <meta content="https://snailsploit.com/security-research/general/advanced-container-escapes/" property="og:url"/>
 <meta content="SnailSploit" property="og:site_name"/>
 <meta property="og:image" content="https://snailsploit.com/og-images/security-research__general__advanced-container-escapes.png">
@@ -24,6 +24,7 @@
 <meta content="en_US" property="og:locale"/>
 <meta content="Kai Aizen" property="article:author"/>
 <meta content="2025-03-02" property="article:published_time"/>
+<meta content="2026-08-20" property="article:modified_time"/>
 <meta content="Security Research" property="article:section"/>
 <meta content="container escape" property="article:tag"/>
 <meta content="Docker breakout" property="article:tag"/>
@@ -33,9 +34,9 @@
 <meta content="@SnailSploit" name="twitter:site"/>
 <meta content="@SnailSploit" name="twitter:creator"/>
 <meta content="Advanced Container Escapes: Security Deep Dive" name="twitter:title"/>
-<meta content="Deep technical analysis of container escape techniques — namespace breakouts, capability abuse, kernel exploits, and principle-based prevention strategies." name="twitter:description"/>
+<meta content="Deep analysis of container escape techniques: namespace breakouts, capability abuse, kernel exploits, and principle-based prevention." name="twitter:description"/>
 <meta name="twitter:image" content="https://snailsploit.com/og-images/security-research__general__advanced-container-escapes.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","image":"https://snailsploit.com/og-square.png","alternateName":"The Jailbreak Chef","jobTitle":"Founder & Adversarial AI Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"TechArticle","headline":"Advanced Container Escapes: Security Deep Dive","description":"Deep technical analysis of container escape techniques \u2014 namespace breakouts, capability abuse, kernel exploits, and principle-based prevention strategies.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2025-03-02","dateModified":"2026-08-20","url":"https://snailsploit.com/security-research/general/advanced-container-escapes/","mainEntityOfPage":"https://snailsploit.com/security-research/general/advanced-container-escapes/","image":"https://snailsploit.com/og-images/security-research__general__advanced-container-escapes.png","wordCount":1671,"inLanguage":"en-US","keywords":"container escape, Docker breakout, container security, namespace escape, kernel exploit, container isolation"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":3,"name":"Infrastructure & AppSec","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":4,"name":"Advanced Container Escapes: Security Deep Dive","item":"https://snailsploit.com/security-research/general/advanced-container-escapes/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","image":"https://snailsploit.com/og-square.png","alternateName":"The Jailbreak Chef","jobTitle":"Founder & Adversarial AI Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"TechArticle","headline":"Advanced Container Escapes: Security Deep Dive","description":"Deep analysis of container escape techniques: namespace breakouts, capability abuse, kernel exploits, and principle-based prevention.","about":[{"@type":"DefinedTerm","name":"Adversarial AI","url":"https://snailsploit.com/ai-security/wiki/concepts/adversarial-ai/"}],"author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2025-03-02","dateModified":"2026-08-20","url":"https://snailsploit.com/security-research/general/advanced-container-escapes/","mainEntityOfPage":"https://snailsploit.com/security-research/general/advanced-container-escapes/","image":"https://snailsploit.com/og-images/security-research__general__advanced-container-escapes.png","isAccessibleForFree":true,"wordCount":1671,"inLanguage":"en-US","articleSection":"Security Research","keywords":"container escape, Docker breakout, container security, namespace escape, kernel exploit, container isolation"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":3,"name":"Infrastructure & AppSec","item":"https://snailsploit.com/security-research/general/"},{"@type":"ListItem","position":4,"name":"Advanced Container Escapes: Security Deep Dive","item":"https://snailsploit.com/security-research/general/advanced-container-escapes/"}]}]}</script>
 <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="/apple-touch-icon.png" rel="alternate icon" type="image/png"/>
 <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
@@ -75,13 +76,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header class="nav"><div class="nav-inner"><a class="wm" href="/">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research" aria-current="page">research</a></li><li><a href="/ai-security/">ai security</a></li><li><a href="/cves">cves</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li><li></li><li><a href="/contact">contact</a></li></ul></nav><div class="nav-utils"><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header><div id="main" tabindex="-1"></div>
 <section class="article-hero">
 <div class="article-hero-inner">
-<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/research">Infrastructure &amp; AppSec</a><span class="sep">/</span><span>Advanced Container Escapes: Security Deep Dive</span></div>
+<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/security-research/general/">Infrastructure &amp; AppSec</a><span class="sep">/</span><span>Advanced Container Escapes: Security Deep Dive</span></div>
 <div class="article-meta">
 <time datetime="2025-03-02">2025-03-02</time>
 <span>8 min read</span>
 </div>
 <h1 class="article-h1">Advanced Container Escapes: Security Deep Dive</h1>
-<p class="article-lede">Deep technical analysis of container escape techniques — namespace breakouts, capability abuse, kernel exploits, and principle-based prevention strategies.</p>
+<p class="article-lede">Deep analysis of container escape techniques: namespace breakouts, capability abuse, kernel exploits, and principle-based prevention.</p>
 </div>
 </section>
 <div class="article-layout">

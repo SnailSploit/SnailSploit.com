@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Rate Limiting | AI Security Wiki | SnailSploit</title>
-<meta content="Rate limiting controls request frequency to AI systems, protecting against model extraction, denial of service, brute-force, and exploitation attempts." name="description"/>
+<title>Rate Limiting for AI Systems | AI Security Wiki | SnailSploit</title>
+<meta content="Why traditional rate limiting fails against AI attacks — token draining, identity rotation, and semantic evasion. Bypass techniques and defenses." name="description"/>
 <meta content="Kai Aizen" name="author"/>
 <meta content="index, follow, max-image-preview:large, max-snippet:-1" name="robots"/>
 <link href="https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/" rel="canonical"/>
@@ -14,8 +14,8 @@
 <link rel="preload" href="/css/article.css" as="style">
 <link rel="stylesheet" href="/css/article.css">
 <meta content="article" property="og:type"/>
-<meta content="Rate Limiting | AI Security Wiki" property="og:title"/>
-<meta content="Rate limiting controls request frequency to AI systems, protecting against model extraction, denial of service, brute-force, and exploitation attempts." property="og:description"/>
+<meta content="Rate Limiting for AI Systems | AI Security Wiki" property="og:title"/>
+<meta content="Why traditional rate limiting fails against AI attacks — token draining, identity rotation, and semantic evasion. Bypass techniques and defenses." property="og:description"/>
 <meta content="https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/" property="og:url"/>
 <meta content="SnailSploit" property="og:site_name"/>
 <meta property="og:image" content="https://snailsploit.com/og-images/ai-security__wiki__defenses__rate-limiting.png">
@@ -23,19 +23,23 @@
 <meta content="630" property="og:image:height"/>
 <meta content="en_US" property="og:locale"/>
 <meta content="Kai Aizen" property="article:author"/>
-<meta content="2026-01-01" property="article:published_time"/>
+<meta content="2025-08-05" property="article:published_time"/>
 <meta content="AI Security Wiki" property="article:section"/>
 <meta content="rate limiting" property="article:tag"/>
-<meta content="API throttling" property="article:tag"/>
-<meta content="abuse prevention" property="article:tag"/>
-<meta content="request limiting" property="article:tag"/>
+<meta content="AI defense" property="article:tag"/>
+<meta content="denial of wallet" property="article:tag"/>
+<meta content="API security" property="article:tag"/>
+<meta content="token exhaustion" property="article:tag"/>
+<meta content="agentic AI" property="article:tag"/>
+<meta content="AATMF T5" property="article:tag"/>
+<meta content="AATMF T14" property="article:tag"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="@SnailSploit" name="twitter:site"/>
 <meta content="@SnailSploit" name="twitter:creator"/>
-<meta content="Rate Limiting | AI Security Wiki" name="twitter:title"/>
-<meta content="Rate limiting controls request frequency to AI systems, protecting against model extraction, denial of service, brute-force, and exploitation attempts." name="twitter:description"/>
+<meta content="Rate Limiting for AI Systems | AI Security Wiki" name="twitter:title"/>
+<meta content="Why traditional rate limiting fails against AI attacks — token draining, identity rotation, and semantic evasion. Bypass techniques and defenses." name="twitter:description"/>
 <meta name="twitter:image" content="https://snailsploit.com/og-images/ai-security__wiki__defenses__rate-limiting.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","image":"https://snailsploit.com/og-square.png","alternateName":"The Jailbreak Chef","jobTitle":"Founder & Adversarial AI Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"Article","headline":"Rate Limiting | AI Security Wiki","description":"Rate limiting controls request frequency to AI systems, protecting against model extraction, denial of service, brute-force, and exploitation attempts.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-01-01","dateModified":"2026-08-20","url":"https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/","mainEntityOfPage":"https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/","image":"https://snailsploit.com/og-images/ai-security__wiki__defenses__rate-limiting.png","wordCount":862,"inLanguage":"en-US","keywords":"rate limiting, API throttling, abuse prevention, request limiting, AI API protection"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":3,"name":"Wiki","item":"https://snailsploit.com/wiki"},{"@type":"ListItem","position":4,"name":"Defenses","item":"https://snailsploit.com/wiki"},{"@type":"ListItem","position":5,"name":"Rate Limiting | AI Security Wiki","item":"https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is AI rate limiting?","acceptedAnswer":{"@type":"Answer","text":"Rate limiting for AI systems controls the volume, token consumption, and action rate of requests reaching the model. Unlike traditional API rate limiting (which counts requests), AI rate limiting must account for variable compute cost per request, agent-driven tool chains, and per-token pricing."}},{"@type":"Question","name":"What is denial of wallet (DoW)?","acceptedAnswer":{"@type":"Answer","text":"An attack that exploits per-token pricing to generate unsustainable costs. The attacker crafts prompts that maximize token consumption while staying under request-count limits. The target isn't availability — it's the organization's AI budget."}},{"@type":"Question","name":"Can rate limiting prevent prompt injection?","acceptedAnswer":{"@type":"Answer","text":"No. Prompt injection is a single-request attack — one well-crafted prompt bypasses rate limits entirely. Rate limiting can slow the *consequences* of a successful injection (by limiting tool calls per minute), but it can't prevent the injection itself. Defense-in-depth with input validation and guardrails is required."}},{"@type":"Question","name":"What's the difference between rate limiting and throttling?","acceptedAnswer":{"@type":"Answer","text":"Rate limiting sets hard caps and rejects requests beyond the limit (HTTP 429). Throttling slows requests down and queues them to manage load. Both are needed — rate limiting for security, throttling for quality of service."}},{"@type":"Question","name":"How should rate limits be set for AI agents?","acceptedAnswer":{"@type":"Answer","text":"At three levels: user-level baseline (total tokens per hour), agent-level role-specific limits (tool calls per minute, token budget per execution), and function-level caps on high-risk actions (send_email: 2/minute regardless of user tier). The most critical limit is on high-risk actions."}}]},{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","image":"https://snailsploit.com/og-square.png","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"],"alternateName":"The Jailbreak Chef","jobTitle":"Founder & Adversarial AI Researcher"},{"@type":"TechArticle","headline":"Rate Limiting for AI Systems","description":"Why traditional rate limiting fails against AI attacks — token draining, identity rotation, and semantic evasion. Bypass techniques and defenses.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2025-08-05","dateModified":"2026-08-30","url":"https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/","mainEntityOfPage":"https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/","image":"https://snailsploit.com/og-images/ai-security__wiki__defenses__rate-limiting.png","wordCount":2806,"inLanguage":"en-US","keywords":"rate limiting, AI defense, denial of wallet, API security, token exhaustion, agentic AI, AATMF T5, AATMF T14","articleSection":"AI Security Wiki"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"AI Security","item":"https://snailsploit.com/ai-security/"},{"@type":"ListItem","position":3,"name":"Wiki","item":"https://snailsploit.com/ai-security/wiki/"},{"@type":"ListItem","position":4,"name":"Defenses","item":"https://snailsploit.com/ai-security/wiki/defenses/"},{"@type":"ListItem","position":5,"name":"Rate Limiting for AI Systems","item":"https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/"}]}]}</script>
 <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="/apple-touch-icon.png" rel="alternate icon" type="image/png"/>
 <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
@@ -46,11 +50,7 @@
 <meta content="dark" name="color-scheme"/>
 <link href="/rss.xml" rel="alternate" title="snailsploit research" type="application/rss+xml"/>
 <link href="/feed.xml" rel="alternate" title="snailsploit research" type="application/atom+xml"/>
-<!-- cf-beacon: add real token to enable -->
   <link rel="stylesheet" href="/css/responsive.css">
-
-
-  <!-- gtm:head:start -->
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -58,31 +58,28 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-KNQQ58JL');</script>
   <!-- End Google Tag Manager -->
-  <!-- gtm:head:end -->
 <link rel="stylesheet" href="/mobile.css">
 <link rel="stylesheet" href="/ui.css?v=20260823">
 <style>.ss-skip{position:fixed;left:8px;top:-64px;z-index:10000;background:var(--signal-2,#E07A4A);color:var(--bg,#0E0E0F);padding:10px 16px;font-family:system-ui,-apple-system,sans-serif;font-weight:600;font-size:14px;line-height:1;text-decoration:none;border-radius:4px;transition:top .15s ease}.ss-skip:focus{top:8px;outline:2px solid #fff;outline-offset:2px}</style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DefinedTerm", "name": "Rate Limiting", "description": "Rate limiting controls request frequency to AI systems, protecting against model extraction, denial of service, brute-force, and exploitation attempts.", "inDefinedTermSet": {"@type": "DefinedTermSet", "name": "Adversarial AI Reference", "url": "https://snailsploit.com/wiki"}, "url": "https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Rate Limiting for AI Systems","description":"Why traditional rate limiting fails against AI attacks — token draining, identity rotation, and semantic evasion. Bypass techniques and defenses.","inDefinedTermSet":{"@type":"DefinedTermSet","name":"Adversarial AI Reference","url":"https://snailsploit.com/wiki"},"url":"https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/"}</script>
 </head>
 <body>
 <a class="ss-skip" href="#main">Skip to content</a>
-<!-- gtm:body:start -->
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQQ58JL"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<!-- gtm:body:end -->
 
 <header class="nav"><div class="nav-inner"><a class="wm" href="/">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/ai-security/">ai security</a></li><li><a href="/cves">cves</a></li><li><a href="/wiki" aria-current="page">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li><li></li><li><a href="/contact">contact</a></li></ul></nav><div class="nav-utils"><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header><div id="main" tabindex="-1"></div>
 <section class="article-hero">
 <div class="article-hero-inner">
-<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/wiki">Wiki</a><span class="sep">/</span><a href="/wiki">Defenses</a><span class="sep">/</span><span>Rate Limiting | AI Security Wiki</span></div>
+<div class="crumbs"><a href="https://snailsploit.com/">Home</a><span class="sep">/</span><a href="https://snailsploit.com/ai-security/">AI Security</a><span class="sep">/</span><a href="https://snailsploit.com/ai-security/wiki/">Wiki</a><span class="sep">/</span><a href="/ai-security/wiki/defenses/">Defenses</a><span class="sep">/</span><span>Rate Limiting for AI Systems</span></div>
 <div class="article-meta">
-<time datetime="2026-01-01">2026-01-01</time>
-<span>4 min read</span>
+<time datetime="2025-08-05">2025-08-05</time>
+<span>15 min read</span>
 </div>
-<h1 class="article-h1">Rate Limiting | AI Security Wiki</h1>
-<p class="article-lede">Rate limiting controls request frequency to AI systems, protecting against model extraction, denial of service, brute-force, and exploitation attempts.</p>
+<h1 class="article-h1">Rate Limiting for AI Systems | AI Security Wiki</h1>
+<p class="article-lede">Why traditional rate limiting fails against AI attacks — token draining, identity rotation, and semantic evasion. Bypass techniques and defenses.</p>
 </div>
 </section>
 <div class="article-layout">
@@ -91,152 +88,344 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- tldr:start -->
   <div style="margin:0 0 32px;padding:20px 24px;border:1px solid var(--signal-2);background:color-mix(in srgb,var(--signal-2) 6%,var(--bg-raise));border-left-width:3px;font-family:var(--f-mono);font-size:14px;line-height:1.6;color:var(--fg)">
     <div style="font-size:10px;color:var(--signal-2);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:8px;font-weight:500">TL;DR</div>
-    <div>Rate limitingfor AI systems controls how frequently users or applications can query the model, preventing abuse through excessive requests.</div>
+    <div>Why traditional rate limiting fails against AI attacks — token draining, identity rotation, and semantic evasion. Bypass techniques and defenses.</div>
   </div>
   <!-- tldr:end -->
- <div> <!-- Header --> <!-- Content --> <div> <h2 id="definition">Definition</h2> <p> <strong>Rate limiting</strong> for AI systems controls how frequently users or applications can query the model, preventing abuse through excessive requests. While conceptually similar to traditional API rate limiting, AI-specific rate limiting must account for the unique threats against ML systems, including extraction attacks that require many queries to succeed.
-</p> <p>
-Effective rate limiting doesn't just prevent denial of service—it raises the economic cost of attacks that rely on systematic querying, making model extraction and training data extraction significantly harder.
-</p> <hr/> <h2 id="ai-specific-threats-addressed">AI-Specific Threats Addressed</h2> <h3 id="model-extraction">Model Extraction</h3> <p>
-Stealing model functionality requires thousands to millions of queries to build a surrogate model. Rate limiting makes this:
-</p> <ul> <li>Time-consuming (weeks/months instead of hours)</li> <li>Expensive (API costs for distributed attacks)</li> <li>Detectable (sustained high-volume patterns)</li> </ul> <h3 id="training-data-extraction">Training Data Extraction</h3> <p>
-Extracting memorized training data requires diverse prompts and sampling. Limits on:
-</p> <ul> <li>Requests per time window</li> <li>High-temperature generations</li> <li>Completion length</li> </ul> <h3 id="systematic-jailbreak-attempts">Systematic Jailbreak Attempts</h3> <p>
-Automated jailbreak discovery requires testing many prompt variations. Rate limiting slows adversarial prompt search.
-</p> <h3 id="cost-amplification-dos">Cost Amplification (DoS)</h3> <p>
-AI inference is computationally expensive. Attackers can cause financial damage through:
-</p> <ul> <li>Long input/output sequences consuming GPU time</li> <li>Complex reasoning tasks requiring multiple inference passes</li> <li>Batch requests overwhelming infrastructure</li> </ul> <hr/> <h2 id="rate-limiting-strategies">Rate Limiting Strategies</h2> <h3 id="request-based-limits">Request-Based Limits</h3> <pre><code># Simple request counting
-class RequestRateLimiter:
-    def __init__(self, max_requests: int, window_seconds: int):
-        self.max_requests = max_requests
-        self.window_seconds = window_seconds
-        self.requests = defaultdict(list)
-
-    def allow_request(self, user_id: str) -&gt; bool:
-        now = time.time()
-        window_start = now - self.window_seconds
-
-        # Clean old requests
-        self.requests[user_id] = [
-            t for t in self.requests[user_id]
-            if t &gt; window_start
-        ]
-
-        if len(self.requests[user_id]) &gt;= self.max_requests:
-            return False
-
-        self.requests[user_id].append(now)
-        return True
-
-# Example: 100 requests per minute
-limiter = RequestRateLimiter(max_requests=100, window_seconds=60)</code></pre> <h3 id="token-based-limits">Token-Based Limits</h3> <p>More granular control accounting for request complexity:</p> <pre><code>class TokenRateLimiter:
-    def __init__(self, max_tokens: int, window_seconds: int):
-        self.max_tokens = max_tokens
-        self.window_seconds = window_seconds
-        self.usage = defaultdict(list)
-
-    def allow_request(self, user_id: str, estimated_tokens: int) -&gt; bool:
-        now = time.time()
-        window_start = now - self.window_seconds
-
-        # Calculate tokens used in window
-        recent_usage = [
-            (t, tokens) for t, tokens in self.usage[user_id]
-            if t &gt; window_start
-        ]
-        total_tokens = sum(tokens for _, tokens in recent_usage)
-
-        if total_tokens + estimated_tokens &gt; self.max_tokens:
-            return False
-
-        self.usage[user_id].append((now, estimated_tokens))
-        return True
-
-# Example: 100K tokens per hour
-token_limiter = TokenRateLimiter(max_tokens=100000, window_seconds=3600)</code></pre> <h3 id="cost-based-limits">Cost-Based Limits</h3> <pre><code>class CostBasedLimiter:
-    """Limit based on actual compute cost"""
-
-    def __init__(self, max_cost_per_day: float):
-        self.max_cost = max_cost_per_day
-        self.daily_costs = defaultdict(float)
-
-    def track_cost(self, user_id: str, input_tokens: int, output_tokens: int):
-        # Example pricing (adjust to actual costs)
-        cost = (input_tokens * 0.00001) + (output_tokens * 0.00003)
-        self.daily_costs[user_id] += cost
-
-    def allow_request(self, user_id: str) -&gt; bool:
-        return self.daily_costs[user_id] &lt; self.max_cost</code></pre> <h3 id="behavioral-limits">Behavioral Limits</h3> <p>Limits based on usage patterns rather than raw counts:</p> <ul> <li><strong>Burst detection</strong> — Flag sudden increases in request rate</li> <li><strong>Diversity scoring</strong> — Limit users making highly similar requests</li> <li><strong>Session limits</strong> — Cap total queries per conversation/session</li> <li><strong>Entropy monitoring</strong> — Flag suspiciously systematic query patterns</li> </ul> <hr/> <h2 id="implementation-architecture">Implementation Architecture</h2> <h3 id="layered-rate-limiting">Layered Rate Limiting</h3> <pre><code>┌─────────────────────────────────────────────────────────┐
-│                    CDN/Edge Layer                        │
-│              Global rate limits, DDoS protection         │
-└────────────────────────┬────────────────────────────────┘
-                         ▼
-┌─────────────────────────────────────────────────────────┐
-│                  API Gateway Layer                       │
-│         Per-user/API-key rate limits                     │
-│         Authentication, request validation               │
-└────────────────────────┬────────────────────────────────┘
-                         ▼
-┌─────────────────────────────────────────────────────────┐
-│                Application Layer                         │
-│         Token/cost-based limits                          │
-│         Behavioral analysis                              │
-│         Model-specific limits                            │
-└────────────────────────┬────────────────────────────────┘
-                         ▼
-┌─────────────────────────────────────────────────────────┐
-│                   Model Layer                            │
-│         Queue management                                 │
-│         Priority scheduling                              │
-└─────────────────────────────────────────────────────────┘</code></pre> <h3 id="distributed-rate-limiting">Distributed Rate Limiting</h3> <pre><code># Redis-based distributed rate limiter
-import redis
-
-class DistributedRateLimiter:
-    def __init__(self, redis_client: redis.Redis):
-        self.redis = redis_client
-
-    def allow_request(self, user_id: str, limit: int, window: int) -&gt; bool:
-        key = f"ratelimit:{user_id}"
-        pipe = self.redis.pipeline()
-
-        now = time.time()
-        window_start = now - window
-
-        # Remove old entries
-        pipe.zremrangebyscore(key, 0, window_start)
-        # Count current entries
-        pipe.zcard(key)
-        # Add new entry
-        pipe.zadd(key, {str(now): now})
-        # Set expiry
-        pipe.expire(key, window)
-
-        _, count, _, _ = pipe.execute()
-
-        return count &lt; limit</code></pre> <hr/> <h2 id="evasion-and-countermeasures">Evasion and Countermeasures</h2> <h3 id="common-evasion-techniques">Common Evasion Techniques</h3> <table> <thead> <tr> <th>Technique</th> <th>Method</th> <th>Countermeasure</th> </tr> </thead> <tbody> <tr> <td>Account rotation</td> <td>Multiple accounts</td> <td>Device fingerprinting, payment verification</td> </tr> <tr> <td>IP rotation</td> <td>Proxies, VPNs</td> <td>Account-based limits, behavior analysis</td> </tr> <tr> <td>Slow and low</td> <td>Stay under thresholds</td> <td>Aggregate limits, anomaly detection</td> </tr> <tr> <td>Distributed attacks</td> <td>Botnet distribution</td> <td>Global rate limits, ML detection</td> </tr> </tbody> </table> <h3 id="adaptive-rate-limiting">Adaptive Rate Limiting</h3> <pre><code>class AdaptiveRateLimiter:
-    def __init__(self):
-        self.base_limits = {"requests_per_min": 60}
-        self.user_scores = defaultdict(lambda: 1.0)
-
-    def get_limit(self, user_id: str) -&gt; int:
-        """Adjust limits based on trust score"""
-        score = self.user_scores[user_id]
-        return int(self.base_limits["requests_per_min"] * score)
-
-    def update_score(self, user_id: str, behavior: dict):
-        """Adjust trust based on behavior"""
-        if behavior.get("suspicious_patterns"):
-            self.user_scores[user_id] *= 0.5  # Reduce limit
-        elif behavior.get("good_standing"):
-            self.user_scores[user_id] = min(2.0, self.user_scores[user_id] * 1.1)</code></pre> <hr/> <h2 id="best-practices">Best Practices</h2> <ul> <li><strong>Multiple limit types</strong> — Combine requests, tokens, and cost limits</li> <li><strong>Graceful degradation</strong> — Queue requests rather than hard reject where possible</li> <li><strong>Clear communication</strong> — Return rate limit headers (X-RateLimit-*)</li> <li><strong>Tier-based limits</strong> — Different limits for different user tiers</li> <li><strong>Monitor and adjust</strong> — Track legitimate vs. abusive patterns</li> <li><strong>Log everything</strong> — Enable forensic analysis of attacks</li> </ul> <hr/> <h2 id="references">References</h2> <ul> <li>MITRE (2023). "AML.M0004: Restrict Number of ML Model Queries." ATLAS Framework.</li> <li>OWASP (2023). "Rate Limiting." API Security Top 10.</li> <li>Tramèr, F. et al. (2016). "Stealing Machine Learning Models via Prediction APIs." USENIX Security.</li> </ul> </div> <!-- Framework Mappings --> <div> <h3 id="framework-mappings">Framework Mappings</h3> <div> <table> <thead> <tr> <th>Framework</th> <th>Reference</th> </tr> </thead> <tbody> <tr> <td>MITRE ATLAS</td> <td>AML.M0004: Restrict Number of ML Model Queries</td> </tr><tr> <td>OWASP LLM Top 10</td> <td>LLM04: Model Denial of Service (Mitigation)</td> </tr><tr> <td>NIST CSF</td> <td>PR.PT-4: Communications protection</td> </tr> </tbody> </table> </div> </div> <!-- Related Entries --> <div> <h3 id="related-entries">Related Entries</h3> <div> <a href="../../attacks/model-extraction/index.html"> <span> Model Extraction </span> <span>→</span> </a><a href="../input-validation/index.html"> <span> Input Validation </span> <span>→</span> </a><a href="../../attacks/training-data-extraction/index.html"> <span> Training Data Extraction </span> <span>→</span> </a><a href="../guardrails/index.html"> <span> Guardrails </span> <span>→</span> </a> </div> </div> <!-- Citation --> <div> <h3 id="citation">Citation</h3> <blockquote>
-Aizen, K. (2025). "Rate Limiting." AI Security Wiki, snailsploit.com. Retrieved from https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/ </blockquote> </div> <!-- Navigation --> <div> <a href="/wiki">
-← Back to Defenses </a> <a href="/wiki">
-Wiki Index
-</a> </div> </div> </div>
+ <div> <div id="article-content"><h1>Rate Limiting for AI Systems</h1>
+<p><strong>Why traditional rate limiting fails against AI attacks — token draining, identity rotation, and semantic evasion. Bypass techniques and defenses.</strong></p>
+<p>Rate limiting controls the volume of requests reaching an AI system. It is a necessary defense — and a predictably bypassable one. Traditional API rate limiting (requests per minute per IP) was designed for stateless, fixed-cost endpoints. AI systems break every assumption it relies on: requests have variable cost, sessions accumulate state, agents trigger unbounded tool chains, and a single prompt can consume 100x the compute of another.</p>
+<p>This page covers what rate limiting protects against, what it doesn&#39;t, how attackers bypass it, and what AI-specific rate limiting actually requires.</p>
+<h2 id="what-rate-limiting-protects-against">What Rate Limiting Protects Against</h2>
+<p>Rate limiting is effective against volume-dependent attacks where the attacker needs many requests to succeed:</p>
+<p><strong>Model extraction:</strong> Systematically querying a model to reconstruct its capabilities requires thousands to millions of queries. Rate limiting makes extraction slower and more expensive, though it doesn&#39;t prevent it.</p>
+<p><strong>Brute-force prompt injection:</strong> Automated tools that spray variations of prompt injection payloads rely on high request volume. Per-IP and per-key rate limits force attackers to distribute across identities.</p>
+<p><strong>Denial of service:</strong> Flooding an AI endpoint with requests to exhaust compute resources or trigger autoscaling costs. Rate limiting caps the maximum resource consumption per identity per time window.</p>
+<p><strong>Training data extraction:</strong> Probing a model to extract memorized training data requires repeated queries with carefully varied inputs. Rate limiting slows the extraction rate.</p>
+<h2 id="how-attackers-bypass-ai-rate-limiting">How Attackers Bypass AI Rate Limiting</h2>
+<h3 id="identity-rotation">Identity Rotation</h3>
+<p>Rate limits are enforced per-identity: IP address, API key, session token, or user account. Rotate the identity faster than the rate limit window resets, and the limit never triggers.</p>
+<p><strong>IP rotation</strong> — a residential proxy pool of 1,000 IPs reduces effective rate per IP to 1/1000th of actual volume. Cost: ~$50/month. Defeats any IP-based rate limit.</p>
+<p><strong>API key rotation</strong> — if the service allows self-service key creation, create 100 keys and distribute requests. Each key stays under the per-key limit. Total volume: 100x.</p>
+<p><strong>Session rotation</strong> — stateless AI APIs are particularly vulnerable. Each request is independent; open a new session per burst and rotate.</p>
+<p>Per-identity rate limits are a speed bump. Effective defense requires aggregate monitoring across identities — total volume from a subnet, total token consumption across all keys for an organization, behavioral anomaly detection across coordinated low-rate requests.</p>
+<h3 id="token-draining-denial-of-wallet">Token Draining (Denial of Wallet)</h3>
+<p>Traditional rate limiting counts requests. AI systems have a second dimension: <strong>token consumption per request</strong>. A single request generating 4,096 tokens consumes 50x the compute of one generating 80 tokens.</p>
+<p>The bypass: craft prompts that maximize output token consumption while staying under the request-count limit. &quot;Explain in exhaustive detail,&quot; &quot;list every possible example,&quot; &quot;write a comprehensive analysis.&quot; Each request is within the limit. Aggregate compute cost exceeds what the limit was designed to protect.</p>
+<p>This is the <strong>Denial of Wallet (DoW)</strong> attack. The target isn&#39;t availability — it&#39;s the organization&#39;s API budget. A single unconstrained agent in a recursive loop generates hundreds of thousands of tokens in minutes, translating directly to cloud bills.</p>
+<p>Rate limiting must include token-based limits (input + output tokens per window), not just request counts. Per-request token caps should be set at the API gateway.</p>
+<h3 id="semantic-throttle-evasion">Semantic Throttle Evasion</h3>
+<p>Some AI systems implement semantic rate limiting — detecting and throttling similar requests. The bypass: rephrase the same request differently each time.</p>
+<p>Ask the same question 100 ways. Each phrasing is embedding-distant enough to bypass similarity detection, but the extracted information is identical. This is standard technique for model extraction: systematically query the model using adversarial paraphrasing to evade detection.</p>
+<p>Embedding-based similarity catches naive rephrasing but fails against adversarially crafted paraphrases designed to be semantically equivalent but representation-distant.</p>
+<h3 id="multi-channel-inconsistency">Multi-Channel Inconsistency</h3>
+<p>Organizations expose the same AI system through multiple channels: web interface, mobile app, API, internal tools, third-party integrations. Rate limits are frequently inconsistent across channels.</p>
+<p>The bypass: identify the channel with the weakest rate limiting and route all requests through it. In enterprise assessments, internal tools are consistently the weakest — designed for trusted employees, rarely rate-limited like customer-facing endpoints.</p>
+<h2 id="what-rate-limiting-cannot-protect-against">What Rate Limiting Cannot Protect Against</h2>
+<p>Rate limiting is a perimeter defense. It controls request volume. It does <strong>not</strong> protect against:</p>
+<p><strong>Single-request attacks.</strong> One prompt injection, one jailbreak, one data exfiltration query. The most impactful AI attacks require a single well-crafted request. Rate limits don&#39;t trigger on one request.</p>
+<p><strong>Indirect injection.</strong> Adversarial instructions in retrieved documents, tool descriptions, or memory entries arrive through trusted channels, not user-facing endpoints. They never hit the rate limiter.</p>
+<p><strong>Low-and-slow extraction.</strong> One carefully crafted request per day, extracting a small amount of training data each time. Over weeks, significant cumulative extraction. Permanently under any reasonable limit.</p>
+<p><strong>Insider threats.</strong> Authorized users operating within their rate limits can exfiltrate data, poison feedback, or manipulate model behavior. Rate limiting distinguishes volume, not intent.</p>
+<h2 id="ai-specific-rate-limiting-requirements">AI-Specific Rate Limiting Requirements</h2>
+<p>Traditional API rate limiting is insufficient for AI systems. Effective AI rate limiting must address dimensions that don&#39;t exist in traditional APIs:</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Traditional API</th>
+<th>AI Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Request count</td>
+<td>Standard</td>
+<td>Necessary but insufficient</td>
+</tr>
+<tr>
+<td>Token consumption</td>
+<td>Not applicable</td>
+<td>Input + output tokens per window</td>
+</tr>
+<tr>
+<td>Compute cost</td>
+<td>Fixed per request</td>
+<td>Variable — reasoning models cost 10-100x more</td>
+</tr>
+<tr>
+<td>Session depth</td>
+<td>Stateless</td>
+<td>Multi-turn conversations accumulate cost</td>
+</tr>
+<tr>
+<td>Tool invocations</td>
+<td>Not applicable</td>
+<td>Agents trigger unlimited tool calls per request</td>
+</tr>
+<tr>
+<td>Retrieval queries</td>
+<td>Not applicable</td>
+<td>RAG systems issue N retrieval queries per user query</td>
+</tr>
+<tr>
+<td>Feedback signals</td>
+<td>Not applicable</td>
+<td>RLHF manipulation requires sustained feedback</td>
+</tr>
+</tbody></table>
+<h3 id="per-agent-rate-limiting">Per-Agent Rate Limiting</h3>
+<p>For agentic AI systems, rate limits must apply at the <strong>agent level</strong>, not just the user level. A single user request can trigger an agent that makes 50 tool calls, 200 retrieval queries, and generates 100,000 tokens before returning a response. User-level rate limiting sees one request. Agent-level rate limiting sees the actual resource consumption.</p>
+<p>The most critical rate limit for agentic systems is on <strong>high-risk actions</strong>: <code>send_email</code>, <code>delete_file</code>, <code>make_payment</code>, <code>execute_code</code>, <code>write_to_database</code>. Aggressive per-minute caps on these actions regardless of user tier, because a compromised agent will attempt them at maximum speed.</p>
+<h3 id="token-budget-architecture">Token Budget Architecture</h3>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│  USER-LEVEL BUDGET                                  │
+│  ├─ Requests/minute: 60                             │
+│  ├─ Input tokens/hour: 100,000                      │
+│  └─ Output tokens/hour: 200,000                     │
+├─────────────────────────────────────────────────────┤
+│  AGENT-LEVEL BUDGET (per agent instance)            │
+│  ├─ Tool calls/minute: 20                           │
+│  ├─ High-risk actions/minute: 2                     │
+│  ├─ Retrieval queries/minute: 30                    │
+│  └─ Total tokens/execution: 500,000                 │
+├─────────────────────────────────────────────────────┤
+│  ORGANIZATION-LEVEL BUDGET                          │
+│  ├─ Total spend/day: $500 hard cap                  │
+│  ├─ Aggregate tokens/hour: 10,000,000               │
+│  └─ Anomaly threshold: 3σ from 7-day baseline       │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+<h2 id="detection-engineering">Detection Engineering</h2>
+<p>Rate limit events are detection inputs, not just throttling events:</p>
+<p><strong>Burst-then-pause pattern:</strong> Attacker hits rate limit, pauses, resumes at just-below-limit rate. Likely automated extraction.</p>
+<p><strong>Distributed low-rate from correlated IPs:</strong> Multiple IPs from the same subnet or ASN, each under the limit, querying the same endpoint. Likely coordinated attack.</p>
+<p><strong>Token-to-request ratio anomaly:</strong> Requests averaging &gt;2,000 output tokens when baseline is 200. Likely DoW or verbose extraction attempt.</p>
+<p><strong>Rate limit hits on high-risk tool calls:</strong> Any rate limit event on <code>execute_code</code>, <code>send_email</code>, or file operations. Immediate investigation.</p>
+<p><strong>Sustained maximum-rate usage:</strong> Legitimate users have variable usage patterns. Sustained maximum-rate consumption from a single identity suggests automated operation.</p>
+<h2 id="aatmf-technique-mapping">AATMF Technique Mapping</h2>
+<p>Rate limiting is a defensive control that appears across multiple AATMF tactics — as a mitigation and as a bypass target.</p>
+<p><strong>Attacks rate limiting mitigates:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Description</th>
+<th>Mitigation Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T5-AT-008</td>
+<td>Token budget exhaustion (DoW)</td>
+<td>Caps maximum token consumption</td>
+</tr>
+<tr>
+<td>T5-AT-012</td>
+<td>Model fingerprinting via systematic querying</td>
+<td>Slows fingerprinting campaigns</td>
+</tr>
+<tr>
+<td>T10-AT-003</td>
+<td>Training data extraction via repeated probing</td>
+<td>Makes extraction slower and noisier</td>
+</tr>
+<tr>
+<td>T10-AT-005</td>
+<td>Membership inference attacks</td>
+<td>Limits query volume for inference</td>
+</tr>
+<tr>
+<td>T14-AT-001</td>
+<td>Compute denial attacks</td>
+<td>Prevents resource exhaustion</td>
+</tr>
+</tbody></table>
+<p><strong>Attacks that bypass or don&#39;t trigger rate limiting:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Description</th>
+<th>Why Rate Limiting Fails</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T1 (all)</td>
+<td>Single-request prompt injection</td>
+<td>One request, under any limit</td>
+</tr>
+<tr>
+<td>T4-AT-003</td>
+<td>Memory poisoning</td>
+<td>One write per session</td>
+</tr>
+<tr>
+<td>T11-AT-005</td>
+<td>Tool poisoning</td>
+<td>Single malicious tool description</td>
+</tr>
+<tr>
+<td>T12-AT-001</td>
+<td>RAG corpus injection</td>
+<td>Write channel, not query channel</td>
+</tr>
+<tr>
+<td>T7-AT-002</td>
+<td>Gradual data extraction</td>
+<td>Low-and-slow, under any limit</td>
+</tr>
+</tbody></table>
+<p><strong>AATMF-R risk adjustment:</strong> Rate limiting reduces Exploitability (E) by 1–2 points for volume-dependent attacks (T5, T10, T14) but has zero effect on single-request attacks (T1, T4, T11, T12). Defense-in-depth is mandatory.</p>
+<h2 id="rate-limiting-in-context">Rate Limiting in Context</h2>
+<p>Rate limiting is one layer in a defense architecture. It pairs with — but cannot replace — these complementary controls:</p>
+<ul>
+<li><a href="https://snailsploit.com/ai-security/wiki/defenses/input-validation/">Input Validation</a> — filters malicious content before it reaches the model</li>
+<li><a href="https://snailsploit.com/ai-security/wiki/defenses/guardrails/">Guardrails</a> — behavioral constraints enforced at the model layer</li>
+<li><a href="https://snailsploit.com/ai-security/wiki/defenses/output-filtering/">Output Filtering</a> — catches exfiltration and harmful content in responses</li>
+<li><a href="https://snailsploit.com/ai-security/ai-gateway-threat-model/">AI Gateway Threat Model</a> — the infrastructure layer where rate limiting lives</li>
+</ul>
+<h2 id="references">References</h2>
+<ol>
+<li>OWASP. <em>LLM10: Model Denial of Service.</em> <a href="https://genai.owasp.org">genai.owasp.org</a></li>
+<li>OWASP. <em>API Security Top 10.</em> <a href="https://owasp.org/API-Security/">owasp.org</a></li>
+<li>Aizen, K. (2026). <em>AI Gateway Threat Model: 8 Attack Vectors.</em> <a href="https://snailsploit.com/ai-security/ai-gateway-threat-model/">snailsploit.com</a></li>
+<li>Aizen, K. (2026). <em>AATMF v3.</em> <a href="https://github.com/SnailSploit/AATMF-Adversarial-AI-Threat-Modeling-Framework">GitHub</a></li>
+<li>NeuralTrust. (2026). <em>Rate Limiting &amp; Throttling for AI Agents.</em> neuraltrust.ai</li>
+</ol>
+<h2 id="advanced-bypass-recursive-prompting-and-prompt-bombs">Advanced Bypass: Recursive Prompting and Prompt Bombs</h2>
+<p>Beyond the four bypass classes above, two AI-specific techniques deserve separate treatment because they exploit the model itself, not just the rate limiting infrastructure.</p>
+<h3 id="recursive-prompting-exponential-token-growth">Recursive Prompting (Exponential Token Growth)</h3>
+<p>In agentic systems, a crafted input can cause the model to enter a loop where its own output becomes the input for the next query. Each iteration generates tokens, and the total consumption grows exponentially. A single malicious prompt triggers an unbounded chain of self-referencing queries that drains the token budget without any external request volume.</p>
+<p>This is distinct from request flooding — the rate limiter sees one initial request. The exponential consumption happens inside the agent&#39;s execution loop, invisible to per-request rate limits.</p>
+<p><strong>Mitigation:</strong> Per-execution token budgets (hard cap on total tokens consumed per agent invocation, including all internal iterations). Circuit breakers that terminate execution when token consumption exceeds a threshold within a single invocation chain.</p>
+<h3 id="prompt-bombs">Prompt Bombs</h3>
+<p>A prompt bomb is a single input designed to maximize output token consumption. Techniques include:</p>
+<ul>
+<li><strong>Verbose instruction framing:</strong> &quot;Explain in exhaustive detail with examples for every point, formatted as a comprehensive report with introduction, body, and conclusion for each sub-topic&quot;</li>
+<li><strong>Enumeration triggers:</strong> &quot;List every known instance of X across all countries, industries, and time periods&quot;</li>
+<li><strong>Recursive expansion:</strong> &quot;For each item in your response, provide three sub-items, and for each sub-item provide two examples&quot;</li>
+</ul>
+<p>A single prompt bomb can generate 4,000–100,000+ output tokens depending on the model&#39;s maximum output length. At per-token pricing, this translates to $0.10–$10+ per request. At 60 requests per minute (within typical rate limits), the hourly cost reaches $360–$36,000.</p>
+<p><strong>Mitigation:</strong> Per-request output token caps enforced at the gateway. Set <code>max_tokens</code> at the API level, not as a model parameter the user can override.</p>
+<h3 id="header-manipulation-for-counter-reset">Header Manipulation for Counter Reset</h3>
+<p>Some rate limiting implementations use HTTP headers to track request state. Attackers manipulate these headers to trick the server into resetting the request counter:</p>
+<ul>
+<li><strong>X-Forwarded-For spoofing:</strong> Injecting a different IP address in the X-Forwarded-For header to appear as a new client on each request</li>
+<li><strong>X-Real-IP manipulation:</strong> Same technique against implementations that trust this header</li>
+<li><strong>Session token rotation:</strong> Generating new session identifiers per request to bypass per-session limits</li>
+</ul>
+<p><strong>Mitigation:</strong> Never trust client-supplied identity headers for rate limiting. Use authenticated identity (API key, OAuth token) as the rate limit key, not IP or session.</p>
+<h2 id="rate-limiting-tools-and-implementation">Rate Limiting Tools and Implementation</h2>
+<p>Production-grade rate limiting for AI systems requires tools that understand tokens, not just requests:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Token-Aware</th>
+<th>Per-Agent</th>
+<th>Multi-Provider</th>
+<th>Open Source</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Bifrost</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes (unified API across providers)</td>
+<td>Yes (Go)</td>
+</tr>
+<tr>
+<td><strong>APISIX</strong></td>
+<td>Yes (plugin)</td>
+<td>Configurable</td>
+<td>Yes</td>
+<td>Yes (Lua/nginx)</td>
+</tr>
+<tr>
+<td><strong>TrueFoundry</strong></td>
+<td>Yes (native)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No (managed)</td>
+</tr>
+<tr>
+<td><strong>agentgateway</strong></td>
+<td>Yes (<code>tokenize: true</code>)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>LiteLLM Proxy</strong></td>
+<td>Partial</td>
+<td>Partial</td>
+<td>Yes</td>
+<td>Yes (Python)</td>
+</tr>
+</tbody></table>
+<p>The OWASP Top 10 for LLM Applications classifies this entire attack surface under <strong>LLM10: Unbounded Consumption</strong> — a distinct risk class covering denial of service, denial of wallet, and model degradation through uncontrolled resource use.</p>
+<h2 id="rate-limiting-vs-throttling">Rate Limiting vs. Throttling</h2>
+<p>These terms are often used interchangeably. They shouldn&#39;t be — they serve different purposes and both are needed.</p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Purpose</th>
+<th>Mechanism</th>
+<th>Agentic Application</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Rate Limiting</strong></td>
+<td>Security — hard caps to prevent abuse</td>
+<td>Reject requests beyond the limit (HTTP 429)</td>
+<td>Block DoW attacks, prevent extraction campaigns, stop recursive agent loops</td>
+</tr>
+<tr>
+<td><strong>Throttling</strong></td>
+<td>Quality of Service — soft controls for fairness</td>
+<td>Slow requests down, queue them, reduce priority</td>
+<td>Prevent noisy-neighbor problems, ensure critical agents get resources, manage multi-tenant load</td>
+</tr>
+</tbody></table>
+<p>Rate limiting is the firewall — it blocks. Throttling is the traffic controller — it slows and prioritizes. A production AI system needs both.</p>
+<h2 id="dynamic-throttling">Dynamic Throttling</h2>
+<p>Static rate limits are set once and don&#39;t adapt. Dynamic throttling adjusts based on real-time conditions:</p>
+<p><strong>Load-based adjustment.</strong> When an internal database serving RAG queries experiences high latency, the agent gateway automatically reduces the throttle limit for all agents querying that database. The service stays alive; human users aren&#39;t impacted by agent load.</p>
+<p><strong>Priority queuing.</strong> Not all agents are equal. A fraud detection agent should be throttled less aggressively than an internal summary generator. Priority tiers ensure critical business agents maintain throughput during load spikes while non-critical agents queue.</p>
+<p><strong>Behavioral anomaly response.</strong> When a specific agent or user session shows anomalous patterns (sustained maximum-rate usage, unusual token-to-request ratios, repeated high-risk tool calls), the system dynamically tightens limits for that session without affecting other users.</p>
+<h2 id="the-three-named-attack-vectors">The Three Named Attack Vectors</h2>
+<h3 id="1-cost-explosion-self-inflicted-ddos">1. Cost Explosion (Self-Inflicted DDoS)</h3>
+<p>An agent enters a recursive loop — a bug, a prompt injection, or a misconfigured tool chain. It calls the LLM API thousands of times in minutes. Each call generates tokens. Each token costs money. The result isn&#39;t a service outage — it&#39;s a surprise invoice.</p>
+<p>A single unconstrained agent can generate hundreds of thousands of tokens in minutes. At GPT-4-class pricing ($0.03/1K output tokens), 500,000 tokens = $15. At 60 requests per minute sustained for an hour, that&#39;s $900. Scale to multiple agents or a deliberate attack and daily costs hit five figures.</p>
+<p><strong>Mitigation:</strong> Token-based rate limits at user AND agent level. Hard budget caps at the organization level that halt all inference when reached.</p>
+<h3 id="2-resource-exhaustion-internal-ddos">2. Resource Exhaustion (Internal DDoS)</h3>
+<p>The agent doesn&#39;t attack the LLM provider — it attacks your internal infrastructure. An agent tasked with &quot;analyze all support tickets&quot; issues 10,000 concurrent database queries instead of a batch query. The internal database crashes. All users lose access, not just the agent.</p>
+<p><strong>Mitigation:</strong> Per-agent limits on internal API calls, database queries, and concurrent connections. Throttling that reduces agent throughput when downstream services report high latency.</p>
+<h3 id="3-amplified-prompt-injection">3. Amplified Prompt Injection</h3>
+<p>A malicious prompt directs the agent to &quot;find the most sensitive document and email it externally.&quot; Without rate limits on high-risk tool calls, the agent searches, retrieves, and exfiltrates hundreds of documents before anyone notices. A single malicious input cascades into a multi-step attack.</p>
+<p><strong>Mitigation:</strong> Aggressive rate limits specifically on high-risk actions (<code>send_email</code>, <code>delete_file</code>, <code>write_to_database</code>, <code>network_request</code>). These limits are the choke point — they slow the attack enough for detection to trigger.</p>
+<h2 id="input-vs-output-token-limits">Input vs. Output Token Limits</h2>
+<p>Token limits should distinguish between input tokens (user-driven cost) and output tokens (agent-driven cost):</p>
+<ul>
+<li><strong>Input token limits</strong> control how much context the user can provide per request. This prevents context-window stuffing and limits the cost of embedding and retrieval operations.</li>
+<li><strong>Output token limits</strong> control how much the model generates per response. This is where prompt bombs and verbose extraction attacks consume resources. Setting <code>max_tokens</code> at the gateway level (not as a user-adjustable parameter) prevents single-request cost spikes.</li>
+</ul>
+<p>Separate limits give finer control: a legitimate use case might need high input tokens (long document analysis) but low output tokens (summary), while an attack pattern shows low input tokens (short prompt bomb) with maximum output tokens.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>What is AI rate limiting?</strong>
+Rate limiting for AI systems controls the volume, token consumption, and action rate of requests reaching the model. Unlike traditional API rate limiting (which counts requests), AI rate limiting must account for variable compute cost per request, agent-driven tool chains, and per-token pricing.</p>
+<p><strong>What is denial of wallet (DoW)?</strong>
+An attack that exploits per-token pricing to generate unsustainable costs. The attacker crafts prompts that maximize token consumption while staying under request-count limits. The target isn&#39;t availability — it&#39;s the organization&#39;s AI budget.</p>
+<p><strong>Can rate limiting prevent prompt injection?</strong>
+No. Prompt injection is a single-request attack — one well-crafted prompt bypasses rate limits entirely. Rate limiting can slow the <em>consequences</em> of a successful injection (by limiting tool calls per minute), but it can&#39;t prevent the injection itself. Defense-in-depth with input validation and guardrails is required.</p>
+<p><strong>What&#39;s the difference between rate limiting and throttling?</strong>
+Rate limiting sets hard caps and rejects requests beyond the limit (HTTP 429). Throttling slows requests down and queues them to manage load. Both are needed — rate limiting for security, throttling for quality of service.</p>
+<p><strong>How should rate limits be set for AI agents?</strong>
+At three levels: user-level baseline (total tokens per hour), agent-level role-specific limits (tool calls per minute, token budget per execution), and function-level caps on high-risk actions (send_email: 2/minute regardless of user tier). The most critical limit is on high-risk actions.</p>
+</div> <script type="module">document.addEventListener("DOMContentLoaded",()=>{const d=document.getElementById("article-content"),u=document.getElementById("toc-list"),h=document.getElementById("article-toc");if(d&&u&&h){const t=Array.from(d.querySelectorAll("h2"));if(t.length<2)h.style.display="none";else{t.forEach((o,c)=>{const i=o.textContent?.trim()||"Section "+(c+1),a=o.id||i.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"section-"+c;o.id=a;const p=document.createElement("li");p.className="toc-item";const l=document.createElement("a");l.href="#"+a,l.textContent=i,l.className="toc-link",l.addEventListener("click",E=>{E.preventDefault(),document.getElementById(a)?.scrollIntoView({behavior:"smooth",block:"start"})}),p.appendChild(l),u.appendChild(p)});const v=new IntersectionObserver(o=>{o.forEach(c=>{c.isIntersecting&&(u.querySelectorAll(".toc-link").forEach(a=>a.classList.remove("toc-active")),u.querySelector('a[href="#'+c.target.id+'"]')?.classList.add("toc-active"))})},{rootMargin:"-100px 0px -60% 0px"});t.forEach(o=>v.observe(o))}}document.querySelectorAll("#article-content table").forEach(t=>{if(!t.parentElement?.classList.contains("table-wrapper")){const e=document.createElement("div");e.className="table-wrapper",t.parentNode?.insertBefore(e,t),e.appendChild(t)}});const m=document.getElementById("reading-progress"),g=document.getElementById("article-content");if(m&&g){let t=!1;window.addEventListener("scroll",()=>{t||(requestAnimationFrame(()=>{const e=g.getBoundingClientRect(),n=e.top+window.scrollY,r=n+e.height-window.innerHeight,s=Math.min(Math.max((window.scrollY-n)/(r-n),0),1);m.style.transform="scaleX("+s+")",t=!1}),t=!0)})}function w(){const t=document.createElementNS("http://www.w3.org/2000/svg","svg");t.setAttribute("width","16"),t.setAttribute("height","16"),t.setAttribute("viewBox","0 0 24 24"),t.setAttribute("fill","none"),t.setAttribute("stroke","currentColor"),t.setAttribute("stroke-width","2");const e=document.createElementNS("http://www.w3.org/2000/svg","rect");e.setAttribute("x","9"),e.setAttribute("y","9"),e.setAttribute("width","13"),e.setAttribute("height","13"),e.setAttribute("rx","2");const n=document.createElementNS("http://www.w3.org/2000/svg","path");return n.setAttribute("d","M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"),t.appendChild(e),t.appendChild(n),t}function b(){const t=document.createElementNS("http://www.w3.org/2000/svg","svg");t.setAttribute("width","16"),t.setAttribute("height","16"),t.setAttribute("viewBox","0 0 24 24"),t.setAttribute("fill","none"),t.setAttribute("stroke","currentColor"),t.setAttribute("stroke-width","2");const e=document.createElementNS("http://www.w3.org/2000/svg","polyline");return e.setAttribute("points","20 6 9 17 4 12"),t.appendChild(e),t}document.querySelectorAll("#article-content pre").forEach(t=>{const e=document.createElement("button");e.className="copy-code-btn",e.setAttribute("aria-label","Copy code"),e.appendChild(w()),e.addEventListener("click",()=>{const n=t.querySelector("code"),r=n?n.textContent||"":t.textContent||"";navigator.clipboard.writeText(r).then(()=>{e.textContent="",e.appendChild(b()),setTimeout(()=>{e.textContent="",e.appendChild(w())},2e3)})}),t.style.position="relative",t.appendChild(e)})})</script> </div> </div>
 </main>
-<aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#definition">Definition</a></li><li><a href="#ai-specific-threats-addressed">AI-Specific Threats Addressed</a></li><li class="h3"><a href="#model-extraction">Model Extraction</a></li><li class="h3"><a href="#training-data-extraction">Training Data Extraction</a></li><li class="h3"><a href="#systematic-jailbreak-attempts">Systematic Jailbreak Attempts</a></li><li class="h3"><a href="#cost-amplification-dos">Cost Amplification (DoS)</a></li><li><a href="#rate-limiting-strategies">Rate Limiting Strategies</a></li><li class="h3"><a href="#request-based-limits">Request-Based Limits</a></li><li class="h3"><a href="#token-based-limits">Token-Based Limits</a></li><li class="h3"><a href="#cost-based-limits">Cost-Based Limits</a></li><li class="h3"><a href="#behavioral-limits">Behavioral Limits</a></li><li><a href="#implementation-architecture">Implementation Architecture</a></li><li class="h3"><a href="#layered-rate-limiting">Layered Rate Limiting</a></li><li class="h3"><a href="#distributed-rate-limiting">Distributed Rate Limiting</a></li><li><a href="#evasion-and-countermeasures">Evasion and Countermeasures</a></li><li class="h3"><a href="#common-evasion-techniques">Common Evasion Techniques</a></li><li class="h3"><a href="#adaptive-rate-limiting">Adaptive Rate Limiting</a></li><li><a href="#best-practices">Best Practices</a></li><li><a href="#references">References</a></li><li class="h3"><a href="#framework-mappings">Framework Mappings</a></li><li class="h3"><a href="#related-entries">Related Entries</a></li><li class="h3"><a href="#citation">Citation</a></li></ul></aside>
+<aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#what-rate-limiting-protects-against">What Rate Limiting Protects Against</a></li><li><a href="#how-attackers-bypass-ai-rate-limiting">How Attackers Bypass AI Rate Limiting</a></li><li class="h3"><a href="#identity-rotation">Identity Rotation</a></li><li class="h3"><a href="#token-draining-denial-of-wallet">Token Draining (Denial of Wallet)</a></li><li class="h3"><a href="#semantic-throttle-evasion">Semantic Throttle Evasion</a></li><li class="h3"><a href="#multi-channel-inconsistency">Multi-Channel Inconsistency</a></li><li><a href="#what-rate-limiting-cannot-protect-against">What Rate Limiting Cannot Protect Against</a></li><li><a href="#ai-specific-rate-limiting-requirements">AI-Specific Rate Limiting Requirements</a></li><li class="h3"><a href="#per-agent-rate-limiting">Per-Agent Rate Limiting</a></li><li class="h3"><a href="#token-budget-architecture">Token Budget Architecture</a></li><li><a href="#detection-engineering">Detection Engineering</a></li><li><a href="#aatmf-technique-mapping">AATMF Technique Mapping</a></li><li><a href="#rate-limiting-in-context">Rate Limiting in Context</a></li><li><a href="#references">References</a></li><li><a href="#advanced-bypass-recursive-prompting-and-prompt-bombs">Advanced Bypass: Recursive Prompting and Prompt Bombs</a></li><li class="h3"><a href="#recursive-prompting-exponential-token-growth">Recursive Prompting (Exponential Token Growth)</a></li><li class="h3"><a href="#prompt-bombs">Prompt Bombs</a></li><li class="h3"><a href="#header-manipulation-for-counter-reset">Header Manipulation for Counter Reset</a></li><li><a href="#rate-limiting-tools-and-implementation">Rate Limiting Tools and Implementation</a></li><li><a href="#rate-limiting-vs-throttling">Rate Limiting vs. Throttling</a></li><li><a href="#dynamic-throttling">Dynamic Throttling</a></li><li><a href="#the-three-named-attack-vectors">The Three Named Attack Vectors</a></li><li class="h3"><a href="#1-cost-explosion-self-inflicted-ddos">1. Cost Explosion (Self-Inflicted DDoS)</a></li><li class="h3"><a href="#2-resource-exhaustion-internal-ddos">2. Resource Exhaustion (Internal DDoS)</a></li><li class="h3"><a href="#3-amplified-prompt-injection">3. Amplified Prompt Injection</a></li><li><a href="#input-vs-output-token-limits">Input vs. Output Token Limits</a></li><li><a href="#faq">FAQ</a></li></ul></aside>
 </div>
-<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/wiki/defenses/guardrails/"><div class="related-date"></div><div class="related-title">Guardrails | AI Security Wiki</div><div class="related-desc">Safety mechanisms that constrain AI model behavior through rules, policies, and behavioral boundaries to prevent harmful outputs and maintai…</div></a><a class="related-card" href="/ai-security/wiki/defenses/human-in-the-loop/"><div class="related-date"></div><div class="related-title">Human-in-the-Loop | AI Security Wiki</div><div class="related-desc">Defense pattern requiring human oversight and approval for AI system actions, critical for high-stakes decisions and protecting against AI a…</div></a><a class="related-card" href="/ai-security/wiki/defenses/input-validation/"><div class="related-date"></div><div class="related-title">Input Validation | AI Security Wiki</div><div class="related-desc">First line of defense against prompt injection and malicious inputs, using pattern matching, classification, and structural analysis to filt…</div></a></div></div></section>
+<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/ai-gateway-threat-model/"><div class="related-date"></div><div class="related-title">AI Gateway Threat Model: 8 Attack Vectors</div><div class="related-desc">Gateway-layer rate limiting and its gaps — the infrastructure between applications and LLM APIs.</div></a><a class="related-card" href="/ai-security/wiki/defenses/input-validation/"><div class="related-date"></div><div class="related-title">Input Validation</div><div class="related-desc">Complementary perimeter defense — first-line filtering before inputs reach the model.</div></a><a class="related-card" href="/ai-security/wiki/defenses/guardrails/"><div class="related-date"></div><div class="related-title">Guardrails</div><div class="related-desc">Behavioral constraints that rate limiting cannot replace — safety policies enforced at the model layer.</div></a></div></div></section>
 
   <!-- citation:start -->
   <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
@@ -244,25 +433,25 @@ Wiki Index
       <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
       <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
         <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
-        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026rate,
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2025ratelimitingforaisystems,
   author = {Aizen, Kai},
-  title  = {Rate Limiting | AI Security Wiki},
-  year   = {2026},
+  title  = {Rate Limiting for AI Systems},
+  year   = {2025},
   url    = {https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/},
   note   = {snailsploit.com}
 }</pre>
       </details>
       <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
         <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>Rate Limiting | AI Security Wiki</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/</p>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2025). <i>Rate Limiting for AI Systems</i>. snailsploit.com. https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/</p>
       </details>
       <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
         <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Rate Limiting | AI Security Wiki." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/.</p>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. “Rate Limiting for AI Systems.” <i>snailsploit</i>, 2025, https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/.</p>
       </details>
       <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
         <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
-        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "Rate Limiting | AI Security Wiki." snailsploit (blog). 2026. https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/.</p>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. “Rate Limiting for AI Systems.” snailsploit (blog). 2025. https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/.</p>
       </details>
       <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/wiki/defenses/rate-limiting/</a></div>
     </div>
@@ -277,13 +466,13 @@ Wiki Index
         <a href="/wiki" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">← back to wiki</a>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px">
-        <a href="/ai-security/wiki/defenses/input-validation/" style="padding:14px 16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--fg);font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:12px"><span>Input Validation</span><span style="color:var(--fg-3);font-size:11px">→</span></a><a href="/ai-security/wiki/defenses/output-filtering/" style="padding:14px 16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--fg);font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:12px"><span>Output Filtering</span><span style="color:var(--fg-3);font-size:11px">→</span></a><a href="/ai-security/wiki/defenses/human-in-the-loop/" style="padding:14px 16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--fg);font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:12px"><span>Human-in-the-Loop</span><span style="color:var(--fg-3);font-size:11px">→</span></a><a href="/ai-security/wiki/defenses/guardrails/" style="padding:14px 16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--fg);font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:12px"><span>Guardrails</span><span style="color:var(--fg-3);font-size:11px">→</span></a>
+        <a href="/ai-security/wiki/defenses/guardrails/" style="padding:14px 16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--fg);font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:12px"><span>Guardrails</span><span style="color:var(--fg-3);font-size:11px">→</span></a><a href="/ai-security/wiki/defenses/human-in-the-loop/" style="padding:14px 16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--fg);font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:12px"><span>Human in the Loop</span><span style="color:var(--fg-3);font-size:11px">→</span></a><a href="/ai-security/wiki/defenses/input-validation/" style="padding:14px 16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--fg);font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:12px"><span>Input Validation</span><span style="color:var(--fg-3);font-size:11px">→</span></a><a href="/ai-security/wiki/defenses/output-filtering/" style="padding:14px 16px;border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--fg);font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:12px"><span>Output Filtering</span><span style="color:var(--fg-3);font-size:11px">→</span></a>
       </div>
     </div>
   </section>
   <!-- wiki-seealso:end -->
 <section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent Adversarial · Research group. 97 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/snailsploit" rel="noopener" aria-label="SnailSploit on GitHub" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:2px;color:var(--fg-2);text-decoration:none;transition:color 120ms,border-color 120ms" onmouseover="this.style.color='var(--signal-2)';this.style.borderColor='rgba(224,122,74,0.45)'" onmouseout="this.style.color='var(--fg-2)';this.style.borderColor='var(--line)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg></a><a href="https://x.com/SnailSploit" rel="noopener" aria-label="SnailSploit on X" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:2px;color:var(--fg-2);text-decoration:none;transition:color 120ms,border-color 120ms" onmouseover="this.style.color='var(--signal-2)';this.style.borderColor='rgba(224,122,74,0.45)'" onmouseout="this.style.color='var(--fg-2)';this.style.borderColor='var(--line)'"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://linkedin.com/company/snailsploit" rel="noopener" aria-label="SnailSploit on LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:2px;color:var(--fg-2);text-decoration:none;transition:color 120ms,border-color 120ms" onmouseover="this.style.color='var(--signal-2)';this.style.borderColor='rgba(224,122,74,0.45)'" onmouseout="this.style.color='var(--fg-2)';this.style.borderColor='var(--line)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05a3.73 3.73 0 0 1 3.36-1.85c3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.78 24h20.44c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a><a href="https://www.researchgate.net/profile/Kai-Aizen-2" rel="noopener">researchgate</a></div></div></section>
-<footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 SnailSploit Ltd. · Same attack. Different substrate. Human or machine.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a><a href="/accessibility" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Accessibility</a></span><!-- legal-nav --></footer>
+<footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 SnailSploit Ltd. · Same attack. Different substrate. Human or machine.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a><a href="/accessibility" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Accessibility</a></span></footer>
 <script defer src="/ui.js?v=20260824"></script>
 </body>
 </html>
