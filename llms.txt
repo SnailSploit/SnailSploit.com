@@ -1,5 +1,5 @@
 # snailsploit
-SnailSploit is an independent adversarial-security research group — Kai Aizen (founder), Avraham Shemesh (co-founder), and Sahar Shlichove (co-founder). 92 CVEs, 5 Linux kernel mainline patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
+SnailSploit is an independent adversarial-security research group — Kai Aizen (founder), Avraham Shemesh (co-founder), and Sahar Shlichove (co-founder). 97 CVEs, 5 Linux kernel mainline patches, frameworks (AATMF / P.R.O.M.P.T / SEF) for adversarial-AI red teaming, and a full library of original research, tools, and writing.
 
 > Same attack. Different substrate.
 
@@ -14,6 +14,7 @@ SnailSploit is an independent adversarial-security research group — Kai Aizen 
 - [Contact](/contact)
 - [Adversarial Minds (book)](/adversarial-minds)
 - [Press / Media Kit](/press): bio, headshots, official quotes, citation snippets
+- [External References](/references): 20 verified third-party acknowledgements from HashiCorp, Kubernetes, Jenkins, Oracle, Apache, Symfony, and security databases — first-party upstream attribution, not self-reported
 - [Glossary](/glossary): A-Z reference of adversarial-AI terms
 ## Frameworks
 - [AATMF v3.1](/aatmf): 15 tactics, 240+ techniques, 2,152+ procedures, 4,980+ prompts. Mapped to NIST AI RMF and MITRE ATLAS.
@@ -135,7 +136,7 @@ SnailSploit is an independent adversarial-security research group — Kai Aizen 
 - [CVE-2026-61308: Claude Desktop MCP Skill RCE](/security-research/cves/cve-2026-61308/)
 
 ## Vulnerability Disclosures
-- [CVE Ledger](/cves): 92 published CVEs
+- [CVE Ledger](/cves): 97 published CVEs
 - [Linux Kernel Contributions](/kernel): 5 mainline patches
 - [Security Advisories](/advisories)
 
