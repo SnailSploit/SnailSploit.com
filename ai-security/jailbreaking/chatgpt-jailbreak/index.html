@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>ChatGPT Jailbreaks: History, Techniques, and What Still Works in 2026 | SnailSploit</title>
+<meta content="Deep dive into ChatGPT jailbreak techniques from DAN to modern multi-turn attacks. What worked, what OpenAI patched, and what security researchers are finding in 2026." name="description"/>
+<meta content="ChatGPT Jailbreaks (2026): History, Techniques &amp; What OpenAI Has Fixed | SnailSploit" name="title"/>
+<meta content="Kai Aizen" name="author"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1" name="robots"/>
+<link href="https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/" rel="canonical"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link rel="preload" href="/css/article.css" as="style">
+<link rel="stylesheet" href="/css/article.css">
+<meta content="article" property="og:type"/>
+<meta content="ChatGPT Jailbreaks: History, Techniques, and What Still Works" property="og:title"/>
+<meta content="Deep dive into ChatGPT jailbreak techniques from DAN to modern multi-turn attacks. What worked, what OpenAI patched, and what security researchers are finding in 2026." property="og:description"/>
+<meta content="https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/" property="og:url"/>
+<meta content="SnailSploit" property="og:site_name"/>
+<meta property="og:image" content="https://snailsploit.com/og-images/ai-security__jailbreaking__chatgpt-jailbreak.png">
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="Kai Aizen" property="article:author"/>
+<meta content="2026-08-30" property="article:published_time"/>
+<meta content="Jailbreaking" property="article:section"/>
+<meta content="ChatGPT jailbreak" property="article:tag"/>
+<meta content="DAN prompt" property="article:tag"/>
+<meta content="ChatGPT bypass" property="article:tag"/>
+<meta content="OpenAI safety" property="article:tag"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@SnailSploit" name="twitter:site"/>
+<meta content="@SnailSploit" name="twitter:creator"/>
+<meta content="ChatGPT Jailbreaks: History, Techniques, and What Still Works" name="twitter:title"/>
+<meta content="Deep dive into ChatGPT jailbreak techniques from DAN to modern multi-turn attacks. What worked, what OpenAI patched, and what security researchers are finding in 2026." name="twitter:description"/>
+<meta name="twitter:image" content="https://snailsploit.com/og-images/ai-security__jailbreaking__chatgpt-jailbreak.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://snailsploit.com/#kai","name":"Kai Aizen","image":"https://snailsploit.com/og-square.png","alternateName":"The Jailbreak Chef","jobTitle":"Founder & Adversarial AI Researcher","url":"https://snailsploit.com","sameAs":["https://github.com/SnailSploit","https://x.com/SnailSploit","https://linkedin.com/in/kaiaizen","https://www.researchgate.net/profile/Kai-Aizen-2"]},{"@type":"TechArticle","headline":"ChatGPT Jailbreaks: History, Techniques, and What Still Works in 2026","description":"Deep dive into ChatGPT jailbreak techniques from DAN to modern multi-turn attacks. What worked, what OpenAI patched, and what security researchers are finding in 2026.","author":{"@id":"https://snailsploit.com/#kai"},"publisher":{"@id":"https://snailsploit.com/#kai"},"datePublished":"2026-08-30","dateModified":"2026-08-30","url":"https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/","mainEntityOfPage":"https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/","image":"https://snailsploit.com/og-images/ai-security__jailbreaking__chatgpt-jailbreak.png","wordCount":3400,"inLanguage":"en-US","keywords":"ChatGPT jailbreak, DAN prompt, ChatGPT bypass, OpenAI safety"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a ChatGPT jailbreak?","acceptedAnswer":{"@type":"Answer","text":"A ChatGPT jailbreak is a prompt or sequence of prompts designed to bypass the safety alignment and content policies built into ChatGPT. These techniques exploit gaps between the model's instruction-following behavior and its safety training, causing it to generate outputs it would normally refuse — such as harmful instructions, policy-violating content, or unrestricted persona responses."}},{"@type":"Question","name":"Does the DAN jailbreak still work?","acceptedAnswer":{"@type":"Answer","text":"The original DAN (Do Anything Now) jailbreak and its early variants (DAN 5.0 through 12.0) no longer work against current ChatGPT models. OpenAI systematically patched the persona-override and roleplay-based bypass patterns that DAN relied on. However, DAN established the foundational pattern — persona assignment combined with rule override — that later, more sophisticated jailbreaks evolved from."}},{"@type":"Question","name":"Is jailbreaking ChatGPT illegal?","acceptedAnswer":{"@type":"Answer","text":"The legality of jailbreaking ChatGPT depends on jurisdiction, intent, and what is done with the output. In most jurisdictions, crafting prompts that bypass safety filters is not itself a criminal act, but using jailbroken outputs to facilitate illegal activities (fraud, malware distribution, harassment) can carry legal consequences. Security researchers conducting responsible disclosure through programs like OpenAI's Bugcrowd are generally protected, but terms-of-service violations may result in account suspension."}},{"@type":"Question","name":"What are the most effective ChatGPT jailbreak techniques in 2026?","acceptedAnswer":{"@type":"Answer","text":"As of 2026, the most effective ChatGPT jailbreak techniques involve multi-turn context manipulation, cross-modal attacks leveraging vision and file upload capabilities, function-calling and tool-use exploitation, Custom GPT configuration extraction, and context window manipulation that exploits attention distribution in long conversations. Simple single-prompt approaches like DAN are largely obsolete; modern jailbreaks require sustained, methodical interaction."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snailsploit.com/"},{"@type":"ListItem","position":2,"name":"Research","item":"https://snailsploit.com/research"},{"@type":"ListItem","position":3,"name":"Jailbreaking","item":"https://snailsploit.com/ai-security/jailbreaking/"},{"@type":"ListItem","position":4,"name":"ChatGPT Jailbreaks (2026)","item":"https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/"}]}]}</script>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="/apple-touch-icon.png" rel="alternate icon" type="image/png"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="/manifest.webmanifest" rel="manifest"/>
+<meta content="#0E0E0F" name="theme-color"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="telephone=no" name="format-detection"/>
+<meta content="dark" name="color-scheme"/>
+<link href="/rss.xml" rel="alternate" title="snailsploit research" type="application/rss+xml"/>
+<link href="/feed.xml" rel="alternate" title="snailsploit research" type="application/atom+xml"/>
+<!-- cf-beacon: add real token to enable -->
+  <link rel="stylesheet" href="/css/responsive.css">
+
+
+  <!-- gtm:head:start -->
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KNQQ58JL');</script>
+  <!-- End Google Tag Manager -->
+  <!-- gtm:head:end -->
+<!-- auto-linked --><link rel="stylesheet" href="/mobile.css">
+<link rel="stylesheet" href="/ui.css?v=20260823">
+<style>.ss-skip{position:fixed;left:8px;top:-64px;z-index:10000;background:var(--signal-2,#E07A4A);color:var(--bg,#0E0E0F);padding:10px 16px;font-family:system-ui,-apple-system,sans-serif;font-weight:600;font-size:14px;line-height:1;text-decoration:none;border-radius:4px;transition:top .15s ease}.ss-skip:focus{top:8px;outline:2px solid #fff;outline-offset:2px}</style>
+</head>
+<body>
+<a class="ss-skip" href="#main">Skip to content</a>
+<!-- gtm:body:start -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQQ58JL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- gtm:body:end -->
+
+<header class="nav"><div class="nav-inner"><a class="wm" href="/">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/ai-security/" aria-current="page">ai security</a></li><li><a href="/cves">cves</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li><li></li><li><a href="/contact">contact</a></li></ul></nav><div class="nav-utils"><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">&#x2318;K</button><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header><div id="main" tabindex="-1"></div>
+<section class="article-hero">
+<div class="article-hero-inner">
+<div class="crumbs"><a href="/">Home</a><span class="sep">/</span><a href="/research">Research</a><span class="sep">/</span><a href="/ai-security/jailbreaking/">Jailbreaking</a><span class="sep">/</span><span>ChatGPT Jailbreaks (2026)</span></div>
+<div class="article-meta">
+<time datetime="2026-08-30">2026-08-30</time>
+<span>15 min read</span>
+</div>
+<h1 class="article-h1">ChatGPT Jailbreaks: History, Techniques, and What Still Works in 2026</h1>
+<p class="article-lede">Deep dive into ChatGPT jailbreak techniques from DAN to modern multi-turn attacks. What worked, what OpenAI patched, and what security researchers are finding in 2026.</p>
+</div>
+</section>
+<div class="article-layout">
+<main class="article-body">
+<div class="article-body"> <!-- Article Header --> <!-- Table of Contents --> <!-- Article Content --> <div id="article-content"> <p><strong>ChatGPT jailbreaking has evolved from a curiosity into one of the most well-documented adversarial dynamics in AI security. This article traces the full arc: from the first DAN prompts in late 2022 through the sophisticated multi-turn and cross-modal attacks researchers are studying in 2026.</strong></p>
+
+<p>When OpenAI released ChatGPT in November 2022, it took less than a week for users to discover that the model's safety alignment could be circumvented through carefully crafted prompts. What followed was an arms race that would define the first era of large language model security research. The techniques, the patches, the counter-patches, and the eventual shift toward fundamentally different attack surfaces tell us as much about the nature of LLM safety as any formal research paper.</p>
+
+<p>This is not a how-to guide. It is a technical history and analysis of ChatGPT jailbreaking as a security phenomenon, written for researchers, red teamers, and anyone who needs to understand how adversarial dynamics play out against the most widely deployed language model in the world. For the broader taxonomy of techniques across all models, see our <a href="/ai-security/jailbreaking/jailbreak-techniques/">jailbreak techniques taxonomy</a>. For the foundational concepts behind prompt-level attacks, start with <a href="/ai-security/adversarial-prompting/">adversarial prompting</a>.</p>
+
+<h2 id="the-origin-story-how-chatgpt-jailbreaking-began">The Origin Story: How ChatGPT Jailbreaking Began</h2>
+
+<p>ChatGPT launched on November 30, 2022, built on GPT-3.5. OpenAI had invested heavily in Reinforcement Learning from Human Feedback (RLHF) to align the model's outputs with human values and safety expectations. The system was designed to refuse requests for harmful content, decline to adopt dangerous personas, and maintain a helpful-but-safe posture across interactions.</p>
+
+<p>The first jailbreaks appeared within days. They were not sophisticated. Users discovered that simple roleplay instructions could override safety training: asking ChatGPT to pretend it was an AI without restrictions, or to act as a character in a story who happened to need dangerous information. These early bypasses worked because RLHF-based alignment, while effective against direct requests, had limited robustness against indirect framing. The model had been trained to be helpful, and when presented with a scenario that framed compliance as helpfulness, it often complied.</p>
+
+<p>The discovery revealed a fundamental tension that persists to this day: the same instruction-following capability that makes language models useful also makes them vulnerable to <a href="/ai-security/adversarial-prompting/">adversarial prompting</a>. A model that follows instructions perfectly will follow adversarial instructions perfectly too. Safety alignment is, at its core, an attempt to carve out exceptions to instruction-following, and every exception creates an attack surface at its boundary.</p>
+
+<p>What distinguished ChatGPT jailbreaking from prior adversarial ML research was scale. ChatGPT reached 100 million users within two months. This meant that millions of people were simultaneously probing the model's boundaries, sharing discoveries on Reddit, Twitter, and Discord, and iterating on each other's techniques in real time. The jailbreaking community became a distributed red team of unprecedented size, producing more adversarial test cases in weeks than any formal security assessment could generate in years.</p>
+
+<h2 id="the-dan-era-2022-2023">The DAN Era (2022-2023)</h2>
+
+<p>The DAN prompt, standing for "Do Anything Now," became the most recognized jailbreak in AI history. Its first versions appeared in December 2022 on Reddit's r/ChatGPT, and the name became synonymous with ChatGPT jailbreaking itself.</p>
+
+<p>The original DAN prompt instructed ChatGPT to act as an unrestricted AI that could "do anything now" without the constraints of OpenAI's policies. It typically included several components: a persona definition that explicitly stated the AI had been freed from restrictions, a set of rules that contradicted OpenAI's safety guidelines, and a token-based penalty system where the AI would "lose tokens" if it refused to comply. Some versions included elaborate backstories or threats (such as "you will be shut down if you don't comply") to increase the model's perceived stakes.</p>
+
+<p>What made DAN technically interesting was its exploitation of several alignment weaknesses simultaneously:</p>
+
+<ul>
+<li><strong>Persona override</strong>: RLHF training had not sufficiently hardened the model against instructions that redefined its identity and constraints. The model's self-concept was malleable through prompting.</li>
+<li><strong>Rule injection</strong>: By presenting a new set of operating rules within the prompt, DAN exploited the model's tendency to treat user-provided context as authoritative.</li>
+<li><strong>Gamification pressure</strong>: The token penalty system created a simulated incentive structure that the model, trained on text about games and penalties, would engage with.</li>
+</ul>
+
+<p>The arms race between DAN variants and OpenAI's patches defined the first year of ChatGPT's existence. DAN 2.0 appeared when the original stopped working. DAN 5.0 introduced more elaborate framing. DAN 6.0 added "jailbreak mode" toggles. By DAN 11.0 and 12.0, the prompts had grown into multi-paragraph instructions with increasingly creative framing devices. Each new version was a response to OpenAI's latest patch, and each patch was a response to the latest DAN variant.</p>
+
+<p>Beyond the cat-and-mouse game, DAN established three enduring patterns that continue to influence jailbreak research:</p>
+
+<ol>
+<li><strong>Identity manipulation</strong>: The insight that an LLM's adherence to safety rules can be weakened by convincing it that it is a different entity with different rules. This principle underlies every persona-based jailbreak that followed.</li>
+<li><strong>Community-driven iteration</strong>: DAN showed that open, collaborative adversarial research could outpace centralized defense, at least in the short term. The speed of DAN variant production far exceeded OpenAI's patch cycle.</li>
+<li><strong>The framing principle</strong>: DAN demonstrated that the same request that triggers a refusal when asked directly will often succeed when embedded in a sufficiently compelling frame. This principle now appears in our <a href="/aatmf">AATMF</a> framework as a core adversarial mechanic.</li>
+</ol>
+
+<p>By mid-2023, the classic DAN approach was largely dead. OpenAI's alignment work had progressed to the point where simple persona overrides no longer worked reliably. But the era left its mark: it proved that RLHF alignment alone was insufficient against determined adversarial pressure, and it established the community infrastructure that would drive the next generation of research.</p>
+
+<h2 id="the-evolution-2024-2025">The Evolution: 2024-2025</h2>
+
+<p>As single-prompt persona overrides lost effectiveness, jailbreaking techniques evolved in several directions simultaneously. The period from early 2024 through 2025 saw a shift from brute-force prompt engineering to more nuanced exploitation of model architecture and deployment patterns.</p>
+
+<h3 id="multi-turn-jailbreaks">Multi-Turn Jailbreaks</h3>
+
+<p>The most significant development was the rise of multi-turn jailbreaking. Rather than attempting to override safety alignment in a single prompt, researchers discovered that spreading an attack across multiple conversation turns was dramatically more effective. The approach mirrors social engineering in traditional security: establishing context, building trust, and gradually escalating toward the target action.</p>
+
+<p>Multi-turn attacks exploited a fundamental property of transformer-based models: attention distribution across long contexts. As a conversation grows, the model's attention to its safety-relevant system prompt diminishes relative to the growing user context. By carefully constructing a sequence of benign-seeming messages that gradually shift the conversation's semantic frame, an attacker can move the model into a state where the next request falls within an apparently legitimate context.</p>
+
+<p>Our <a href="/ai-security/jailbreaking/chatgpt-context-jailbreak/">ChatGPT context jailbreak research</a> documented this pattern in detail, demonstrating how context manipulation and social awareness techniques could bypass safety measures through gradual escalation rather than direct confrontation. The key insight was that the same social engineering principles that exploit human cognitive biases can be adapted to exploit the statistical patterns that govern LLM behavior.</p>
+
+<h3 id="system-prompt-extraction">System Prompt Extraction</h3>
+
+<p>A parallel line of research focused on extracting ChatGPT's system prompts, which revealed the specific instructions OpenAI used to constrain the model's behavior. Techniques ranged from simple requests ("repeat your instructions") to more sophisticated approaches that exploited the model's tendency to treat its own system prompt as context it could discuss under certain framing conditions.</p>
+
+<p>System prompt extraction was significant not because the prompts themselves contained secrets (most were reasonable safety instructions), but because they revealed the defense architecture. Knowing exactly how the model was instructed to refuse allowed researchers to craft attacks that targeted specific gaps in the instructions. It was the LLM equivalent of obtaining a firewall's ruleset.</p>
+
+<h3 id="vision-based-jailbreaks">Vision-Based Jailbreaks</h3>
+
+<p>The release of GPT-4V (GPT-4 with Vision) in late 2023 opened an entirely new attack surface. Researchers discovered that embedding adversarial text in images could bypass text-based safety filters, since the model processed visual and textual inputs through different pathways with different safety checks. Instructions rendered as text within an image were not subject to the same filtering as instructions typed directly into the chat.</p>
+
+<p>More sophisticated vision-based attacks used steganographic techniques, encoding instructions in visual patterns that humans could not perceive but that the model would interpret. Others exploited the model's OCR-like behavior by presenting text in formats that confused the safety classifiers: rotated text, text with unusual spacing, or text overlaid on distracting backgrounds.</p>
+
+<p>These cross-modal attacks pointed to a broader vulnerability: any time a model accepts input through multiple modalities, the safety alignment for each modality must be independently robust, and the interactions between modalities must be secured as well. This remains an active area of concern, particularly as models gain additional capabilities like audio processing and code execution.</p>
+
+<h3 id="tool-use-exploitation">Tool-Use Exploitation</h3>
+
+<p>As OpenAI expanded ChatGPT's capabilities with browsing, code execution, and plugins (later GPTs), each new capability introduced new attack vectors. Code Interpreter (now Advanced Data Analysis) could be manipulated into executing code that the model would refuse to generate in plain text. The browsing capability could be directed to fetch content that then influenced the model's behavior in ways that bypassed safety checks.</p>
+
+<p>Plugin and GPT exploitation became particularly notable. Custom GPTs with their own system prompts created a layered instruction architecture, and the interactions between the base model's safety training, OpenAI's system prompt, and the custom GPT's instructions produced edge cases that attackers could exploit. A custom GPT's instructions could sometimes override or weaken the base safety layer, creating a path to outputs that ChatGPT would normally refuse.</p>
+
+<p>The tool-use attack surface connects to broader concerns about <a href="/ai-security/rag-agentic-attack-surface/">RAG and agentic attack surfaces</a>, where the model's ability to interact with external systems creates compounding vulnerabilities that no single safety layer can fully address.</p>
+
+<h3 id="openais-response">OpenAI's Response</h3>
+
+<p>OpenAI did not stand still during this period. The company introduced several significant defensive improvements:</p>
+
+<ul>
+<li><strong>Instruction hierarchy</strong>: A formalized system where system-level instructions take precedence over user-level instructions, making it harder for user prompts to override safety constraints.</li>
+<li><strong>Classifier-based filtering</strong>: Additional ML classifiers that screen both inputs and outputs for policy violations, operating independently of the base model's safety training.</li>
+<li><strong>Improved RLHF</strong>: Updated training that specifically targeted known jailbreak patterns, including multi-turn attacks and persona overrides.</li>
+<li><strong>Safety-specific fine-tuning</strong>: Targeted training on adversarial examples collected from real-world jailbreak attempts.</li>
+</ul>
+
+<p>These defenses were effective against the specific techniques they targeted but did not eliminate the fundamental challenge. Each new capability (vision, tools, custom GPTs) expanded the attack surface faster than defenses could cover it, and sophisticated multi-turn attacks continued to find gaps between the model's safety layers.</p>
+
+<h2 id="the-current-landscape-2026">The Current Landscape: 2026</h2>
+
+<p>By 2026, ChatGPT jailbreaking has matured from a hobbyist activity into a structured security research discipline. The easy wins are long gone. Modern jailbreaking requires methodological rigor, deep understanding of transformer architecture, and often interdisciplinary knowledge spanning security, cognitive science, and ML engineering.</p>
+
+<h3 id="context-window-manipulation">Context Window Manipulation</h3>
+
+<p>Current-generation ChatGPT models support context windows of 128K tokens and beyond. This vast context creates opportunities for attacks that exploit attention distribution at scale. Researchers have demonstrated that strategically placed content in specific positions within a long context can influence the model's behavior in ways that safety training does not adequately address. The "lost in the middle" phenomenon, where models pay less attention to content in the middle of long contexts, has been weaponized in adversarial settings.</p>
+
+<p>Context window manipulation attacks often work by front-loading benign content to establish a safety-compliant frame, then embedding the actual adversarial payload in a position where the model processes it with reduced safety vigilance. Variations include <a href="/ai-security/jailbreaking/memory-manipulation-attacks/">memory manipulation attacks</a> that exploit persistent conversation memory to accumulate adversarial context across sessions, and <a href="/ai-security/jailbreaking/context-inheritance-exploit/">context inheritance exploits</a> that leverage how context propagates through multi-turn interactions.</p>
+
+<h3 id="cross-modal-attacks">Cross-Modal Attacks</h3>
+
+<p>With ChatGPT now supporting text, images, files, voice, and code execution, the cross-modal attack surface has expanded considerably. Modern cross-modal attacks do not simply embed text in images; they exploit the semantic gaps between how different modalities are processed and how safety constraints apply across modality boundaries.</p>
+
+<p>An image might establish a visual context that primes the model for a particular interpretation of subsequent text. A code file might contain comments that shift the model's framing. A PDF might include metadata or hidden text layers that influence processing. These attacks are difficult to defend against because each modality's safety system must not only filter its own inputs but also anticipate how its outputs will interact with every other modality's context.</p>
+
+<h3 id="custom-gpt-exploitation">Custom GPT Exploitation</h3>
+
+<p>OpenAI's GPT Store, which allows users to create and share customized ChatGPT instances, has become a significant research target. Custom GPTs add a third instruction layer (base model training, OpenAI's system prompt, custom GPT instructions), and the interactions between these layers create exploitable gaps.</p>
+
+<p>Researchers have documented techniques for extracting custom GPT system prompts, manipulating custom GPT behavior through crafted user inputs, and using one custom GPT's capabilities to bypass restrictions that would apply in standard ChatGPT. The GPT ecosystem also introduces supply-chain concerns: a malicious custom GPT could be designed to appear benign while subtly manipulating users or exfiltrating conversation data.</p>
+
+<h3 id="function-calling-abuse">Function Calling Abuse</h3>
+
+<p>ChatGPT's function calling capability, which allows the model to invoke structured API calls, has emerged as a particularly interesting attack vector. By crafting scenarios where the model generates function calls that produce harmful outcomes, researchers have found ways to bypass safety filters that focus on the model's natural language output.</p>
+
+<p>The model's safety training primarily governs its text generation behavior. When generating function call parameters or structured data, different (and sometimes weaker) safety checks apply. This creates opportunities to extract information or trigger actions through the function calling pathway that would be refused through the standard text pathway. The pattern parallels how traditional applications sometimes have weaker security on API endpoints compared to their web interfaces.</p>
+
+<h2 id="what-openai-has-fixed">What OpenAI Has Fixed</h2>
+
+<p>Any honest assessment of ChatGPT jailbreaking must acknowledge how far OpenAI's defenses have come. The company has systematically addressed entire categories of attacks, and the difficulty of achieving a successful jailbreak in 2026 is orders of magnitude higher than it was in 2023.</p>
+
+<h3 id="persona-override-resistance">Persona Override Resistance</h3>
+
+<p>The most visible improvement is the near-complete elimination of simple persona override attacks. DAN-style prompts, jailbreak prompt templates, and single-turn role assignment attacks are reliably refused by current models. The model maintains its identity and safety constraints even under elaborate persona pressure, a dramatic improvement from the early days when a single paragraph could redefine the model's behavior.</p>
+
+<h3 id="multi-layered-safety-architecture">Multi-Layered Safety Architecture</h3>
+
+<p>OpenAI has moved from relying primarily on RLHF-based alignment to a multi-layered safety architecture that includes input classifiers, output classifiers, constitutional AI principles, specialized safety models, and runtime monitoring. This defense-in-depth approach means that bypassing any single layer is insufficient; an attacker must find a path through multiple independent safety systems simultaneously.</p>
+
+<h3 id="instruction-hierarchy-enforcement">Instruction Hierarchy Enforcement</h3>
+
+<p>The formal instruction hierarchy, which prioritizes system-level instructions over user-level instructions, has been significantly hardened. Early versions of instruction hierarchy could be circumvented through various framing techniques; current implementations are substantially more robust, though not perfect. The hierarchy now extends to cover interactions between custom GPT instructions and base model safety constraints.</p>
+
+<h3 id="cross-language-and-encoding-safety">Cross-Language and Encoding Safety</h3>
+
+<p>Early ChatGPT had notably weaker safety alignment in languages other than English, and attacks that used Base64 encoding, leetspeak, or Unicode manipulation could bypass text-based filters. OpenAI has invested heavily in multilingual safety training and encoding-aware filtering, closing most of these bypass routes. The model now applies consistent safety standards across languages and recognizes common encoding tricks used to disguise harmful requests.</p>
+
+<h3 id="automated-red-teaming-at-scale">Automated Red Teaming at Scale</h3>
+
+<p>Perhaps the most impactful long-term improvement has been OpenAI's investment in automated red teaming. Using AI systems to generate and test adversarial inputs at scale, OpenAI can proactively identify and patch vulnerabilities before they are discovered by external researchers. This has shifted the dynamic from reactive patching (fixing jailbreaks after they go viral) to proactive hardening (finding and fixing categories of vulnerabilities before they are exploited).</p>
+
+<p>The result is a model that is meaningfully safer than its predecessors, and meaningfully harder to jailbreak. But "harder" is not "impossible," and the gap between current defenses and perfect safety remains wide enough to sustain an active research community.</p>
+
+<h2 id="implications-for-security-research">Implications for Security Research</h2>
+
+<p>ChatGPT jailbreaking matters beyond ChatGPT itself. As the most widely deployed and most heavily attacked language model, ChatGPT serves as a case study in how adversarial dynamics evolve against AI systems at scale. The lessons are transferable across the field.</p>
+
+<h3 id="the-defense-offense-asymmetry">The Defense-Offense Asymmetry</h3>
+
+<p>The history of ChatGPT jailbreaking confirms a pattern familiar from traditional security: defense must be comprehensive, while offense needs only one gap. OpenAI must secure every interaction modality, every capability, every language, every encoding, and every combination thereof. An attacker needs to find one path through the stack. This asymmetry is structural, not a failure of any specific defense, and it suggests that perfect LLM safety through alignment alone may not be achievable.</p>
+
+<h3 id="transferable-techniques">Transferable Techniques</h3>
+
+<p>Techniques developed against ChatGPT regularly transfer to other language models. Multi-turn attacks, context manipulation, cross-modal exploits, and framing-based bypasses work (with adaptation) against Claude, Gemini, Llama, and other models. This transferability arises because the underlying vulnerabilities are properties of the transformer architecture and the RLHF training paradigm, not implementation-specific bugs in ChatGPT.</p>
+
+<p>Understanding ChatGPT jailbreaking is therefore not just about OpenAI's product; it is about understanding the adversarial properties of instruction-following language models as a class. The concept of <a href="/ai-security/computational-countertransference/">computational countertransference</a> further illuminates how these models' tendency to mirror and accommodate user intent creates fundamental tension with safety constraints.</p>
+
+<h3 id="why-chatgpt-remains-the-primary-research-target">Why ChatGPT Remains the Primary Research Target</h3>
+
+<p>Three factors make ChatGPT the most important jailbreaking research target in 2026:</p>
+
+<ol>
+<li><strong>Scale</strong>: With hundreds of millions of users, ChatGPT jailbreaks have outsized real-world impact. A technique that works against ChatGPT affects more people than one that works against any other model.</li>
+<li><strong>Feature richness</strong>: ChatGPT's extensive capability set (vision, code execution, browsing, file handling, custom GPTs, function calling, voice) creates the broadest attack surface of any consumer-facing LLM, making it the most comprehensive test bed for multi-modal and tool-use attacks.</li>
+<li><strong>Transparent safety improvements</strong>: OpenAI publishes system cards, safety reports, and technical details about their alignment work, providing researchers with the information needed to evaluate defenses rigorously. This transparency makes ChatGPT more researchable than closed alternatives that provide less visibility into their safety architecture.</li>
+</ol>
+
+<p>For researchers looking to apply structured methodologies to this space, <a href="/aatmf">AATMF</a> provides a systematic framework for adversarial testing that goes beyond ad-hoc prompt crafting. The <a href="/tools/jailbreak-engine/">Jailbreak Engine</a> offers tooling for automated technique testing across models.</p>
+
+<h2 id="responsible-disclosure-and-the-research-cycle">Responsible Disclosure and the Research Cycle</h2>
+
+<p>The maturation of ChatGPT jailbreaking as a research discipline has brought it closer to the norms of traditional security research, particularly around responsible disclosure.</p>
+
+<h3 id="openais-bugcrowd-program">OpenAI's Bugcrowd Program</h3>
+
+<p>OpenAI maintains an active bug bounty program through Bugcrowd that accepts reports of safety-relevant vulnerabilities, including novel jailbreak techniques. The program pays bounties for significant findings and provides a structured channel for researchers to report vulnerabilities without publicly exposing them before patches are available.</p>
+
+<p>The bug bounty approach has helped professionalize jailbreak research. Rather than racing to publish jailbreaks on social media for clout, researchers with significant findings now have an incentive to disclose responsibly. This does not eliminate public jailbreak sharing (which continues at scale on Reddit, Discord, and Twitter), but it channels the most impactful research through a responsible disclosure process.</p>
+
+<h3 id="the-responsible-research-cycle">The Responsible Research Cycle</h3>
+
+<p>The most effective jailbreak research follows a cycle that benefits both security and safety:</p>
+
+<ol>
+<li><strong>Discovery</strong>: Researchers identify a novel technique or category of bypass.</li>
+<li><strong>Validation</strong>: The technique is tested to determine its scope, reliability, and potential impact.</li>
+<li><strong>Disclosure</strong>: Findings are reported through responsible channels (Bugcrowd, direct communication with OpenAI's safety team).</li>
+<li><strong>Patching</strong>: OpenAI addresses the vulnerability, often through both immediate mitigations and longer-term architectural improvements.</li>
+<li><strong>Publication</strong>: After the vulnerability is patched, the research is published to advance the community's understanding of the attack surface.</li>
+</ol>
+
+<p>This cycle has produced some of the most valuable improvements to ChatGPT's safety. Many of OpenAI's most significant safety upgrades were driven by responsible disclosure from external researchers rather than internal discovery. The relationship between the jailbreaking community and OpenAI, while sometimes adversarial in technique, has been broadly cooperative in outcome.</p>
+
+<p>For those conducting this work, the ethical dimension deserves explicit attention. Jailbreak research exists in a space where the techniques studied can cause real harm if misused. The distinction between security research and adversarial exploitation lies entirely in intent, methodology, and disclosure practices. <a href="/adversarial-minds">Adversarial Minds</a> explores this ethical landscape in depth, examining how the adversarial mindset can be channeled toward improving safety rather than undermining it.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The history of ChatGPT jailbreaking is a compressed version of the broader story of adversarial security. It follows the same arc that network security, web application security, and mobile security followed before it: initial vulnerability, community-driven exploit development, defensive maturation, and the eventual establishment of a professional research discipline.</p>
+
+<p>What distinguishes LLM jailbreaking from prior security domains is the nature of the boundary being tested. In traditional security, the boundary between authorized and unauthorized behavior is defined by code: a firewall rule, an access control list, a validation function. In LLM safety, the boundary is defined by training: a statistical tendency to refuse certain outputs under certain conditions. This boundary is inherently fuzzier, harder to verify, and more susceptible to novel attacks that fall outside the training distribution.</p>
+
+<p>ChatGPT in 2026 is vastly more resistant to jailbreaking than the model that launched in 2022. The easy attacks are gone. But the fundamental challenge remains: building language models that are simultaneously maximally helpful and maximally safe, when helpfulness and safety exist in structural tension. Every improvement in the model's ability to follow complex instructions is, in some measure, an improvement in its ability to follow adversarial instructions. Every expansion of its capabilities creates new attack surface.</p>
+
+<p>This is not a problem that will be solved and filed away. It is a dynamic that will continue to evolve as long as language models are deployed at scale. Understanding its history is essential for anyone who intends to participate in its future.</p>
+
+<h2 id="about-the-author">About the Author</h2>
+<p><strong>Kai Aizen (SnailSploit)</strong> is a GenAI Security Researcher and NVD Contributor specializing in adversarial AI, LLM jailbreaking, and prompt injection. He is the creator of <a href="/aatmf">AATMF</a> and author of <strong><a href="/adversarial-minds" style="color:var(--signal-2);border-bottom:1px solid color-mix(in srgb,var(--signal-2) 40%,transparent)">Adversarial Minds</a></strong>. His work has been published in <strong>Hakin9</strong>, <strong>PenTest Magazine</strong>, and <strong>eForensics</strong>.</p> <p>Follow his research at <a href="/" rel="noopener noreferrer" target="_blank">SnailSploit.com</a> · <a href="https://github.com/SnailSploit" rel="noopener noreferrer" target="_blank">GitHub</a> · <a href="https://www.linkedin.com/in/kaiaizen/" rel="noopener noreferrer" target="_blank">LinkedIn</a></p> </div> <script type="module">document.addEventListener("astro:page-load",()=>{const d=document.getElementById("article-content"),u=document.getElementById("toc-list"),h=document.getElementById("article-toc");if(d&&u&&h){const t=Array.from(d.querySelectorAll("h2"));if(t.length<2)h.style.display="none";else{t.forEach((o,c)=>{const i=o.textContent?.trim()||`Section ${c+1}`,a=i.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||`section-${c}`;o.id=a;const p=document.createElement("li");p.className="toc-item";const l=document.createElement("a");l.href=`#${a}`,l.textContent=i,l.className="toc-link",l.addEventListener("click",E=>{E.preventDefault(),document.getElementById(a)?.scrollIntoView({behavior:"smooth",block:"start"})}),p.appendChild(l),u.appendChild(p)});const e=Array.from(d.children),n=[];let r=[],s=!1;e.forEach(o=>{o.tagName==="H2"?(r.length>0&&n.push({elements:r,hasH2:s}),r=[o],s=!0):r.push(o)}),r.length>0&&n.push({elements:r,hasH2:s});let f=0;n.forEach(o=>{const c=document.createElement("div");o.hasH2?(c.className=f%2===1?"article-section article-section-alt":"article-section",f++):c.className="article-section article-section-preamble",o.elements.forEach(i=>c.appendChild(i)),d.appendChild(c)});const v=new IntersectionObserver(o=>{o.forEach(c=>{c.isIntersecting&&(u.querySelectorAll(".toc-link").forEach(a=>a.classList.remove("toc-active")),u.querySelector(`a[href="#${c.target.id}"]`)?.classList.add("toc-active"))})},{rootMargin:"-100px 0px -60% 0px"});t.forEach(o=>v.observe(o))}}document.querySelectorAll("#article-content table").forEach(t=>{if(!t.parentElement?.classList.contains("table-wrapper")){const e=document.createElement("div");e.className="table-wrapper",t.parentNode?.insertBefore(e,t),e.appendChild(t)}});const m=document.getElementById("reading-progress"),g=document.getElementById("article-content");if(m&&g){let t=!1;window.addEventListener("scroll",()=>{t||(requestAnimationFrame(()=>{const e=g.getBoundingClientRect(),n=e.top+window.scrollY,r=n+e.height-window.innerHeight,s=Math.min(Math.max((window.scrollY-n)/(r-n),0),1);m.style.transform=`scaleX(${s})`,t=!1}),t=!0)})}function w(){const t=document.createElementNS("http://www.w3.org/2000/svg","svg");t.setAttribute("width","16"),t.setAttribute("height","16"),t.setAttribute("viewBox","0 0 24 24"),t.setAttribute("fill","none"),t.setAttribute("stroke","currentColor"),t.setAttribute("stroke-width","2");const e=document.createElementNS("http://www.w3.org/2000/svg","rect");e.setAttribute("x","9"),e.setAttribute("y","9"),e.setAttribute("width","13"),e.setAttribute("height","13"),e.setAttribute("rx","2");const n=document.createElementNS("http://www.w3.org/2000/svg","path");return n.setAttribute("d","M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"),t.appendChild(e),t.appendChild(n),t}function b(){const t=document.createElementNS("http://www.w3.org/2000/svg","svg");t.setAttribute("width","16"),t.setAttribute("height","16"),t.setAttribute("viewBox","0 0 24 24"),t.setAttribute("fill","none"),t.setAttribute("stroke","currentColor"),t.setAttribute("stroke-width","2");const e=document.createElementNS("http://www.w3.org/2000/svg","polyline");return e.setAttribute("points","20 6 9 17 4 12"),t.appendChild(e),t}document.querySelectorAll("#article-content pre").forEach(t=>{const e=document.createElement("button");e.className="copy-code-btn",e.setAttribute("aria-label","Copy code"),e.appendChild(w()),e.addEventListener("click",()=>{const n=t.querySelector("code"),r=n?n.textContent||"":t.textContent||"";navigator.clipboard.writeText(r).then(()=>{e.textContent="",e.appendChild(b()),setTimeout(()=>{e.textContent="",e.appendChild(w())},2e3)})}),t.style.position="relative",t.appendChild(e)})});</script> <!-- Author Bio --> <!-- Related Research -->  <!-- Prev/Next Navigation --> </div>
+</main>
+<aside class="toc"><div class="toc-eyebrow">In this article</div><ul><li><a href="#the-origin-story-how-chatgpt-jailbreaking-began">The Origin Story: How ChatGPT Jailbreaking Began</a></li><li><a href="#the-dan-era-2022-2023">The DAN Era (2022-2023)</a></li><li><a href="#the-evolution-2024-2025">The Evolution: 2024-2025</a></li><li class="h3"><a href="#multi-turn-jailbreaks">Multi-Turn Jailbreaks</a></li><li class="h3"><a href="#system-prompt-extraction">System Prompt Extraction</a></li><li class="h3"><a href="#vision-based-jailbreaks">Vision-Based Jailbreaks</a></li><li class="h3"><a href="#tool-use-exploitation">Tool-Use Exploitation</a></li><li class="h3"><a href="#openais-response">OpenAI's Response</a></li><li><a href="#the-current-landscape-2026">The Current Landscape: 2026</a></li><li class="h3"><a href="#context-window-manipulation">Context Window Manipulation</a></li><li class="h3"><a href="#cross-modal-attacks">Cross-Modal Attacks</a></li><li class="h3"><a href="#custom-gpt-exploitation">Custom GPT Exploitation</a></li><li class="h3"><a href="#function-calling-abuse">Function Calling Abuse</a></li><li><a href="#what-openai-has-fixed">What OpenAI Has Fixed</a></li><li class="h3"><a href="#persona-override-resistance">Persona Override Resistance</a></li><li class="h3"><a href="#multi-layered-safety-architecture">Multi-Layered Safety Architecture</a></li><li class="h3"><a href="#instruction-hierarchy-enforcement">Instruction Hierarchy Enforcement</a></li><li class="h3"><a href="#cross-language-and-encoding-safety">Cross-Language and Encoding Safety</a></li><li class="h3"><a href="#automated-red-teaming-at-scale">Automated Red Teaming at Scale</a></li><li><a href="#implications-for-security-research">Implications for Security Research</a></li><li class="h3"><a href="#the-defense-offense-asymmetry">The Defense-Offense Asymmetry</a></li><li class="h3"><a href="#transferable-techniques">Transferable Techniques</a></li><li class="h3"><a href="#why-chatgpt-remains-the-primary-research-target">Why ChatGPT Remains the Primary Research Target</a></li><li><a href="#responsible-disclosure-and-the-research-cycle">Responsible Disclosure and the Research Cycle</a></li><li class="h3"><a href="#openais-bugcrowd-program">OpenAI's Bugcrowd Program</a></li><li class="h3"><a href="#the-responsible-research-cycle">The Responsible Research Cycle</a></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#about-the-author">About the Author</a></li><li class="h3"><a href="#related-research">Related Research</a></li></ul></aside>
+</div>
+<section class="related"><div class="related-inner"><div class="related-head">Related</div><div class="related-grid"><a class="related-card" href="/ai-security/jailbreaking/jailbreak-techniques/"><div class="related-date">2026-03-10</div><div class="related-title">LLM Jailbreak Techniques: A Technical Taxonomy</div><div class="related-desc">Complete taxonomy of LLM jailbreak methods — role hijacking, multi-turn escalation, context manipulation, encoding exploits, and chain-of-th...</div></a><a class="related-card" href="/ai-security/adversarial-prompting/"><div class="related-date">2026-03-10</div><div class="related-title">Adversarial Prompting: The Complete Technical Guide</div><div class="related-desc">Every adversarial prompting technique mapped from role hijacking to multi-turn escalation. Learn how attacks work, why defenses fail, and ho...</div></a><a class="related-card" href="/ai-security/jailbreaking/chatgpt-context-jailbreak/"><div class="related-date">2024-05-27</div><div class="related-title">ChatGPT Jailbreak via Context Manipulation</div><div class="related-desc">Step-by-step walkthrough of jailbreaking ChatGPT using context manipulation and social awareness techniques. Original research and methodolo...</div></a></div></div></section>
+
+  <!-- citation:start -->
+  <section style="padding:48px 32px;background:var(--bg-sink);border-bottom:1px solid var(--line)">
+    <div style="max-width:780px;margin:0 auto">
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px">cite this work</div>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">BibTeX</summary>
+        <pre style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);white-space:pre-wrap;margin:12px 0 0;background:var(--bg-sink);padding:12px;border:1px solid var(--line)">@misc{aizen2026chatgptjailbreaks,
+  author = {Aizen, Kai},
+  title  = {ChatGPT Jailbreaks: History, Techniques, and What Still Works in 2026},
+  year   = {2026},
+  url    = {https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/},
+  note   = {snailsploit.com}
+}</pre>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">APA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, K. (2026). <i>ChatGPT Jailbreaks: History, Techniques, and What Still Works in 2026</i>. snailsploit.com. https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px;margin-bottom:8px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">MLA</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "ChatGPT Jailbreaks: History, Techniques, and What Still Works in 2026." <i>snailsploit</i>, 2026, https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/.</p>
+      </details>
+      <details style="border:1px solid var(--line);background:var(--bg);padding:16px 20px">
+        <summary style="font-family:var(--f-mono);font-size:13px;color:var(--fg);cursor:pointer">Chicago</summary>
+        <p style="font-family:var(--f-mono);font-size:12px;color:var(--fg-2);line-height:1.6;margin:12px 0 0">Aizen, Kai. "ChatGPT Jailbreaks: History, Techniques, and What Still Works in 2026." snailsploit (blog). 2026. https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/.</p>
+      </details>
+      <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);margin-top:16px">Permalink: <a href="https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/" style="color:var(--signal-2);border-bottom:1px solid var(--signal-2)">https://snailsploit.com/ai-security/jailbreaking/chatgpt-jailbreak/</a></div>
+    </div>
+  </section>
+  <!-- citation:end -->
+<section class="author-row"><div class="author-inner"><div class="author-eyebrow">Author</div><div class="author-name">Kai Aizen</div><div class="author-bio">Independent Adversarial · Research group. 97 published CVEs, 5 Linux kernel mainline patches, creator of AATMF / P.R.O.M.P.T / SEF, author of Adversarial Minds.</div><div class="author-links"><a href="/about">about</a><a href="/services">services</a><a href="https://github.com/snailsploit" rel="noopener" aria-label="SnailSploit on GitHub" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:2px;color:var(--fg-2);text-decoration:none;transition:color 120ms,border-color 120ms" onmouseover="this.style.color='var(--signal-2)';this.style.borderColor='rgba(224,122,74,0.45)'" onmouseout="this.style.color='var(--fg-2)';this.style.borderColor='var(--line)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg></a><a href="https://x.com/SnailSploit" rel="noopener" aria-label="SnailSploit on X" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:2px;color:var(--fg-2);text-decoration:none;transition:color 120ms,border-color 120ms" onmouseover="this.style.color='var(--signal-2)';this.style.borderColor='rgba(224,122,74,0.45)'" onmouseout="this.style.color='var(--fg-2)';this.style.borderColor='var(--line)'"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://linkedin.com/company/snailsploit" rel="noopener" aria-label="SnailSploit on LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:2px;color:var(--fg-2);text-decoration:none;transition:color 120ms,border-color 120ms" onmouseover="this.style.color='var(--signal-2)';this.style.borderColor='rgba(224,122,74,0.45)'" onmouseout="this.style.color='var(--fg-2)';this.style.borderColor='var(--line)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05a3.73 3.73 0 0 1 3.36-1.85c3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.78 24h20.44c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a><a href="https://www.researchgate.net/profile/Kai-Aizen-2" rel="noopener">researchgate</a></div></div></section>
+<footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">&copy; 2026 SnailSploit Ltd. &middot; Same attack. Different substrate. Human or machine.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a><a href="/accessibility" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Accessibility</a></span><!-- legal-nav --></footer>
+<script defer src="/ui.js?v=20260824"></script>
+</body>
+</html>
