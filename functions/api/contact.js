@@ -103,6 +103,11 @@ export async function onRequestPost(ctx) {
     return new Response('Invalid body', { status: 400 });
   }
 
+  // Reject malformed JSON (null, arrays, and primitives are not form submissions).
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    return new Response('Invalid form data', { status: 400 });
+  }
+
   // 3. Honeypot
   if (data._gotcha) return jsonResp({ ok: true }, 200);
 
@@ -118,6 +123,15 @@ export async function onRequestPost(ctx) {
     if (!data[k] || String(data[k]).trim().length < 1) {
       return new Response(`Missing field: ${k}`, { status: 400 });
     }
+  }
+  for (const k of ['name', 'email', 'message', 'org', 'topic']) {
+    if (data[k] !== undefined && typeof data[k] !== 'string') {
+      return new Response('Invalid form data', { status: 400 });
+    }
+  }
+  if (String(data.name).length > 120 || String(data.email).length > 254 ||
+      String(data.org || '').length > 150 || String(data.topic || '').length > 150) {
+    return new Response('Form field too long', { status: 400 });
   }
   if (String(data.message).length > MAX_MSG) {
     return new Response(`Message too long (max ${MAX_MSG} chars)`, { status: 400 });
@@ -156,8 +170,9 @@ export async function onRequestPost(ctx) {
   });
 
   if (!res.ok) {
-    const err = await res.text();
-    return new Response(`Resend error: ${err}`, { status: 502 });
+    // Never expose Resend's response body: it may contain provider internals.
+    console.error('Contact delivery failed; provider status:', res.status);
+    return jsonResp({ ok: false, error: 'Delivery temporarily unavailable. Please try again or email us directly.' }, 502);
   }
 
   return jsonResp({
