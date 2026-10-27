@@ -4,6 +4,8 @@ on:
     paths:
       - 'functions/api/contact.js'
       - 'services.html'
+      - 'sitemap.xml'
+      - 'llms.txt'
       - 'contact.html'
       - 'commercial-events.js'
       - 'services/ai-agent-security/**'
