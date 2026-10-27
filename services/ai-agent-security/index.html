@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Agent Security Assessment | Agentic AI Red Teaming | SnailSploit</title>
+  <meta name="description" content="Independent, research-grade security assessments for AI agents, tools, MCP integrations, memory, identities, and cloud access. Evidence-backed findings and practical remediation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>:root { --bg: #0E0E0F; --bg-raise: #15161A; --bg-sink: #08090B; --line: #23252B; --line-hi: #2E3138; --paper: #F4F2EC; --paper-2: #EAE7DD; --ink: #0E0E0F; --fg: #E9E7E1; --fg-2: #B6B4AC; --fg-3: #76746C; --fg-4: #4A4842; --ink-2: #38362F; --ink-3: #6B675C; --signal: #C2592C; --signal-2: #E07A4A; --f-grot: "Söhne", "Neue Haas Grotesk Display", "Inter Tight", -apple-system, system-ui, sans-serif; --f-mono: "Berkeley Mono", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; --t-11: 11px; --t-12: 12px; --t-13: 13px; --t-14: 14px; --t-16: 16px; --t-20: 20px; --t-28: 28px; --t-40: 40px; --t-56: 56px; --t-80: 80px; --t-128: 128px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; } html, body { background: var(--bg); color: var(--fg); font-family: var(--f-grot); font-feature-settings: "ss01", "cv11", "tnum"; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; margin: 0; } * { box-sizing: border-box; }</style>
+  <style>
+    html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--f-grot, "Inter Tight", system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    * { box-sizing: border-box; }
+  </style>
+
+  <!-- seo:start -->
+  <meta name="description" content="Independent, research-grade security assessments for AI agents, tools, MCP integrations, memory, identities, and cloud access. Evidence-backed findings and practical remediation.">
+  <meta name="author" content="SnailSploit">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://snailsploit.com/services/ai-agent-security/">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Agent Security Assessment | Agentic AI Red Teaming | SnailSploit">
+  <meta property="og:description" content="Independent, research-grade security assessments for AI agents, tools, MCP integrations, memory, identities, and cloud access. Evidence-backed findings and practical remediation.">
+  <meta property="og:url" content="https://snailsploit.com/services/ai-agent-security/">
+  <meta property="og:site_name" content="SnailSploit">
+  <meta property="og:image" content="https://snailsploit.com/og-images/services.png">
+<meta property="og:image:alt" content="SnailSploit security services">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@SnailSploit">
+  <meta name="twitter:creator" content="@SnailSploit">
+  <meta name="twitter:title" content="AI Agent Security Assessment | Agentic AI Red Teaming | SnailSploit">
+  <meta name="twitter:description" content="Independent, research-grade security assessments for AI agents, tools, MCP integrations, memory, identities, and cloud access. Evidence-backed findings and practical remediation.">
+  <meta name="twitter:image" content="https://snailsploit.com/og-images/services.png">
+  
+  <!-- seo:end -->
+
+  <!-- assets:start -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#0E0E0F">
+  <link rel="alternate" hreflang="en" href="https://snailsploit.com/services/ai-agent-security/">
+  <link rel="alternate" hreflang="x-default" href="https://snailsploit.com/services/ai-agent-security/">
+  <!-- assets:end -->
+
+  <!-- analytics:start -->
+  <!-- analytics:end -->
+
+  <!-- polish:start -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="color-scheme" content="dark">
+  <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
+  <!-- polish:end -->
+
+  <!-- extra-schema:start -->
+  <!-- extra-schema:end -->
+
+  <!-- offsite:start -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="snailsploit research" href="/rss.xml">
+  <link rel="alternate" type="application/atom+xml" title="snailsploit research" href="/feed.xml">
+  <!-- offsite:end -->
+
+  
+  
+  <link rel="stylesheet" href="/css/responsive.css">
+
+
+<style>
+.site-crumbs{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 96%,transparent)}
+.site-crumbs-inner{max-width:1280px;margin:0 auto;padding:14px 32px;display:flex;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em}
+.site-crumbs a{color:var(--fg-3);text-decoration:none;transition:color 0.15s}
+.site-crumbs a:hover{color:var(--fg)}
+.site-crumbs .sep{color:var(--fg-4)}
+.site-crumbs .here{color:var(--fg)}
+@media (max-width: 880px){.site-crumbs-inner{padding:10px 20px;font-size:10px}}
+</style>
+
+
+  <!-- gtm:head:start -->
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KNQQ58JL');</script>
+  <!-- End Google Tag Manager -->
+  <!-- gtm:head:end -->
+
+  <!-- speakable:start -->
+  
+  <!-- speakable:end -->
+<link rel="stylesheet" href="/mobile.css">
+<link rel="stylesheet" href="/ui.css?v=20260823">
+<style>.ss-skip{position:fixed;left:8px;top:-64px;z-index:10000;background:var(--signal-2,#E07A4A);color:var(--bg,#0E0E0F);padding:10px 16px;font-family:system-ui,-apple-system,sans-serif;font-weight:600;font-size:14px;line-height:1;text-decoration:none;border-radius:4px;transition:top .15s ease}.ss-skip:focus{top:8px;outline:2px solid #fff;outline-offset:2px}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"AI Agent Security Assessment","serviceType":"AI agent security assessment and adversarial testing","url":"https://snailsploit.com/services/ai-agent-security/","provider":{"@type":"Organization","name":"SnailSploit","url":"https://snailsploit.com/"},"description":"Independent, research-grade security assessments for AI agents, tools, MCP integrations, memory, identities, and cloud access. Evidence-backed findings and practical remediation.","areaServed":"Worldwide"}</script><style>
+.ai-assessment {--a-border:var(--line-hi);color:var(--fg);font-family:var(--f-grot)}
+.ai-assessment .wrap{max-width:1280px;margin:0 auto;padding:72px 32px}
+.ai-assessment .eyebrow{font:11px var(--f-mono);text-transform:uppercase;letter-spacing:.16em;color:var(--signal-2)}
+.ai-assessment h1{font-size:clamp(42px,7.3vw,96px);font-weight:500;line-height:1.02;letter-spacing:-.05em;max-width:1130px;margin:22px 0 24px}
+.ai-assessment h2{font-size:clamp(30px,4.7vw,54px);font-weight:500;letter-spacing:-.035em;line-height:1.08;margin:0 0 24px}
+.ai-assessment p{line-height:1.67;color:var(--fg-2)}
+.ai-assessment .lead{font-size:clamp(17px,2.1vw,22px);max-width:850px}
+.ai-assessment .button{display:inline-flex;align-items:center;min-height:48px;padding:12px 22px;font:13px var(--f-mono);text-decoration:none;border:1px solid var(--signal-2);background:var(--signal-2);color:var(--bg)}
+.ai-assessment .button.alt{background:transparent;border-color:var(--line-hi);color:var(--fg)}
+.ai-assessment .actions{display:flex;gap:14px;flex-wrap:wrap;margin:32px 0 0}
+.ai-assessment .section{border-bottom:1px solid var(--line)}
+.ai-assessment .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.ai-assessment .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.ai-assessment .panel{border:1px solid var(--a-border);padding:26px;background:var(--bg-sink)}
+.ai-assessment .panel h3{font-size:21px;line-height:1.25;font-weight:500;margin:12px 0}
+.ai-assessment .panel p{font-size:14px;margin:0}
+.ai-assessment .row{display:flex;gap:14px;align-items:flex-start;padding:17px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.5}
+.ai-assessment .num{font:12px var(--f-mono);color:var(--signal-2)}
+.ai-assessment .muted{color:var(--fg-3)}
+.ai-assessment .faq details{border-top:1px solid var(--line);padding:18px 0}
+.ai-assessment .faq summary{cursor:pointer;font-size:18px;color:var(--fg)}
+.ai-assessment .faq p{font-size:15px;max-width:850px}
+@media(max-width:750px){.ai-assessment .wrap{padding:52px 20px}.ai-assessment .grid3,.ai-assessment .grid2{grid-template-columns:1fr}.ai-assessment .panel{padding:22px}.ai-assessment .actions a{width:100%;justify-content:center}}
+</style></head>
+<body>
+<a class="ss-skip" href="#main">Skip to content</a>
+<!-- gtm:body:start -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNQQ58JL"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- gtm:body:end -->
+
+  <div style="background:var(--bg);color:var(--fg);font-family:var(--f-grot);min-height:100vh"><header style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)"><div style="max-width:1280px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;align-items:center"><a href="/" style="text-decoration:none;color:inherit;display:inline-flex;flex-direction:column;align-items:flex-start;gap:2px;line-height:1"><span style="font-family:var(--f-grot);font-weight:600;font-size:30px;letter-spacing:-0.04em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline">snailsploit<span style="font-family:var(--f-mono);font-size:22px;font-weight:500;margin-left:8px;color:var(--fg);letter-spacing:-0.01em">[<span style="color:var(--signal-2)">$</span>]</span></span><span style="font-family:var(--f-mono);font-size:9px;color:var(--fg-3);letter-spacing:0.22em;text-transform:uppercase;margin-top:3px">Adversarial · Research</span></a><nav style="display:flex;gap:28px;font-family:var(--f-mono);font-size:12px;color:var(--fg-2);text-transform:lowercase"><a href="/about" style="color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px">about</a><a href="/frameworks" style="color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px">frameworks</a><a href="/research" style="color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px">research</a><a href="/ai-security/" style="color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px">ai security</a><a href="/cves" style="color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px">cves</a><a href="/wiki" style="color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px">wiki</a><a href="/tools" style="color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px">tools</a><a href="/services" style="color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px">services</a><a href="/contact" style="color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px">contact</a></nav><div style="display:flex;gap:16px;align-items:center;font-family:var(--f-mono);font-size:11px;color:var(--fg-3)"><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:6px;height:6px;background:var(--signal-2);border-radius:999px"></span> live</span></div></div></header><div id="main" tabindex="-1"></div>
+<nav class="site-crumbs" aria-label="Breadcrumb"><div class="site-crumbs-inner"><a href="/">Home</a><span class="sep">/</span><a href="/services">Services</a><span class="sep">/</span><span class="here">AI Agent Security</span></div></nav>
+<main class="ai-assessment">
+<section class="section" style="background:var(--bg)">
+<div class="wrap">
+<div class="eyebrow">Independent offensive research / AI systems</div>
+<h1>AI agents can act.<br><span class="muted">Can your security model keep up?</span></h1>
+<p class="lead">When a model can search, call tools, read private data and change real systems, the security boundary is no longer just the prompt. We examine how your AI application crosses trust, identity and execution boundaries — and validate realistic attack paths.</p>
+<div class="actions"><a class="button" href="/contact#form" data-ss-cta="ai_agent_service_primary">Discuss an assessment →</a><a class="button alt" href="/ai-security/agentic-ai-threat-landscape/">Read the underlying research</a></div>
+<p style="font:12px var(--f-mono);color:var(--fg-3);margin-top:20px">Defined scope · Authorization before testing · Reproducible evidence</p>
+</div></section>
+<section class="section"><div class="wrap"><div class="eyebrow">01 / What we assess</div><h2>The system surrounding the model.</h2>
+<div class="grid3">
+<div class="panel"><div class="num">01 / Trust boundaries</div><h3>Untrusted inputs → privileged actions</h3><p>Indirect prompt injection, retrieval poisoning, adversarial instructions in documents and tool outputs, and action authorization gaps.</p></div>
+<div class="panel"><div class="num">02 / Tools and integrations</div><h3>Agent execution surfaces</h3><p>MCP-connected tools, API capabilities, data exfiltration paths, permission boundaries, and unsafe compositions of legitimate tool calls.</p></div>
+<div class="panel"><div class="num">03 / State and identity</div><h3>Memory, credentials and persistence</h3><p>Long-term context manipulation, RAG/memory poisoning, user-to-user isolation, secrets exposure, and delegated identity assumptions.</p></div>
+</div>
+</div></section>
+<section class="section" style="background:var(--bg-sink)"><div class="wrap"><div class="eyebrow">02 / Engagement structure</div><h2>From architecture to demonstrated impact.</h2>
+<div class="grid2">
+<div><div class="row"><span class="num">01</span><div><strong>Scoping and authorization</strong><p>Agree on the agent, target environment, test accounts, allowed actions, sensitive boundaries and stop conditions.</p></div></div>
+<div class="row"><span class="num">02</span><div><strong>Attack-surface mapping</strong><p>Map untrusted sources, tool access, permissions and security controls to the decisions your agent can make.</p></div></div></div>
+<div><div class="row"><span class="num">03</span><div><strong>Adversarial validation</strong><p>Test high-value hypotheses, confirm reachability and document what an attacker can actually cause.</p></div></div>
+<div class="row"><span class="num">04</span><div><strong>Remediation and debrief</strong><p>Prioritize architectural fixes, provide reproductions where safe, and review the evidence with your engineers.</p></div></div></div></div>
+</div></section>
+<section class="section"><div class="wrap"><div class="eyebrow">03 / Deliverables</div><h2>Actionable evidence. Not a theater report.</h2>
+<div class="grid3">
+<div class="panel"><h3>Verified attack paths</h3><p>Entry point, assumptions, preconditions, observed behavior and real-world impact — with limitations documented.</p></div>
+<div class="panel"><h3>Engineering remediation</h3><p>Specific boundary changes, authorization controls, containment and validation guidance mapped to your system.</p></div>
+<div class="panel"><h3>Decision-ready summary</h3><p>Clear severity rationale and a debrief that lets technical and business owners choose what to fix first.</p></div>
+</div></div></section>
+<section class="section" style="background:var(--bg-sink)"><div class="wrap"><div class="eyebrow">04 / FAQ</div><h2>Before we begin.</h2><div class="faq">
+<details><summary>Do we need to share our model weights or proprietary methodology?</summary><p>No by default. Most assessments begin with architecture, test access and agreed behavior. Additional source or configuration access is defined during scoping only when required.</p></details>
+<details><summary>Is this only prompt-injection testing?</summary><p>No. Prompt injection is one mechanism. We test the boundaries between model outputs, tools, authorization, memory, data sources and infrastructure.</p></details>
+<details><summary>Will testing disrupt production?</summary><p>We agree on test environments, rate limits, sensitive assets and stop conditions before testing. High-impact validation is performed only within explicitly authorized constraints.</p></details>
+<details><summary>What happens after a finding is confirmed?</summary><p>We provide reproduction details, supporting evidence, realistic impact, fix guidance and a discussion with the responsible engineering team.</p></details>
+</div></div></section>
+<section class="section"><div class="wrap"><div class="eyebrow">05 / Start</div><h2>Bring your agent architecture.<br><span class="muted">We will bring the adversarial questions.</span></h2>
+<p class="lead">Start with a 30-minute scoping discussion. We will identify the target, trust boundaries and what a useful assessment would deliver. No commitment before a defined scope.</p>
+<div class="actions"><a class="button" href="/contact#form" data-ss-cta="ai_agent_service_bottom">Discuss an AI security assessment →</a><a class="button alt" href="/services">View all services</a></div>
+</div></section></main><footer style="background:var(--bg-sink)"><div style="max-width:1280px;margin:0 auto;padding:56px 32px 36px"><div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;align-items:start"><div><a href="/" style="text-decoration:none;color:inherit;display:inline-flex;flex-direction:column;align-items:flex-start;gap:2px;line-height:1"><span style="font-family:var(--f-grot);font-weight:600;font-size:30px;letter-spacing:-0.04em;color:var(--fg);line-height:1;white-space:nowrap;display:inline-flex;align-items:baseline">snailsploit<span style="font-family:var(--f-mono);font-size:17.5px;font-weight:500;margin-left:6.5px;color:var(--fg);letter-spacing:-0.01em">[<span style="color:var(--signal-2)">$</span>]</span></span><span style="font-family:var(--f-mono);font-size:9px;color:var(--fg-3);letter-spacing:0.22em;text-transform:uppercase;margin-top:3px">Adversarial · Research</span></a><p style="margin-top:18px;max-width:360px;font-size:13px;color:var(--fg-3);line-height:1.6">Adversarial psychology applied to machine systems. Open frameworks, original research, operational tooling.</p><div style="margin-top:18px;display:flex;gap:14px;font-family:var(--f-mono);font-size:12px"><a href="https://linkedin.com/company/snailsploit" rel="noopener" aria-label="SnailSploit on LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:2px;color:var(--fg-2);text-decoration:none;transition:color 120ms,border-color 120ms" onmouseover="this.style.color='var(--signal-2)';this.style.borderColor='rgba(224,122,74,0.45)'" onmouseout="this.style.color='var(--fg-2)';this.style.borderColor='var(--line)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05a3.73 3.73 0 0 1 3.36-1.85c3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.78 24h20.44c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a><a href="https://github.com/snailsploit" rel="noopener" aria-label="SnailSploit on GitHub" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:2px;color:var(--fg-2);text-decoration:none;transition:color 120ms,border-color 120ms" onmouseover="this.style.color='var(--signal-2)';this.style.borderColor='rgba(224,122,74,0.45)'" onmouseout="this.style.color='var(--fg-2)';this.style.borderColor='var(--line)'"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg></a><a href="https://x.com/SnailSploit" rel="noopener" aria-label="SnailSploit on X" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:2px;color:var(--fg-2);text-decoration:none;transition:color 120ms,border-color 120ms" onmouseover="this.style.color='var(--signal-2)';this.style.borderColor='rgba(224,122,74,0.45)'" onmouseout="this.style.color='var(--fg-2)';this.style.borderColor='var(--line)'"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="/contact" style="color:var(--fg-2);text-decoration:none">contact</a></div></div><div><span style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3)">frameworks</span><div style="margin-top:14px;display:grid;gap:8px"><a href="/aatmf" style="font-size:13px;color:var(--fg-2);text-decoration:none">AATMF</a><a href="/sef" style="font-size:13px;color:var(--fg-2);text-decoration:none">SEF</a><a href="/prompt" style="font-size:13px;color:var(--fg-2);text-decoration:none">P.R.O.M.P.T</a><a href="/claude-red" style="font-size:13px;color:var(--fg-2);text-decoration:none">Claude-Red</a></div></div><div><span style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3)">research</span><div style="margin-top:14px;display:grid;gap:8px"><a href="/research" style="font-size:13px;color:var(--fg-2);text-decoration:none">AI Security</a><a href="/wiki" style="font-size:13px;color:var(--fg-2);text-decoration:none">Wiki</a><a href="/kernel" style="font-size:13px;color:var(--fg-2);text-decoration:none">Linux Kernel</a><a href="/cves" style="font-size:13px;color:var(--fg-2);text-decoration:none">CVEs</a><a href="/advisories" style="font-size:13px;color:var(--fg-2);text-decoration:none">Advisories</a><a href="/glossary" style="font-size:13px;color:var(--fg-2);text-decoration:none">Glossary</a></div></div><div><span style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3)">more</span><div style="margin-top:14px;display:grid;gap:8px"><a href="/services" style="font-size:13px;color:var(--fg-2);text-decoration:none">Services</a><a href="/adversarial-minds" style="font-size:13px;color:var(--fg-2);text-decoration:none">Adversarial Minds</a><a href="/tools" style="font-size:13px;color:var(--fg-2);text-decoration:none">Tools</a><a href="/writing" style="font-size:13px;color:var(--fg-2);text-decoration:none">Writing</a><a href="/press" style="font-size:13px;color:var(--fg-2);text-decoration:none">Press</a><a href="/contact" style="font-size:13px;color:var(--fg-2);text-decoration:none">Contact</a></div></div></div><div style="margin-top:48px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center"><span style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3)">© 2026 SnailSploit Ltd. · Same attack. Different substrate. Human or machine.</span><span style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3)">services</span></div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a><a href="/accessibility" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Accessibility</a></span><!-- legal-nav --></footer></div>
+
+    <!-- cf-beacon: add real token to enable -->
+<script defer src="/ui.js?v=20260824"></script><script defer src="/commercial-events.js"></script>
+</body>
+</html>
