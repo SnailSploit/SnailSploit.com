@@ -198,7 +198,7 @@ export async function onRequestPost(ctx) {
   const to   = env.CONTACT_TO_EMAIL   || 'Kai@snailsploit.com';
   const from = env.CONTACT_FROM_EMAIL || 'forms@snailsploit.com';
   // Keep untrusted user text out of email subject control characters.
-  const safeSubjectPart = (v) => String(v || '').replace(/[\\r\\n\\x00-\\x1f\\x7f]+/g, ' ').trim();
+  const safeSubjectPart = (v) => String(v || '').replace(/[\r\n\x00-\x1f\x7f]+/g, ' ').trim();
   const subject = `[snailsploit] ${safeSubjectPart(data.topic) || 'contact'} — ${safeSubjectPart(data.name)}`;
   const text = [
     `From: ${data.name}${data.org ? ` (${data.org})` : ''}`,
