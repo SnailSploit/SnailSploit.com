@@ -23,3 +23,17 @@ jobs:
         with:
           node-version: '22'
       - run: node --test tests/commercial-funnel.test.mjs
+      - name: Read-only Cloudflare preview smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://chatgpt-commercial-conversio.snailsploit.pages.dev"
+          curl --fail --silent --show-error --location --retry 8 --retry-delay 3 "$base/services/" -o /tmp/ss-services.html
+          curl --fail --silent --show-error --location --retry 8 --retry-delay 3 "$base/services/ai-agent-security/" -o /tmp/ss-agent.html
+          curl --fail --silent --show-error --location --retry 8 --retry-delay 3 "$base/contact" -o /tmp/ss-contact.html
+          curl --fail --silent --show-error --location --retry 8 --retry-delay 3 "$base/ai-security/agentic-ai-threat-landscape/" -o /tmp/ss-research.html
+          grep -q 'Security research.' /tmp/ss-services.html
+          grep -q 'AI agents can act.' /tmp/ss-agent.html
+          grep -q 'Tell us what you need assessed.' /tmp/ss-contact.html
+          grep -q 'Which of these attack paths' /tmp/ss-research.html
+          echo "Four Cloudflare Pages preview routes verified; no forms submitted."
