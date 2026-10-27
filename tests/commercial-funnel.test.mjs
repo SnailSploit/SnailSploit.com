@@ -138,3 +138,39 @@ test('untrusted topic is sanitized in the email subject', async () => {
   assert.equal(response.status, 200);
   assert.doesNotMatch(subject, /[\r\n]/);
 });
+
+test('best-effort KV throttle limits repeated submissions without storing raw IP', async () => {
+  const saved = new Map();
+  const keys = [];
+  let deliveryCount = 0;
+  const envWithKv = {
+    ...env,
+    RATE_LIMIT_KV: {
+      async get(key) { keys.push(key); return saved.get(key) || null; },
+      async put(key, value) { saved.set(key, value); }
+    }
+  };
+  globalThis.fetch = async () => { deliveryCount++; return new Response('{"id":"ok"}', { status: 200 }); };
+  for (let i = 0; i < 5; i++) {
+    const request = req();
+    request.headers.set('CF-Connecting-IP', '203.0.113.123');
+    assert.equal((await onRequestPost({ request, env: envWithKv })).status, 200);
+  }
+  const sixth = req();
+  sixth.headers.set('CF-Connecting-IP', '203.0.113.123');
+  assert.equal((await onRequestPost({ request: sixth, env: envWithKv })).status, 429);
+  assert.equal(deliveryCount, 5);
+  assert.equal(keys.length, 6);
+  assert.ok(keys.every(k => !k.includes('203.0.113.123') && k.startsWith('cf-form:')));
+});
+
+test('KV errors do not break the legitimate contact path', async () => {
+  const failingEnv = {
+    ...env,
+    RATE_LIMIT_KV: { async get() { throw new Error('temporary KV error'); } }
+  };
+  globalThis.fetch = async () => new Response('{"id":"ok"}', { status: 200 });
+  const response = await onRequestPost({ request: req(), env: failingEnv });
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).rateLimit.skipped, true);
+});
