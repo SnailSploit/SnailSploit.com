@@ -1,0 +1,25 @@
+name: Verify commercial funnel
+on:
+  pull_request:
+    paths:
+      - 'functions/api/contact.js'
+      - 'services.html'
+      - 'contact.html'
+      - 'commercial-events.js'
+      - 'services/ai-agent-security/**'
+      - 'ai-security/agentic-ai-threat-landscape/**'
+      - 'tests/commercial-funnel.test.mjs'
+      - '.github/workflows/commercial-funnel.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/commercial-funnel.test.mjs
