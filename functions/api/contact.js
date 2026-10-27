@@ -2,10 +2,10 @@
  * POST /api/contact — contact form endpoint
  *
  * Hardened pipeline:
- *   1. Per-IP rate limit (5 req / 60s) via Workers KV — graceful no-op if KV not bound
+ *   1. Optional per-IP KV throttling (best effort, not atomic; skips if unbound)
  *   2. Cloudflare Turnstile token verification — graceful no-op if TURNSTILE_SECRET_KEY unset
  *   3. Honeypot field check (_gotcha)
- *   4. Required-field validation + length cap
+ *   4. Actual streamed body-size cap + input validation
  *   5. Resend email dispatch
  *
  * Required env vars on Cloudflare Pages → Settings → Environment variables:
@@ -29,8 +29,34 @@ const RATE_LIMIT_MAX = 5;
 function jsonResp(body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' },
   });
+}
+
+// Enforce the actual streamed byte count; Content-Length alone can be absent
+// or dishonest. Never buffer arbitrary bodies before validating size.
+async function boundedBody(request, maxBytes) {
+  if (!request.body) return new Uint8Array(0);
+  const reader = request.body.getReader();
+  const chunks = [];
+  let size = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > maxBytes) {
+      await reader.cancel().catch(() => {});
+      return null;
+    }
+    chunks.push(value);
+  }
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return bytes;
 }
 
 function getIP(request) {
@@ -76,6 +102,12 @@ async function verifyTurnstile(env, token, ip) {
 export async function onRequestPost(ctx) {
   const { request, env } = ctx;
   const ip = getIP(request);
+  // Cross-site browser form posts cannot send mail through our endpoint.
+  // Missing Origin is allowed for non-browser callers; it is not bot auth.
+  const origin = request.headers.get('Origin');
+  if (origin && origin !== new URL(request.url).origin) {
+    return new Response('Forbidden origin', { status: 403 });
+  }
 
   // 1. Rate limit
   const rl = await rateLimit(env, ip);
@@ -91,13 +123,30 @@ export async function onRequestPost(ctx) {
   if (cl > MAX_BODY) return new Response('Body too large', { status: 413 });
 
   let data;
+  const ct = (request.headers.get('content-type') || '').toLowerCase();
+  if (!ct.includes('multipart/form-data') &&
+      !ct.includes('application/x-www-form-urlencoded') &&
+      !ct.includes('application/json')) {
+    return new Response('Unsupported media type', { status: 415 });
+  }
+  let body;
   try {
-    const ct = request.headers.get('content-type') || '';
+    body = await boundedBody(request, MAX_BODY);
+  } catch (e) {
+    return new Response('Invalid body', { status: 400 });
+  }
+  if (body === null) return new Response('Body too large', { status: 413 });
+  try {
+    const parsed = new Request(request.url, {
+      method: 'POST',
+      headers: { 'Content-Type': request.headers.get('content-type') || ct },
+      body,
+    });
     if (ct.includes('multipart/form-data') || ct.includes('application/x-www-form-urlencoded')) {
-      const fd = await request.formData();
+      const fd = await parsed.formData();
       data = Object.fromEntries(fd.entries());
     } else {
-      data = await request.json();
+      data = await parsed.json();
     }
   } catch (e) {
     return new Response('Invalid body', { status: 400 });
@@ -148,7 +197,9 @@ export async function onRequestPost(ctx) {
 
   const to   = env.CONTACT_TO_EMAIL   || 'Kai@snailsploit.com';
   const from = env.CONTACT_FROM_EMAIL || 'forms@snailsploit.com';
-  const subject = `[snailsploit] ${data.topic || 'contact'} — ${data.name}`;
+  // Keep untrusted user text out of email subject control characters.
+  const safeSubjectPart = (v) => String(v || '').replace(/[\\r\\n\\x00-\\x1f\\x7f]+/g, ' ').trim();
+  const subject = `[snailsploit] ${safeSubjectPart(data.topic) || 'contact'} — ${safeSubjectPart(data.name)}`;
   const text = [
     `From: ${data.name}${data.org ? ` (${data.org})` : ''}`,
     `Email: ${data.email}`,
@@ -160,14 +211,20 @@ export async function onRequestPost(ctx) {
     '— Submitted via snailsploit.com contact form',
   ].join('\n');
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${env.RESEND_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ from, to, reply_to: data.email, subject, text }),
-  });
+  let res;
+  try {
+    res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ from, to, reply_to: data.email, subject, text }),
+    });
+  } catch (e) {
+    console.error('Contact provider unreachable');
+    return jsonResp({ ok: false, error: 'Delivery temporarily unavailable. Please try again or email us directly.' }, 502);
+  }
 
   if (!res.ok) {
     // Never expose Resend's response body: it may contain provider internals.
