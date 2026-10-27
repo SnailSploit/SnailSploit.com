@@ -84,3 +84,57 @@ test('conversion instrumentation never reads input values', () => {
   assert.match(js, /service_cta_click/);
   assert.doesNotMatch(js, /\.value\b|FormData|email|message\b/);
 });
+
+
+test('body limit is enforced even without trusted content-length', async () => {
+  globalThis.fetch = () => { throw new Error('Unexpected provider call'); };
+  const request = req({ message: 'A'.repeat(9000) });
+  assert.equal(request.headers.get('content-length'), null);
+  const response = await onRequestPost({ request, env });
+  assert.equal(response.status, 413);
+});
+
+test('cross-origin submissions are rejected; same-origin requests still work', async () => {
+  globalThis.fetch = async () => new Response('{"id":"ok"}', { status: 200 });
+  const alien = req();
+  alien.headers.set('Origin', 'https://attacker.invalid');
+  assert.equal((await onRequestPost({ request: alien, env })).status, 403);
+
+  const normal = req();
+  normal.headers.set('Origin', 'https://snailsploit.com');
+  assert.equal((await onRequestPost({ request: normal, env })).status, 200);
+});
+
+test('unsupported media type is rejected, while JSON remains accepted', async () => {
+  let count = 0;
+  globalThis.fetch = async () => { count++; return new Response('{"id":"ok"}', { status: 200 }); };
+  const bad = new Request('https://snailsploit.com/api/contact', {
+    method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: 'contact'
+  });
+  assert.equal((await onRequestPost({ request: bad, env })).status, 415);
+  const valid = new Request('https://snailsploit.com/api/contact', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Test', email: 'test@example.net', message: 'Hello' })
+  });
+  assert.equal((await onRequestPost({ request: valid, env })).status, 200);
+  assert.equal(count, 1);
+});
+
+test('email delivery exceptions never expose provider information', async () => {
+  globalThis.fetch = async () => { throw new Error('secret connection details'); };
+  const response = await onRequestPost({ request: req(), env });
+  assert.equal(response.status, 502);
+  const message = await response.text();
+  assert.doesNotMatch(message, /secret connection details/);
+});
+
+test('untrusted topic is sanitized in the email subject', async () => {
+  let subject;
+  globalThis.fetch = async (url, opts) => {
+    subject = JSON.parse(opts.body).subject;
+    return new Response('{"id":"ok"}', { status: 200 });
+  };
+  const response = await onRequestPost({ request: req({ topic: 'Assessment\r\nBcc: risk@example.net' }), env });
+  assert.equal(response.status, 200);
+  assert.doesNotMatch(subject, /[\r\n]/);
+});
