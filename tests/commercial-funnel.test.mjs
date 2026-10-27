@@ -67,6 +67,10 @@ test('commercial routes have canonical metadata and tracked CTAs', () => {
   const services = readFileSync(new URL('../services.html', import.meta.url), 'utf8');
   const article = readFileSync(new URL('../ai-security/agentic-ai-threat-landscape/index.html', import.meta.url), 'utf8');
   const contact = readFileSync(new URL('../contact.html', import.meta.url), 'utf8');
+  const sitemap = readFileSync(new URL('../sitemap.xml', import.meta.url), 'utf8');
+  const llms = readFileSync(new URL('../llms.txt', import.meta.url), 'utf8');
+  assert.match(sitemap, /https:\/\/snailsploit\.com\/services\/ai-agent-security\//);
+  assert.match(llms, /\[AI Agent Security Assessment\]/);
   assert.match(page, /<link rel="canonical" href="https:\/\/snailsploit.com\/services\/ai-agent-security\/">/);
   assert.match(page, /data-ss-cta="ai_agent_service_primary"/);
   assert.match(services, /href="\/services\/ai-agent-security\/"/);
