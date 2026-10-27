@@ -13,7 +13,7 @@
  *
  * Recommended (form will fail closed without them once configured):
  *   TURNSTILE_SECRET_KEY    (from dash.cloudflare.com → Turnstile)
- *   RATE_LIMIT_KV           (KV namespace binding, name "RATE_LIMIT_KV")
+ *   RATE_LIMIT_KV           (optional KV namespace binding; best-effort throttle)
  *
  * Optional:
  *   CONTACT_TO_EMAIL        (default Kai@snailsploit.com)
@@ -69,21 +69,31 @@ function getIP(request) {
 
 async function rateLimit(env, ip) {
   if (!env.RATE_LIMIT_KV) return { ok: true, remaining: RATE_LIMIT_MAX, skipped: true };
-  const key = `cf-form:${ip}`;
-  const now = Date.now();
-  const raw = await env.RATE_LIMIT_KV.get(key);
-  let entries = raw ? JSON.parse(raw) : [];
-  entries = entries.filter((t) => now - t < RATE_LIMIT_WINDOW_SEC * 1000);
-  if (entries.length >= RATE_LIMIT_MAX) {
-    return { ok: false, remaining: 0, retryAfter: RATE_LIMIT_WINDOW_SEC };
+  // Do not store plaintext visitor IP addresses in short-lived KV keys.
+  const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(ip));
+  const key = 'cf-form:' + Array.from(new Uint8Array(hash), (b) => b.toString(16).padStart(2, '0')).join('');
+  try {
+    const now = Date.now();
+    const raw = await env.RATE_LIMIT_KV.get(key);
+    const parsed = raw ? JSON.parse(raw) : [];
+    let entries = Array.isArray(parsed) ? parsed : [];
+    entries = entries.filter((t) => typeof t === 'number' && now - t < RATE_LIMIT_WINDOW_SEC * 1000 && now >= t);
+    if (entries.length >= RATE_LIMIT_MAX) {
+      return { ok: false, remaining: 0, retryAfter: RATE_LIMIT_WINDOW_SEC };
+    }
+    entries.push(now);
+    await env.RATE_LIMIT_KV.put(key, JSON.stringify(entries), {
+      expirationTtl: RATE_LIMIT_WINDOW_SEC * 2,
+    });
+    return { ok: true, remaining: RATE_LIMIT_MAX - entries.length };
+  } catch (e) {
+    // Keep an otherwise valid business inquiry working if KV is unavailable.
+    // KV consistency is eventual, so this is a best-effort burst throttle,
+    // not a strict global or atomic security boundary.
+    console.error('Contact KV throttling unavailable');
+    return { ok: true, remaining: RATE_LIMIT_MAX, skipped: true };
   }
-  entries.push(now);
-  await env.RATE_LIMIT_KV.put(key, JSON.stringify(entries), {
-    expirationTtl: RATE_LIMIT_WINDOW_SEC * 2,
-  });
-  return { ok: true, remaining: RATE_LIMIT_MAX - entries.length };
 }
-
 async function verifyTurnstile(env, token, ip) {
   if (!env.TURNSTILE_SECRET_KEY) return { ok: true, skipped: true };
   if (!token) return { ok: false, reason: 'missing-token' };
