@@ -477,20 +477,20 @@
 
   // ── Bootstrap ───────────────────────────────────────────────────────
   function bootstrap() {
-    // Initialize layout-affecting navigation before asynchronous search-index loading.
+    // Initialize page UI independently of the asynchronous search index.
     initSkipLink();
     initMobileDrawer();
-    loadIndex().then(function () {
-      bindPaletteShortcut();
-      initProgress();
-      initCopyButtons();
-      initSeverity();
-      bindTocTracking();
-      bindOutboundTracking();
-      initFooterSocial();
-      initScrollReveal();
-      initSmoothScroll();
-    });
+    initProgress();
+    initCopyButtons();
+    initSeverity();
+    bindTocTracking();
+    bindOutboundTracking();
+    initFooterSocial();
+    initScrollReveal();
+    initSmoothScroll();
+
+    // Only the command palette requires the fetched search index.
+    loadIndex().then(bindPaletteShortcut);
   }
 
   if (document.readyState === 'loading') {
