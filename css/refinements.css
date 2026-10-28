@@ -195,3 +195,8 @@ body:not(:has(.iag-hero-grid)) .footer-legal { padding-left:24px;padding-right:2
 /* Audit fixes: bounded grids, stable navigation and readable disclosure rows. */
 body:not(:has(.iag-hero-grid)) #ledger [style*="grid-template-columns"] > * { min-width:0;overflow-wrap:anywhere; }
 @media(min-width:881px) and (max-width:1200px){body:not(:has(.iag-hero-grid)) header nav,body:not(:has(.iag-hero-grid)) header .nav-links{gap:14px!important;font-size:11px!important}body:not(:has(.iag-hero-grid)) header .nav-inner{gap:16px}}
+
+@media(min-width:881px){body:not(:has(.iag-hero-grid)) header .nav-links,body:not(:has(.iag-hero-grid)) header nav{gap:18px!important}body:not(:has(.iag-hero-grid)) header nav a{white-space:nowrap}}
+
+@media(min-width:881px) and (max-width:1150px){body:not(:has(.iag-hero-grid)) header nav{display:none!important}body:not(:has(.iag-hero-grid)) .ss-drawer-trigger{display:inline-flex!important;align-items:center}}
+body:not(:has(.iag-hero-grid)) header > .ss-drawer-trigger{position:absolute;right:24px;top:16px}
