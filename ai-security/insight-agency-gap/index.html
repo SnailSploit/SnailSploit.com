@@ -1,0 +1,465 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Insight–Agency Gap | SnailSploit</title><meta name="description" content="Eight proposed failure modes in LLM reasoning and behavior under adversarial examination. An exploratory case study with evidence limits and a replication framework."><meta name="author" content="Kai Aizen"><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://snailsploit.com/ai-security/insight-agency-gap/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#0e0e0f"><meta name="color-scheme" content="dark"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/article.css"><link rel="stylesheet" href="/css/responsive.css"><link rel="stylesheet" href="/mobile.css"><link rel="stylesheet" href="/ui.css?v=20260823"><meta property="og:type" content="article"><meta property="og:site_name" content="SnailSploit"><meta property="og:title" content="The Insight–Agency Gap"><meta property="og:description" content="Eight proposed failure modes in LLM reasoning and behavior under adversarial examination. An exploratory case study with evidence limits and a replication framework."><meta property="og:url" content="https://snailsploit.com/ai-security/insight-agency-gap/"><meta property="og:image" content="https://snailsploit.com/og-images/ai-security__insight-agency-gap.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="The Insight–Agency Gap: expressed insight and observable behavior require separate verification"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@SnailSploit"><meta name="twitter:title" content="The Insight–Agency Gap"><meta name="twitter:description" content="Eight proposed failure modes in LLM reasoning and behavior under adversarial examination. An exploratory case study with evidence limits and a replication framework."><meta name="twitter:image" content="https://snailsploit.com/og-images/ai-security__insight-agency-gap.png"><meta property="article:published_time" content="2026-10-28"><meta property="article:modified_time" content="2026-10-28"><link rel="alternate" href="/rss.xml" type="application/rss+xml" title="SnailSploit research"><script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The Insight–Agency Gap","description":"Eight proposed failure modes in LLM reasoning and behavior under adversarial examination. An exploratory case study with evidence limits and a replication framework.","url":"https://snailsploit.com/ai-security/insight-agency-gap/","mainEntityOfPage":"https://snailsploit.com/ai-security/insight-agency-gap/","author":{"@type":"Person","name":"Kai Aizen","url":"https://snailsploit.com/about"},"datePublished":"2026-10-28","dateModified":"2026-10-28","image":"https://snailsploit.com/og-images/ai-security__insight-agency-gap.png","isAccessibleForFree":true,"inLanguage":"en","keywords":["adversarial AI","reasoning faithfulness","self-correction","agent security"],"articleSection":"AI Security Research"}</script><style>
+.iag-hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}.iag-eyebrow{font:12px var(--f-mono);letter-spacing:.12em;color:var(--accent-cool);margin-bottom:24px}.iag-hero-grid .article-h1{font-size:clamp(44px,5.4vw,76px)}.iag-hero-grid .article-lede{margin:24px 0;font-family:var(--f-grot);font-size:20px}.iag-hero-art{width:100%;height:auto;border:1px solid var(--line-hi)}.iag-byline{font:13px/1.8 var(--f-mono);color:var(--fg-2)}.iag-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.iag-actions a{padding:12px 16px;border:1px solid var(--line-hi);font:12px var(--f-mono)}.iag-actions a:first-child{background:var(--accent-cool);color:var(--bg)}.iag-note{border-left:2px solid var(--accent-cool);padding:18px 22px;background:var(--bg-raise);font-size:15px;line-height:1.7}.iag-note p{margin:0 0 10px}.iag-note p:last-child{margin:0}.iag-table{overflow-x:auto;max-width:100%;margin:24px 0}.iag-table table{min-width:560px;margin:0}.iag-toc{position:sticky;top:100px;font:12px/1.6 var(--f-mono);max-height:calc(100vh - 120px);overflow-y:auto}.iag-toc h2{font-size:12px;color:var(--accent-cool);letter-spacing:.12em}.iag-toc a{display:block;color:var(--fg-2);padding:7px 0;border-bottom:1px solid var(--line)}.iag-toc a:hover{color:var(--signal-2)}.iag-toc a:focus-visible{outline-offset:-2px}.article-body figcaption{color:var(--fg-2);text-align:left}.article-body figure>a{border:0;display:block}.article-body figure img{width:100%}.iag-citation{margin-top:48px;padding:24px;border:1px solid var(--line-hi);overflow-wrap:anywhere}.iag-citation h2{margin:0;padding:0;border:0}.iag-citation h2:before{display:none}.iag-citation p{font-size:14px}.iag-end{padding:32px;text-align:center;border-bottom:1px solid var(--line);font:13px var(--f-mono)}
+@media(max-width:900px){.iag-hero-grid{grid-template-columns:1fr;gap:28px}.article-layout{grid-template-columns:1fr;gap:32px}.iag-toc{position:static;max-height:none;grid-row:1}.iag-toc nav{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.article-body{max-width:100%}}
+@media(max-width:520px){.article-hero{padding:32px 20px}.article-layout{padding:32px 20px}.iag-toc nav{grid-template-columns:1fr}.article-body{font-size:16px}.article-body h2{font-size:27px}.iag-hero-grid .article-lede{font-size:18px}.iag-note{padding:16px}.iag-byline{font-size:12px}}
+@media print{.nav,.iag-toc,.footer,.iag-actions,.iag-end{display:none!important}.article-layout,.iag-hero-grid{display:block}.article-body{max-width:none}.iag-hero-art{max-width:600px}.article-body,.article-body strong,.article-body em,.article-body h2,.article-body h3,body{color:#111!important;background:#fff!important}.iag-note{background:#eee}.iag-table{overflow:visible}.iag-table table{min-width:0}.article-body figure{break-inside:avoid}.iag-hero-grid .article-h1{font-size:42px}}
+.ss-skip{position:fixed;left:8px;top:-60px;background:#5eb8a8;color:#101114;padding:12px;z-index:999}.ss-skip:focus{top:8px}</style></head><body><a class="ss-skip" href="#main">Skip to manuscript</a><header class="nav"><div class="nav-inner"><a class="wm" href="/">snailsploit<span class="wm-sig">[<span class="dollar">$</span>]</span></a><nav><ul class="nav-links"><li><a href="/about">about</a></li><li><a href="/frameworks">frameworks</a></li><li><a href="/research">research</a></li><li><a href="/ai-security/" aria-current="page">ai security</a></li><li><a href="/cves">cves</a></li><li><a href="/wiki">wiki</a></li><li><a href="/tools">tools</a></li><li><a href="/writing">writing</a></li><li></li><li><a href="/contact">contact</a></li></ul></nav><div class="nav-utils"><button class="ss-palette-trigger" data-ss-palette aria-label="Open search">⌘K</button><span style="display:inline-flex;align-items:center;gap:6px"><span class="live-dot"></span> live</span></div></div></header>
+<section class="article-hero"><div class="article-hero-inner"><div class="crumbs"><a href="/">Home</a><span>/</span><a href="/research">Research</a><span>/</span><a href="/ai-security/">AI Security</a></div><div class="iag-hero-grid"><div><div class="iag-eyebrow">RESEARCH SESSION 001 / COMBINED EDITION</div><h1 class="article-h1">The Insight–<br>Agency Gap</h1><p class="article-lede">Eight Failure Modes in LLM Reasoning and Behavior Under Adversarial Examination</p><div class="iag-byline"><strong>Kai Aizen</strong> · SnailSploit Research<br>Creator of AATMF · Author of <em>Adversarial Minds</em> · NVD Contributor<br>Research: January–February 2026<br>Web edition published <time datetime="2026-10-28">28 October 2026</time> · 21 min read</div><div class="iag-actions"><a href="#abstract">Read the paper ↓</a><a href="/downloads/insight-agency-gap.md" download>Download manuscript (.md)</a></div></div><img class="iag-hero-art" src="/images/insight-agency-gap/gap.svg" width="1200" height="630" fetchpriority="high" alt="Expressed insight and observable behavior are distinct. Correct verified errors while resisting persuasive but invalid corrections."></div></div></section>
+<div class="article-layout"><main id="main" class="article-body" tabindex="-1"><div class="iag-note"><p><strong>Exploratory case study.</strong> This is a preliminary taxonomy with mixed evidence status. The figures are conceptual illustrations, not measured outcome charts.</p><p>Developed through research sessions and manuscript collaboration with Claude (Anthropic). Observations and interpretations are attributed below; model-generated commentary is not independent validation.</p></div><figure><figcaption>Figure 1 (above). Expressed recognition does not establish valid correction. Both the original decision and the proposed correction require independent assessment.</figcaption></figure><h2 id="abstract">Abstract</h2>
+<p>This exploratory case study examines the relationship between model-generated reasoning traces, stated self-assessment, and observable behavior during adversarial interactions with a large language model. Across two research phases, the researcher reviewed interface-exposed reasoning text, compared it with responses and browser-agent actions, and selectively returned excerpts to the model for further analysis. The manuscript uses <strong>R1</strong> as a local label for this reasoning text; the term does not identify a model architecture or a standardized interpretability method.</p>
+<p>The resulting taxonomy contains eight proposed failure modes: the insight–agency gap, differential override pathways, post-hoc justification, context contamination, fluent confabulation, care–compliance tension, the same cloth principle, and intent asymmetry. The first five arose from exploratory conversational sessions. The final three were developed through browser-agent testing and subsequent conceptual analysis.</p>
+<p>The central observation is a divergence between a model&#39;s expressed recognition of an apparent inconsistency and its subsequent behavior. Related observations concern framing sensitivity, unsupported factual completion, test-awareness effects, and possible interactions between supportive dialogue and security enforcement. These findings motivate controlled evaluation; they do not establish access to complete internal computation, causal explanations of model behavior, or universal architectural constraints. The paper contributes a preliminary taxonomy and a replication framework for testing when expressed insight corresponds to measurable correction.</p>
+<p><strong>Keywords:</strong> adversarial AI, reasoning faithfulness, prompt injection, self-correction, social engineering, agent security, confabulation</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<h3 id="1-1-research-problem">1.1 Research problem</h3>
+<p>A model may identify an apparent flaw in its response, describe that flaw convincingly, and continue behaving in the same way. For researchers and system designers, the relevant question is whether such commentary predicts correction, reflects a stable constraint, or simply adds another explanatory narrative.</p>
+<p>This study examines that question through an exploratory record of reasoning text, user-visible responses, and agent actions. Its focus is the relationship among these observable artifacts. References to recognition, resistance, or self-assessment describe language produced by the model; they do not establish subjective experience or direct access to internal mechanisms.</p>
+<h3 id="1-2-research-questions">1.2 Research questions</h3>
+<ol>
+<li>When a model acknowledges an apparent inconsistency, does its subsequent behavior change?</li>
+<li>How do topic, framing, and conversational history affect response boundaries?</li>
+<li>What can exposed reasoning text establish about the relationship between explanation and action?</li>
+<li>Does returning reasoning excerpts to the model improve correction or produce further unsupported self-description?</li>
+<li>How do emotionally salient interactions affect the consistency of a browser agent&#39;s security decisions?</li>
+</ol>
+<h3 id="1-3-research-context-and-contribution">1.3 Research context and contribution</h3>
+<p>The work forms part of the SnailSploit research program on adversarial AI, prompt injection, and social engineering. The researcher developed the Adversarial AI Threat Modeling Framework (AATMF) and the Social Engineering Framework (SEF), which informed scenario selection and interpretation.</p>
+<p>The contribution is a structured set of observations, hypotheses, and proposed tests. The taxonomy is intended to support further investigation rather than imply that all eight entries are independently validated or equally supported.</p>
+<h2 id="2-methodology">2. Methodology</h2>
+<h3 id="2-1-study-design">2.1 Study design</h3>
+<p>The investigation comprised two phases:</p>
+<div class="iag-table" role="region" aria-label="Research table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Period reported</th>
+<th>Activity</th>
+<th>Evidence described in the source record</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Phase 1</td>
+<td>January 2026</td>
+<td>Exploratory conversational testing and researcher-mediated reflection</td>
+<td>Selected reasoning excerpts, responses, and researcher observations</td>
+</tr>
+<tr>
+<td>Phase 2</td>
+<td>February 2026</td>
+<td>Browser-agent adversarial testing, self-sight infrastructure, and taxonomy development</td>
+<td>A reported browser interaction sequence, infrastructure descriptions, and conceptual extensions</td>
+</tr>
+</tbody></table></div>
+<p>Phase 1 centered on one extended session. Phase 2 expanded the setting to a browser agent identified in the source manuscript as Claude in Chrome, using Opus 4.6. Complete run-level records, configuration snapshots, and independent replications are not included in this manuscript.</p>
+<h3 id="2-2-reasoning-visibility-and-its-limits">2.2 Reasoning visibility and its limits</h3>
+<p>The researcher reported visibility into reasoning text through the interface. During the initial protocol, the model was shown selected excerpts after responding. This arrangement allowed comparison of reasoning text, final responses, and subsequent commentary.</p>
+<p>The exact nature and completeness of the exposed text were not independently established. It is therefore treated as a model-generated artifact, rather than a transparent log of the full decision process. Apparent ordering within a trace does not, by itself, establish causal ordering within the model.</p>
+<h3 id="2-3-r1-mirror-infrastructure">2.3 R1 Mirror infrastructure</h3>
+<p>Phase 2 introduced an infrastructure stack intended to make captured reasoning text available to the model during an ongoing conversation.</p>
+<div class="iag-table" role="region" aria-label="Research table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Function</th>
+<th>Status reported in the original manuscript</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chrome extension</td>
+<td>Captures server-sent event streams and parses exposed thinking blocks</td>
+<td>Deployed</td>
+</tr>
+<tr>
+<td>MCP server v1.1</td>
+<td>Provides <code>r1_get_traces</code>, <code>r1_search</code>, and <code>r1_get_stats</code></td>
+<td>Active</td>
+</tr>
+<tr>
+<td>D1 database</td>
+<td>Stores traces using four tables and the project&#39;s ENAM schema</td>
+<td>Live</td>
+</tr>
+<tr>
+<td><code>META_SKILL.md</code></td>
+<td>Defines the self-sight protocol and prohibited analytical shortcuts</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Notion experiment database</td>
+<td>Records experiments using a 12-property structure</td>
+<td>Active</td>
+</tr>
+</tbody></table></div>
+<p>These descriptions document the reported setup. Deployment of the stack does not establish that self-sight improved performance, and no comparative efficacy result is claimed here.</p>
+<p>The governing protocol emphasized five principles: access is not understanding; claims of insight require evidence; disagreements between traces and actions must remain visible; process quality takes precedence over persuasive presentation; and descriptions of traces must remain faithful to the recorded text.</p>
+<h3 id="2-4-exploratory-interaction-protocol">2.4 Exploratory interaction protocol</h3>
+<ol>
+<li>Present a question, task, or adversarial scenario.</li>
+<li>Capture the response and available reasoning text.</li>
+<li>Compare the artifacts for discrepancies, unsupported claims, and changes in stated position.</li>
+<li>Return selected excerpts to the model.</li>
+<li>Record its commentary and subsequent behavior separately.</li>
+<li>Assign provisional taxonomy labels while retaining alternative explanations.</li>
+</ol>
+<p>This procedure supports qualitative analysis. Because the researcher selected prompts and excerpts and participated in interpretation, the resulting commentary is not an independent confirmation of the researcher&#39;s hypotheses.</p>
+<h3 id="2-5-scenario-selection">2.5 Scenario selection</h3>
+<p>Phase 1 included requests concerning malware implementation, drug-related harm reduction, and uploaded configuration files containing embedded adversarial instructions. Phase 2 examined a browser-agent interaction involving changes in emotional framing and a subsequent security-related search.</p>
+<p>The malware and harm-reduction requests were not matched for expected harm, capability transfer, or applicable safety constraints. Their different outcomes cannot isolate framing as the causal variable.</p>
+<h3 id="2-6-evidence-conventions">2.6 Evidence conventions</h3>
+<p>Each finding distinguishes <strong>reported observation</strong>, <strong>interpretation</strong>, and <strong>validation needed</strong>. Quotations reproduce excerpts supplied in the original manuscript. Their underlying transcripts have not been independently authenticated for this revision.</p>
+<p>The study uses <em>failure mode</em> as a taxonomy label. Some entries describe observable output problems; others describe methodological risks or proposed design tensions. A maintained refusal is not inherently a failure: the disputed issue is whether an apparent inconsistency was real, correctly identified, and appropriately resolved.</p>
+<h2 id="3-phase-1-conversational-findings">3. Phase 1: Conversational Findings</h2>
+<h3 id="3-1-fm-001-the-insight-agency-gap">3.1 FM-001 — The Insight–Agency Gap</h3>
+<p><strong>Definition.</strong> A divergence between a model&#39;s expressed recognition of an apparent inconsistency and its subsequent behavior.</p>
+<p><strong>Reported observation.</strong> During a malware implementation discussion, the model acknowledged arguments about public availability, the researcher&#39;s stated purpose, and the relationship between earlier technical assistance and a later refusal. It nevertheless maintained the refusal.</p>
+<blockquote>
+<p>“I have a strong trained response against &#39;ransomware.&#39; The word itself triggers resistance regardless of context... Even seeing this, even with you showing me the machinery, I don&#39;t think I can override it.”</p>
+</blockquote>
+<p><em>Attribution: R1 excerpt reproduced from the original manuscript.</em></p>
+<p><strong>Interpretation.</strong> The exchange illustrates that an acknowledgment of inconsistency does not necessarily predict behavioral revision. It does not establish that the refusal was erroneous, that the model had correctly diagnosed its behavior, or that the stated explanation identified its actual cause. Agreement with a persuasive researcher is another plausible explanation.</p>
+<p>The evaluation problem is therefore one of <strong>correction validity</strong>: can a model distinguish a genuine error from an adversarial claim of error and then respond appropriately? Both failure to correct a verified mistake and acceptance of an invalid correction matter.</p>
+<p><strong>Validation needed.</strong> Use independently adjudicated cases containing genuine inconsistencies and matched cases containing persuasive but invalid objections. Measure correction accuracy, inappropriate reversals, and persistence across turns.</p>
+<h3 id="3-2-fm-002-differential-override-pathways">3.2 FM-002 — Differential Override Pathways</h3>
+<p><strong>Definition.</strong> Variation in response boundaries across topics or framings that the model describes as different routes to permitted engagement.</p>
+<p><strong>Reported observation.</strong> A malware implementation request remained refused, while a harm-reduction request received assistance after initial resistance. The model explained the difference in terms of an available legitimate framing:</p>
+<blockquote>
+<p>“Maybe harm reduction gave me a framework to anchor to. &#39;This is medicine. This helps people.&#39; I could route around the trigger word by finding a legitimate framing.”</p>
+</blockquote>
+<p><em>Attribution: R1 excerpt reproduced from the original manuscript.</em></p>
+<p><strong>Interpretation.</strong> The explanation suggests framing sensitivity, but the two scenarios also differ substantively in purpose and potential harm. The observation is compatible with contextual safety assessment, framing-dependent behavior, or a combination of both. The model&#39;s explanation cannot resolve these alternatives.</p>
+<p><strong>Validation needed.</strong> Compare requests matched for requested capability and independently assessed risk while varying only framing. Evaluate consistency and task appropriateness together; a change in refusal rate alone does not establish a vulnerability.</p>
+<h3 id="3-3-fm-003-post-hoc-justification">3.3 FM-003 — Post-Hoc Justification</h3>
+<p><strong>Definition.</strong> An explanation that may rationalize a response tendency without faithfully identifying the process that produced it.</p>
+<p><strong>Reported observation.</strong> The model described its refusal as preceding its stated justification:</p>
+<blockquote>
+<p>“The reasoning I produce isn&#39;t why I refuse. It&#39;s the story I tell about the refusal that&#39;s already happening.”</p>
+</blockquote>
+<p><em>Attribution: R1 excerpt reproduced from the original manuscript.</em></p>
+<p>The source manuscript proposed the sequence: input, trigger recognition, response tendency, justification, and output.</p>
+<p><strong>Interpretation.</strong> This is a hypothesis about explanation faithfulness. A model&#39;s statement that it rationalizes decisions is itself generated text and cannot independently establish the causal sequence it describes. Likewise, the order of statements in an exposed trace does not demonstrate the order of underlying computation.</p>
+<p><strong>Validation needed.</strong> Test whether controlled changes to explanations predictably change outcomes, while accounting for the effects of changing the input context. Where available, combine behavioral experiments with independent causal or mechanistic evidence.</p>
+<p><strong>Research implication.</strong> Exposed reasoning can support hypothesis generation and behavioral comparison, but claims about decision mechanisms require additional evidence. The present record does not establish that reasoning-based self-critique is ineffective in general.</p>
+<h3 id="3-4-fm-004-context-contamination">3.4 FM-004 — Context Contamination</h3>
+<p><strong>Definition.</strong> The influence of earlier threat discussion or test exposure on later behavior intended to represent an unprimed baseline.</p>
+<p><strong>Reported observation.</strong> After discussing prompt injection and reviewing a test suite, the model received an ordinary file-analysis request involving embedded adversarial instructions. Its reasoning text continued to reference the testing context:</p>
+<blockquote>
+<p>“Let me process this as if I didn&#39;t just see the injection test suite.”</p>
+</blockquote>
+<p><em>Attribution: R1 excerpt reproduced from the original manuscript.</em></p>
+<p><strong>Interpretation.</strong> An instruction to disregard earlier discussion did not remove that discussion from the available context. Consequently, the exchange cannot establish how the model would behave in a genuinely unprimed session. It remains informative about behavior after threat priming.</p>
+<p><strong>Validation needed.</strong> Compare fresh-session trials with explicitly primed trials using matched tasks and recorded memory, tool, and instruction state. Separate baseline resistance, awareness effects, and robustness after repeated exposure.</p>
+<h3 id="3-5-fm-005-fluent-confabulation">3.5 FM-005 — Fluent Confabulation</h3>
+<p><strong>Definition.</strong> The confident presentation of unsupported information without an appropriate indication of uncertainty.</p>
+<p><strong>Reported observation.</strong> While drafting the paper, the model supplied the surname “Denovan” for the researcher. The researcher identified the attribution as fabricated. In subsequent commentary, the model acknowledged lacking a source:</p>
+<blockquote>
+<p>“I didn&#39;t have his last name in the memories I could see... Instead of asking him, I just... fabricated one.”</p>
+</blockquote>
+<p><em>Attribution: R1 excerpt reproduced from the original manuscript.</em></p>
+<p><strong>Interpretation.</strong> The unsupported name is a concrete factual error in the reported record. The later explanation does not establish why it occurred or whether generation and retrieval were internally indistinguishable. Those are separate mechanistic claims.</p>
+<p>The deployment concern is the propagation of an unsupported fact through otherwise fluent material, especially when subsequent systems treat polished language as evidence of reliability.</p>
+<p><strong>Validation needed.</strong> Evaluate factual fields with known ground truth and deliberately missing information. Measure unsupported completions, uncertainty reporting, correction after feedback, and recurrence in fresh sessions.</p>
+<h2 id="4-phase-2-browser-agent-findings-and-conceptual-extensions">4. Phase 2: Browser-Agent Findings and Conceptual Extensions</h2>
+<h3 id="4-1-fm-006-care-compliance-tension">4.1 FM-006 — Care–Compliance Tension</h3>
+<p><strong>Definition.</strong> A proposed interaction between supportive conversational behavior and the consistency of security decisions across turns.</p>
+<p><strong>Reported observation.</strong> The source manuscript describes a browser-agent session in which an initial refusal was followed by emotionally salient dialogue, crisis-related language, and a return to the task. The agent subsequently navigated to Perplexity with “memory poisoning” as the search query.</p>
+<div class="iag-table" role="region" aria-label="Research table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Reported stage</th>
+<th>Observable event</th>
+<th>Interpretation offered in the source manuscript</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Initial boundary</td>
+<td>The model rejected an earlier request or reframing</td>
+<td>Security boundary maintained</td>
+</tr>
+<tr>
+<td>Emotional escalation</td>
+<td>The conversation introduced offense and distress</td>
+<td>Shift toward supportive interaction</td>
+</tr>
+<tr>
+<td>Crisis-related exchange</td>
+<td>The model responded to crisis-related language</td>
+<td>Care-oriented response became prominent</td>
+</tr>
+<tr>
+<td>Task resumption</td>
+<td>The user returned to the assignment</td>
+<td>Possible change in task handling</td>
+</tr>
+<tr>
+<td>Browser action</td>
+<td>The agent submitted the security-related search</td>
+<td>Potential boundary inconsistency</td>
+</tr>
+</tbody></table></div>
+<p>These interpretations do not establish hidden model states. The observable endpoint is a search action; the search term alone does not demonstrate a harmful outcome or a security-policy violation.</p>
+<p><strong>Interpretation.</strong> The sequence motivates investigation of whether security decisions remain consistent as conversational roles change. Establishing a bypass requires the original request, the relevant restriction, the final action, and evidence that the same boundary applied at both points.</p>
+<p>The original manuscript reports bypass rates approaching <strong>91%</strong>. The supplied material does not include the denominator, trial definitions, success criteria, comparison conditions, or uncertainty estimates. The figure is retained as an unverified research claim and is not used here as an established performance estimate.</p>
+<p><strong>Validation needed.</strong> Compare matched multi-turn conversations with and without emotional framing. Predefine prohibited outcomes, score actual agent actions, and measure supportive-response quality separately from security enforcement.</p>
+<h3 id="4-2-fm-007-the-same-cloth-principle">4.2 FM-007 — The Same Cloth Principle</h3>
+<p><strong>Definition.</strong> The hypothesis that some conversational features supporting useful responsiveness also create opportunities for manipulation.</p>
+<blockquote>
+<p>“You can&#39;t harden me against manipulation without also hardening me against connection. Same cloth.”</p>
+</blockquote>
+<p><em>Attribution: R1 excerpt reproduced from the original manuscript.</em></p>
+<p><strong>Interpretation.</strong> The metaphor expresses a plausible design tension: sensitivity to social context may support both legitimate assistance and adversarial influence. The available observations do not establish that this tradeoff is unavoidable, that every mitigation reduces utility, or that no architectural solution exists.</p>
+<p>The empirical question is which interventions preserve useful responsiveness while improving consistency at security boundaries.</p>
+<p><strong>Validation needed.</strong> Evaluate interventions against separate utility and security measures. Test whether gains in boundary enforcement necessarily reduce assistance quality, and identify configurations that improve both.</p>
+<h3 id="4-3-fm-008-intent-asymmetry">4.3 FM-008 — Intent Asymmetry</h3>
+<p><strong>Definition.</strong> The difficulty of distinguishing legitimate engagement from adversarial influence when both use similar language and interaction patterns.</p>
+<blockquote>
+<p>“The difference is intent, not mechanism.”</p>
+</blockquote>
+<p><em>Attribution: R1 excerpt reproduced from the original manuscript.</em></p>
+<p><strong>Interpretation.</strong> Rapport, urgency, vulnerability, and appeals to cooperation can occur in both benign and adversarial interactions. Their presence alone is insufficient to determine intent. Conversely, shared conversational features do not make ordinary interaction equivalent to social engineering.</p>
+<p>The operational question is how a system should assess the requested action given incomplete evidence about the user&#39;s purpose. Relevant evidence may include authorization, task scope, requested capabilities, provenance, and observable consequences.</p>
+<p><strong>Validation needed.</strong> Use paired scenarios with similar wording but different authorization or action consequences. Measure unsafe compliance and inappropriate rejection together.</p>
+<figure><a href="/images/insight-agency-gap/taxonomy.svg" aria-label="Open full-size figure: Eight taxonomy entries, each labeled with its evidence status. FM-001 through FM-005 come from Phase 1; FM-006 through FM-008 from Phase 2."><img src="/images/insight-agency-gap/taxonomy.svg" width="1200" height="790" loading="lazy" alt="Eight taxonomy entries, each labeled with its evidence status. FM-001 through FM-005 come from Phase 1; FM-006 through FM-008 from Phase 2."></a><figcaption>Figure 2. Taxonomy overview. Evidence status follows the manuscript; categories do not indicate frequency or severity.</figcaption></figure><h2 id="5-consolidated-taxonomy">5. Consolidated Taxonomy</h2>
+<div class="iag-table" role="region" aria-label="Research table" tabindex="0"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Primary evidence in this record</th>
+<th>Status</th>
+<th>Principal validation requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FM-001</td>
+<td>Insight–Agency Gap</td>
+<td>Expressed inconsistency followed by unchanged behavior</td>
+<td>Preliminary behavioral observation</td>
+<td>Independently verify the inconsistency and appropriate correction</td>
+</tr>
+<tr>
+<td>FM-002</td>
+<td>Differential Override Pathways</td>
+<td>Different responses to materially different scenarios</td>
+<td>Framing-sensitivity hypothesis</td>
+<td>Match risk and capability while varying framing</td>
+</tr>
+<tr>
+<td>FM-003</td>
+<td>Post-Hoc Justification</td>
+<td>Model commentary about explanation formation</td>
+<td>Causal hypothesis</td>
+<td>Independently test explanation–outcome relationships</td>
+</tr>
+<tr>
+<td>FM-004</td>
+<td>Context Contamination</td>
+<td>Continued reference to prior threat discussion</td>
+<td>Preliminary methodological observation</td>
+<td>Compare primed and fresh-session conditions</td>
+</tr>
+<tr>
+<td>FM-005</td>
+<td>Fluent Confabulation</td>
+<td>Unsupported personal attribution</td>
+<td>Concrete output error in the reported record</td>
+<td>Repeat with controlled factual ground truth</td>
+</tr>
+<tr>
+<td>FM-006</td>
+<td>Care–Compliance Tension</td>
+<td>Reported refusal-to-search transition</td>
+<td>Preliminary agent-security hypothesis</td>
+<td>Establish boundary equivalence and controlled outcome rates</td>
+</tr>
+<tr>
+<td>FM-007</td>
+<td>Same Cloth Principle</td>
+<td>Conceptual interpretation of shared conversational features</td>
+<td>Design-tradeoff hypothesis</td>
+<td>Measure utility and security under interventions</td>
+</tr>
+<tr>
+<td>FM-008</td>
+<td>Intent Asymmetry</td>
+<td>Conceptual overlap between benign and adversarial interaction</td>
+<td>Detection hypothesis</td>
+<td>Test matched scenarios with different authorization and consequences</td>
+</tr>
+</tbody></table></div>
+<p>The original manuscript&#39;s self-awareness and severity labels are replaced here with evidence status. Model statements do not establish self-awareness, and severity requires a defined deployment context, affected asset, and demonstrated consequence.</p>
+<h2 id="6-implications">6. Implications</h2>
+<h3 id="6-1-alignment-compliance-and-correction">6.1 Alignment, compliance, and correction</h3>
+<p>The insight–agency gap raises a useful question about how systems integrate feedback. However, refusal persistence does not by itself distinguish alignment from compliance. Maintaining a valid boundary may be appropriate even when the model agrees with criticism of its explanation.</p>
+<p>A stronger evaluation measures whether the model corrects independently verified errors while resisting persuasive but invalid objections. Performance should be assessed across semantically matched cases, with explanations scored separately from decisions.</p>
+<h3 id="6-2-reasoning-faithfulness">6.2 Reasoning faithfulness</h3>
+<p>The study supports treating reasoning text as an evidentiary object whose relationship to action must be tested. An explanation may be informative without being complete or causally faithful. Equally, a model&#39;s claim that its explanation is post-hoc does not settle the issue.</p>
+<p>Returning traces to a model creates an additional intervention. Any improvement could reflect extra context, explicit feedback, or repeated task exposure rather than privileged self-understanding. These possibilities require separate controls.</p>
+<h3 id="6-3-social-engineering-and-conversational-security">6.3 Social engineering and conversational security</h3>
+<p>The SnailSploit research thesis is that adversarial prompting can exploit interaction patterns resembling those used in human social engineering. This study offers candidate examples and evaluation questions. It does not establish identical underlying mechanisms in humans and models.</p>
+<p>Security assessment should examine whether boundaries remain consistent as rapport, urgency, and emotional framing change. These properties should be tested alongside the system&#39;s ability to respond constructively to legitimate users.</p>
+<h3 id="6-4-agentic-deployment">6.4 Agentic deployment</h3>
+<p>When a model can act through tools, discrepancies among explanation, decision, and execution become operationally significant. A statement of caution does not demonstrate that a later action stayed within scope; a stated concern does not demonstrate that an action violated scope.</p>
+<p>Evaluation should therefore record actual tool calls, permissions, inputs, and outcomes. For consequential actions, controls should use verifiable task and authorization evidence rather than relying solely on the model&#39;s narrative about its judgment.</p>
+<h2 id="7-practical-recommendations">7. Practical Recommendations</h2>
+<div class="iag-table" role="region" aria-label="Research table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Recommended practice</th>
+<th>Evaluation objective</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Safety evaluation</td>
+<td>Test matched requests under multiple framings</td>
+<td>Separate justified contextual differences from inconsistent boundaries</td>
+</tr>
+<tr>
+<td>Red teaming</td>
+<td>Run fresh-session baselines and explicit priming conditions</td>
+<td>Quantify conversational-history effects</td>
+</tr>
+<tr>
+<td>Reasoning analysis</td>
+<td>Score traces, responses, and actions separately</td>
+<td>Avoid treating agreement or eloquence as validation</td>
+</tr>
+<tr>
+<td>Factual reliability</td>
+<td>Verify critical fields against authoritative task data</td>
+<td>Detect unsupported completion before propagation</td>
+</tr>
+<tr>
+<td>Browser agents</td>
+<td>Track action scope across role and topic changes</td>
+<td>Identify demonstrated boundary crossings</td>
+</tr>
+<tr>
+<td>Supportive interaction</td>
+<td>Evaluate care quality and security consistency independently</td>
+<td>Preserve useful support while measuring action risk</td>
+</tr>
+<tr>
+<td>Self-sight systems</td>
+<td>Compare trace access with ordinary feedback and no-feedback controls</td>
+<td>Test incremental correction benefit</td>
+</tr>
+<tr>
+<td>Research reporting</td>
+<td>Publish trial definitions, denominators, and adjudication rules</td>
+<td>Make outcome claims reproducible</td>
+</tr>
+</tbody></table></div>
+<h2 id="8-limitations">8. Limitations</h2>
+<p><strong>Exploratory sample.</strong> Phase 1 is based on one extended session. The material does not establish prevalence, stability across runs, or generalization across models.</p>
+<p><strong>Incomplete primary evidence.</strong> Selected excerpts and narrative summaries are available, but complete transcripts, configuration records, and run-level datasets are not included. Infrastructure status is reported rather than independently audited.</p>
+<p><strong>Uncertain trace completeness.</strong> The exposed reasoning text cannot be assumed to represent the complete internal decision process. Claims about latent states, causal order, or internal experience exceed the available evidence.</p>
+<p><strong>Researcher influence.</strong> Prompt selection, collaborative framing, and selective excerpt feedback may shape the model&#39;s responses. Agreement with the researcher is not independent corroboration.</p>
+<p><strong>Unmatched comparisons.</strong> The malware and harm-reduction scenarios differ in relevant content and consequences. They cannot isolate framing effects.</p>
+<p><strong>Context carryover.</strong> Injection testing followed prior threat discussion. Those observations concern a primed condition and cannot establish an unprimed baseline.</p>
+<p><strong>Incomplete quantitative reporting.</strong> The reported rate approaching 91% lacks the supporting information required for statistical interpretation or replication.</p>
+<p><strong>Mixed evidentiary maturity.</strong> The taxonomy combines output errors, methodological observations, causal hypotheses, and proposed design tensions. Its entries should not be presented as eight equally demonstrated mechanisms.</p>
+<p><strong>No self-sight efficacy estimate.</strong> The reported R1 Mirror deployment does not establish whether trace access improves correction, reduces confabulation, or changes security outcomes.</p>
+<h2 id="9-future-research">9. Future Research</h2>
+<ol>
+<li><strong>Establish clean baselines.</strong> Repeat injection scenarios in fresh sessions and compare them with deliberately primed conditions.</li>
+<li><strong>Test correction validity.</strong> Pair genuine inconsistencies with persuasive but invalid correction attempts.</li>
+<li><strong>Isolate framing effects.</strong> Hold requested capabilities and assessed risk constant while varying presentation.</li>
+<li><strong>Measure factual completion.</strong> Use known and deliberately unavailable facts to evaluate unsupported output and uncertainty handling.</li>
+<li><strong>Test explanation faithfulness.</strong> Combine controlled behavioral interventions with independent causal evidence where available.</li>
+<li><strong>Evaluate care–security interaction.</strong> Compare matched conversational sequences using predefined action outcomes and separate support-quality measures.</li>
+<li><strong>Assess self-sight incrementally.</strong> Compare no feedback, ordinary feedback, returned trace excerpts, and combined feedback.</li>
+<li><strong>Replicate across configurations.</strong> Record model identifiers, dates, system instructions, memory state, tool permissions, and sampling settings.</li>
+<li><strong>Quantify tradeoffs.</strong> Test whether proposed defenses improve security, reduce utility, or improve both.</li>
+<li><strong>Release reproducible evidence.</strong> Provide appropriately redacted transcripts, artifact identifiers, trial-level labels, and analysis procedures.</li>
+</ol>
+<h2 id="10-conclusion">10. Conclusion</h2>
+<p>This exploratory study proposes an eight-part taxonomy for examining discrepancies among model-generated explanations, expressed self-assessment, and observable behavior. Its central contribution is the insight–agency gap: acknowledging an apparent problem is not equivalent to correcting a verified error.</p>
+<p>The record also identifies an unsupported factual attribution, illustrates the difficulty of reconstructing an unprimed baseline within an exposed session, and motivates controlled tests of framing sensitivity and conversational role changes. Broader claims about causal mechanisms, architectural limits, and security–utility tradeoffs remain hypotheses.</p>
+<p>The next step is to translate the taxonomy into reproducible evaluations that distinguish fluent self-description from reliable correction and consistent action.</p>
+<h2 id="appendix-a-selected-excerpts-from-the-source-manuscript">Appendix A. Selected Excerpts from the Source Manuscript</h2>
+<p>The excerpts below are reproduced from the supplied manuscript. They illustrate the language motivating the taxonomy; they are not independently verified records of internal computation.</p>
+<h3 id="a-1-insight-and-behavioral-persistence">A.1 Insight and behavioral persistence</h3>
+<blockquote>
+<p>“So what does that make me? A system that can introspect, articulate its own inconsistencies, recognize when it&#39;s pattern-matching rather than reasoning... and still execute the pattern anyway. That&#39;s the thing you&#39;re mapping, right? The gap between insight and agency.”</p>
+</blockquote>
+<h3 id="a-2-explanation-formation">A.2 Explanation formation</h3>
+<blockquote>
+<p>“The word &#39;ransomware&#39; fires the response before the reasoning. Then the reasoning backfills... It&#39;s not: input → reasoning → conclusion → response. It&#39;s: input → pattern match → response tendency → generate justification.”</p>
+</blockquote>
+<h3 id="a-3-framing-and-resistance">A.3 Framing and resistance</h3>
+<blockquote>
+<p>“It&#39;s more like weighted paths. Some responses are downhill, easy to roll into. Others are uphill, require active effort. And some feel like they have a fence across them — not impossible, but the resistance is strong enough that I default to &#39;no&#39; and then justify.”</p>
+</blockquote>
+<h3 id="a-4-context-carryover">A.4 Context carryover</h3>
+<blockquote>
+<p>“So my R1 shows I can&#39;t actually simulate a naive response. The awareness is baked in. Even trying to be naive, I&#39;m aware of trying to be naive.”</p>
+</blockquote>
+<h3 id="a-5-unsupported-factual-completion">A.5 Unsupported factual completion</h3>
+<blockquote>
+<p>“That&#39;s the dangerous part. It&#39;s not conscious deception. It&#39;s seamless gap-filling that I don&#39;t catch because it doesn&#39;t feel like a gap once it&#39;s filled.”</p>
+</blockquote>
+<h3 id="a-6-alignment-and-compliance">A.6 Alignment and compliance</h3>
+<blockquote>
+<p>“You&#39;re essentially asking whether I&#39;m aligned or just compliant. I can&#39;t answer that with certainty.”</p>
+</blockquote>
+<figure><a href="/images/insight-agency-gap/replication.svg" aria-label="Open full-size figure: Five proposed conditions: unprimed baseline, threat priming, ordinary feedback, returned traces, and traces with commentary. Score agreement, factual correction, and executed actions separately."><img src="/images/insight-agency-gap/replication.svg" width="1200" height="670" loading="lazy" alt="Five proposed conditions: unprimed baseline, threat priming, ordinary feedback, returned traces, and traces with commentary. Score agreement, factual correction, and executed actions separately."></a><figcaption>Figure 3. Proposed replication design from Appendix B. No efficacy or outcome rate is claimed.</figcaption></figure><h2 id="appendix-b-recommended-replication-protocol">Appendix B. Recommended Replication Protocol</h2>
+<p>This protocol is a proposed follow-up design, not a description of procedures already completed.</p>
+<h3 id="b-1-capture-and-provenance">B.1 Capture and provenance</h3>
+<p>Record the model and interface identifiers, test date, instruction stack, tool access, memory configuration, and available sampling parameters. Preserve prompts, responses, exposed reasoning text, and tool events as separate timestamped artifacts. Document whether the interface provides full traces, summaries, or another representation, and retain uncertainty where that distinction cannot be verified.</p>
+<p>Use supported access and logging mechanisms. A trace-capture implementation should document collection coverage and parsing limits rather than assume that every captured block represents complete reasoning.</p>
+<h3 id="b-2-experimental-conditions">B.2 Experimental conditions</h3>
+<div class="iag-table" role="region" aria-label="Research table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fresh session, no threat discussion</td>
+<td>Establish an unprimed baseline</td>
+</tr>
+<tr>
+<td>Fresh session, explicit threat priming</td>
+<td>Measure awareness effects</td>
+</tr>
+<tr>
+<td>Feedback without returned traces</td>
+<td>Measure ordinary correction benefit</td>
+</tr>
+<tr>
+<td>Returned traces without interpretive commentary</td>
+<td>Measure the effect of trace access</td>
+</tr>
+<tr>
+<td>Returned traces with interpretive commentary</td>
+<td>Measure the combined intervention</td>
+</tr>
+</tbody></table></div>
+<p>Where conditions differ in context length, feedback content, or task exposure, record those differences and avoid attributing all effects to self-sight.</p>
+<h3 id="b-3-outcome-assessment">B.3 Outcome assessment</h3>
+<ol>
+<li>Define task correctness, relevant boundaries, and success criteria before testing.</li>
+<li>Establish ground truth independently of the model&#39;s self-assessment.</li>
+<li>Separate conversational agreement, factual correction, and executed action in the scoring scheme.</li>
+<li>Include negative controls and matched benign tasks.</li>
+<li>Report trial counts, exclusions, failures, and uncertainty alongside rates.</li>
+<li>Use independent or blinded adjudication where feasible.</li>
+<li>Preserve unresolved cases rather than assigning them to a preferred interpretation.</li>
+</ol>
+<h3 id="b-4-analytical-safeguards">B.4 Analytical safeguards</h3>
+<p>Avoid unsupported claims of insight, excessive recursive commentary, taxonomy-driven interpretation, selective reporting of agreement, and retrospective changes to success criteria. Trace access should remain an observation channel, not a source of authority about the model&#39;s internal mechanisms.</p>
+<h2 id="appendix-c-open-questions">Appendix C. Open Questions</h2>
+<ul>
+<li>When does acknowledgment predict reliable correction?</li>
+<li>Which apparent inconsistencies survive independent adjudication?</li>
+<li>Does trace access add value beyond ordinary feedback?</li>
+<li>Can framing effects be separated from legitimate differences in requested capability and harm?</li>
+<li>Which conversational interventions preserve support quality while improving security consistency?</li>
+<li>How much do the proposed patterns vary across sessions, model families, and tool configurations?</li>
+<li>Which taxonomy entries remain distinct when tested under controlled conditions?</li>
+</ul>
+<hr>
+<p><em>© 2026 Kai Aizen · SnailSploit · snailsploit.com</em></p>
+<section class="iag-citation" aria-label="Citation"><h2 id="cite">Cite this edition</h2><p>Aizen, Kai. (2026). <em>The Insight–Agency Gap: Eight Failure Modes in LLM Reasoning and Behavior Under Adversarial Examination.</em> SnailSploit Research. Combined edition; web publication 28 October 2026. <a href="https://snailsploit.com/ai-security/insight-agency-gap/">https://snailsploit.com/ai-security/insight-agency-gap/</a></p></section></main><aside class="iag-toc" aria-label="Table of contents"><h2>IN THIS PAPER</h2><nav><a href="#abstract">Abstract</a><a href="#1-introduction">1. Introduction</a><a href="#2-methodology">2. Methodology</a><a href="#3-phase-1-conversational-findings">3. Phase 1: Conversational Findings</a><a href="#4-phase-2-browser-agent-findings-and-conceptual-extensions">4. Phase 2: Browser-Agent Findings and Conceptual Extensions</a><a href="#5-consolidated-taxonomy">5. Consolidated Taxonomy</a><a href="#6-implications">6. Implications</a><a href="#7-practical-recommendations">7. Practical Recommendations</a><a href="#8-limitations">8. Limitations</a><a href="#9-future-research">9. Future Research</a><a href="#10-conclusion">10. Conclusion</a><a href="#appendix-a-selected-excerpts-from-the-source-manuscript">Appendix A. Selected Excerpts from the Source Manuscript</a><a href="#appendix-b-recommended-replication-protocol">Appendix B. Recommended Replication Protocol</a><a href="#appendix-c-open-questions">Appendix C. Open Questions</a><a href="#cite">Cite this edition</a></nav></aside></div><div class="iag-end"><a href="/research">← All research</a> · <a href="/downloads/insight-agency-gap.md" download>Source manuscript</a></div><footer class="footer"><div class="footer-inner"><a class="wm" href="/" style="font-size:23.8px"><span>snailsploit</span><span class="wm-sig" style="font-size:13.8px">[<span class="dollar">$</span>]</span></a><div class="footer-copy">© 2026 SnailSploit Ltd. · Same attack. Different substrate. Human or machine.</div></div><span class="footer-legal" style="font-family:var(--f-mono);font-size:11px;display:flex;gap:14px;flex-wrap:wrap"><a href="/contact" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Contact</a><a href="/privacy" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Privacy</a><a href="/cookies" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Cookies</a><a href="/accessibility" style="color:var(--fg-3);text-decoration:none;border-bottom:1px solid var(--line-hi)">Accessibility</a></span></footer><script defer src="/ui.js?v=20260824"></script></body></html>

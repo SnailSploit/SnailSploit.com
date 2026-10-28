@@ -5,10 +5,11 @@
   <link href="https://snailsploit.com/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://snailsploit.com/research" rel="alternate" type="text/html"/>
   <id>https://snailsploit.com/</id>
-  <updated>2026-06-27T00:00:00+00:00</updated>
+  <updated>2026-10-28T00:00:00+00:00</updated>
   <author><name>SnailSploit</name><uri>https://snailsploit.com/</uri></author>
   <icon>https://snailsploit.com/favicon.svg</icon>
   <logo>https://snailsploit.com/apple-touch-icon.png</logo>
+  <entry><title>The Insight–Agency Gap</title><id>https://snailsploit.com/ai-security/insight-agency-gap/</id><link href="https://snailsploit.com/ai-security/insight-agency-gap/"/><updated>2026-10-28T00:00:00+00:00</updated><published>2026-10-28T00:00:00+00:00</published><summary>Eight proposed failure modes in LLM reasoning and behavior: an exploratory case study with evidence limits and a replication framework.</summary></entry>
   <entry>
     <title>Reverse-Engineering Claude's Memory Architecture From Inside the Sandbox</title>
     <link href="https://snailsploit.com/ai-security/claude-memory-architecture/" rel="alternate" type="text/html"/>
