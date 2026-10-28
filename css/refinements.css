@@ -191,3 +191,7 @@ body:not(:has(.iag-hero-grid)) .footer-legal { padding-left:24px;padding-right:2
 }
 
 @media(prefers-reduced-motion:reduce){body:not(:has(.iag-hero-grid)) * {animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+
+/* Audit fixes: bounded grids, stable navigation and readable disclosure rows. */
+body:not(:has(.iag-hero-grid)) #ledger [style*="grid-template-columns"] > * { min-width:0;overflow-wrap:anywhere; }
+@media(min-width:881px) and (max-width:1200px){body:not(:has(.iag-hero-grid)) header nav,body:not(:has(.iag-hero-grid)) header .nav-links{gap:14px!important;font-size:11px!important}body:not(:has(.iag-hero-grid)) header .nav-inner{gap:16px}}

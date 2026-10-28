@@ -169,3 +169,4 @@ linkedin.com/company/snailsploit
 - ResearchGate: https://www.researchgate.net/profile/Kai-Aizen-2
 
 - [The Insight–Agency Gap](https://snailsploit.com/ai-security/insight-agency-gap/): Eight proposed failure modes in LLM reasoning and behavior: an exploratory case study with evidence limits and a replication framework.
+

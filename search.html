@@ -13,7 +13,7 @@
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#0E0E0F">
 <link rel="stylesheet" href="/mobile.css">
-<link rel="stylesheet" href="/ui.css?v=20261028">
+<link rel="stylesheet" href="/ui.css?v=20261028-audit1">
 <style>
 :root { --bg:#0E0E0F; --bg-sink:#08090B; --line:#23252B; --line-hi:#2E3138; --fg:#E9E7E1; --fg-2:#B6B4AC; --fg-3:#76746C; --signal-2:#E07A4A; --f-grot:"Inter Tight",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace; }
 body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--f-grot); }
@@ -34,7 +34,8 @@ body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--f-grot
 <div style="font-family:var(--f-mono);font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:18px">search</div>
 <h1 style="margin:0 0 16px;font-size:64px;font-weight:500;line-height:0.96;letter-spacing:-0.04em">Search SnailSploit.</h1>
 <p style="margin:0 0 32px;font-size:16px;color:var(--fg-2);line-height:1.6">CVEs · AATMF tactics · AI security articles · wiki entries · glossary terms. Press <kbd style="font-family:var(--f-mono);padding:2px 6px;border:1px solid var(--line);border-radius:2px;font-size:12px">⌘K</kbd> anywhere on the site for the same palette.</p>
-<input id="q" type="search" autocomplete="off" placeholder="type a CVE id, tactic, product…" style="width:100%;padding:16px 18px;font-family:var(--f-mono);font-size:16px;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:2px;outline:none">
+<input id="q" type="search" aria-label="Search research, CVEs, tools and reference material" aria-controls="results" autocomplete="off" placeholder="type a CVE id, tactic, product…" style="width:100%;padding:16px 18px;font-family:var(--f-mono);font-size:16px;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:2px;outline:none">
+<p id="search-status" role="status" aria-live="polite" style="color:var(--fg-2);font-family:var(--f-mono);font-size:12px">Loading search index…</p>
 <div id="results" style="margin-top:24px"></div>
 <div id="empty" style="display:none;font-family:var(--f-mono);font-size:13px;color:var(--fg-3);padding:24px 0">no matches.</div>
 </main>
@@ -44,17 +45,17 @@ body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--f-grot
   var idx=[],q=document.getElementById('q'),out=document.getElementById('results'),empty=document.getElementById('empty');
   function fz(query,text){ if(!query)return 0; var t=text.toLowerCase(),k=query.toLowerCase(); if(t.indexOf(k)!==-1)return 1000-t.indexOf(k); var qi=0,ti=0,s=0,p=-2; while(qi<k.length&&ti<t.length){ if(k[qi]===t[ti]){s+=(ti-p===1)?5:1;p=ti;qi++;} ti++;} return qi===k.length?s:0; }
   function rank(query){ var arr=[]; for(var i=0;i<idx.length;i++){ var it=idx[i],s=Math.max(fz(query,it.title)*2,fz(query,it.url),it.tags?fz(query,it.tags.join(' ')):0); if(s>0)arr.push({i:it,s:s}); } arr.sort(function(a,b){return b.s-a.s;}); return arr.slice(0,30).map(function(x){return x.i;}); }
-  function render(items){ if(!items.length){ out.innerHTML=''; empty.style.display=q.value?'block':'none'; return; } empty.style.display='none'; out.innerHTML=items.map(function(it){ return '<a href="'+it.url+'" class="row"><div class="row-title">'+escape(it.title)+'</div><div class="row-meta">'+escape(it.type||'page')+' · '+escape(it.url)+'</div>'+(it.desc?'<div class="row-desc">'+escape(it.desc)+'</div>':'')+'</a>'; }).join(''); }
+  function render(items){ document.getElementById('search-status').textContent=items.length+(q.value.trim()?' matching results':' suggested pages'); if(!items.length){ out.innerHTML=''; empty.style.display=q.value?'block':'none'; return; } empty.style.display='none'; out.innerHTML=items.map(function(it){ return '<a href="'+it.url+'" class="row"><div class="row-title">'+escape(it.title)+'</div><div class="row-meta">'+escape(it.type||'page')+' · '+escape(it.url)+'</div>'+(it.desc?'<div class="row-desc">'+escape(it.desc)+'</div>':'')+'</a>'; }).join(''); }
   function escape(s){ return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
-  fetch('/search-index.json').then(function(r){return r.json();}).then(function(d){
+  fetch('/search-index.json?v=20261028-audit1').then(function(r){if(!r.ok)throw new Error('Search index unavailable');return r.json();}).then(function(d){
     idx=d||[];
     var params=new URLSearchParams(location.search), pre=params.get('q')||'';
     q.value=pre; render(pre?rank(pre):idx.slice(0,30));
     q.focus();
-  });
+  }).catch(function(){document.getElementById('search-status').textContent='Search is temporarily unavailable. Browse Research or the CVE ledger using the menu.';});
   q.addEventListener('input',function(){ var v=q.value.trim(); var nu=new URL(location.href); v?nu.searchParams.set('q',v):nu.searchParams.delete('q'); history.replaceState(null,'',nu.toString()); render(v?rank(v):idx.slice(0,30)); });
 })();
 </script>
-<script defer src="/ui.js?v=20260824"></script>
+<script defer src="/ui.js?v=20261028-audit1"></script>
 </body>
 </html>

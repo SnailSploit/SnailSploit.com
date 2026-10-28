@@ -301,7 +301,7 @@
   // ── Load search index ───────────────────────────────────────────────
   function loadIndex() {
     if (paletteIndex.length) return Promise.resolve(paletteIndex);
-    return fetch('/search-index.json', { credentials: 'omit' })
+    return fetch('/search-index.json?v=20261028-audit1', { credentials: 'omit' })
       .then(function (r) { return r.ok ? r.json() : []; })
       .then(function (data) { paletteIndex = data || []; return paletteIndex; })
       .catch(function () { paletteIndex = []; return paletteIndex; });
@@ -331,12 +331,14 @@
 
   // ── Skip-to-content link (a11y) ────────────────────────────────────
   function initSkipLink() {
-    if (document.querySelector('.ss-skip-link')) return;
-    var skip = document.createElement('a');
-    skip.className = 'ss-skip-link';
-    skip.href = '#main';
-    skip.textContent = 'Skip to content';
-    document.body.insertBefore(skip, document.body.firstChild);
+    var skip = document.querySelector('a.ss-skip-link, a.ss-skip[href="#main"]');
+    if (!skip) {
+      skip = document.createElement('a');
+      skip.className = 'ss-skip-link';
+      skip.href = '#main';
+      skip.textContent = 'Skip to content';
+      document.body.insertBefore(skip, document.body.firstChild);
+    }
     // Ensure a #main anchor exists no matter how the page is structured.
     if (!document.getElementById('main')) {
       var existing = document.querySelector('main, article, [role="main"]');
@@ -359,8 +361,24 @@
     }
   }
 
+  function initServiceNavigation() {
+    if (document.querySelector('.iag-hero-grid')) return;
+    var nav = document.querySelector('header nav');
+    if (!nav || nav.querySelector('a[href="/services"], a[href="/services/"]')) return;
+    var contact = nav.querySelector('a[href="/contact"]');
+    if (!contact) return;
+    var link = document.createElement('a');
+    link.href = '/services';
+    link.textContent = 'services';
+    if (contact.getAttribute('style')) link.setAttribute('style', contact.getAttribute('style'));
+    var item = contact.parentElement.tagName === 'LI' ? document.createElement('li') : link;
+    if (item !== link) item.appendChild(link);
+    var reference = item === link ? contact : contact.parentElement;
+    reference.parentNode.insertBefore(item, reference);
+  }
+
   // ── Mobile nav drawer ──────────────────────────────────────────────
-  var drawerEl = null;
+  var drawerEl = null, drawerReturnFocus = null;
   function initMobileDrawer() {
     var header = document.querySelector('header');
     if (!header) return;
@@ -386,6 +404,9 @@
   }
   function drawerOpen(srcNav) {
     if (drawerEl) drawerClose();
+    drawerReturnFocus = document.activeElement;
+    var trigger = document.querySelector('.ss-drawer-trigger');
+    if (trigger) trigger.setAttribute('aria-expanded', 'true');
     drawerEl = document.createElement('div');
     drawerEl.className = 'ss-drawer-backdrop is-open';
     drawerEl.innerHTML =
@@ -400,6 +421,10 @@
       if (e.target === drawerEl || e.target.classList.contains('ss-drawer-close')) drawerClose();
     });
     document.addEventListener('keydown', drawerKeyHandler);
+    drawerEl.querySelector('.ss-drawer-close').focus();
+    drawerEl.querySelectorAll('.ss-drawer-nav a').forEach(function (link) {
+      link.addEventListener('click', drawerClose);
+    });
     track('drawer_open', {});
   }
   function drawerClose() {
@@ -407,9 +432,19 @@
     drawerEl = null;
     document.body.style.overflow = '';
     document.removeEventListener('keydown', drawerKeyHandler);
+    var trigger = document.querySelector('.ss-drawer-trigger');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    if (drawerReturnFocus && drawerReturnFocus.isConnected) drawerReturnFocus.focus();
+    drawerReturnFocus = null;
   }
   function drawerKeyHandler(e) {
-    if (e.key === 'Escape') drawerClose();
+    if (e.key === 'Escape') { e.preventDefault(); drawerClose(); return; }
+    if (e.key !== 'Tab' || !drawerEl) return;
+    var items = drawerEl.querySelectorAll('a[href], button:not([disabled])');
+    if (!items.length) return;
+    var first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }
 
   // ── Footer social-row injector ──────────────────────────────────────
@@ -479,6 +514,7 @@
   function bootstrap() {
     // Initialize page UI independently of the asynchronous search index.
     initSkipLink();
+    initServiceNavigation();
     initMobileDrawer();
     initProgress();
     initCopyButtons();
