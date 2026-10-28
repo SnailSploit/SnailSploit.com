@@ -477,6 +477,9 @@
 
   // ── Bootstrap ───────────────────────────────────────────────────────
   function bootstrap() {
+    // Initialize layout-affecting navigation before asynchronous search-index loading.
+    initSkipLink();
+    initMobileDrawer();
     loadIndex().then(function () {
       bindPaletteShortcut();
       initProgress();
@@ -484,8 +487,6 @@
       initSeverity();
       bindTocTracking();
       bindOutboundTracking();
-      initSkipLink();
-      initMobileDrawer();
       initFooterSocial();
       initScrollReveal();
       initSmoothScroll();
