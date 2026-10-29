@@ -1,69 +1,253 @@
 /* Claude-Red */
+const claudeRedCategories = [
+  [
+    "web",
+    "Web application",
+    16,
+    [
+      "offensive-business-logic",
+      "offensive-deserialization",
+      "offensive-file-upload"
+    ]
+  ],
+  [
+    "auth",
+    "Authentication & identity",
+    2,
+    [
+      "offensive-jwt",
+      "offensive-oauth"
+    ]
+  ],
+  [
+    "active-directory",
+    "Active Directory",
+    2,
+    [
+      "offensive-active-directory",
+      "offensive-netexec"
+    ]
+  ],
+  [
+    "wireless",
+    "Wireless",
+    14,
+    [
+      "offensive-bluetooth-ble",
+      "offensive-bluetooth-classic",
+      "offensive-deauth-disassoc"
+    ]
+  ],
+  [
+    "cloud",
+    "Cloud",
+    1,
+    [
+      "offensive-cloud"
+    ]
+  ],
+  [
+    "mobile",
+    "Mobile",
+    1,
+    [
+      "offensive-mobile"
+    ]
+  ],
+  [
+    "iot",
+    "IoT & embedded",
+    1,
+    [
+      "offensive-iot"
+    ]
+  ],
+  [
+    "infrastructure",
+    "Infrastructure & red team",
+    7,
+    [
+      "offensive-advanced-redteam",
+      "offensive-edr-evasion",
+      "offensive-initial-access"
+    ]
+  ],
+  [
+    "exploit-dev",
+    "Exploit development",
+    6,
+    [
+      "offensive-basic-exploitation",
+      "offensive-crash-analysis",
+      "offensive-exploit-dev-course"
+    ]
+  ],
+  [
+    "fuzzing",
+    "Fuzzing & vulnerability research",
+    4,
+    [
+      "offensive-bug-identification",
+      "offensive-fuzzing",
+      "offensive-fuzzing-course"
+    ]
+  ],
+  [
+    "recon",
+    "Reconnaissance",
+    2,
+    [
+      "offensive-osint",
+      "offensive-osint-methodology"
+    ]
+  ],
+  [
+    "api",
+    "API security",
+    2,
+    [
+      "offensive-api-abuse",
+      "offensive-api-security"
+    ]
+  ],
+  [
+    "container",
+    "Containers & Kubernetes",
+    2,
+    [
+      "offensive-container-escape",
+      "offensive-k8s-attacks"
+    ]
+  ],
+  [
+    "cicd",
+    "CI/CD & pipelines",
+    2,
+    [
+      "offensive-cicd-pipeline",
+      "offensive-cicd-secrets"
+    ]
+  ],
+  [
+    "crypto",
+    "Cryptography",
+    2,
+    [
+      "offensive-crypto-attacks",
+      "offensive-tls-attacks"
+    ]
+  ],
+  [
+    "privesc",
+    "Privilege escalation",
+    2,
+    [
+      "offensive-linux-privesc",
+      "offensive-windows-privesc"
+    ]
+  ],
+  [
+    "post-exploitation",
+    "Post-exploitation",
+    3,
+    [
+      "offensive-data-exfiltration",
+      "offensive-lateral-movement",
+      "offensive-persistence"
+    ]
+  ],
+  [
+    "forensics",
+    "Forensics & C2",
+    2,
+    [
+      "offensive-anti-forensics",
+      "offensive-c2-frameworks"
+    ]
+  ],
+  [
+    "supply-chain",
+    "Supply chain",
+    2,
+    [
+      "offensive-dependency-confusion",
+      "offensive-supply-chain"
+    ]
+  ],
+  [
+    "social-engineering",
+    "Social engineering",
+    2,
+    [
+      "offensive-phishing",
+      "offensive-social-engineering"
+    ]
+  ],
+  [
+    "network",
+    "Network attacks",
+    1,
+    [
+      "offensive-network-attacks"
+    ]
+  ],
+  [
+    "ai",
+    "AI security",
+    1,
+    [
+      "offensive-ai-security"
+    ]
+  ],
+  [
+    "utility",
+    "Utility",
+    2,
+    [
+      "offensive-fast-checking",
+      "offensive-reporting"
+    ]
+  ]
+];
+
 const ClaudeRedPage = () => (
   <div style={{ background: "var(--bg)", color: "var(--fg)", fontFamily: "var(--f-grot)", minHeight: "100vh" }}>
     <SiteNav active="frameworks" />
     <HeroFrame
       eyebrow={<>claude-red<br/>skills library<br/>mit license</>}
-      title={<>claude-red.<br/><span style={{color:"var(--fg-3)"}}>38 offensive skills.</span></>}
-      meta={<>38 SKILL.md files<br/>9 categories<br/>Claude Skills system</>}
-      lede={<>A curated library of offensive-security skills for the Claude Skills system. <span style={{color:"var(--fg-2)"}}>SQLi, shellcode, EDR evasion, exploit dev — 38 SKILL.md files spanning the work an offensive operator actually does. Drop-in capabilities for agent harnesses that need real adversarial coverage. Each skill is small, sharp, and reads in under a minute.</span></>}
+      title={<>Claude-Red.<br/><span style={{color:"var(--fg-3)"}}>79 Offensive Skills.</span></>}
+      meta={<>79 SKILL.md files<br/>23 categories<br/>Claude Skills system</>}
+      lede={<>A curated library of offensive-security skills for the Claude Skills system. <span style={{color:"var(--fg-2)"}}>79 SKILL.md files across 23 categories, covering web, wireless, cloud, exploit development, AI security and more. Explore the source and installation options on GitHub.</span></>}
       cta={<><CTA primary href="https://github.com/SnailSploit/claude-red">github →</CTA><CTA href="#categories">browse categories →</CTA></>}
     />
-
-    <Section id="categories" label="01 · categories"
-      hint="Nine categories, 38 skills. Names are self-describing — no marketing, just craft."
-      title="9 categories.">
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, borderTop: "1px solid var(--line-hi)", borderLeft: "1px solid var(--line-hi)" }}>
-        {[
-          ["Web exploitation",      6, "SQLi · SSRF · CSRF · path traversal · prototype pollution · XSS chains"],
-          ["Binary exploitation",   5, "Stack overflows · heap shaping · ROP · format strings · ret2libc"],
-          ["Shellcode & payloads",  4, "x86_64 / arm64 / msf-compatible · staged · stageless · custom encoders"],
-          ["EDR evasion",           4, "Direct syscalls · unhooking · AMSI bypass · ETW patching"],
-          ["Network & C2",          5, "C2 channel design · DNS tunneling · ICMP exfil · domain fronting · jitter"],
-          ["Cloud & container",     4, "K8s breakouts · IMDS abuse · IAM enumeration · privesc paths"],
-          ["AD & windows",          3, "Kerberoasting · DCsync · BloodHound triage"],
-          ["Linux post-ex",         3, "Persistence · privesc · lateral · log evasion"],
-          ["Recon & osint",         4, "Subdomain · CT · cloud bucket discovery · code-search recon"],
-        ].map(([cat, n, sample], i) => (
-          <div key={i} style={{ padding: "28px", borderRight: "1px solid var(--line-hi)", borderBottom: "1px solid var(--line-hi)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-              <div style={{ fontSize: 20, fontWeight: 500, color: "var(--fg)", letterSpacing: "-0.012em" }}>{cat}</div>
-              <Mono color="var(--signal-2)" size={12}>{n} skills</Mono>
+    <Section id="categories" label="01 · categories" hint="23 categories, 79 skills. Select a category to browse its source on GitHub." title="23 categories.">
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,260px),1fr))",gap:0,borderTop:"1px solid var(--line-hi)",borderLeft:"1px solid var(--line-hi)"}}>
+        {claudeRedCategories.map(([slug, cat, n, samples]) => (
+          <a key={slug} href={"https://github.com/SnailSploit/Claude-Red/tree/main/Skills/" + slug} style={{display:"block",padding:"24px",borderRight:"1px solid var(--line-hi)",borderBottom:"1px solid var(--line-hi)",textDecoration:"none",color:"inherit"}}>
+            <div style={{display:"flex",justifyContent:"space-between",gap:12,alignItems:"baseline"}}>
+              <span style={{fontSize:18,fontWeight:500,color:"var(--fg)"}}>{cat}</span>
+              <Mono color="var(--signal-2)" size={12}>{n} {n === 1 ? "skill" : "skills"}</Mono>
             </div>
-            <p style={{ margin: "10px 0 0", fontSize: 14, color: "var(--fg-2)", lineHeight: 1.6 }}>{sample}</p>
-          </div>
+            <p style={{margin:"10px 0 0",fontSize:12,color:"var(--fg-2)",lineHeight:1.7,overflowWrap:"anywhere"}}>{samples.join(" · ")}</p>
+          </a>
         ))}
       </div>
     </Section>
-
-    <Section id="format" sink label="02 · format"
-      hint="Why each skill is a single file, why it's that short, why it's not a script."
-      title="one skill, one file.">
+    <Section id="format" sink label="02 · format" title="Skills in plain Markdown.">
       <ArticleProse>
-        <p>Each skill is a single SKILL.md file. The file is short — usually 80 to 200 lines — because skills aren't scripts. They are operating instructions for an agent that will write the script, in context, against a target the agent has in front of it.</p>
-        <p>The skill describes when to apply the technique, what to look for, what the expected indicators of success are, and what to do if it doesn't land. It does not pre-bake the exploit, because the exploit only makes sense in context. Pre-baking is what makes the average "AI security skill" library brittle the moment the target deviates from the demo.</p>
-        <p>This is also why Claude-Red is small. 38 skills, not 380. Most "more" is filler — and a skill an operator can't memorize the shape of is a skill the operator won't reach for.</p>
+        <p>Each skill has a SKILL.md file containing focused offensive-security guidance. The repository groups skills by subject under <code>Skills/</code>, so you can browse the files directly or use them with a compatible skills workflow.</p>
+        <p>Consult the repository for the current skill catalog, installation options and license. Apply the material only within an authorized testing scope.</p>
       </ArticleProse>
     </Section>
-
-    <Section id="usage" label="03 · usage"
-      hint="How to wire a Claude-Red skill into an agent harness in three steps."
-      title="how to use it.">
-      <pre style={{ margin: 0, padding: "32px", background: "var(--bg)", border: "1px solid var(--line-hi)", fontFamily: "var(--f-mono)", fontSize: 14, lineHeight: 1.8, color: "var(--fg-2)", whiteSpace: "pre-wrap", maxWidth: 760 }}>
-{`# 1. clone
-$ git clone https://github.com/SnailSploit/claude-red
-
-# 2. point your skills loader at it
-$ export CLAUDE_SKILLS_DIR=$PWD/claude-red/skills
-
-# 3. drop into a harness
-The agent now has 38 new tools available, all reachable through
-the standard SKILL.md discovery path. No code changes required.`}
-      </pre>
+    <Section id="usage" label="03 · usage" title="How to use it.">
+      <ArticleProse><p>Clone the repository and browse its case-sensitive <code>Skills/</code> directory. The installer can list the available categories; see the README for installation options.</p></ArticleProse>
+      <pre style={{margin:"32px 0 0",padding:"32px",background:"var(--bg)",border:"1px solid var(--line-hi)",fontFamily:"var(--f-mono)",fontSize:14,lineHeight:1.8,color:"var(--fg-2)",whiteSpace:"pre-wrap",maxWidth:760}}>{"git clone https://github.com/SnailSploit/claude-red\ncd claude-red\n./install.sh --list"}</pre>
+      <p><a href="https://github.com/SnailSploit/Claude-Red#quickstart" style={{color:"var(--signal-2)"}}>View the GitHub quickstart →</a></p>
     </Section>
-
+    <Section label="credits" title="Credits">
+      <ArticleProse><p>Original Checklists: <a href="/team/sahar-shlichove">Sahar Shlichove</a> — the offensive checklist collection many of these skills are based on.</p></ArticleProse>
+    </Section>
     <SiteFooter section="frameworks / claude-red" />
   </div>
 );
-
 Object.assign(window, { ClaudeRedPage });

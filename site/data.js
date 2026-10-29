@@ -47,7 +47,7 @@ window.SS_DATA = {
     { name: "AATMF v3.1", desc: "Adversarial AI Threat Modeling Framework — 20 tactics, 240+ techniques, 2,152+ procedures, 4,980+ prompts. Mapped to NIST AI RMF and MITRE ATLAS." },
     { name: "AATMF Red Teaming Toolkit", desc: "Python CLI for systematic LLM safety testing — three-layer eval pipeline, defense fingerprinting, decay tracking, attack chain planning." },
     { name: "LLM Red Teamer's Playbook", desc: "Diagnostic methodology for bypassing LLM defense layers — input filters → alignment → identity → output → agentic trust." },
-    { name: "Claude-Red", desc: "Curated offensive security skills library for the Claude skills system — 38 SKILL.md files spanning SQLi, shellcode, EDR evasion, exploit dev." },
+    { name: "Claude-Red", desc: "Curated offensive security skills library for the Claude skills system — 79 SKILL.md files spanning SQLi, shellcode, EDR evasion, exploit dev." },
   ],
 
   tools: [
