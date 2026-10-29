@@ -23,8 +23,8 @@ const FRAMEWORK_INDEX = [
  stats: [["layers","5"],["decision tree","yes"],["format","field manual"],["license","CC BY-SA 4.0"]],
  tier: "tooling" },
  { key: "CLAUDE-RED", name: "Claude-Red", sub: "Offensive Security Skills Library", href: "/claude-red",
- desc: "38 SKILL.md files curated for the Claude skills system — SQLi, shellcode, EDR evasion, exploit dev. Drop-in offensive capabilities for agent harnesses that need real adversarial coverage.",
- stats: [["skills","38"],["categories","9"],["target","Claude Skills"],["license","MIT"]],
+ desc: "79 SKILL.md files curated for the Claude skills system — SQLi, shellcode, EDR evasion, exploit dev. Drop-in offensive capabilities for agent harnesses that need real adversarial coverage.",
+ stats: [["skills","79"],["categories","23"],["target","Claude Skills"],["license","MIT"]],
  tier: "tooling" },
 ];
 
@@ -97,7 +97,7 @@ const FrameworksPage = () => {
  ["You need a prompt that actually works", "P.R.O.M.P.T. Compose, don't list. Six stages: premise, role, output, modulation, persona, tactics. The grammar of every prompt that beats alignment."],
  ["You want to automate the whole loop", "AATMF Toolkit. Python CLI. Drop in your endpoint, pick procedures, get an AATMF-R-scored report."],
  ["You hit a wall and don't know which layer caught you", "LLM Red Teamer's Playbook. Five-layer decision tree: input filters → alignment → identity → output → agentic. Tells you where to pivot."],
- ["You're building an agent harness for offensive work", "Claude-Red. 38 skills. Drop-in offensive capabilities — no need to re-derive every primitive from scratch."],
+ ["You're building an agent harness for offensive work", "Claude-Red. 79 skills. Drop-in offensive capabilities — no need to re-derive every primitive from scratch."],
  ].map(([q, a], i) => (
  <div key={i} style={{ padding: "24px 0", borderTop: i < 2 ? "1px solid var(--line-hi)" : "1px solid var(--line)" }}>
  <div style={{ fontSize: 18, fontWeight: 500, color: "var(--fg)", letterSpacing: "-0.01em" }}>{q}</div>
